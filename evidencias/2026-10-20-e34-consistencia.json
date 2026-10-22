@@ -1,0 +1,559 @@
+{
+  "result": "PASS",
+  "checks": [
+    {
+      "file": "AGENTS.md",
+      "fences": true,
+      "trailing_whitespace": true
+    },
+    {
+      "file": "INSTALACION-Y-MEJORAS.md",
+      "fences": true,
+      "trailing_whitespace": true
+    },
+    {
+      "link": "README.md#herramientas-y-tareas",
+      "from": "INSTALACION-Y-MEJORAS.md",
+      "exists": true
+    },
+    {
+      "link": "config/defaults.json",
+      "from": "INSTALACION-Y-MEJORAS.md",
+      "exists": true
+    },
+    {
+      "link": "README.md#herramientas-y-tareas",
+      "from": "INSTALACION-Y-MEJORAS.md",
+      "exists": true
+    },
+    {
+      "link": "README.md#herramientas-y-tareas",
+      "from": "INSTALACION-Y-MEJORAS.md",
+      "exists": true
+    },
+    {
+      "link": "README.md",
+      "from": "INSTALACION-Y-MEJORAS.md",
+      "exists": true
+    },
+    {
+      "link": "PLAN-IMPLEMENTACION.md",
+      "from": "INSTALACION-Y-MEJORAS.md",
+      "exists": true
+    },
+    {
+      "link": "spec/03-PENDIENTES.md",
+      "from": "INSTALACION-Y-MEJORAS.md",
+      "exists": true
+    },
+    {
+      "link": "evidencias/2026-10-20-e2-tester.md",
+      "from": "INSTALACION-Y-MEJORAS.md",
+      "exists": true
+    },
+    {
+      "link": "evidencias/2026-10-20-e2-review.md",
+      "from": "INSTALACION-Y-MEJORAS.md",
+      "exists": true
+    },
+    {
+      "file": "memory.md",
+      "fences": true,
+      "trailing_whitespace": true
+    },
+    {
+      "file": "PLAN-IMPLEMENTACION.md",
+      "fences": true,
+      "trailing_whitespace": true
+    },
+    {
+      "link": "spec/05-E3-E4.md",
+      "from": "PLAN-IMPLEMENTACION.md",
+      "exists": true
+    },
+    {
+      "link": "spec/02-REQUISITOS.md#continuación-e3e4--2026-10-20",
+      "from": "PLAN-IMPLEMENTACION.md",
+      "exists": true
+    },
+    {
+      "link": "evidencias/2026-10-20-e2-comparacion.md",
+      "from": "PLAN-IMPLEMENTACION.md",
+      "exists": true
+    },
+    {
+      "link": "spec/00-PRINCIPIOS.md",
+      "from": "PLAN-IMPLEMENTACION.md",
+      "exists": true
+    },
+    {
+      "link": "spec/01-ARQUITECTURA.md",
+      "from": "PLAN-IMPLEMENTACION.md",
+      "exists": true
+    },
+    {
+      "link": "spec/02-REQUISITOS.md",
+      "from": "PLAN-IMPLEMENTACION.md",
+      "exists": true
+    },
+    {
+      "link": "spec/03-PENDIENTES.md",
+      "from": "PLAN-IMPLEMENTACION.md",
+      "exists": true
+    },
+    {
+      "link": "spec/04-EJERCITO.md",
+      "from": "PLAN-IMPLEMENTACION.md",
+      "exists": true
+    },
+    {
+      "link": "AGENTS.md",
+      "from": "PLAN-IMPLEMENTACION.md",
+      "exists": true
+    },
+    {
+      "file": "PLAN-ORIGINAL.md",
+      "fences": true,
+      "trailing_whitespace": true
+    },
+    {
+      "link": "PLAN-IMPLEMENTACION.md",
+      "from": "PLAN-ORIGINAL.md",
+      "exists": true
+    },
+    {
+      "link": "evidencias/2026-10-20-gpu-final.json",
+      "from": "PLAN-ORIGINAL.md",
+      "exists": true
+    },
+    {
+      "link": "PLAN-IMPLEMENTACION.md",
+      "from": "PLAN-ORIGINAL.md",
+      "exists": true
+    },
+    {
+      "link": "REVISION-OLLAMA-ARCHIVOS.md",
+      "from": "PLAN-ORIGINAL.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "fences": true,
+      "trailing_whitespace": true
+    },
+    {
+      "link": "INSTALACION-Y-MEJORAS.md",
+      "from": "README.md",
+      "exists": true
+    },
+    {
+      "link": "evidencias/2026-10-20-e34-tester.md",
+      "from": "README.md",
+      "exists": true
+    },
+    {
+      "link": "evidencias/2026-10-20-e2-comparacion.md",
+      "from": "README.md",
+      "exists": true
+    },
+    {
+      "link": "evidencias/2026-10-20-e2-consola.json",
+      "from": "README.md",
+      "exists": true
+    },
+    {
+      "link": "evidencias/2026-10-20-e2-tester.md",
+      "from": "README.md",
+      "exists": true
+    },
+    {
+      "link": "evidencias/2026-10-20-e2-review.md",
+      "from": "README.md",
+      "exists": true
+    },
+    {
+      "link": "PLAN-IMPLEMENTACION.md",
+      "from": "README.md",
+      "exists": true
+    },
+    {
+      "link": "spec/00-PRINCIPIOS.md",
+      "from": "README.md",
+      "exists": true
+    },
+    {
+      "link": "spec/02-REQUISITOS.md",
+      "from": "README.md",
+      "exists": true
+    },
+    {
+      "link": "spec/03-PENDIENTES.md",
+      "from": "README.md",
+      "exists": true
+    },
+    {
+      "link": "memory.md",
+      "from": "README.md",
+      "exists": true
+    },
+    {
+      "file": "REVISION-OLLAMA-ARCHIVOS.md",
+      "fences": true,
+      "trailing_whitespace": true
+    },
+    {
+      "link": "evidencias/2026-10-20-ollama-metadatos.json",
+      "from": "REVISION-OLLAMA-ARCHIVOS.md",
+      "exists": true
+    },
+    {
+      "file": "spec\\00-PRINCIPIOS.md",
+      "fences": true,
+      "trailing_whitespace": true
+    },
+    {
+      "link": "../AGENTS.md",
+      "from": "spec\\00-PRINCIPIOS.md",
+      "exists": true
+    },
+    {
+      "link": "../memory.md",
+      "from": "spec\\00-PRINCIPIOS.md",
+      "exists": true
+    },
+    {
+      "link": "03-PENDIENTES.md",
+      "from": "spec\\00-PRINCIPIOS.md",
+      "exists": true
+    },
+    {
+      "file": "spec\\01-ARQUITECTURA.md",
+      "fences": true,
+      "trailing_whitespace": true
+    },
+    {
+      "link": "../PLAN-IMPLEMENTACION.md",
+      "from": "spec\\01-ARQUITECTURA.md",
+      "exists": true
+    },
+    {
+      "link": "05-E3-E4.md",
+      "from": "spec\\01-ARQUITECTURA.md",
+      "exists": true
+    },
+    {
+      "link": "03-PENDIENTES.md",
+      "from": "spec\\01-ARQUITECTURA.md",
+      "exists": true
+    },
+    {
+      "link": "../REVISION-OLLAMA-ARCHIVOS.md",
+      "from": "spec\\01-ARQUITECTURA.md",
+      "exists": true
+    },
+    {
+      "file": "spec\\02-REQUISITOS.md",
+      "fences": true,
+      "trailing_whitespace": true
+    },
+    {
+      "link": "../evidencias/2026-10-20-e2-review.md",
+      "from": "spec\\02-REQUISITOS.md",
+      "exists": true
+    },
+    {
+      "link": "../evidencias/2026-10-20-e2-tester.md",
+      "from": "spec\\02-REQUISITOS.md",
+      "exists": true
+    },
+    {
+      "link": "../evidencias/2026-10-20-e2-comparacion.json",
+      "from": "spec\\02-REQUISITOS.md",
+      "exists": true
+    },
+    {
+      "link": "../evidencias/2026-10-20-e2-cancel-retry.json",
+      "from": "spec\\02-REQUISITOS.md",
+      "exists": true
+    },
+    {
+      "link": "../evidencias/2026-10-20-e2-errors.json",
+      "from": "spec\\02-REQUISITOS.md",
+      "exists": true
+    },
+    {
+      "link": "../evidencias/2026-10-20-e2-consola.json",
+      "from": "spec\\02-REQUISITOS.md",
+      "exists": true
+    },
+    {
+      "link": "../evidencias/2026-10-20-e2-regresion-consola.json",
+      "from": "spec\\02-REQUISITOS.md",
+      "exists": true
+    },
+    {
+      "link": "../evidencias/2026-10-20-e34-checks.json",
+      "from": "spec\\02-REQUISITOS.md",
+      "exists": true
+    },
+    {
+      "link": "../evidencias/2026-10-20-e34-review.md",
+      "from": "spec\\02-REQUISITOS.md",
+      "exists": true
+    },
+    {
+      "link": "../evidencias/2026-10-20-e34-tester.md",
+      "from": "spec\\02-REQUISITOS.md",
+      "exists": true
+    },
+    {
+      "link": "../evidencias/2026-10-20-e34-consola-completa.json",
+      "from": "spec\\02-REQUISITOS.md",
+      "exists": true
+    },
+    {
+      "file": "spec\\03-PENDIENTES.md",
+      "fences": true,
+      "trailing_whitespace": true
+    },
+    {
+      "file": "spec\\04-EJERCITO.md",
+      "fences": true,
+      "trailing_whitespace": true
+    },
+    {
+      "file": "spec\\05-E3-E4.md",
+      "fences": true,
+      "trailing_whitespace": true
+    },
+    {
+      "link": "../evidencias/2026-10-20-e34-tester.md",
+      "from": "spec\\05-E3-E4.md",
+      "exists": true
+    },
+    {
+      "link": "../evidencias/2026-10-20-e34-review.md",
+      "from": "spec\\05-E3-E4.md",
+      "exists": true
+    },
+    {
+      "link": "../evidencias/2026-10-20-e34-consola-completa.json",
+      "from": "spec\\05-E3-E4.md",
+      "exists": true
+    },
+    {
+      "link": "../evidencias/2026-10-20-e34-checks.json",
+      "from": "spec\\05-E3-E4.md",
+      "exists": true
+    },
+    {
+      "review_source": "tests/tools_live.rs",
+      "hash_matches": true
+    },
+    {
+      "review_source": "tests/ollama_live.rs",
+      "hash_matches": true
+    },
+    {
+      "review_source": "tests/files_real.rs",
+      "hash_matches": true
+    },
+    {
+      "review_source": "tests/commands_real.rs",
+      "hash_matches": true
+    },
+    {
+      "review_source": "src/files/tests.rs",
+      "hash_matches": true
+    },
+    {
+      "review_source": "src/files/platform.rs",
+      "hash_matches": true
+    },
+    {
+      "review_source": "src/files/mod.rs",
+      "hash_matches": true
+    },
+    {
+      "review_source": "src/ui/render.rs",
+      "hash_matches": true
+    },
+    {
+      "review_source": "src/ui/native.rs",
+      "hash_matches": true
+    },
+    {
+      "review_source": "src/config/mod.rs",
+      "hash_matches": true
+    },
+    {
+      "review_source": "src/ui/model.rs",
+      "hash_matches": true
+    },
+    {
+      "review_source": "src/ui/mod.rs",
+      "hash_matches": true
+    },
+    {
+      "review_source": "src/cli.rs",
+      "hash_matches": true
+    },
+    {
+      "review_source": "src/main.rs",
+      "hash_matches": true
+    },
+    {
+      "review_source": "src/lib.rs",
+      "hash_matches": true
+    },
+    {
+      "review_source": "src/launch.rs",
+      "hash_matches": true
+    },
+    {
+      "review_source": "src/agents/mod.rs",
+      "hash_matches": true
+    },
+    {
+      "review_source": "src/tools/mod.rs",
+      "hash_matches": true
+    },
+    {
+      "review_source": "src/tools/commands.rs",
+      "hash_matches": true
+    },
+    {
+      "review_source": "src/providers/mod.rs",
+      "hash_matches": true
+    },
+    {
+      "review_source": "src/providers/ollama/mod.rs",
+      "hash_matches": true
+    },
+    {
+      "review_source": "src/session/mod.rs",
+      "hash_matches": true
+    },
+    {
+      "review_source": "Cargo.toml",
+      "hash_matches": true
+    },
+    {
+      "review_source": "Cargo.lock",
+      "hash_matches": true
+    },
+    {
+      "review_source": "config/defaults.json",
+      "hash_matches": true
+    },
+    {
+      "build_source": "Cargo.toml",
+      "hash_matches": true
+    },
+    {
+      "build_source": "Cargo.lock",
+      "hash_matches": true
+    },
+    {
+      "build_source": "config\\defaults.json",
+      "hash_matches": true
+    },
+    {
+      "build_source": "src\\agents\\mod.rs",
+      "hash_matches": true
+    },
+    {
+      "build_source": "src\\cli.rs",
+      "hash_matches": true
+    },
+    {
+      "build_source": "src\\config\\mod.rs",
+      "hash_matches": true
+    },
+    {
+      "build_source": "src\\files\\mod.rs",
+      "hash_matches": true
+    },
+    {
+      "build_source": "src\\files\\platform.rs",
+      "hash_matches": true
+    },
+    {
+      "build_source": "src\\files\\tests.rs",
+      "hash_matches": true
+    },
+    {
+      "build_source": "src\\launch.rs",
+      "hash_matches": true
+    },
+    {
+      "build_source": "src\\lib.rs",
+      "hash_matches": true
+    },
+    {
+      "build_source": "src\\main.rs",
+      "hash_matches": true
+    },
+    {
+      "build_source": "src\\providers\\mod.rs",
+      "hash_matches": true
+    },
+    {
+      "build_source": "src\\providers\\ollama\\mod.rs",
+      "hash_matches": true
+    },
+    {
+      "build_source": "src\\session\\mod.rs",
+      "hash_matches": true
+    },
+    {
+      "build_source": "src\\tools\\commands.rs",
+      "hash_matches": true
+    },
+    {
+      "build_source": "src\\tools\\mod.rs",
+      "hash_matches": true
+    },
+    {
+      "build_source": "src\\ui\\mod.rs",
+      "hash_matches": true
+    },
+    {
+      "build_source": "src\\ui\\model.rs",
+      "hash_matches": true
+    },
+    {
+      "build_source": "src\\ui\\native.rs",
+      "hash_matches": true
+    },
+    {
+      "build_source": "src\\ui\\render.rs",
+      "hash_matches": true
+    },
+    {
+      "build_source": "tests\\commands_real.rs",
+      "hash_matches": true
+    },
+    {
+      "build_source": "tests\\files_real.rs",
+      "hash_matches": true
+    },
+    {
+      "build_source": "tests\\ollama_live.rs",
+      "hash_matches": true
+    },
+    {
+      "build_source": "tests\\tools_live.rs",
+      "hash_matches": true
+    },
+    {
+      "binary_matches": true
+    },
+    {
+      "tester_pass": true,
+      "checks": 26,
+      "tester_binary_matches": true,
+      "all_console_checks": true
+    }
+  ]
+}

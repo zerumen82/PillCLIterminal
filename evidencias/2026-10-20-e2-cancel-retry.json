@@ -1,0 +1,11 @@
+{
+  "cancel_elapsed_seconds": 0.0108082,
+  "drop_elapsed_seconds": 0.0004648,
+  "first_delta_before_cancel": "Como",
+  "model": "huihui_ai/qwen3.5-abliterated:2B",
+  "queued_deltas_before_cancelled": 0,
+  "result": "PASS",
+  "retry_answer": "REINTENTO_CORRECTO",
+  "retry_elapsed_seconds": 0.1241496,
+  "scope": "Cancelación tras primer fragmento real y reintento; no prueba descarga ni herramientas."
+}

@@ -1,0 +1,3 @@
+   Compiling pill v0.1.0 (D:\PROJECTS\PILLCLITER)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 9.34s
+     Running tests\ollama_live.rs (target\debug\deps\ollama_live-d1f5a698928e1440.exe)

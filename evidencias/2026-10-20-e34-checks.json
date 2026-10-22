@@ -1,0 +1,556 @@
+{
+  "checks": [
+    {
+      "command": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.2970000000204891,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "cargo",
+        "clippy",
+        "--locked",
+        "--offline",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 1.7189999999245629,
+      "stdout": "",
+      "stderr": "    Checking pill v0.1.0 (D:\\PROJECTS\\PILLCLITER)\n    Finished `dev` profile [unoptimized + debuginfo] target(s) in 1.59s\n"
+    },
+    {
+      "command": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 16.984000000054948,
+      "stdout": "\nrunning 26 tests\ntest cli::tests::paths_with_spaces_and_unicode_are_single_arguments ... ok\ntest cli::tests::unknown_missing_and_duplicate_options_fail ... ok\ntest agents::tests::claimed_change_or_pass_does_not_replace_role_tool_evidence ... ok\ntest agents::tests::another_success_cannot_hide_a_failed_test_but_same_test_can_be_retried ... ok\ntest agents::tests::empty_reply_can_preserve_observed_work_but_never_imply_review_approval ... ok\ntest agents::tests::handoff_contains_complete_observations_without_generated_instructions_or_hashes ... ok\ntest config::tests::partial_preferences_preserve_limits_and_reject_grants ... ok\ntest config::tests::unbounded_input_and_busy_polling_are_rejected ... ok\ntest providers::ollama::tests::local_endpoint_rejects_remote_and_credential_leaks ... ok\ntest providers::ollama::tests::malformed_final_records_errors_and_length_cannot_confirm_partial_text ... ok\ntest files::tests::live_write_and_delete_handles_are_excluded_and_directory_cannot_be_renamed ... ok\ntest providers::ollama::tests::ndjson_handles_split_utf8_crlf_limits_and_truncation ... ok\ntest files::tests::failed_publication_rolls_back_only_into_absent_destination ... ok\ntest providers::ollama::tests::tool_fragments_stay_pending_until_valid_final_and_reject_ambiguous_arguments ... ok\ntest tools::tests::partial_effect_stays_pending_across_new_requests_and_blocks_writes ... ok\ntest files::tests::publication_collision_preserves_occupant_base_and_staged_data ... ok\ntest ui::model::tests::a_slash_in_regular_text_does_not_open_menu ... ok\ntest ui::model::tests::selecting_a_command_executes_only_on_enter ... ok\ntest ui::model::tests::pasted_newlines_never_submit_chat_and_busy_preserves_new_input ... ok\ntest ui::model::tests::slash_opens_menu_without_enter_and_escape_preserves_input ... ok\ntest ui::model::tests::unicode_editing_keeps_utf8_boundaries_and_input_limit ... ok\ntest ui::model::tests::slash_in_ordinary_request_allows_newline_and_explicit_submit ... ok\ntest ui::render::tests::control_characters_cannot_inject_terminal_sequences ... ok\ntest files::tests::empty_pinned_directory_changed_to_junction_fails_closed_on_relative_io ... ok\ntest files::tests::concurrent_enumerations_have_independent_cursors_across_buffers ... ok\ntest tools::tests::successful_test_is_invalidated_by_changed_read_or_script_even_after_rereading ... ok\n\ntest result: ok. 26 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.35s\n\n\nrunning 0 tests\n\ntest result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s\n\n\nrunning 12 tests\ntest command_scope_and_private_store_are_enforced ... ok\ntest cwd_requires_a_locked_observed_descendant ... ok\ntest junctions_cannot_redirect_command_working_directory ... ok\ntest invalid_utf8_is_reported_and_decoded_output_stays_bounded ... ok\ntest nonzero_exit_and_output_limits_are_observed ... ok\ntest parent_exit_also_cleans_up_its_remaining_descendants ... ok\ntest changed_script_definition_and_stale_ui_proposal_require_new_consent ... ok\ntest cancellation_kills_only_the_owned_process_tree ... ok\ntest shell_metacharacters_remain_literal_arguments ... ok\ntest scripts_are_pinned_against_external_write_during_execution ... ok\ntest registered_command_requires_explicit_grant_and_executes_real_output ... ok\ntest timeout_kills_only_the_owned_process_tree ... ok\n\ntest result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 6.88s\n\n\nrunning 10 tests\ntest existing_external_writer_blocks_edit_without_lost_update ... ok\ntest explicit_protection_covers_file_and_directory ... ok\ntest editing_preserves_restricted_owner_group_and_dacl ... ok\ntest private_session_journal_is_created_by_handle_and_cannot_be_accessed_by_tools ... ok\ntest traversal_ads_devices_controls_and_exclusions_are_rejected ... ok\ntest byte_search_entry_and_backup_limits_are_explicit ... ok\ntest stale_base_and_ambiguous_patch_never_change_disk ... ok\ntest two_independent_executors_cannot_both_apply_same_base ... ok\ntest hardlinks_and_junctions_are_never_followed ... ok\ntest unicode_bom_crlf_create_edit_reread_and_persistent_backup ... ok\n\ntest result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.05s\n\n\nrunning 3 tests\ntest real_cancel_and_retry ... ignored, requiere Ollama real; usa el modelo explícito y cancela sin descargarlo\ntest real_chat_and_errors ... ignored, requiere Ollama real; PILL_LIVE_MODEL y PILL_LIVE_EVIDENCE explícitos\ntest real_connection_and_context_errors ... ignored, requiere metadatos de Ollama real; no genera ni descarga modelos\n\ntest result: ok. 0 passed; 0 failed; 3 ignored; 0 measured; 0 filtered out; finished in 0.00s\n\n\nrunning 2 tests\ntest five_agents_repair_and_verify_project ... ignored, requiere Ollama; cinco roles con conversaciones y herramientas reales\ntest model_repairs_project_with_tools ... ignored, requiere Ollama y Python explícitos; edita solo fixture descartable\n\ntest result: ok. 0 passed; 0 failed; 2 ignored; 0 measured; 0 filtered out; finished in 0.00s\n\n\nrunning 0 tests\n\ntest result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s\n\n",
+      "stderr": "   Compiling pill v0.1.0 (D:\\PROJECTS\\PILLCLITER)\n    Finished `test` profile [unoptimized + debuginfo] target(s) in 7.16s\n     Running unittests src\\lib.rs (target\\debug\\deps\\pill-174e77d5787e2b51.exe)\n     Running unittests src\\main.rs (target\\debug\\deps\\pill-a3e22e248f180665.exe)\n     Running tests\\commands_real.rs (target\\debug\\deps\\commands_real-6459ead7e5042b78.exe)\n     Running tests\\files_real.rs (target\\debug\\deps\\files_real-ad93f153a72b7770.exe)\n     Running tests\\ollama_live.rs (target\\debug\\deps\\ollama_live-5ed56d1ce9e0b860.exe)\n     Running tests\\tools_live.rs (target\\debug\\deps\\tools_live-29aaccda84d4bee9.exe)\n   Doc-tests pill\n"
+    },
+    {
+      "command": [
+        "cargo",
+        "build",
+        "--release",
+        "--locked",
+        "--offline"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 11.030999999959022,
+      "stdout": "",
+      "stderr": "   Compiling pill v0.1.0 (D:\\PROJECTS\\PILLCLITER)\n    Finished `release` profile [optimized] target(s) in 10.97s\n"
+    }
+  ],
+  "result": "PASS",
+  "metadata_exit_code": 0,
+  "packages": [
+    {
+      "name": "atomic-waker",
+      "version": "1.1.2",
+      "license": "Apache-2.0 OR MIT"
+    },
+    {
+      "name": "base64",
+      "version": "0.22.1",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "bitflags",
+      "version": "2.11.1",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "block-buffer",
+      "version": "0.10.4",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "bytes",
+      "version": "1.11.1",
+      "license": "MIT"
+    },
+    {
+      "name": "cfg-if",
+      "version": "1.0.4",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "cpufeatures",
+      "version": "0.2.17",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "crypto-common",
+      "version": "0.1.7",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "digest",
+      "version": "0.10.7",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "displaydoc",
+      "version": "0.2.5",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "fastrand",
+      "version": "2.4.1",
+      "license": "Apache-2.0 OR MIT"
+    },
+    {
+      "name": "form_urlencoded",
+      "version": "1.2.2",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "futures-channel",
+      "version": "0.3.32",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "futures-core",
+      "version": "0.3.32",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "futures-io",
+      "version": "0.3.32",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "futures-macro",
+      "version": "0.3.32",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "futures-sink",
+      "version": "0.3.32",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "futures-task",
+      "version": "0.3.32",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "futures-util",
+      "version": "0.3.32",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "generic-array",
+      "version": "0.14.7",
+      "license": "MIT"
+    },
+    {
+      "name": "getrandom",
+      "version": "0.4.2",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "http",
+      "version": "1.4.0",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "http-body",
+      "version": "1.0.1",
+      "license": "MIT"
+    },
+    {
+      "name": "http-body-util",
+      "version": "0.1.3",
+      "license": "MIT"
+    },
+    {
+      "name": "httparse",
+      "version": "1.10.1",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "hyper",
+      "version": "1.9.0",
+      "license": "MIT"
+    },
+    {
+      "name": "hyper-util",
+      "version": "0.1.20",
+      "license": "MIT"
+    },
+    {
+      "name": "icu_collections",
+      "version": "2.2.0",
+      "license": "Unicode-3.0"
+    },
+    {
+      "name": "icu_locale_core",
+      "version": "2.2.0",
+      "license": "Unicode-3.0"
+    },
+    {
+      "name": "icu_normalizer",
+      "version": "2.2.0",
+      "license": "Unicode-3.0"
+    },
+    {
+      "name": "icu_normalizer_data",
+      "version": "2.2.0",
+      "license": "Unicode-3.0"
+    },
+    {
+      "name": "icu_properties",
+      "version": "2.2.0",
+      "license": "Unicode-3.0"
+    },
+    {
+      "name": "icu_properties_data",
+      "version": "2.2.0",
+      "license": "Unicode-3.0"
+    },
+    {
+      "name": "icu_provider",
+      "version": "2.2.0",
+      "license": "Unicode-3.0"
+    },
+    {
+      "name": "idna",
+      "version": "1.1.0",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "idna_adapter",
+      "version": "1.2.2",
+      "license": "Apache-2.0 OR MIT"
+    },
+    {
+      "name": "ipnet",
+      "version": "2.12.0",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "itoa",
+      "version": "1.0.18",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "libc",
+      "version": "0.2.189",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "litemap",
+      "version": "0.8.2",
+      "license": "Unicode-3.0"
+    },
+    {
+      "name": "log",
+      "version": "0.4.29",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "memchr",
+      "version": "2.8.0",
+      "license": "Unlicense OR MIT"
+    },
+    {
+      "name": "mio",
+      "version": "1.2.0",
+      "license": "MIT"
+    },
+    {
+      "name": "once_cell",
+      "version": "1.21.4",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "percent-encoding",
+      "version": "2.3.2",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "pin-project-lite",
+      "version": "0.2.17",
+      "license": "Apache-2.0 OR MIT"
+    },
+    {
+      "name": "potential_utf",
+      "version": "0.1.5",
+      "license": "Unicode-3.0"
+    },
+    {
+      "name": "proc-macro2",
+      "version": "1.0.106",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "quote",
+      "version": "1.0.45",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "reqwest",
+      "version": "0.13.3",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "serde",
+      "version": "1.0.228",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "serde_core",
+      "version": "1.0.228",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "serde_derive",
+      "version": "1.0.228",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "serde_json",
+      "version": "1.0.149",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "sha2",
+      "version": "0.10.9",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "slab",
+      "version": "0.4.12",
+      "license": "MIT"
+    },
+    {
+      "name": "smallvec",
+      "version": "1.15.1",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "socket2",
+      "version": "0.6.3",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "stable_deref_trait",
+      "version": "1.2.1",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "syn",
+      "version": "2.0.117",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "sync_wrapper",
+      "version": "1.0.2",
+      "license": "Apache-2.0"
+    },
+    {
+      "name": "synstructure",
+      "version": "0.13.2",
+      "license": "MIT"
+    },
+    {
+      "name": "tempfile",
+      "version": "3.27.0",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "thiserror",
+      "version": "2.0.18",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "thiserror-impl",
+      "version": "2.0.18",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "tinystr",
+      "version": "0.8.3",
+      "license": "Unicode-3.0"
+    },
+    {
+      "name": "tokio",
+      "version": "1.52.3",
+      "license": "MIT"
+    },
+    {
+      "name": "tokio-macros",
+      "version": "2.7.1",
+      "license": "MIT"
+    },
+    {
+      "name": "tokio-util",
+      "version": "0.7.18",
+      "license": "MIT"
+    },
+    {
+      "name": "tower",
+      "version": "0.5.3",
+      "license": "MIT"
+    },
+    {
+      "name": "tower-http",
+      "version": "0.6.10",
+      "license": "MIT"
+    },
+    {
+      "name": "tower-layer",
+      "version": "0.3.3",
+      "license": "MIT"
+    },
+    {
+      "name": "tower-service",
+      "version": "0.3.3",
+      "license": "MIT"
+    },
+    {
+      "name": "tracing",
+      "version": "0.1.44",
+      "license": "MIT"
+    },
+    {
+      "name": "tracing-core",
+      "version": "0.1.36",
+      "license": "MIT"
+    },
+    {
+      "name": "try-lock",
+      "version": "0.2.5",
+      "license": "MIT"
+    },
+    {
+      "name": "typenum",
+      "version": "1.20.0",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "unicode-ident",
+      "version": "1.0.24",
+      "license": "(MIT OR Apache-2.0) AND Unicode-3.0"
+    },
+    {
+      "name": "url",
+      "version": "2.5.8",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "utf8_iter",
+      "version": "1.0.4",
+      "license": "Apache-2.0 OR MIT"
+    },
+    {
+      "name": "version_check",
+      "version": "0.9.5",
+      "license": "MIT/Apache-2.0"
+    },
+    {
+      "name": "want",
+      "version": "0.3.1",
+      "license": "MIT"
+    },
+    {
+      "name": "windows-link",
+      "version": "0.2.1",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "windows-sys",
+      "version": "0.61.2",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "writeable",
+      "version": "0.6.3",
+      "license": "Unicode-3.0"
+    },
+    {
+      "name": "yoke",
+      "version": "0.8.2",
+      "license": "Unicode-3.0"
+    },
+    {
+      "name": "yoke-derive",
+      "version": "0.8.2",
+      "license": "Unicode-3.0"
+    },
+    {
+      "name": "zerofrom",
+      "version": "0.1.8",
+      "license": "Unicode-3.0"
+    },
+    {
+      "name": "zerofrom-derive",
+      "version": "0.1.7",
+      "license": "Unicode-3.0"
+    },
+    {
+      "name": "zerotrie",
+      "version": "0.2.4",
+      "license": "Unicode-3.0"
+    },
+    {
+      "name": "zerovec",
+      "version": "0.11.6",
+      "license": "Unicode-3.0"
+    },
+    {
+      "name": "zerovec-derive",
+      "version": "0.11.3",
+      "license": "Unicode-3.0"
+    },
+    {
+      "name": "zmij",
+      "version": "1.0.21",
+      "license": "MIT"
+    }
+  ],
+  "source_sha256": {
+    "Cargo.toml": "3b344d00fa119eff8c584a62efb20946a1149c517a93f20476f61e14d261be16",
+    "Cargo.lock": "bdacd3b8f870a47ca882a2c930d5ee550eb7b24066ed00c8ab33949195fcaec3",
+    "config\\defaults.json": "f65c7231c2568e14588ae08ae2578d358cca58ec9e38d4195b151e34c787d89b",
+    "src\\agents\\mod.rs": "8e9c5c0d502b0722bf90a41dc22df765c914f06debea8ca3ad89c38963c1964c",
+    "src\\cli.rs": "ca664619d722f741ec9a074b36562e9c2e6db8fcd220505d1c962dc88006395e",
+    "src\\config\\mod.rs": "ef1b338def67f0a40bbb2ac2d2fcaa025745a5bfd1840385606c89b8c488ab90",
+    "src\\files\\mod.rs": "216e2c03c86fe86536636f0a64bdb2370afc4c43a7f6bcac66c597ab7299a35d",
+    "src\\files\\platform.rs": "29b24aa6218457db857e3cc9a5bee98baf328e95e9f9c1cec466572ff6d47075",
+    "src\\files\\tests.rs": "0866d1aeac7aa30d8abf814be64bf241906ae9bf716f993838f6b11c307a01be",
+    "src\\launch.rs": "c19169eb690c924b3e380fef9151804d4548d6e0507b1be0cb6df19e8bb136ea",
+    "src\\lib.rs": "7d528302b05b8b7b03b2ec295178a13d0480ef4052bc57106b563bd9c0c99277",
+    "src\\main.rs": "3478c56d4317cbbf910c350309e7ae6584b28cf24a5ae2eaff0959f9a6399e08",
+    "src\\providers\\mod.rs": "634e000cfd43988672227662456b14f9caddcd1e1e1c9b1b4d48c579c7bed6e8",
+    "src\\providers\\ollama\\mod.rs": "c79f44629b1a80550c4833aad1578403c6ac9ee2dcb11f7c0730b20c4b5bd37a",
+    "src\\session\\mod.rs": "f57e19a4caaab26720e1ee162f9d8f28cea3db7f963f0c0b04b5ff74745d9b66",
+    "src\\tools\\commands.rs": "1c8c6c6a23ce91e109b6bb1c54c20ce60fbf56830b4857cbd5fb5a76bd952256",
+    "src\\tools\\mod.rs": "7638fc84f804438a30d5bcbd247a85fd13c79254823d748c68d7e37017a7a458",
+    "src\\ui\\mod.rs": "fc2c8e74958055ad5fb7167f1dd3bc86716c611b43ebff5ed730938fd527186b",
+    "src\\ui\\model.rs": "08fc65d43d8026a30150c7ea917b6eb3c8b89ed4c6c0d40562b1d56a0e9f5f17",
+    "src\\ui\\native.rs": "bd3201b8485083cc111f059353902335201956d5daebdec231ef4dd3e4ceb00b",
+    "src\\ui\\render.rs": "6c1f513d57bb36536c50ab4cf5030bac74cbbff46c7a1b480588d328f673be7a",
+    "tests\\commands_real.rs": "ff38b0a655300faf6b4a543e7b73dc4b6aa5896782216ee970b80c246924a504",
+    "tests\\files_real.rs": "48c8ad38d6876117acc96ae4604b3f27d7571fcd7e83bc0be454b9695d961b8b",
+    "tests\\ollama_live.rs": "4fea28dcac5e6d165cfe31d95e5556280d61b25eb8d21d51569391b20f2d364c",
+    "tests\\tools_live.rs": "06c124783b68062c14bbe4780772aec35bdb40cacf5affefe60eee91010ba0fc"
+  },
+  "binary_sha256": "4fb5156349d322c64277c6bf299b6bf9009ce5090ab8ded0dc0a3dec023204fa",
+  "integration_note": "Las pruebas ignoradas no cuentan como PASS de integracion; informes opt-in separados."
+}

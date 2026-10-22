@@ -1,0 +1,9 @@
+Traceback (most recent call last):
+  File "D:\PROJECTS\PILLCLITER\diagnostics\test_ollama_console.py", line 101, in <module>
+    report = run(args.model)
+             ^^^^^^^^^^^^^^^
+  File "D:\PROJECTS\PILLCLITER\diagnostics\test_ollama_console.py", line 69, in run
+    console.wait_for(lambda: '> á🟢z' in console.screen(), 'entrada durante inferencia')
+  File "D:\PROJECTS\PILLCLITER\diagnostics\test_console.py", line 123, in wait_for
+    raise AssertionError('Tiempo agotado: ' + label)
+AssertionError: Tiempo agotado: entrada durante inferencia

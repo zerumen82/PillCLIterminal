@@ -1,0 +1,8 @@
+[package]
+name = "pill-console-probe"
+version = "0.1.0"
+edition = "2024"
+publish = false
+
+[target.'cfg(windows)'.dependencies]
+windows-sys = { version = "=0.61.2", features = ["Win32_System_Console"] }

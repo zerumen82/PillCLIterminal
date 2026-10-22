@@ -1,0 +1,26 @@
+{
+  "fecha_utc": "2026-10-20T08:46:35.492169+00:00",
+  "alcance": "Control compartido de arranque y diagnóstico, no interfaz pill ni E1 completa",
+  "archivos_sha256": {
+    "src/lib.rs": "eb5ece93a6ee7faaec9b7d27a146ab9210135da2988fb3e606c867799131933e",
+    "src/launch.rs": "c19169eb690c924b3e380fef9151804d4548d6e0507b1be0cb6df19e8bb136ea",
+    "diagnostics/console-probe/Cargo.toml": "8518b30a94744075f68b05ceefc7ac8a0ec040f71179ee128845b3b33576513c",
+    "diagnostics/console-probe/Cargo.lock": "6389128f90a0ac33922855a0e3411947199decc71db79a7aed8bd56a586357b6",
+    "diagnostics/console-probe/src/main.rs": "508c6316efc3286f5ee7b5798b682a718dcff2be9c67c78105f59a866afd52e1"
+  },
+  "resultados_reales": {
+    "2026-10-20-consola-interactiva.txt": "stdin_terminal=true stdout_terminal=true console_processes=2\narranque_interactivo=permitido\n",
+    "2026-10-20-consola-propia.txt": "stdin_terminal=true stdout_terminal=true console_processes=1\narranque_interactivo=rechazado: Abre una consola existente y escribe pill; no se inicia mediante doble clic.\n",
+    "2026-10-20-consola-redirigida.txt": "stdin_terminal=false stdout_terminal=false console_processes=2\narranque_interactivo=rechazado: pill se inicia desde una consola interactiva, sin redirigir entrada ni salida.\n"
+  },
+  "formato": "PASS",
+  "clippy_diagnostico": "PASS",
+  "build_release_diagnostico": "PASS",
+  "aplicacion_completa": "BLOQUEADA por dependencias no disponibles y conexión a crates.io fallida",
+  "decision_interfaz": "Pendiente del usuario: mantener Ratatui con descarga manual o consola nativa",
+  "revision_utc": "2026-10-20T08:49:32.777131+00:00",
+  "reviewer": "APPROVE del control parcial y su documentación",
+  "tester": "PASS de casos observados: PTY, redirección y consola propia",
+  "limite_consola": "Comprobar terminales y cantidad de procesos no identifica invocador ni antigüedad de consola.",
+  "codigo_sondeo": "0 significa sondeo ejecutado; permiso/rechazo figura en arranque_interactivo."
+}

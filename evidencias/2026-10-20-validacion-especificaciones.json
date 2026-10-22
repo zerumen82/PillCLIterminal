@@ -1,0 +1,69 @@
+{
+  "fecha_utc": "2026-10-20T08:29:06.733489+00:00",
+  "tipo": "Validación documental, no funcional",
+  "resultado": "PASS",
+  "documentos": [
+    {
+      "archivo": "spec\\00-PRINCIPIOS.md",
+      "titulo": true,
+      "utf8_sin_reemplazos": true,
+      "sin_espacios_finales": true,
+      "bloques_equilibrados": true,
+      "enlaces_locales_rotos": [],
+      "sha256": "e22a4040413d56381ee9cd3f84c28c9dc7c86db3fdc31560d2e8d074c34d8148"
+    },
+    {
+      "archivo": "spec\\01-ARQUITECTURA.md",
+      "titulo": true,
+      "utf8_sin_reemplazos": true,
+      "sin_espacios_finales": true,
+      "bloques_equilibrados": true,
+      "enlaces_locales_rotos": [],
+      "sha256": "688d70cccb765e2bfdc01b79836b2d386f92955be25da45d7efa82520d679ca6"
+    },
+    {
+      "archivo": "spec\\02-REQUISITOS.md",
+      "titulo": true,
+      "utf8_sin_reemplazos": true,
+      "sin_espacios_finales": true,
+      "bloques_equilibrados": true,
+      "enlaces_locales_rotos": [],
+      "sha256": "3172aaf0de7e1e5de03000850571705d99c9366da228bd0cb6316db09c444173"
+    },
+    {
+      "archivo": "spec\\03-PENDIENTES.md",
+      "titulo": true,
+      "utf8_sin_reemplazos": true,
+      "sin_espacios_finales": true,
+      "bloques_equilibrados": true,
+      "enlaces_locales_rotos": [],
+      "sha256": "030bb9116242cc4604096fbda3cd7410fd276cd3455913ca20509133d86d3dae"
+    },
+    {
+      "archivo": "spec\\04-EJERCITO.md",
+      "titulo": true,
+      "utf8_sin_reemplazos": true,
+      "sin_espacios_finales": true,
+      "bloques_equilibrados": true,
+      "enlaces_locales_rotos": [],
+      "sha256": "3f46649137ffc9f87a183c8dcf0f7fda02da92da76c1bcd6633f9d8fa522929f"
+    },
+    {
+      "archivo": "PLAN-IMPLEMENTACION.md",
+      "titulo": true,
+      "utf8_sin_reemplazos": true,
+      "sin_espacios_finales": true,
+      "bloques_equilibrados": true,
+      "enlaces_locales_rotos": [],
+      "sha256": "275e281b4eda0ae35d5e856401df3c6b8b23f03c415733d9efdb58539a0cd32a"
+    }
+  ],
+  "comprobaciones": {
+    "requisitos_R01_R15": true,
+    "catorce_paquetes_en_plan": true,
+    "sin_manifiesto_ni_codigo": true,
+    "controles_clippy_coinciden": true,
+    "concesiones_separadas": true,
+    "aceptacion_config_no_amplia_permisos": true
+  }
+}

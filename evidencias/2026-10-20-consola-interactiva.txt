@@ -1,0 +1,2 @@
+stdin_terminal=true stdout_terminal=true console_processes=2
+arranque_interactivo=permitido

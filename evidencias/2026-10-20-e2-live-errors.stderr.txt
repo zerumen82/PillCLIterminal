@@ -1,0 +1,2 @@
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.16s
+     Running tests\ollama_live.rs (target\debug\deps\ollama_live-d1f5a698928e1440.exe)

@@ -1,0 +1,18 @@
+{
+  "fecha_utc": "2026-10-20T18:59:08.193737+00:00",
+  "sha256_binario": "4fb5156349d322c64277c6bf299b6bf9009ce5090ab8ded0dc0a3dec023204fa",
+  "checks": {
+    "consola_26_checks_pass": true,
+    "sha_binario_actual_consola_regresion": true,
+    "regresion_dos_sesiones_pass": true,
+    "cambio_exacto_bytes_sin_otras_ediciones": true,
+    "reviewer_leyo_version_final": true,
+    "edicion_publicada_hash_final": true,
+    "cierre_tarea_approve_visible": true,
+    "prueba_real_falla_antes_pasa_despues": true,
+    "ast_diagnostics/test_console.py": true,
+    "ast_diagnostics/test_tools_console.py": true
+  },
+  "resultado": "PASS",
+  "alcance": "Validacion adicional sobre evidencia de ejecucion real ya capturada; no repite ni simula inferencias."
+}

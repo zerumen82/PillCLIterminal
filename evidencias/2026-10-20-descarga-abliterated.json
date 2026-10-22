@@ -1,0 +1,33 @@
+{
+  "operacion": "Sustitución autorizada por tres equivalentes publicados como uncensored/abliterated; sin inferencia",
+  "pid_trabajador": 6360,
+  "inicio_utc": "2026-10-20T07:46:09.038003+00:00",
+  "modelos_solicitados": [
+    "huihui_ai/qwen3.5-abliterated:4B",
+    "huihui_ai/qwen3-abliterated:4b-v2",
+    "huihui_ai/qwen3.5-abliterated:2B"
+  ],
+  "resultados": [
+    {
+      "modelo": "huihui_ai/qwen3.5-abliterated:4B",
+      "inicio_utc": "2026-10-20T07:46:09.038003+00:00",
+      "estado": "descargado",
+      "correcto": true,
+      "fin_utc": "2026-10-20T07:52:27.314232+00:00"
+    },
+    {
+      "modelo": "huihui_ai/qwen3-abliterated:4b-v2",
+      "inicio_utc": "2026-10-20T07:52:27.314232+00:00",
+      "estado": "descargado",
+      "correcto": true,
+      "fin_utc": "2026-10-20T07:57:57.370405+00:00"
+    },
+    {
+      "modelo": "huihui_ai/qwen3.5-abliterated:2B",
+      "inicio_utc": "2026-10-20T07:57:57.370965+00:00",
+      "estado": "descargado",
+      "correcto": true,
+      "fin_utc": "2026-10-20T08:02:56.093105+00:00"
+    }
+  ]
+}

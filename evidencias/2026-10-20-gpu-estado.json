@@ -1,0 +1,12 @@
+{
+  "fecha_utc": "2026-10-20T07:33:11.754339+00:00",
+  "comfyui": {
+    "pid": 22944,
+    "directorio": "D:\\PROJECTS\\AUTOAUTO\\ui\\tob\\ComfyUI",
+    "servidor": "http://127.0.0.1:8188",
+    "tareas_en_ejecucion": 0,
+    "tareas_pendientes": 0
+  },
+  "nvidia_smi_csv": "name, memory.total [MiB], memory.reserved [MiB], memory.used [MiB], memory.free [MiB], utilization.gpu [%]\nNVIDIA GeForce RTX 3060 Ti, 8192 MiB, 168 MiB, 4585 MiB, 3440 MiB, 15 %",
+  "limites": "Contadores de memoria por proceso aproximados y no sumables. No se detienen procesos, no se descarga memoria ni se ejecuta inferencia."
+}

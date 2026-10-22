@@ -1,0 +1,29 @@
+[package]
+name = "pill"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.94"
+description = "Interfaz de terminal local para programación asistida"
+publish = false
+
+[dependencies]
+serde = { version = "=1.0.228", features = ["derive"] }
+serde_json = "=1.0.149"
+thiserror = "=2.0.18"
+tokio = { version = "=1.52.3", features = ["rt", "net", "time", "sync", "macros", "process", "io-util"] }
+reqwest = { version = "=0.13.3", default-features = false, features = ["json", "stream"] }
+futures-util = { version = "=0.3.32", default-features = false, features = ["std"] }
+sha2 = "=0.10.9"
+tempfile = "=3.27.0"
+rmcp = { version = "=3.6.0", default-features = false, features = ["client", "transport-child-process"] }
+jsonschema = { version = "=0.59.0", default-features = false }
+
+[target.'cfg(windows)'.dependencies]
+windows-sys = { version = "=0.61.2", features = ["Win32_Foundation", "Win32_Security", "Win32_System_Console", "Win32_System_Threading", "Win32_UI_Input_KeyboardAndMouse", "Win32_Storage_FileSystem", "Win32_System_IO", "Win32_System_JobObjects", "Win32_System_Pipes", "Win32_Security_Authorization", "Wdk_Foundation", "Wdk_Storage_FileSystem", "Win32_System_Ioctl", "Win32_Globalization"] }
+
+[lib]
+path = "src/lib.rs"
+
+[[bin]]
+name = "pill"
+path = "src/main.rs"

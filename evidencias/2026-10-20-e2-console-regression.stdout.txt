@@ -1,0 +1,1 @@
+PASS: menú sin Enter, filtro, Esc, Tab, ayuda, Unicode, resize, /exit y Ctrl+C; modos/cursor/atributos restaurados.

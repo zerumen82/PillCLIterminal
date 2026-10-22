@@ -1,0 +1,126 @@
+{
+  "utc": "2026-10-20T13:22:59.515444+00:00",
+  "scope": "Prototipos del reviewer; no acredita integración Ollama ni producto completo",
+  "sources": [
+    "https://learn.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-createfilew",
+    "https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-fsa/4aeefef8-92c3-4abc-af7a-a610caf8a165",
+    "https://learn.microsoft.com/en-us/windows-hardware/drivers/ddi/wdm/nf-wdm-zwcreatefile"
+  ],
+  "checks": [
+    {
+      "check": "READ_ATTRIBUTES no impide renombrar un directorio vacío",
+      "actual": true,
+      "expected": true,
+      "pass": true
+    },
+    {
+      "check": "GENERIC_READ/shareREAD bloquea GENERIC_WRITE",
+      "actual": [
+        null,
+        32
+      ],
+      "expected": [
+        null,
+        32
+      ],
+      "pass": true
+    },
+    {
+      "check": "FSCTL_SET_REPARSE_POINT con empty",
+      "actual": {
+        "success": true,
+        "winerror": 0
+      },
+      "expected": {
+        "success": true,
+        "winerror": 0
+      },
+      "pass": true
+    },
+    {
+      "check": "NtCreateFile relativo sobre padre mutado falla sin escape",
+      "actual": 1921,
+      "expected": 1921,
+      "pass": true
+    },
+    {
+      "check": "NtSetInformationFile relativo sobre padre mutado falla",
+      "actual": 1921,
+      "expected": 1921,
+      "pass": true
+    },
+    {
+      "check": "ninguna publicación en destino externo",
+      "actual": [],
+      "expected": [],
+      "pass": true
+    },
+    {
+      "check": "FSCTL_SET_REPARSE_POINT con file",
+      "actual": {
+        "success": false,
+        "winerror": 145
+      },
+      "expected": {
+        "success": false,
+        "winerror": 145
+      },
+      "pass": true
+    },
+    {
+      "check": "FSCTL_SET_REPARSE_POINT con directory",
+      "actual": {
+        "success": false,
+        "winerror": 145
+      },
+      "expected": {
+        "success": false,
+        "winerror": 145
+      },
+      "pass": true
+    },
+    {
+      "check": "NtCreateFile relativo normal",
+      "actual": 0,
+      "expected": 0,
+      "pass": true
+    },
+    {
+      "check": "creación relativa observable",
+      "actual": true,
+      "expected": true,
+      "pass": true
+    },
+    {
+      "check": "Win32 FileRenameInfo RootDirectory no admitido en este entorno",
+      "actual": 87,
+      "expected": 87,
+      "pass": true
+    },
+    {
+      "check": "NtSetInformationFile relativo normal",
+      "actual": 0,
+      "expected": 0,
+      "pass": true
+    },
+    {
+      "check": "publicación relativa observable",
+      "actual": "base",
+      "expected": "base",
+      "pass": true
+    },
+    {
+      "check": "no reemplazar destino existente",
+      "actual": 183,
+      "expected": 183,
+      "pass": true
+    },
+    {
+      "check": "base conservada tras colisión",
+      "actual": "base",
+      "expected": "base",
+      "pass": true
+    }
+  ],
+  "pass": true
+}

@@ -1,0 +1,1 @@
+PASS: elección, digest, pegado sin envío, Ctrl+Enter, chat, entrada/resize durante inferencia, Esc y restauración.

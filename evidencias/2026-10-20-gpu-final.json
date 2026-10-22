@@ -1,0 +1,33 @@
+{
+  "fecha_utc": "2026-10-20T08:04:10.837289+00:00",
+  "nvidia_smi_csv": "name, memory.total [MiB], memory.reserved [MiB], memory.used [MiB], memory.free [MiB], utilization.gpu [%]\nNVIDIA GeForce RTX 3060 Ti, 8192 MiB, 168 MiB, 4692 MiB, 3333 MiB, 5 %",
+  "contadores_aproximados": [
+    {
+      "InstanceName": "pid_21620_luid_0x00000000_0x0000c62b_phys_0",
+      "MiB_atribuidos": 311.5
+    },
+    {
+      "InstanceName": "pid_21620_luid_0x00000000_0x0000d9c9_phys_0",
+      "MiB_atribuidos": 0.0
+    },
+    {
+      "InstanceName": "pid_22944_luid_0x00000000_0x0000c62b_phys_0",
+      "MiB_atribuidos": 3889.1
+    }
+  ],
+  "comfyui_proceso": {
+    "pid": 22944,
+    "nombre": "python.exe",
+    "directorio": "D:\\PROJECTS\\AUTOAUTO\\ui\\tob\\ComfyUI",
+    "entrada": [
+      "C:\\Users\\INdaHouse\\AppData\\Local\\Programs\\Python\\Python310\\python.exe",
+      "-u",
+      "D:\\PROJECTS\\AUTOAUTO\\ui\\tob\\ComfyUI\\main.py"
+    ]
+  },
+  "comfyui_cola": {
+    "ejecutando": 0,
+    "pendientes": 0
+  },
+  "nota": "Contadores por proceso aproximados, incluyen memoria compartida; no equivalen a VRAM física exclusiva ni se suman. La cola es una instantánea, no autoriza liberar recursos."
+}

@@ -1,0 +1,6 @@
+{
+  "origen": "Salida real de exec_command tty:true y write_stdin, invocación pill con PATH de sesión",
+  "entrada": "/",
+  "enter_enviado": false,
+  "salida_ansi": "\u001b[?25l\u001b[2J\u001b[32m\u001b[H╭─────┬─────╮\u001b[K\r\n│█████│     │  pill\u001b[K\r\n╰─────┴─────╯\u001b[K\u001b[m\r\nProyecto: \\\\?\\D:\\PROJECTS\\PILLCLITER\u001b[K\r\nConfiguración: valores incluidos\u001b[K\r\nConsola local · Modelos y herramientas pendientes de integrar\u001b[K\r\nEscribe / para abrir el menú. /help muestra la ayuda.\u001b[K\r\n> /\u001b[K\r\n> /help  Mostrar la ayuda de consola\u001b[K\r\n  /exit  Volver a tu consola\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\u001b[80C\u001b[8;1H> /\u001b[11;1H/ comandos · Flechas seleccionar · Tab completar · Esc cerrar · Ctrl+C sali\u001b[8;4H\u001b[?25h"
+}

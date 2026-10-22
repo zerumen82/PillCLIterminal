@@ -1,0 +1,66 @@
+2026-10-20T07:46:09.038003+00:00 Inicio de descarga: huihui_ai/qwen3.5-abliterated:4B
+2026-10-20T07:46:11.111100+00:00 huihui_ai/qwen3.5-abliterated:4B: pulling manifest
+2026-10-20T07:46:12.326464+00:00 huihui_ai/qwen3.5-abliterated:4B: pulling 460a1ec4580a 0.0% (0/3315321536 bytes)
+2026-10-20T07:46:32.366149+00:00 huihui_ai/qwen3.5-abliterated:4B: pulling 460a1ec4580a 6.6% (217539090/3315321536 bytes)
+2026-10-20T07:46:52.406243+00:00 huihui_ai/qwen3.5-abliterated:4B: pulling 460a1ec4580a 13.0% (431866033/3315321536 bytes)
+2026-10-20T07:47:12.446250+00:00 huihui_ai/qwen3.5-abliterated:4B: pulling 460a1ec4580a 19.6% (649103693/3315321536 bytes)
+2026-10-20T07:47:32.486828+00:00 huihui_ai/qwen3.5-abliterated:4B: pulling 460a1ec4580a 26.0% (861483670/3315321536 bytes)
+2026-10-20T07:47:52.526194+00:00 huihui_ai/qwen3.5-abliterated:4B: pulling 460a1ec4580a 32.6% (1080163126/3315321536 bytes)
+2026-10-20T07:48:12.566526+00:00 huihui_ai/qwen3.5-abliterated:4B: pulling 460a1ec4580a 39.0% (1293783685/3315321536 bytes)
+2026-10-20T07:48:32.607487+00:00 huihui_ai/qwen3.5-abliterated:4B: pulling 460a1ec4580a 45.6% (1510417466/3315321536 bytes)
+2026-10-20T07:48:52.646543+00:00 huihui_ai/qwen3.5-abliterated:4B: pulling 460a1ec4580a 52.2% (1730165904/3315321536 bytes)
+2026-10-20T07:49:12.686321+00:00 huihui_ai/qwen3.5-abliterated:4B: pulling 460a1ec4580a 58.7% (1946851711/3315321536 bytes)
+2026-10-20T07:49:32.726792+00:00 huihui_ai/qwen3.5-abliterated:4B: pulling 460a1ec4580a 65.3% (2164127750/3315321536 bytes)
+2026-10-20T07:49:52.766409+00:00 huihui_ai/qwen3.5-abliterated:4B: pulling 460a1ec4580a 72.2% (2392037018/3315321536 bytes)
+2026-10-20T07:50:12.806228+00:00 huihui_ai/qwen3.5-abliterated:4B: pulling 460a1ec4580a 78.6% (2605092533/3315321536 bytes)
+2026-10-20T07:50:32.846256+00:00 huihui_ai/qwen3.5-abliterated:4B: pulling 460a1ec4580a 85.3% (2829508868/3315321536 bytes)
+2026-10-20T07:50:52.886601+00:00 huihui_ai/qwen3.5-abliterated:4B: pulling 460a1ec4580a 91.7% (3040610952/3315321536 bytes)
+2026-10-20T07:51:12.926196+00:00 huihui_ai/qwen3.5-abliterated:4B: pulling 460a1ec4580a 98.2% (3255590936/3315321536 bytes)
+2026-10-20T07:51:21.523463+00:00 huihui_ai/qwen3.5-abliterated:4B: pulling b507b9c2f6ca 0.0% (0/13 bytes)
+2026-10-20T07:51:22.070535+00:00 huihui_ai/qwen3.5-abliterated:4B: pulling 7339fa418c9a 0.0% (0/11355 bytes)
+2026-10-20T07:51:22.663785+00:00 huihui_ai/qwen3.5-abliterated:4B: pulling f6417cb1e269 0.0% (0/42 bytes)
+2026-10-20T07:51:23.063043+00:00 huihui_ai/qwen3.5-abliterated:4B: pulling f4e010fbb0d7 100.0% (529/529 bytes)
+2026-10-20T07:51:23.063043+00:00 huihui_ai/qwen3.5-abliterated:4B: verifying sha256 digest
+2026-10-20T07:52:27.303892+00:00 huihui_ai/qwen3.5-abliterated:4B: writing manifest
+2026-10-20T07:52:27.313645+00:00 huihui_ai/qwen3.5-abliterated:4B: success
+2026-10-20T07:52:27.314232+00:00 Inicio de descarga: huihui_ai/qwen3-abliterated:4b-v2
+2026-10-20T07:52:29.377244+00:00 huihui_ai/qwen3-abliterated:4b-v2: pulling manifest
+2026-10-20T07:52:31.437394+00:00 huihui_ai/qwen3-abliterated:4b-v2: pulling 087261ad87b9 0.0% (0/2497276160 bytes)
+2026-10-20T07:52:51.476658+00:00 huihui_ai/qwen3-abliterated:4b-v2: pulling 087261ad87b9 8.8% (219287567/2497276160 bytes)
+2026-10-20T07:53:11.516318+00:00 huihui_ai/qwen3-abliterated:4b-v2: pulling 087261ad87b9 17.3% (431571525/2497276160 bytes)
+2026-10-20T07:53:31.556217+00:00 huihui_ai/qwen3-abliterated:4b-v2: pulling 087261ad87b9 25.8% (643718272/2497276160 bytes)
+2026-10-20T07:53:51.596767+00:00 huihui_ai/qwen3-abliterated:4b-v2: pulling 087261ad87b9 34.2% (854751566/2497276160 bytes)
+2026-10-20T07:54:11.636822+00:00 huihui_ai/qwen3-abliterated:4b-v2: pulling 087261ad87b9 43.0% (1074852728/2497276160 bytes)
+2026-10-20T07:54:31.676182+00:00 huihui_ai/qwen3-abliterated:4b-v2: pulling 087261ad87b9 51.8% (1292510701/2497276160 bytes)
+2026-10-20T07:54:51.716608+00:00 huihui_ai/qwen3-abliterated:4b-v2: pulling 087261ad87b9 60.6% (1512741054/2497276160 bytes)
+2026-10-20T07:55:11.778150+00:00 huihui_ai/qwen3-abliterated:4b-v2: pulling 087261ad87b9 68.9% (1720680756/2497276160 bytes)
+2026-10-20T07:55:31.796288+00:00 huihui_ai/qwen3-abliterated:4b-v2: pulling 087261ad87b9 77.9% (1944790631/2497276160 bytes)
+2026-10-20T07:55:51.836566+00:00 huihui_ai/qwen3-abliterated:4b-v2: pulling 087261ad87b9 86.5% (2159297628/2497276160 bytes)
+2026-10-20T07:56:11.876521+00:00 huihui_ai/qwen3-abliterated:4b-v2: pulling 087261ad87b9 95.0% (2373613112/2497276160 bytes)
+2026-10-20T07:56:26.519277+00:00 huihui_ai/qwen3-abliterated:4b-v2: pulling ae370d884f10 0.0% (0/1723 bytes)
+2026-10-20T07:56:27.128773+00:00 huihui_ai/qwen3-abliterated:4b-v2: pulling d18a5cc71b84 0.0% (0/11338 bytes)
+2026-10-20T07:56:27.760999+00:00 huihui_ai/qwen3-abliterated:4b-v2: pulling cff3f395ef37 0.0% (0/120 bytes)
+2026-10-20T07:56:28.024051+00:00 huihui_ai/qwen3-abliterated:4b-v2: pulling 554683a5bba3 100.0% (487/487 bytes)
+2026-10-20T07:56:28.024606+00:00 huihui_ai/qwen3-abliterated:4b-v2: verifying sha256 digest
+2026-10-20T07:57:57.359435+00:00 huihui_ai/qwen3-abliterated:4b-v2: writing manifest
+2026-10-20T07:57:57.370405+00:00 huihui_ai/qwen3-abliterated:4b-v2: success
+2026-10-20T07:57:57.370965+00:00 Inicio de descarga: huihui_ai/qwen3.5-abliterated:2B
+2026-10-20T07:57:59.408541+00:00 huihui_ai/qwen3.5-abliterated:2B: pulling manifest
+2026-10-20T07:58:00.809262+00:00 huihui_ai/qwen3.5-abliterated:2B: pulling 4ecac2ba3fd0 0.0% (0/1945311744 bytes)
+2026-10-20T07:58:20.848100+00:00 huihui_ai/qwen3.5-abliterated:2B: pulling 4ecac2ba3fd0 10.8% (209735756/1945311744 bytes)
+2026-10-20T07:58:40.888381+00:00 huihui_ai/qwen3.5-abliterated:2B: pulling 4ecac2ba3fd0 21.8% (424470797/1945311744 bytes)
+2026-10-20T07:59:00.928196+00:00 huihui_ai/qwen3.5-abliterated:2B: pulling 4ecac2ba3fd0 33.2% (646341791/1945311744 bytes)
+2026-10-20T07:59:20.967990+00:00 huihui_ai/qwen3.5-abliterated:2B: pulling 4ecac2ba3fd0 44.0% (855551540/1945311744 bytes)
+2026-10-20T07:59:41.007955+00:00 huihui_ai/qwen3.5-abliterated:2B: pulling 4ecac2ba3fd0 54.7% (1064272967/1945311744 bytes)
+2026-10-20T08:00:00.998049+00:00 huihui_ai/qwen3.5-abliterated:2B: pulling 4ecac2ba3fd0 64.6% (1256477665/1945311744 bytes)
+2026-10-20T08:00:21.028228+00:00 huihui_ai/qwen3.5-abliterated:2B: pulling 4ecac2ba3fd0 74.9% (1457316022/1945311744 bytes)
+2026-10-20T08:00:41.068385+00:00 huihui_ai/qwen3.5-abliterated:2B: pulling 4ecac2ba3fd0 85.7% (1667277364/1945311744 bytes)
+2026-10-20T08:01:01.107939+00:00 huihui_ai/qwen3.5-abliterated:2B: pulling 4ecac2ba3fd0 96.6% (1878749048/1945311744 bytes)
+2026-10-20T08:01:07.971747+00:00 huihui_ai/qwen3.5-abliterated:2B: pulling b507b9c2f6ca 100.0% (13/13 bytes)
+2026-10-20T08:01:07.971747+00:00 huihui_ai/qwen3.5-abliterated:2B: pulling 7339fa418c9a 100.0% (11355/11355 bytes)
+2026-10-20T08:01:07.972259+00:00 huihui_ai/qwen3.5-abliterated:2B: pulling f6417cb1e269 100.0% (42/42 bytes)
+2026-10-20T08:01:07.972259+00:00 huihui_ai/qwen3.5-abliterated:2B: pulling dacdd462ad07 100.0% (529/529 bytes)
+2026-10-20T08:01:07.972259+00:00 huihui_ai/qwen3.5-abliterated:2B: verifying sha256 digest
+2026-10-20T08:02:56.084034+00:00 huihui_ai/qwen3.5-abliterated:2B: writing manifest
+2026-10-20T08:02:56.092579+00:00 huihui_ai/qwen3.5-abliterated:2B: success
+2026-10-20T08:02:56.093618+00:00 Descargas terminadas: 3/3

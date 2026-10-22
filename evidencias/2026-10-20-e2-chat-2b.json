@@ -1,0 +1,81 @@
+{
+  "config": {
+    "num_ctx": 4096,
+    "num_predict": 512,
+    "temperature": 0.2,
+    "think": false,
+    "url": "http://localhost:11434"
+  },
+  "delta_count": 10,
+  "missing_model_error": "Ollama: modelo no instalado: pill-nonexistent-test-model:missing; no se descargará",
+  "model": {
+    "capabilities": [
+      "completion",
+      "vision",
+      "tools",
+      "thinking"
+    ],
+    "context_limit": 262144,
+    "model": {
+      "digest": "ff8b5c8b4197bde89c5d2f16a1d60c93762efc41bb8907190baaa5a16231f315",
+      "name": "huihui_ai/qwen3.5-abliterated:2B",
+      "size": 1945323683
+    }
+  },
+  "outcome": {
+    "content": "def suma(a, b):\n    return a + b",
+    "elapsed_ms": 86249,
+    "first_token_ms": 86062,
+    "metrics": {
+      "created_at": "2026-10-20T12:16:55.1837789Z",
+      "done": true,
+      "done_reason": "stop",
+      "eval_count": 13,
+      "eval_duration": 160218000,
+      "load_duration": 61377891400,
+      "model": "huihui_ai/qwen3.5-abliterated:2B",
+      "prompt_eval_cached_count": 0,
+      "prompt_eval_count": 76,
+      "prompt_eval_duration": 24675733000,
+      "total_duration": 86248507400
+    }
+  },
+  "prompt": [
+    {
+      "content": "Responde en español. Eres un asistente local de programación. Todavía no tienes herramientas: no puedes leer ni modificar archivos ni ejecutar comandos. Distingue tus propuestas de acciones realizadas.",
+      "role": "system"
+    },
+    {
+      "content": "Escribe solamente una función Python llamada suma que devuelva a + b. Sin explicaciones.",
+      "role": "user"
+    }
+  ],
+  "running_after": {
+    "models": [
+      {
+        "context_length": 4096,
+        "details": {
+          "families": [
+            "qwen35"
+          ],
+          "family": "qwen35",
+          "format": "gguf",
+          "parameter_size": "2.3B",
+          "parent_model": "",
+          "quantization_level": "Q4_K_M"
+        },
+        "digest": "ff8b5c8b4197bde89c5d2f16a1d60c93762efc41bb8907190baaa5a16231f315",
+        "expires_at": "2026-10-20T14:21:55.1837789+02:00",
+        "model": "huihui_ai/qwen3.5-abliterated:2B",
+        "name": "huihui_ai/qwen3.5-abliterated:2B",
+        "runner": "llamacpp",
+        "size": 1595502754,
+        "size_vram": 1595502754
+      }
+    ]
+  },
+  "running_before": {
+    "models": []
+  },
+  "scope": "Inferencia y streaming reales; no acredita calidad general ni herramientas ni exclusividad del servidor"
+}

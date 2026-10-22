@@ -1,0 +1,227 @@
+{
+  "fecha_utc": "2026-10-20T12:25:11.671284+00:00",
+  "resultado": "PASS",
+  "checks": [
+    {
+      "nombre": "README.md",
+      "resultado": "PASS",
+      "detalle": {
+        "enlaces_inexistentes": [],
+        "bloques_markdown_pares": true
+      }
+    },
+    {
+      "nombre": "INSTALACION-Y-MEJORAS.md",
+      "resultado": "PASS",
+      "detalle": {
+        "enlaces_inexistentes": [],
+        "bloques_markdown_pares": true
+      }
+    },
+    {
+      "nombre": "PLAN-IMPLEMENTACION.md",
+      "resultado": "PASS",
+      "detalle": {
+        "enlaces_inexistentes": [],
+        "bloques_markdown_pares": true
+      }
+    },
+    {
+      "nombre": "memory.md",
+      "resultado": "PASS",
+      "detalle": {
+        "enlaces_inexistentes": [],
+        "bloques_markdown_pares": true
+      }
+    },
+    {
+      "nombre": "spec\\00-PRINCIPIOS.md",
+      "resultado": "PASS",
+      "detalle": {
+        "enlaces_inexistentes": [],
+        "bloques_markdown_pares": true
+      }
+    },
+    {
+      "nombre": "spec\\01-ARQUITECTURA.md",
+      "resultado": "PASS",
+      "detalle": {
+        "enlaces_inexistentes": [],
+        "bloques_markdown_pares": true
+      }
+    },
+    {
+      "nombre": "spec\\02-REQUISITOS.md",
+      "resultado": "PASS",
+      "detalle": {
+        "enlaces_inexistentes": [],
+        "bloques_markdown_pares": true
+      }
+    },
+    {
+      "nombre": "spec\\03-PENDIENTES.md",
+      "resultado": "PASS",
+      "detalle": {
+        "enlaces_inexistentes": [],
+        "bloques_markdown_pares": true
+      }
+    },
+    {
+      "nombre": "spec\\04-EJERCITO.md",
+      "resultado": "PASS",
+      "detalle": {
+        "enlaces_inexistentes": [],
+        "bloques_markdown_pares": true
+      }
+    },
+    {
+      "nombre": "sintaxis diagnostics\\measure_e2.py",
+      "resultado": "PASS",
+      "detalle": "ast.parse biblioteca estandar, sin instalar paquetes"
+    },
+    {
+      "nombre": "sintaxis diagnostics\\test_console.py",
+      "resultado": "PASS",
+      "detalle": "ast.parse biblioteca estandar, sin instalar paquetes"
+    },
+    {
+      "nombre": "sintaxis diagnostics\\test_ollama_console.py",
+      "resultado": "PASS",
+      "detalle": "ast.parse biblioteca estandar, sin instalar paquetes"
+    },
+    {
+      "nombre": "CLI --help",
+      "resultado": "PASS",
+      "detalle": {
+        "codigo": 0,
+        "stdout": "pill · consola local\n\nUso: pill [--project RUTA] [--config ARCHIVO] [--model NOMBRE]\n\n  --project RUTA     Proyecto activo; por defecto, la carpeta actual.\n  --config ARCHIVO   Preferencias JSON; las rutas relativas parten del proyecto.\n  --model NOMBRE     Elegir explícitamente un modelo ya instalado en Ollama.\n  -h, --help         Mostrar esta ayuda.\n  -V, --version      Mostrar la versión.\n\nEscribe / dentro de pill para ver los comandos disponibles.\nCtrl+Enter envía; Enter añade línea; Esc cancela; Ctrl+C sale.\nLa interfaz se inicia solo desde una consola interactiva.\n",
+        "stderr": ""
+      }
+    },
+    {
+      "nombre": "CLI --version",
+      "resultado": "PASS",
+      "detalle": {
+        "codigo": 0,
+        "stdout": "pill 0.1.0\n",
+        "stderr": ""
+      }
+    },
+    {
+      "nombre": "CLI entrada/salida redirigidas",
+      "resultado": "PASS",
+      "detalle": {
+        "codigo": 1,
+        "stdout": "",
+        "stderr": "pill: pill se inicia desde una consola interactiva, sin redirigir entrada ni salida.\n"
+      }
+    },
+    {
+      "nombre": "binario distribuido/compilado",
+      "resultado": "PASS",
+      "detalle": "63C9F211A44DC41FD9D55CD0892C37AC3ACACCC6E02A17E7936944C3494F4EE7"
+    },
+    {
+      "nombre": "hash aprobado src/providers/ollama/mod.rs",
+      "resultado": "PASS",
+      "detalle": "57FDA0FD3EE37C3750E7E141731E9A58BEDDA8496C17B272910C05149083C02A"
+    },
+    {
+      "nombre": "hash aprobado src/session/mod.rs",
+      "resultado": "PASS",
+      "detalle": "DECC13CC8BFFB2D808AF0B0A437336A561FE9C7E81584F0B634A10796826DEBD"
+    },
+    {
+      "nombre": "hash aprobado src/ui/model.rs",
+      "resultado": "PASS",
+      "detalle": "5CB6DD18FCFBFCAEAE9EED28586D0E1DE012FDE9EF25F3C7F3E15601AB7E4BF7"
+    },
+    {
+      "nombre": "hash aprobado src/ui/native.rs",
+      "resultado": "PASS",
+      "detalle": "C12BFF19AAC340DD9BB4F6DDA8E5690404D896623DF9B06FE9184AB0157F454D"
+    },
+    {
+      "nombre": "hash aprobado src/ui/render.rs",
+      "resultado": "PASS",
+      "detalle": "0D6E851743F7407095706E30B1E9F5796BDA90B0C7658D163BD81F2FDB724C99"
+    },
+    {
+      "nombre": "hash aprobado src/config/mod.rs",
+      "resultado": "PASS",
+      "detalle": "E0CB512D3B407B268A3734D1F007994E2708F8862A7E0E70E0CA48956BD09BD9"
+    },
+    {
+      "nombre": "hash aprobado src/cli.rs",
+      "resultado": "PASS",
+      "detalle": "CA664619D722F741EC9A074B36562E9C2E6DB8FCD220505D1C962DC88006395E"
+    },
+    {
+      "nombre": "hash aprobado src/main.rs",
+      "resultado": "PASS",
+      "detalle": "3478C56D4317CBBF910C350309E7AE6584B28CF24A5AE2EAFF0959F9A6399E08"
+    },
+    {
+      "nombre": "hash aprobado tests/ollama_live.rs",
+      "resultado": "PASS",
+      "detalle": "4FEA28DCAC5E6D165CFE31D95E5556280D61B25EB8D21D51569391B20F2D364C"
+    },
+    {
+      "nombre": "hash aprobado Cargo.toml",
+      "resultado": "PASS",
+      "detalle": "A876B1344442BF7707394F59328580E67B7DAC8C5930064E3D58B518F8DCBEB1"
+    },
+    {
+      "nombre": "hash aprobado Cargo.lock",
+      "resultado": "PASS",
+      "detalle": "502493D8C92594BAB490A05C47AA0586BC226E052BEEACA9EA089A9DF5D1C88C"
+    },
+    {
+      "nombre": "hash aprobado config/defaults.json",
+      "resultado": "PASS",
+      "detalle": "3E5E33866635C4EE954895978DE1AA20572A9D6EFB7CE09121C79F218AC931F0"
+    },
+    {
+      "nombre": "tester independiente",
+      "resultado": "PASS",
+      "detalle": {
+        "informe": "2026-10-20-e2-tester.md",
+        "checks_reales": 7
+      }
+    },
+    {
+      "nombre": "modelo sin seleccion automatica",
+      "resultado": "PASS",
+      "detalle": "ollama.model=null"
+    }
+  ],
+  "calidad": {
+    "ejecutada_por": "reviewer independiente",
+    "evidencia": "2026-10-20-e2-review.md",
+    "controles": [
+      "cargo fmt --check",
+      "cargo clippy --locked --offline --all-targets -- -D warnings",
+      "cargo test --locked --offline: 14 PASS; 3 opt-in ejecutados aparte por tester",
+      "cargo build --release --locked --offline"
+    ],
+    "nota": "No se repiten compilacion/tests ya verdes; los hashes de la version aprobada se verifican arriba."
+  },
+  "fuentes_sha256": {
+    "src\\cli.rs": "CA664619D722F741EC9A074B36562E9C2E6DB8FCD220505D1C962DC88006395E",
+    "src\\launch.rs": "C19169EB690C924B3E380FEF9151804D4548D6E0507B1BE0CB6DF19E8BB136EA",
+    "src\\lib.rs": "A6EFEE92616E650599EFB172F1F0CBEA6D88778708AA06AF018B904504FE112A",
+    "src\\main.rs": "3478C56D4317CBBF910C350309E7AE6584B28CF24A5AE2EAFF0959F9A6399E08",
+    "src\\config\\mod.rs": "E0CB512D3B407B268A3734D1F007994E2708F8862A7E0E70E0CA48956BD09BD9",
+    "src\\providers\\mod.rs": "634E000CFD43988672227662456B14F9CADDCD1E1E1C9B1B4D48C579C7BED6E8",
+    "src\\providers\\ollama\\mod.rs": "57FDA0FD3EE37C3750E7E141731E9A58BEDDA8496C17B272910C05149083C02A",
+    "src\\session\\mod.rs": "DECC13CC8BFFB2D808AF0B0A437336A561FE9C7E81584F0B634A10796826DEBD",
+    "src\\ui\\mod.rs": "FC2C8E74958055AD5FB7167F1DD3BC86716C611B43EBFF5ED730938FD527186B",
+    "src\\ui\\model.rs": "5CB6DD18FCFBFCAEAE9EED28586D0E1DE012FDE9EF25F3C7F3E15601AB7E4BF7",
+    "src\\ui\\native.rs": "C12BFF19AAC340DD9BB4F6DDA8E5690404D896623DF9B06FE9184AB0157F454D",
+    "src\\ui\\render.rs": "0D6E851743F7407095706E30B1E9F5796BDA90B0C7658D163BD81F2FDB724C99",
+    "Cargo.toml": "A876B1344442BF7707394F59328580E67B7DAC8C5930064E3D58B518F8DCBEB1",
+    "Cargo.lock": "502493D8C92594BAB490A05C47AA0586BC226E052BEEACA9EA089A9DF5D1C88C",
+    "tests\\ollama_live.rs": "4FEA28DCAC5E6D165CFE31D95E5556280D61B25EB8D21D51569391B20F2D364C",
+    "config\\defaults.json": "3E5E33866635C4EE954895978DE1AA20572A9D6EFB7CE09121C79F218AC931F0"
+  }
+}

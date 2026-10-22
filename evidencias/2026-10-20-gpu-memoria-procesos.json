@@ -1,0 +1,200 @@
+{
+  "nota": "Contadores de Windows por proceso; no sumar como VRAM física independiente. Captura distinta de nvidia-smi.",
+  "procesos": [
+    {
+      "ProcessId": 1640,
+      "DedicatedBytes": 8928198656,
+      "DedicatedMiB": 8514.6,
+      "Instance": "pid_1640_luid_0x00000000_0x0000c62b_phys_0",
+      "Proceso": "dwm.exe"
+    },
+    {
+      "ProcessId": 22944,
+      "DedicatedBytes": 3977322496,
+      "DedicatedMiB": 3793.1,
+      "Instance": "pid_22944_luid_0x00000000_0x0000c62b_phys_0",
+      "Proceso": "python.exe",
+      "Directorio": "D:\\PROJECTS\\AUTOAUTO\\ui\\tob\\ComfyUI",
+      "Entrada": [
+        "C:\\Users\\INdaHouse\\AppData\\Local\\Programs\\Python\\Python310\\python.exe",
+        "-u",
+        "D:\\PROJECTS\\AUTOAUTO\\ui\\tob\\ComfyUI\\main.py"
+      ]
+    },
+    {
+      "ProcessId": 21620,
+      "DedicatedBytes": 262504448,
+      "DedicatedMiB": 250.3,
+      "Instance": "pid_21620_luid_0x00000000_0x0000c62b_phys_0",
+      "Proceso": "firefox.exe"
+    },
+    {
+      "ProcessId": 10252,
+      "DedicatedBytes": 123219968,
+      "DedicatedMiB": 117.5,
+      "Instance": "pid_10252_luid_0x00000000_0x0000c62b_phys_0",
+      "Proceso": "NoSuchProcess"
+    },
+    {
+      "ProcessId": 10864,
+      "DedicatedBytes": 81375232,
+      "DedicatedMiB": 77.6,
+      "Instance": "pid_10864_luid_0x00000000_0x0000c62b_phys_0",
+      "Proceso": "explorer.exe"
+    },
+    {
+      "ProcessId": 864,
+      "DedicatedBytes": 72237056,
+      "DedicatedMiB": 68.9,
+      "Instance": "pid_864_luid_0x00000000_0x0000c62b_phys_0",
+      "Proceso": "csrss.exe"
+    },
+    {
+      "ProcessId": 17024,
+      "DedicatedBytes": 71225344,
+      "DedicatedMiB": 67.9,
+      "Instance": "pid_17024_luid_0x00000000_0x0000c62b_phys_0",
+      "Proceso": "msedgewebview2.exe"
+    },
+    {
+      "ProcessId": 11700,
+      "DedicatedBytes": 67584000,
+      "DedicatedMiB": 64.5,
+      "Instance": "pid_11700_luid_0x00000000_0x0000c62b_phys_0",
+      "Proceso": "msedgewebview2.exe"
+    },
+    {
+      "ProcessId": 8696,
+      "DedicatedBytes": 22315008,
+      "DedicatedMiB": 21.3,
+      "Instance": "pid_8696_luid_0x00000000_0x0000c62b_phys_0",
+      "Proceso": "WhatsApp.Root.exe"
+    },
+    {
+      "ProcessId": 25880,
+      "DedicatedBytes": 19685376,
+      "DedicatedMiB": 18.8,
+      "Instance": "pid_25880_luid_0x00000000_0x0000c62b_phys_0",
+      "Proceso": "SnippingTool.exe"
+    },
+    {
+      "ProcessId": 13048,
+      "DedicatedBytes": 14381056,
+      "DedicatedMiB": 13.7,
+      "Instance": "pid_13048_luid_0x00000000_0x0000c62b_phys_0",
+      "Proceso": "StartMenuExperienceHost.exe"
+    },
+    {
+      "ProcessId": 15824,
+      "DedicatedBytes": 12541952,
+      "DedicatedMiB": 12.0,
+      "Instance": "pid_15824_luid_0x00000000_0x0000c62b_phys_0",
+      "Proceso": "ShellExperienceHost.exe"
+    },
+    {
+      "ProcessId": 9072,
+      "DedicatedBytes": 9461760,
+      "DedicatedMiB": 9.0,
+      "Instance": "pid_9072_luid_0x00000000_0x0000c62b_phys_0",
+      "Proceso": "RtkUWP.exe"
+    },
+    {
+      "ProcessId": 20408,
+      "DedicatedBytes": 9265152,
+      "DedicatedMiB": 8.8,
+      "Instance": "pid_20408_luid_0x00000000_0x0000c62b_phys_0",
+      "Proceso": "NVIDIA Overlay.exe"
+    },
+    {
+      "ProcessId": 12788,
+      "DedicatedBytes": 8536064,
+      "DedicatedMiB": 8.1,
+      "Instance": "pid_12788_luid_0x00000000_0x0000c62b_phys_0",
+      "Proceso": "ShellHost.exe"
+    },
+    {
+      "ProcessId": 14832,
+      "DedicatedBytes": 8429568,
+      "DedicatedMiB": 8.0,
+      "Instance": "pid_14832_luid_0x00000000_0x0000c62b_phys_0",
+      "Proceso": "msedgewebview2.exe"
+    },
+    {
+      "ProcessId": 13124,
+      "DedicatedBytes": 8273920,
+      "DedicatedMiB": 7.9,
+      "Instance": "pid_13124_luid_0x00000000_0x0000c62b_phys_0",
+      "Proceso": "SearchHost.exe"
+    },
+    {
+      "ProcessId": 12212,
+      "DedicatedBytes": 8163328,
+      "DedicatedMiB": 7.8,
+      "Instance": "pid_12212_luid_0x00000000_0x0000c62b_phys_0",
+      "Proceso": "firefox.exe"
+    },
+    {
+      "ProcessId": 19036,
+      "DedicatedBytes": 5734400,
+      "DedicatedMiB": 5.5,
+      "Instance": "pid_19036_luid_0x00000000_0x0000c62b_phys_0",
+      "Proceso": "Notepad.exe"
+    },
+    {
+      "ProcessId": 4,
+      "DedicatedBytes": 4235264,
+      "DedicatedMiB": 4.0,
+      "Instance": "pid_4_luid_0x00000000_0x0000c62b_phys_0",
+      "Proceso": "System"
+    },
+    {
+      "ProcessId": 15732,
+      "DedicatedBytes": 28672,
+      "DedicatedMiB": 0.0,
+      "Instance": "pid_15732_luid_0x00000000_0x0000c62b_phys_0",
+      "Proceso": "TextInputHost.exe"
+    },
+    {
+      "ProcessId": 16920,
+      "DedicatedBytes": 24576,
+      "DedicatedMiB": 0.0,
+      "Instance": "pid_16920_luid_0x00000000_0x0000c62b_phys_0",
+      "Proceso": "ApplicationFrameHost.exe"
+    },
+    {
+      "ProcessId": 20224,
+      "DedicatedBytes": 24576,
+      "DedicatedMiB": 0.0,
+      "Instance": "pid_20224_luid_0x00000000_0x0000c62b_phys_0",
+      "Proceso": "NoSuchProcess"
+    },
+    {
+      "ProcessId": 1276,
+      "DedicatedBytes": 24576,
+      "DedicatedMiB": 0.0,
+      "Instance": "pid_1276_luid_0x00000000_0x0000c62b_phys_0",
+      "Proceso": "ollama.exe"
+    },
+    {
+      "ProcessId": 11104,
+      "DedicatedBytes": 24576,
+      "DedicatedMiB": 0.0,
+      "Instance": "pid_11104_luid_0x00000000_0x0000c62b_phys_0",
+      "Proceso": "CrossDeviceResume.exe"
+    },
+    {
+      "ProcessId": 10792,
+      "DedicatedBytes": 24576,
+      "DedicatedMiB": 0.0,
+      "Instance": "pid_10792_luid_0x00000000_0x0000c62b_phys_0",
+      "Proceso": "NVIDIA Overlay.exe"
+    },
+    {
+      "ProcessId": 16368,
+      "DedicatedBytes": 24576,
+      "DedicatedMiB": 0.0,
+      "Instance": "pid_16368_luid_0x00000000_0x0000c62b_phys_0",
+      "Proceso": "SystemSettings.exe"
+    }
+  ]
+}

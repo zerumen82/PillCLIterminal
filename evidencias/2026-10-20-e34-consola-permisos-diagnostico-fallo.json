@@ -1,0 +1,48 @@
+{
+  "fecha_utc": "2026-10-20T18:27:55.403766+00:00",
+  "binario": "D:\\PROJECTS\\PILLCLITER\\bin\\pill.exe",
+  "sha256_binario": "dfb283204b9c88af796795c1df8dee8c33e7e5a9814515019b2d210c3c899d0c",
+  "modelo_explicito": "huihui_ai/qwen3.5-abliterated:2B",
+  "num_ctx": 16384,
+  "num_predict": 512,
+  "alcance": "Consola Win32, metadatos Ollama y permisos reales; sin inferencia ni ejecución por el producto.",
+  "checks": {
+    "fixture_falla_antes": true,
+    "modelo_explicito": true,
+    "propuesta_real": true,
+    "enter_no_concede": true,
+    "restauracion_tras_fallo": true
+  },
+  "capturas": {
+    "inicio": "╭─────┬─────╮\n│█████│     │  pill\n╰─────┴─────╯\nProyecto: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e34-console-iq5mt__w\\Proyecto ñ\nConfiguración: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e34-console-iq5mt__w\\Proyecto ñ\\.pillcli\\config.json\nModelo: huihui_ai/qwen3.5-abliterated:2B\nDigest: ff8b5c8b4197bde89c5d2f16a1d60c93762efc41bb8907190baaa5a16231f315\nPreparado · herramientas del proyecto\nEscribe / para abrir el menú. /help muestra la ayuda.\nCapacidades: completion, vision, tools, thinking · contexto máximo anunciado: 262144\nNueva conversación. Ctrl+Enter envía; Enter añade línea. Esc cancela.\n>\n/ comandos · Ctrl+Enter enviar · Enter línea · Esc cancelar · Ctrl+C salir",
+    "propuesta": "╭─────┬─────╮\n│█████│     │  pill\n╰─────┴─────╯\nProyecto: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e34-console-iq5mt__w\\Proyecto ñ\nConfiguración: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e34-console-iq5mt__w\\Proyecto ñ\\.pillcli\\config.json\nModelo: huihui_ai/qwen3.5-abliterated:2B\nDigest: ff8b5c8b4197bde89c5d2f16a1d60c93762efc41bb8907190baaa5a16231f315\nPropuestas de comandos · consentimiento explícito\nEscribe / para abrir el menú. /help muestra la ayuda.\nCapacidades: completion, vision, tools, thinking · contexto máximo anunciado: 262144\nNueva conversación. Ctrl+Enter envía; Enter añade línea. Esc cancela.\nConceder permite ejecutar código con tus permisos de Windows. Elige UNA propuesta con número y Ctrl+Enter; Esc cierra\n sin conceder.\n1 · {\"spec\":{\"id\":\"test_suma\",\"program\":\"C:\\\\Users\\\\INdaHouse\\\\AppData\\\\Local\\\\Programs\\\\Python\\\\Python311\\\\python.exe\n\",\"args\":[\"-B\",\"test_calc.py\"],\"cwd\":\".\",\"watched_files\":[\"test_calc.py\"]},\"resolved_cwd\":\"\\\\\\\\?\\\\C:\\\\Users\\\\INdaHouse\\\n\\AppData\\\\Local\\\\Temp\\\\pill-e34-console-iq5mt__w\\\\Proyecto ñ\",\"observed_files\":[{\"path\":\"\\\\\\\\?\\\\C:\\\\Users\\\\INdaHouse\\\\\nAppData\\\\Local\\\\Programs\\\\Python\\\\Python311\\\\python.exe\",\"sha256\":\"5f7b89a612c9b8af1d6456cdfcd1dbe5ca630849e79aebced9be\ne9a6694952ec\"},{\"path\":\"\\\\\\\\?\\\\C:\\\\Users\\\\INdaHouse\\\\AppData\\\\Local\\\\Temp\\\\pill-e34-console-iq5mt__w\\\\Proyecto ñ\\\\test\n_calc.py\",\"sha256\":\"a42521433bb9d66ff8e1d5e3af81656f7e68a5d3b6a65c3028c17971eaca8923\"}],\"fingerprint\":\"889036e998c8e900\n7f2d5f55c97f39580970eacaa9262b53d35cf6cf25d99d81\",\"granted\":false,\"timeout_ms\":30000,\"max_output_bytes\":4096}\n>\n/ comandos · Ctrl+Enter enviar · Enter línea · Esc cancelar · Ctrl+C salir",
+    "enter_sin_concesion": "╭─────┬─────╮\n│█████│     │  pill\n╰─────┴─────╯\nProyecto: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e34-console-iq5mt__w\\Proyecto ñ\nConfiguración: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e34-console-iq5mt__w\\Proyecto ñ\\.pillcli\\config.json\nModelo: huihui_ai/qwen3.5-abliterated:2B\nDigest: ff8b5c8b4197bde89c5d2f16a1d60c93762efc41bb8907190baaa5a16231f315\nPropuestas de comandos · consentimiento explícito\nEscribe / para abrir el menú. /help muestra la ayuda.\nCapacidades: completion, vision, tools, thinking · contexto máximo anunciado: 262144\nNueva conversación. Ctrl+Enter envía; Enter añade línea. Esc cancela.\nConceder permite ejecutar código con tus permisos de Windows. Elige UNA propuesta con número y Ctrl+Enter; Esc cierra\n sin conceder.\n1 · {\"spec\":{\"id\":\"test_suma\",\"program\":\"C:\\\\Users\\\\INdaHouse\\\\AppData\\\\Local\\\\Programs\\\\Python\\\\Python311\\\\python.exe\n\",\"args\":[\"-B\",\"test_calc.py\"],\"cwd\":\".\",\"watched_files\":[\"test_calc.py\"]},\"resolved_cwd\":\"\\\\\\\\?\\\\C:\\\\Users\\\\INdaHouse\\\n\\AppData\\\\Local\\\\Temp\\\\pill-e34-console-iq5mt__w\\\\Proyecto ñ\",\"observed_files\":[{\"path\":\"\\\\\\\\?\\\\C:\\\\Users\\\\INdaHouse\\\\\nAppData\\\\Local\\\\Programs\\\\Python\\\\Python311\\\\python.exe\",\"sha256\":\"5f7b89a612c9b8af1d6456cdfcd1dbe5ca630849e79aebced9be\ne9a6694952ec\"},{\"path\":\"\\\\\\\\?\\\\C:\\\\Users\\\\INdaHouse\\\\AppData\\\\Local\\\\Temp\\\\pill-e34-console-iq5mt__w\\\\Proyecto ñ\\\\test\n_calc.py\",\"sha256\":\"a42521433bb9d66ff8e1d5e3af81656f7e68a5d3b6a65c3028c17971eaca8923\"}],\"fingerprint\":\"889036e998c8e900\n7f2d5f55c97f39580970eacaa9262b53d35cf6cf25d99d81\",\"granted\":false,\"timeout_ms\":30000,\"max_output_bytes\":4096}\n> 1↵↵\n/ comandos · Ctrl+Enter enviar · Enter línea · Esc cancelar · Ctrl+C salir",
+    "fallo": "╭─────┬─────╮\n│█████│     │  pill\n╰─────┴─────╯\nProyecto: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e34-console-iq5mt__w\\Proyecto ñ\nConfiguración: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e34-console-iq5mt__w\\Proyecto ñ\\.pillcli\\config.json\nModelo: huihui_ai/qwen3.5-abliterated:2B\nDigest: ff8b5c8b4197bde89c5d2f16a1d60c93762efc41bb8907190baaa5a16231f315\nPropuestas de comandos · consentimiento explícito\nConceder permite ejecutar código con tus permisos de Windows. Elige UNA propuesta con número y Ctrl+Enter; Esc cierra\n sin conceder.\n1 · {\"spec\":{\"id\":\"test_suma\",\"program\":\"C:\\\\Users\\\\INdaHouse\\\\AppData\\\\Local\\\\Programs\\\\Python\\\\Python311\\\\python.exe\n\",\"args\":[\"-B\",\"test_calc.py\"],\"cwd\":\".\",\"watched_files\":[\"test_calc.py\"]},\"resolved_cwd\":\"\\\\\\\\?\\\\C:\\\\Users\\\\INdaHouse\\\n\\AppData\\\\Local\\\\Temp\\\\pill-e34-console-iq5mt__w\\\\Proyecto ñ\",\"observed_files\":[{\"path\":\"\\\\\\\\?\\\\C:\\\\Users\\\\INdaHouse\\\\\nAppData\\\\Local\\\\Programs\\\\Python\\\\Python311\\\\python.exe\",\"sha256\":\"5f7b89a612c9b8af1d6456cdfcd1dbe5ca630849e79aebced9be\ne9a6694952ec\"},{\"path\":\"\\\\\\\\?\\\\C:\\\\Users\\\\INdaHouse\\\\AppData\\\\Local\\\\Temp\\\\pill-e34-console-iq5mt__w\\\\Proyecto ñ\\\\test\n_calc.py\",\"sha256\":\"a42521433bb9d66ff8e1d5e3af81656f7e68a5d3b6a65c3028c17971eaca8923\"}],\"fingerprint\":\"889036e998c8e900\n7f2d5f55c97f39580970eacaa9262b53d35cf6cf25d99d81\",\"granted\":false,\"timeout_ms\":30000,\"max_output_bytes\":4096}\nHay una operación activa. Esc la cancela.\nConceder permite ejecutar código con tus permisos de Windows. Elige UNA propuesta con número y Ctrl+Enter; Esc cierra\n sin conceder.\n1 · {\"spec\":{\"id\":\"test_suma\",\"program\":\"C:\\\\Users\\\\INdaHouse\\\\AppData\\\\Local\\\\Programs\\\\Python\\\\Python311\\\\python.exe\n\",\"args\":[\"-B\",\"test_calc.py\"],\"cwd\":\".\",\"watched_files\":[\"test_calc.py\"]},\"resolved_cwd\":\"\\\\\\\\?\\\\C:\\\\Users\\\\INdaHouse\\\n\\AppData\\\\Local\\\\Temp\\\\pill-e34-console-iq5mt__w\\\\Proyecto ñ\",\"observed_files\":[{\"path\":\"\\\\\\\\?\\\\C:\\\\Users\\\\INdaHouse\\\\\nAppData\\\\Local\\\\Programs\\\\Python\\\\Python311\\\\python.exe\",\"sha256\":\"5f7b89a612c9b8af1d6456cdfcd1dbe5ca630849e79aebced9be\ne9a6694952ec\"},{\"path\":\"\\\\\\\\?\\\\C:\\\\Users\\\\INdaHouse\\\\AppData\\\\Local\\\\Temp\\\\pill-e34-console-iq5mt__w\\\\Proyecto ñ\\\\test\n_calc.py\",\"sha256\":\"a42521433bb9d66ff8e1d5e3af81656f7e68a5d3b6a65c3028c17971eaca8923\"}],\"fingerprint\":\"889036e998c8e900\n7f2d5f55c97f39580970eacaa9262b53d35cf6cf25d99d81\",\"granted\":false,\"timeout_ms\":30000,\"max_output_bytes\":4096}\n> 1\n/ comandos · Ctrl+Enter enviar · Enter línea · Esc cancelar · Ctrl+C salir"
+  },
+  "operaciones": {},
+  "errores": [
+    "AssertionError('Tiempo agotado: concesión explícita')"
+  ],
+  "prueba_antes": {
+    "codigo": 1,
+    "stdout": "",
+    "stderr": "Traceback (most recent call last):\n  File \"C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e34-console-iq5mt__w\\Proyecto ñ\\test_calc.py\", line 2, in <module>\n    assert calc.suma(2,3)==5, 'suma incorrecta'\n           ^^^^^^^^^^^^^^^^^\nAssertionError: suma incorrecta\n"
+  },
+  "estado_antes": {
+    "input_mode": 503,
+    "output_mode": 3,
+    "cursor_size": 25,
+    "cursor_visible": 1,
+    "attributes": 7
+  },
+  "estado_despues": {
+    "input_mode": 503,
+    "output_mode": 3,
+    "cursor_size": 25,
+    "cursor_visible": 1,
+    "attributes": 7
+  },
+  "contenido_final": "def suma(a, b):\n    return a - b\n",
+  "diarios": [],
+  "resultado": "FAIL"
+}

@@ -1,0 +1,46 @@
+{
+  "checks": [
+    {
+      "command": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.2970000000204891,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "cargo",
+        "clippy",
+        "--locked",
+        "--offline",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 1.6869999999180436,
+      "stdout": "",
+      "stderr": "    Checking pill v0.1.0 (D:\\PROJECTS\\PILLCLITER)\n    Finished `dev` profile [unoptimized + debuginfo] target(s) in 1.52s\n"
+    },
+    {
+      "command": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline"
+      ],
+      "exit_code": 101,
+      "elapsed_s": 8.28200000000652,
+      "stdout": "",
+      "stderr": "   Compiling pill v0.1.0 (D:\\PROJECTS\\PILLCLITER)\nerror: linking with `link.exe` failed: exit code: 1104\n  |\n  = note: \"C:\\\\Program Files (x86)\\\\Microsoft Visual Studio\\\\2022\\\\BuildTools\\\\VC\\\\Tools\\\\MSVC\\\\14.44.35207\\\\bin\\\\HostX64\\\\x64\\\\link.exe\" \"/NOLOGO\" \"D:\\\\PROJECTS\\\\PILLCLITER\\\\target\\\\debug\\\\deps\\\\rustcCTNii7\\\\symbols.o\" \"<77 object files omitted>\" \"<sysroot>\\\\lib\\\\rustlib\\\\x86_64-pc-windows-msvc\\\\lib/{libtest-*,libgetopts-*,librustc_std_workspace_std-*}.rlib\" \"D:\\\\PROJECTS\\\\PILLCLITER\\\\target\\\\debug\\\\deps/{libpill-6390a793718db9b2,libtempfile-681ed0549c9eddf7,libgetrandom-5018978d4ed1b51e,libfastrand-9da473d25133b4ae,libthiserror-f7d2ef35892ac78b,libreqwest-d3ea22885e16459b,libtower_http-c2c3d8577988788d,libbitflags-4441b38b1a71922e,libtower-d37b0e63928c2be0,libtower_layer-668e84e38a6b6a13,libhyper_util-b5c05b6d8fc10e8e,libbase64-c9fb52ef01c8e3dd,libipnet-dd136ef8b25743cc,libtower_service-7c9ec914878c2cd6,libtracing-832a61ab50764921,libtracing_core-daf425b602b474ba,libonce_cell-3e70f2f2a6eadd01,libhyper-464ef551751c7d3e,libwant-7fe02e1803b642f3,libtry_lock-5aaab1d3c8368689,libhttparse-8c05245fae642231,libatomic_waker-da9a01f7dc236e82,libfutures_channel-eff736dee8ee9cfc,libtokio_util-46d930cc5f95fa8a,libfutures_sink-68b99a7682b0ba41,libhttp_body_util-c8da95d6f34b1085,libhttp_body-a11533e4ead7d497,liblog-77cfb238c53c228c,liburl-ac026698ae21e3b5,libidna-bf40efeafddb52b9,libidna_adapter-ae8cb3f572504794,libicu_properties-6af461826364b6f0,libicu_properties_data-66e7b17b4a76b30b,libicu_normalizer-5424d39fcd836e70,libsmallvec-7225edef1ff5cf0c,libicu_normalizer_data-68433106dd9c3447,libicu_collections-081a77d1f32f18c6,libutf8_iter-0ce875cca8500c73,libpotential_utf-5dcc41f82f042425,libicu_provider-0fc57b5b33c4bdd1,libicu_locale_core-49bc1c3617c3bdaf,libtinystr-550d38703731865e,liblitemap-1a5d63c831762e7e,libwriteable-1b6e8f7146b6f375,libzerovec-b4efe19751827b04,libzerotrie-1d452477e89d016e,libyoke-3f145af3162f46b6,libstable_deref_trait-53559d2be08691ef,libzerofrom-a5273252ded2030a,libform_urlencoded-4d910c05c9caefce,libpercent_encoding-a1ba7b09d4b1bb3f,libhttp-0dd920188fe87ac5,libsync_wrapper-110162390350e000,libfutures_util-ae546e0a81b5a29f,libslab-ab5bc679914f6733,libfutures_task-4b9e577a529ea2e3,libfutures_core-85d3f87fb4b487db,libsha2-bd5511b968464b07,libcpufeatures-82b844818effa0e9,libcfg_if-958b7eb6cae6936d,libdigest-50d07752021ee4f4,libblock_buffer-b22c9acd48e7d5e4,libcrypto_common-b04227bb895fc3b6,libgeneric_array-aa484d1c8466ad1a,libtypenum-3382466fef09a611,libserde-d1c6938dad61023b,libtokio-5c76a9e476c69b96,libsocket2-64a7116d51d81ea3,libbytes-cc0a20647e53726a,libmio-2292612fe4250716,libwindows_sys-dcf76831f25ed139,libwindows_link-d02a446b2892e7ab,libpin_project_lite-9b630ea86c191462,libserde_json-fef3ee848844e8bb,libmemchr-0618b7abc2c0c1b1,libitoa-55c947be76da670e,libzmij-4325b5dca3b9aabb,libserde_core-d86809d9b0b73174}.rlib\" \"<sysroot>\\\\lib\\\\rustlib\\\\x86_64-pc-windows-msvc\\\\lib/{libstd-*,libpanic_unwind-*,libcfg_if-*,libwindows_targets-*,librustc_demangle-*,libstd_detect-*,libhashbrown-*,librustc_std_workspace_alloc-*,libunwind-*,librustc_std_workspace_core-*,liballoc-*,libcore-*,libcompiler_builtins-*}.rlib\" \"kernel32.lib\" \"kernel32.lib\" \"kernel32.lib\" \"kernel32.lib\" \"ntdll.lib\" \"userenv.lib\" \"ws2_32.lib\" \"dbghelp.lib\" \"/defaultlib:msvcrt\" \"/NXCOMPAT\" \"/OUT:D:\\\\PROJECTS\\\\PILLCLITER\\\\target\\\\debug\\\\deps\\\\tools_live-29aaccda84d4bee9.exe\" \"/OPT:REF,NOICF\" \"/DEBUG\" \"/PDBALTPATH:%_PDB%\" \"/NATVIS:<sysroot>\\\\lib\\\\rustlib\\\\etc\\\\intrinsic.natvis\" \"/NATVIS:<sysroot>\\\\lib\\\\rustlib\\\\etc\\\\liballoc.natvis\" \"/NATVIS:<sysroot>\\\\lib\\\\rustlib\\\\etc\\\\libcore.natvis\" \"/NATVIS:<sysroot>\\\\lib\\\\rustlib\\\\etc\\\\libstd.natvis\"\n  = note: some arguments are omitted. use `--verbose` to show all linker arguments\n  = note: LINK : fatal error LNK1104: no se puede abrir el archivo 'D:\\PROJECTS\\PILLCLITER\\target\\debug\\deps\\tools_live-29aaccda84d4bee9.exe'\n          \n\nerror: could not compile `pill` (test \"tools_live\") due to 1 previous error\nwarning: build failed, waiting for other jobs to finish...\n"
+    }
+  ],
+  "result": "FAIL"
+}

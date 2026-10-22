@@ -1,0 +1,75 @@
+{
+  "fecha_utc": "2026-10-20T07:21:43.090045+00:00",
+  "servidor": "http://localhost:11434",
+  "tipo": "Inspección de metadatos; sin generación ni ejecución de herramientas",
+  "version": {
+    "version": "0.40.6"
+  },
+  "modelos_cargados_antes": {
+    "models": []
+  },
+  "modelos": [
+    {
+      "nombre": "wizard-vicuna-uncensored:latest",
+      "digest": "72fc3c2b99dcff7126323de60e69fb664d136a3d4a4aedfafcf6efb1ce931bb5",
+      "tamano_bytes": 3825807497,
+      "capacidades": [
+        "completion"
+      ],
+      "detalles": {
+        "parent_model": "",
+        "format": "gguf",
+        "family": "llama",
+        "families": null,
+        "parameter_size": "7B",
+        "quantization_level": "Q4_0"
+      },
+      "contexto_declarado": {
+        "llama.context_length": 2048
+      }
+    },
+    {
+      "nombre": "llama2-uncensored:latest",
+      "digest": "44040b9222331f7eacd27ec9254e42de585af28d2c5d1211cdaeb3ffa361fe3f",
+      "tamano_bytes": 3825819449,
+      "capacidades": [
+        "completion"
+      ],
+      "detalles": {
+        "parent_model": "",
+        "format": "gguf",
+        "family": "llama",
+        "families": null,
+        "parameter_size": "7B",
+        "quantization_level": "Q4_0"
+      },
+      "contexto_declarado": {
+        "llama.context_length": 2048
+      }
+    },
+    {
+      "nombre": "llama3:latest",
+      "digest": "365c0bd3c000a25d28ddbf732fe1c6add414de7275464c4e4d1c3b5fcb5d8ad1",
+      "tamano_bytes": 4661224676,
+      "capacidades": [
+        "completion"
+      ],
+      "detalles": {
+        "parent_model": "",
+        "format": "gguf",
+        "family": "llama",
+        "families": [
+          "llama"
+        ],
+        "parameter_size": "8.0B",
+        "quantization_level": "Q4_0"
+      },
+      "contexto_declarado": {
+        "llama.context_length": 8192
+      }
+    }
+  ],
+  "modelos_cargados_despues": {
+    "models": []
+  }
+}

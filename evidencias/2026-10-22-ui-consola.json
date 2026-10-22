@@ -1,0 +1,70 @@
+{
+  "fecha_utc": "2026-10-22T12:42:32.687539+00:00",
+  "tipo": "Regresión E1 sobre implementación actual; consola Windows real; sin inferencia",
+  "binario": "D:\\PROJECTS\\PILLCLITER\\bin\\pill.exe",
+  "sha256_binario": "8ccb946f8f2fcd46651676727b3789538fa888d49c3eedf88bdb105cb06b5e6e",
+  "sesiones": [
+    {
+      "salida": "/exit con flecha y Enter",
+      "codigo": 0,
+      "estado_antes": {
+        "input_mode": 503,
+        "output_mode": 3,
+        "cursor_size": 25,
+        "cursor_visible": 1,
+        "attributes": 7
+      },
+      "estado_despues": {
+        "input_mode": 503,
+        "output_mode": 3,
+        "cursor_size": 25,
+        "cursor_visible": 1,
+        "attributes": 7
+      },
+      "redimensionado": {
+        "antes": [
+          120,
+          30
+        ],
+        "despues": [
+          73,
+          21
+        ]
+      },
+      "capturas": {
+        "inicio": " .-----+-----.\n(##### |     )  pill\n '-----+-----'\nProyecto: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e1-5kvxfhl7\\Mi código\nConfiguración: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e1-5kvxfhl7\\Mi código\\.pillcli\\config.json\nModelo: sin seleccionar\nConectando con Ollama…\nModo: Chat\nContexto: —/4096\nMemoria de esta sesión: ninguna · exclusividad no concedida\nEscribe / para abrir el menú. /help muestra la ayuda.\n>\n/ comandos · Ctrl+Enter enviar · Enter línea · Esc cancelar · Ctrl+C salir",
+        "barra_sin_enter": " .-----+-----.\n(##### |     )  pill\n '-----+-----'\nProyecto: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e1-5kvxfhl7\\Mi código\nConfiguración: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e1-5kvxfhl7\\Mi código\\.pillcli\\config.json\nModelo: sin seleccionar\nConectando con Ollama…\nModo: Chat\nContexto: —/4096\nMemoria de esta sesión: ninguna · exclusividad no concedida\nEscribe / para abrir el menú. /help muestra la ayuda.\n> /\n> /help  Mostrar la ayuda de consola\n  /exit  Volver a tu consola\n  /model  Elegir modelo e iniciar otra conversación\n  /permissions  Ver y conceder comandos, MCP y exclusividad\n  /task  Activar tarea con agentes y pruebas reales\n  /chat  Volver al chat con herramientas\n  /liberate  Liberar modelos de esta sesión si hay exclusividad concedida\n/ comandos · Ctrl+Enter enviar · Enter línea · Esc cancelar · Ctrl+C salir",
+        "filtro": " .-----+-----.\n(##### |     )  pill\n '-----+-----'\nProyecto: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e1-5kvxfhl7\\Mi código\nConfiguración: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e1-5kvxfhl7\\Mi código\\.pillcli\\config.json\nModelo: sin seleccionar\nConectando con Ollama…\nModo: Chat\nContexto: —/4096\nMemoria de esta sesión: ninguna · exclusividad no concedida\nEscribe / para abrir el menú. /help muestra la ayuda.\n> /e\n> /exit  Volver a tu consola\n/ comandos · Ctrl+Enter enviar · Enter línea · Esc cancelar · Ctrl+C salir",
+        "escape": " .-----+-----.\n(##### |     )  pill\n '-----+-----'\nProyecto: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e1-5kvxfhl7\\Mi código\nConfiguración: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e1-5kvxfhl7\\Mi código\\.pillcli\\config.json\nModelo: sin seleccionar\nConectando con Ollama…\nModo: Chat\nContexto: —/4096\nMemoria de esta sesión: ninguna · exclusividad no concedida\nEscribe / para abrir el menú. /help muestra la ayuda.\n> /e\n/ comandos · Ctrl+Enter enviar · Enter línea · Esc cancelar · Ctrl+C salir",
+        "ayuda": " .-----+-----.\n(##### |     )  pill\n '-----+-----'\nProyecto: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e1-5kvxfhl7\\Mi código\nConfiguración: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e1-5kvxfhl7\\Mi código\\.pillcli\\config.json\nModelo: sin seleccionar\nConectando con Ollama…\nModo: Chat\nContexto: —/4096\nMemoria de esta sesión: ninguna · exclusividad no concedida\nEscribe / para abrir el menú. /help muestra la ayuda.\n/help · Mostrar la ayuda de consola\n/exit · Salir y restaurar la consola\nFlechas: seleccionar. Tab: completar. Enter: ejecutar. Esc: cerrar menú.\n/model · Elegir modelo y empezar otra conversación\nCtrl+Enter envía; Enter añade línea. Esc cancela la operación activa.\n/liberate · Liberar solo modelos que esta sesión seleccionó, y solo con exclusividad concedida\nEl chat usa herramientas reales del proyecto. /permissions muestra comandos, servidores MCP y exclusividad; cada conces\nión es independiente. /task activa agentes y pruebas. /chat vuelve al chat.\nEn /permissions, el número y Enter muestran el detalle; Ctrl+Enter concede. PgUp y PgDn mueven una pantalla cuando hay\n texto por encima.\nPgUp/PgDn desplazan respuestas; flechas sin menú recuperan peticiones anteriores.\n>\n/ comandos · Ctrl+Enter enviar · Enter línea · Esc cancelar · Ctrl+C salir",
+        "unicode": " .-----+-----.\n(##### |     )  pill\n '-----+-----'\nProyecto: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e1-5kvxfhl7\\Mi código\nConfiguración: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e1-5kvxfhl7\\Mi código\\.pillcli\\config.json\nModelo: sin seleccionar\nConectando con Ollama…\nModo: Chat\nContexto: —/4096\nMemoria de esta sesión: ninguna · exclusividad no concedida\nEscribe / para abrir el menú. /help muestra la ayuda.\n/help · Mostrar la ayuda de consola\n/exit · Salir y restaurar la consola\nFlechas: seleccionar. Tab: completar. Enter: ejecutar. Esc: cerrar menú.\n/model · Elegir modelo y empezar otra conversación\nCtrl+Enter envía; Enter añade línea. Esc cancela la operación activa.\n/liberate · Liberar solo modelos que esta sesión seleccionó, y solo con exclusividad concedida\nEl chat usa herramientas reales del proyecto. /permissions muestra comandos, servidores MCP y exclusividad; cada conces\nión es independiente. /task activa agentes y pruebas. /chat vuelve al chat.\nEn /permissions, el número y Enter muestran el detalle; Ctrl+Enter concede. PgUp y PgDn mueven una pantalla cuando hay\n texto por encima.\nPgUp/PgDn desplazan respuestas; flechas sin menú recuperan peticiones anteriores.\n> áz\n/ comandos · Ctrl+Enter enviar · Enter línea · Esc cancelar · Ctrl+C salir",
+        "redimensionado": " .-----+-----.\n(##### |     )  pill\n '-----+-----'\nProyecto: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e1-5kvxfhl7\\Mi\nConfiguración: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e1-5kvxfh\nModelo: sin seleccionar\nConectando con Ollama…\nModo: Chat\nContexto: —/4096\nMemoria de esta sesión: ninguna · exclusividad no concedida\nEl chat usa herramientas reales del proyecto. /permissions muestra coman\ndos, servidores MCP y exclusividad; cada concesión es independiente. /t\nask activa agentes y pruebas. /chat vuelve al chat.\nEn /permissions, el número y Enter muestran el detalle; Ctrl+Enter conc\nede. PgUp y PgDn mueven una pantalla cuando hay texto por encima.\nPgUp/PgDn desplazan respuestas; flechas sin menú recuperan peticiones a\nnteriores.\n> áz\n↑ hay texto por encima\n/ comandos · Ctrl+Enter enviar · Enter línea · Esc cancelar · Ctrl+"
+      },
+      "resultado": "PASS"
+    },
+    {
+      "salida": "Ctrl+C",
+      "codigo": 0,
+      "estado_antes": {
+        "input_mode": 503,
+        "output_mode": 3,
+        "cursor_size": 25,
+        "cursor_visible": 1,
+        "attributes": 7
+      },
+      "estado_despues": {
+        "input_mode": 503,
+        "output_mode": 3,
+        "cursor_size": 25,
+        "cursor_visible": 1,
+        "attributes": 7
+      },
+      "redimensionado": null,
+      "capturas": {
+        "inicio": "╭─────┬─────╮\n│█████│     │  pill\n╰─────┴─────╯\nProyecto: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e1-h178axfa\\Mi código\nConfiguración: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e1-h178axfa\\Mi código\\.pillcli\\config.json\nModelo: sin seleccionar\nConectando con Ollama…\nModo: Chat\nContexto: —/4096\nMemoria de esta sesión: ninguna · exclusividad no concedida\nEscribe / para abrir el menú. /help muestra la ayuda.\n>\n/ comandos · Ctrl+Enter enviar · Enter línea · Esc cancelar · Ctrl+C salir"
+      },
+      "resultado": "PASS"
+    }
+  ],
+  "resultado": "PASS"
+}

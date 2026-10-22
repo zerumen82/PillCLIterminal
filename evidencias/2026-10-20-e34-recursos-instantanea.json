@@ -1,0 +1,30 @@
+{
+  "scope": "Instantánea de solo lectura; VRAM global compartida y metadatos Ollama separados, sin atribuir memoria individual ni exclusividad",
+  "timestamp": "2026-10-20T20:50:00.0789511+02:00",
+  "nvidia_exit_code": 0,
+  "nvidia_csv": "NVIDIA GeForce RTX 3060 Ti, 8192, 7968, 57",
+  "ollama_running": {
+    "models": [
+      {
+        "name": "huihui_ai/qwen3-abliterated:4b-v2",
+        "model": "huihui_ai/qwen3-abliterated:4b-v2",
+        "size": 5102307901,
+        "digest": "9d803f2de4330c06c844b9d00c1418c07cb7a87fe67b7e32294323b777487cde",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen3",
+          "families": [
+            "qwen3"
+          ],
+          "parameter_size": "4.0B",
+          "quantization_level": "Q4_K_M"
+        },
+        "expires_at": "2026-10-20T20:54:58.454174+02:00",
+        "size_vram": 5102307901,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      }
+    ]
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "fecha_utc": "2026-10-20T09:08:42.403934+00:00",
+  "tipo": "Consola Windows real oculta; eventos Win32; sin Ollama",
+  "binario": "D:\\PROJECTS\\PILLCLITER\\bin\\pill.exe",
+  "sha256_binario": "1ab199103eb1bb088685dc58b26123f9a2e1153cdeec17e62a096b1725746949",
+  "sesiones": [
+    {
+      "salida": "/exit con flecha y Enter",
+      "codigo": 0,
+      "estado_antes": {
+        "input_mode": 503,
+        "output_mode": 3,
+        "cursor_size": 25,
+        "cursor_visible": 1,
+        "attributes": 7
+      },
+      "estado_despues": {
+        "input_mode": 503,
+        "output_mode": 3,
+        "cursor_size": 25,
+        "cursor_visible": 1,
+        "attributes": 7
+      },
+      "redimensionado": {
+        "antes": [
+          120,
+          30
+        ],
+        "despues": [
+          73,
+          21
+        ]
+      },
+      "capturas": {
+        "inicio": " .-----+-----.\n(##### |     )  pill\n '-----+-----'\nProyecto: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e1-wgntlzjd\\Mi código\nConfiguración: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e1-wgntlzjd\\Mi código\\.pillcli\\config.json\nConsola local · Modelos y herramientas pendientes de integrar\nEscribe / para abrir el menú. /help muestra la ayuda.\n>\n/ comandos · Flechas seleccionar · Tab completar · Esc cerrar · Ctrl+C salir",
+        "barra_sin_enter": " .-----+-----.\n(##### |     )  pill\n '-----+-----'\nProyecto: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e1-wgntlzjd\\Mi código\nConfiguración: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e1-wgntlzjd\\Mi código\\.pillcli\\config.json\nConsola local · Modelos y herramientas pendientes de integrar\nEscribe / para abrir el menú. /help muestra la ayuda.\n> /\n> /help  Mostrar la ayuda de consola\n  /exit  Volver a tu consola\n/ comandos · Flechas seleccionar · Tab completar · Esc cerrar · Ctrl+C salir",
+        "filtro": " .-----+-----.\n(##### |     )  pill\n '-----+-----'\nProyecto: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e1-wgntlzjd\\Mi código\nConfiguración: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e1-wgntlzjd\\Mi código\\.pillcli\\config.json\nConsola local · Modelos y herramientas pendientes de integrar\nEscribe / para abrir el menú. /help muestra la ayuda.\n> /e\n> /exit  Volver a tu consola\n/ comandos · Flechas seleccionar · Tab completar · Esc cerrar · Ctrl+C salir",
+        "escape": " .-----+-----.\n(##### |     )  pill\n '-----+-----'\nProyecto: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e1-wgntlzjd\\Mi código\nConfiguración: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e1-wgntlzjd\\Mi código\\.pillcli\\config.json\nConsola local · Modelos y herramientas pendientes de integrar\nEscribe / para abrir el menú. /help muestra la ayuda.\n> /e\n/ comandos · Flechas seleccionar · Tab completar · Esc cerrar · Ctrl+C salir",
+        "ayuda": " .-----+-----.\n(##### |     )  pill\n '-----+-----'\nProyecto: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e1-wgntlzjd\\Mi código\nConfiguración: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e1-wgntlzjd\\Mi código\\.pillcli\\config.json\nConsola local · Modelos y herramientas pendientes de integrar\nEscribe / para abrir el menú. /help muestra la ayuda.\n/help · Mostrar la ayuda de consola\n/exit · Salir y restaurar la consola\nFlechas: seleccionar. Tab: completar. Enter: ejecutar. Esc: cerrar menú.\nLa conexión con modelos y sus herramientas aún no está disponible.\n>\n/ comandos · Flechas seleccionar · Tab completar · Esc cerrar · Ctrl+C salir",
+        "unicode": " .-----+-----.\n(##### |     )  pill\n '-----+-----'\nProyecto: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e1-wgntlzjd\\Mi código\nConfiguración: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e1-wgntlzjd\\Mi código\\.pillcli\\config.json\nConsola local · Modelos y herramientas pendientes de integrar\nEscribe / para abrir el menú. /help muestra la ayuda.\n/help · Mostrar la ayuda de consola\n/exit · Salir y restaurar la consola\nFlechas: seleccionar. Tab: completar. Enter: ejecutar. Esc: cerrar menú.\nLa conexión con modelos y sus herramientas aún no está disponible.\n> áz\n/ comandos · Flechas seleccionar · Tab completar · Esc cerrar · Ctrl+C salir",
+        "redimensionado": " .-----+-----.\n(##### |     )  pill\n '-----+-----'\nProyecto: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e1-wgntlzjd\\Mi\nConfiguración: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e1-wgntlz\nConsola local · Modelos y herramientas pendientes de integrar\nEscribe / para abrir el menú. /help muestra la ayuda.\n/help · Mostrar la ayuda de consola\n/exit · Salir y restaurar la consola\nFlechas: seleccionar. Tab: completar. Enter: ejecutar. Esc: cerrar menú\nLa conexión con modelos y sus herramientas aún no está disponible.\n> áz\n/ comandos · Flechas seleccionar · Tab completar · Esc cerrar · Ctrl"
+      },
+      "resultado": "PASS"
+    },
+    {
+      "salida": "Ctrl+C",
+      "codigo": 0,
+      "estado_antes": {
+        "input_mode": 503,
+        "output_mode": 3,
+        "cursor_size": 25,
+        "cursor_visible": 1,
+        "attributes": 7
+      },
+      "estado_despues": {
+        "input_mode": 503,
+        "output_mode": 3,
+        "cursor_size": 25,
+        "cursor_visible": 1,
+        "attributes": 7
+      },
+      "redimensionado": null,
+      "capturas": {
+        "inicio": "╭─────┬─────╮\n│█████│     │  pill\n╰─────┴─────╯\nProyecto: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e1-wjq6pcf3\\Mi código\nConfiguración: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e1-wjq6pcf3\\Mi código\\.pillcli\\config.json\nConsola local · Modelos y herramientas pendientes de integrar\nEscribe / para abrir el menú. /help muestra la ayuda.\n>\n/ comandos · Flechas seleccionar · Tab completar · Esc cerrar · Ctrl+C salir"
+      },
+      "resultado": "PASS"
+    }
+  ],
+  "resultado": "PASS"
+}

@@ -1,0 +1,150 @@
+{
+  "result": "PASS",
+  "binary_sha256": "4fb5156349d322c64277c6bf299b6bf9009ce5090ab8ded0dc0a3dec023204fa",
+  "checks": [
+    {
+      "file": "Cargo.toml",
+      "pass": true
+    },
+    {
+      "file": "Cargo.lock",
+      "pass": true
+    },
+    {
+      "file": "config\\defaults.json",
+      "pass": true
+    },
+    {
+      "file": "src\\agents\\mod.rs",
+      "pass": true
+    },
+    {
+      "file": "src\\cli.rs",
+      "pass": true
+    },
+    {
+      "file": "src\\config\\mod.rs",
+      "pass": true
+    },
+    {
+      "file": "src\\files\\mod.rs",
+      "pass": true
+    },
+    {
+      "file": "src\\files\\platform.rs",
+      "pass": true
+    },
+    {
+      "file": "src\\files\\tests.rs",
+      "pass": true
+    },
+    {
+      "file": "src\\launch.rs",
+      "pass": true
+    },
+    {
+      "file": "src\\lib.rs",
+      "pass": true
+    },
+    {
+      "file": "src\\main.rs",
+      "pass": true
+    },
+    {
+      "file": "src\\providers\\mod.rs",
+      "pass": true
+    },
+    {
+      "file": "src\\providers\\ollama\\mod.rs",
+      "pass": true
+    },
+    {
+      "file": "src\\session\\mod.rs",
+      "pass": true
+    },
+    {
+      "file": "src\\tools\\commands.rs",
+      "pass": true
+    },
+    {
+      "file": "src\\tools\\mod.rs",
+      "pass": true
+    },
+    {
+      "file": "src\\ui\\mod.rs",
+      "pass": true
+    },
+    {
+      "file": "src\\ui\\model.rs",
+      "pass": true
+    },
+    {
+      "file": "src\\ui\\native.rs",
+      "pass": true
+    },
+    {
+      "file": "src\\ui\\render.rs",
+      "pass": true
+    },
+    {
+      "file": "tests\\commands_real.rs",
+      "pass": true
+    },
+    {
+      "file": "tests\\files_real.rs",
+      "pass": true
+    },
+    {
+      "file": "tests\\ollama_live.rs",
+      "pass": true
+    },
+    {
+      "file": "tests\\tools_live.rs",
+      "pass": true
+    },
+    {
+      "file": "bin/pill.exe",
+      "pass": true
+    },
+    {
+      "syntax": "diagnostics/test_console.py",
+      "pass": true
+    },
+    {
+      "syntax": "diagnostics/test_tools_console.py",
+      "pass": true
+    },
+    {
+      "syntax": "diagnostics/verify_e34.py",
+      "pass": true
+    },
+    {
+      "args": [
+        "--help"
+      ],
+      "expected_exit_code": 0,
+      "exit_code": 0,
+      "stdout": "pill · consola local\n\nUso: pill [--project RUTA] [--config ARCHIVO] [--model NOMBRE]\n\n  --project RUTA     Proyecto activo; por defecto, la carpeta actual.\n  --config ARCHIVO   Preferencias JSON; las rutas relativas parten del proyecto.\n  --model NOMBRE     Elegir explícitamente un modelo ya instalado en Ollama.\n  -h, --help         Mostrar esta ayuda.\n  -V, --version      Mostrar la versión.\n\nEscribe / dentro de pill para ver los comandos disponibles.\nCtrl+Enter envía; Enter añade línea; Esc cancela; Ctrl+C sale.\nLa interfaz se inicia solo desde una consola interactiva.\n",
+      "stderr": "",
+      "pass": true
+    },
+    {
+      "args": [
+        "--version"
+      ],
+      "expected_exit_code": 0,
+      "exit_code": 0,
+      "stdout": "pill 0.1.0\n",
+      "stderr": "",
+      "pass": true
+    },
+    {
+      "args": [],
+      "expected_exit_code": 1,
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "pill: pill se inicia desde una consola interactiva, sin redirigir entrada ni salida.\n",
+      "pass": true
+    }
+  ]
+}

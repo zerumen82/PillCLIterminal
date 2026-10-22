@@ -1,0 +1,2 @@
+stdin_terminal=true stdout_terminal=true console_processes=1
+arranque_interactivo=rechazado: Abre una consola existente y escribe pill; no se inicia mediante doble clic.

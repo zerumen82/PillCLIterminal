@@ -1,0 +1,365 @@
+{
+  "resultado": "PASS",
+  "estado_antes": {
+    "input_mode": 503,
+    "output_mode": 3,
+    "cursor_size": 25,
+    "cursor_visible": 1,
+    "attributes": 7
+  },
+  "estado_despues": {
+    "input_mode": 503,
+    "output_mode": 3,
+    "cursor_size": 25,
+    "cursor_visible": 1,
+    "attributes": 7
+  },
+  "capturas": {
+    "seleccion_inicial": "╭─────┬─────╮\n│█████│     │  pill\n╰─────┴─────╯\nProyecto: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e2-vh6c06rn\\Proyecto ñ\nConfiguración: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e2-vh6c06rn\\Proyecto ñ\\.pillcli\\config.json\nModelo: sin seleccionar\nSelección explícita de modelo\nEscribe / para abrir el menú. /help muestra la ayuda.\nElige un número y pulsa Ctrl+Enter (sin descargas):\n1 · huihui_ai/qwen3-abliterated:4b-v2\n2 · huihui_ai/qwen3.5-abliterated:2B\n3 · huihui_ai/qwen3.5-abliterated:4B\n4 · llama2-uncensored:latest\n5 · llama3:latest\n6 · wizard-vicuna-uncensored:latest\n>\n/ comandos · Ctrl+Enter enviar · Enter línea · Esc cancelar · Ctrl+C salir",
+    "modelo_y_digest": "╭─────┬─────╮\n│█████│     │  pill\n╰─────┴─────╯\nProyecto: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e2-vh6c06rn\\Proyecto ñ\nConfiguración: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e2-vh6c06rn\\Proyecto ñ\\.pillcli\\config.json\nModelo: huihui_ai/qwen3.5-abliterated:2B\nDigest: ff8b5c8b4197bde89c5d2f16a1d60c93762efc41bb8907190baaa5a16231f315\nPreparado · herramientas pendientes\nEscribe / para abrir el menú. /help muestra la ayuda.\nElige un número y pulsa Ctrl+Enter (sin descargas):\n1 · huihui_ai/qwen3-abliterated:4b-v2\n2 · huihui_ai/qwen3.5-abliterated:2B\n3 · huihui_ai/qwen3.5-abliterated:4B\n4 · llama2-uncensored:latest\n5 · llama3:latest\n6 · wizard-vicuna-uncensored:latest\nCapacidades: completion, vision, tools, thinking · contexto máximo anunciado: 262144\nNueva conversación. Ctrl+Enter envía; Enter añade línea. Esc cancela.\n>\n/ comandos · Ctrl+Enter enviar · Enter línea · Esc cancelar · Ctrl+C salir",
+    "pegado_sin_envio": "╭─────┬─────╮\n│█████│     │  pill\n╰─────┴─────╯\nProyecto: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e2-vh6c06rn\\Proyecto ñ\nConfiguración: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e2-vh6c06rn\\Proyecto ñ\\.pillcli\\config.json\nModelo: huihui_ai/qwen3.5-abliterated:2B\nDigest: ff8b5c8b4197bde89c5d2f16a1d60c93762efc41bb8907190baaa5a16231f315\nPreparado · herramientas pendientes\nEscribe / para abrir el menú. /help muestra la ayuda.\nElige un número y pulsa Ctrl+Enter (sin descargas):\n1 · huihui_ai/qwen3-abliterated:4b-v2\n2 · huihui_ai/qwen3.5-abliterated:2B\n3 · huihui_ai/qwen3.5-abliterated:4B\n4 · llama2-uncensored:latest\n5 · llama3:latest\n6 · wizard-vicuna-uncensored:latest\nCapacidades: completion, vision, tools, thinking · contexto máximo anunciado: 262144\nNueva conversación. Ctrl+Enter envía; Enter añade línea. Esc cancela.\n> Responde solamente con la palabra↵CAPSULA\n/ comandos · Ctrl+Enter enviar · Enter línea · Esc cancelar · Ctrl+C salir",
+    "respuesta_real": "╭─────┬─────╮\n│█████│     │  pill\n╰─────┴─────╯\nProyecto: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e2-vh6c06rn\\Proyecto ñ\nConfiguración: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e2-vh6c06rn\\Proyecto ñ\\.pillcli\\config.json\nModelo: huihui_ai/qwen3.5-abliterated:2B\nDigest: ff8b5c8b4197bde89c5d2f16a1d60c93762efc41bb8907190baaa5a16231f315\nRespuesta completa · 268 ms · primer texto 138 ms\nEscribe / para abrir el menú. /help muestra la ayuda.\nElige un número y pulsa Ctrl+Enter (sin descargas):\n1 · huihui_ai/qwen3-abliterated:4b-v2\n2 · huihui_ai/qwen3.5-abliterated:2B\n3 · huihui_ai/qwen3.5-abliterated:4B\n4 · llama2-uncensored:latest\n5 · llama3:latest\n6 · wizard-vicuna-uncensored:latest\nCapacidades: completion, vision, tools, thinking · contexto máximo anunciado: 262144\nNueva conversación. Ctrl+Enter envía; Enter añade línea. Esc cancela.\nTú: Responde solamente con la palabra\nCAPSULA\nModelo: CAPSULA\nOllama: 67 tokens de entrada · 4 generados · carga 2 ms\n>\n/ comandos · Ctrl+Enter enviar · Enter línea · Esc cancelar · Ctrl+C salir",
+    "nueva_conversacion": "╭─────┬─────╮\n│█████│     │  pill\n╰─────┴─────╯\nProyecto: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e2-vh6c06rn\\Proyecto ñ\nConfiguración: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e2-vh6c06rn\\Proyecto ñ\\.pillcli\\config.json\nModelo: huihui_ai/qwen3.5-abliterated:2B\nDigest: ff8b5c8b4197bde89c5d2f16a1d60c93762efc41bb8907190baaa5a16231f315\nPreparado · herramientas pendientes\n3 · huihui_ai/qwen3.5-abliterated:4B\n4 · llama2-uncensored:latest\n5 · llama3:latest\n6 · wizard-vicuna-uncensored:latest\nCapacidades: completion, vision, tools, thinking · contexto máximo anunciado: 262144\nNueva conversación. Ctrl+Enter envía; Enter añade línea. Esc cancela.\nTú: Responde solamente con la palabra\nCAPSULA\nModelo: CAPSULA\nOllama: 67 tokens de entrada · 4 generados · carga 2 ms\nElige un número y pulsa Ctrl+Enter (sin descargas):\n1 · huihui_ai/qwen3-abliterated:4b-v2\n2 · huihui_ai/qwen3.5-abliterated:2B\n3 · huihui_ai/qwen3.5-abliterated:4B\n4 · llama2-uncensored:latest\n5 · llama3:latest\n6 · wizard-vicuna-uncensored:latest\nCapacidades: completion, vision, tools, thinking · contexto máximo anunciado: 262144\nNueva conversación. Ctrl+Enter envía; Enter añade línea. Esc cancela.\n>\n/ comandos · Ctrl+Enter enviar · Enter línea · Esc cancelar · Ctrl+C salir",
+    "entrada_durante_inferencia": "╭─────┬─────╮\n│█████│     │  pill\n╰─────┴─────╯\nProyecto: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e2-vh6c06rn\\Proyecto ñ\nConfiguración: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e2-vh6c06rn\\Proyecto ñ\\.pillcli\\config.json\nModelo: huihui_ai/qwen3.5-abliterated:2B\nDigest: ff8b5c8b4197bde89c5d2f16a1d60c93762efc41bb8907190baaa5a16231f315\nGenerando · Esc cancela · Ctrl+C sale\n4 · llama2-uncensored:latest\n5 · llama3:latest\n6 · wizard-vicuna-uncensored:latest\nCapacidades: completion, vision, tools, thinking · contexto máximo anunciado: 262144\nNueva conversación. Ctrl+Enter envía; Enter añade línea. Esc cancela.\nTú: Responde solamente con la palabra\nCAPSULA\nModelo: CAPSULA\nOllama: 67 tokens de entrada · 4 generados · carga 2 ms\nElige un número y pulsa Ctrl+Enter (sin descargas):\n1 · huihui_ai/qwen3-abliterated:4b-v2\n2 · huihui_ai/qwen3.5-abliterated:2B\n3 · huihui_ai/qwen3.5-abliterated:4B\n4 · llama2-uncensored:latest\n5 · llama3:latest\n6 · wizard-vicuna-uncensored:latest\nCapacidades: completion, vision, tools, thinking · contexto máximo anunciado: 262144\nNueva conversación. Ctrl+Enter envía; Enter añade línea. Esc cancela.\nTú: Enumera del uno al mil con explicaciones detalladas.\n> áXYZz\n/ comandos · Ctrl+Enter enviar · Enter línea · Esc cancelar · Ctrl+C salir",
+    "entrada_resize_durante_inferencia": "╭─────┬─────╮\n│█████│     │  pill\n╰─────┴─────╯\nProyecto: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e2-vh6c06rn\\Proyecto ñ\nConfiguración: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e2-vh6c06rn\\Proyecto\nModelo: huihui_ai/qwen3.5-abliterated:2B\nDigest: ff8b5c8b4197bde89c5d2f16a1d60c93762efc41bb8907190baaa5a16231f315\nGenerando · Esc cancela · Ctrl+C sale\nModelo: CAPSULA\nOllama: 67 tokens de entrada · 4 generados · carga 2 ms\nElige un número y pulsa Ctrl+Enter (sin descargas):\n1 · huihui_ai/qwen3-abliterated:4b-v2\n2 · huihui_ai/qwen3.5-abliterated:2B\n3 · huihui_ai/qwen3.5-abliterated:4B\n4 · llama2-uncensored:latest\n5 · llama3:latest\n6 · wizard-vicuna-uncensored:latest\nCapacidades: completion, vision, tools, thinking · contexto máximo anunciado: 2621\n44\nNueva conversación. Ctrl+Enter envía; Enter añade línea. Esc cancela.\nTú: Enumera del uno al mil con explicaciones detalladas.\nComo\n> áXYZz\n/ comandos · Ctrl+Enter enviar · Enter línea · Esc cancelar · Ctrl+C salir",
+    "cancelacion": "╭─────┬─────╮\n│█████│     │  pill\n╰─────┴─────╯\nProyecto: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e2-vh6c06rn\\Proyecto ñ\nConfiguración: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e2-vh6c06rn\\Proyecto\nModelo: huihui_ai/qwen3.5-abliterated:2B\nDigest: ff8b5c8b4197bde89c5d2f16a1d60c93762efc41bb8907190baaa5a16231f315\nCancelado · puedes volver a intentarlo\nOllama: 67 tokens de entrada · 4 generados · carga 2 ms\nElige un número y pulsa Ctrl+Enter (sin descargas):\n1 · huihui_ai/qwen3-abliterated:4b-v2\n2 · huihui_ai/qwen3.5-abliterated:2B\n3 · huihui_ai/qwen3.5-abliterated:4B\n4 · llama2-uncensored:latest\n5 · llama3:latest\n6 · wizard-vicuna-uncensored:latest\nCapacidades: completion, vision, tools, thinking · contexto máximo anunciado: 2621\n44\nNueva conversación. Ctrl+Enter envía; Enter añade línea. Esc cancela.\nTú: Enumera del uno al mil con explicaciones detalladas.\nRespuesta parcial NO confirmada: Como as\nOperación cancelada; no se añade al historial del modelo.\n> áXYZz\n/ comandos · Ctrl+Enter enviar · Enter línea · Esc cancelar · Ctrl+C salir"
+  },
+  "recursos": {
+    "reposo_modelo_seleccionado": {
+      "interval_seconds": 0.5150000000139698,
+      "processes_before": [
+        {
+          "pid": 14172,
+          "parent_pid": 2552,
+          "name": "ollama app.exe",
+          "group": "ollama",
+          "working_set_bytes": 80285696,
+          "private_bytes": 55189504,
+          "peak_working_set_bytes": 81235968,
+          "cpu_seconds": 3.578125
+        },
+        {
+          "pid": 1276,
+          "parent_pid": 14172,
+          "name": "ollama.exe",
+          "group": "ollama",
+          "working_set_bytes": 84439040,
+          "private_bytes": 82006016,
+          "peak_working_set_bytes": 99872768,
+          "cpu_seconds": 340.09375
+        },
+        {
+          "pid": 23524,
+          "parent_pid": 1276,
+          "name": "conhost.exe",
+          "group": "ollama",
+          "working_set_bytes": 9928704,
+          "private_bytes": 1748992,
+          "peak_working_set_bytes": 10801152,
+          "cpu_seconds": 0.03125
+        },
+        {
+          "pid": 20512,
+          "parent_pid": 1276,
+          "name": "llama-server.exe",
+          "group": "ollama",
+          "working_set_bytes": 985153536,
+          "private_bytes": 4247912448,
+          "peak_working_set_bytes": 1286975488,
+          "cpu_seconds": 49.375
+        },
+        {
+          "pid": 23624,
+          "parent_pid": 20512,
+          "name": "conhost.exe",
+          "group": "ollama",
+          "working_set_bytes": 7925760,
+          "private_bytes": 1265664,
+          "peak_working_set_bytes": 7925760,
+          "cpu_seconds": 0.0
+        },
+        {
+          "pid": 25104,
+          "parent_pid": 1276,
+          "name": "llama-server.exe",
+          "group": "ollama",
+          "working_set_bytes": 1098792960,
+          "private_bytes": 5913923584,
+          "peak_working_set_bytes": 1101369344,
+          "cpu_seconds": 5.28125
+        },
+        {
+          "pid": 20876,
+          "parent_pid": 25104,
+          "name": "conhost.exe",
+          "group": "ollama",
+          "working_set_bytes": 7819264,
+          "private_bytes": 1228800,
+          "peak_working_set_bytes": 7819264,
+          "cpu_seconds": 0.015625
+        },
+        {
+          "pid": 20984,
+          "parent_pid": 23704,
+          "name": "pwsh.exe",
+          "group": "prueba_cli",
+          "working_set_bytes": 86298624,
+          "private_bytes": 27361280,
+          "peak_working_set_bytes": 86298624,
+          "cpu_seconds": 0.4375
+        },
+        {
+          "pid": 3416,
+          "parent_pid": 20984,
+          "name": "conhost.exe",
+          "group": "prueba_cli",
+          "working_set_bytes": 10944512,
+          "private_bytes": 1904640,
+          "peak_working_set_bytes": 10944512,
+          "cpu_seconds": 0.015625
+        },
+        {
+          "pid": 26556,
+          "parent_pid": 20984,
+          "name": "pill.exe",
+          "group": "prueba_cli",
+          "working_set_bytes": 6299648,
+          "private_bytes": 1077248,
+          "peak_working_set_bytes": 6344704,
+          "cpu_seconds": 0.0
+        }
+      ],
+      "processes_after": [
+        {
+          "pid": 14172,
+          "parent_pid": 2552,
+          "name": "ollama app.exe",
+          "group": "ollama",
+          "working_set_bytes": 80285696,
+          "private_bytes": 55189504,
+          "peak_working_set_bytes": 81235968,
+          "cpu_seconds": 3.578125
+        },
+        {
+          "pid": 1276,
+          "parent_pid": 14172,
+          "name": "ollama.exe",
+          "group": "ollama",
+          "working_set_bytes": 84439040,
+          "private_bytes": 82006016,
+          "peak_working_set_bytes": 99872768,
+          "cpu_seconds": 340.09375
+        },
+        {
+          "pid": 23524,
+          "parent_pid": 1276,
+          "name": "conhost.exe",
+          "group": "ollama",
+          "working_set_bytes": 9928704,
+          "private_bytes": 1748992,
+          "peak_working_set_bytes": 10801152,
+          "cpu_seconds": 0.03125
+        },
+        {
+          "pid": 20512,
+          "parent_pid": 1276,
+          "name": "llama-server.exe",
+          "group": "ollama",
+          "working_set_bytes": 985153536,
+          "private_bytes": 4247912448,
+          "peak_working_set_bytes": 1286975488,
+          "cpu_seconds": 49.375
+        },
+        {
+          "pid": 23624,
+          "parent_pid": 20512,
+          "name": "conhost.exe",
+          "group": "ollama",
+          "working_set_bytes": 7925760,
+          "private_bytes": 1265664,
+          "peak_working_set_bytes": 7925760,
+          "cpu_seconds": 0.0
+        },
+        {
+          "pid": 25104,
+          "parent_pid": 1276,
+          "name": "llama-server.exe",
+          "group": "ollama",
+          "working_set_bytes": 1098792960,
+          "private_bytes": 5913923584,
+          "peak_working_set_bytes": 1101369344,
+          "cpu_seconds": 5.28125
+        },
+        {
+          "pid": 20876,
+          "parent_pid": 25104,
+          "name": "conhost.exe",
+          "group": "ollama",
+          "working_set_bytes": 7819264,
+          "private_bytes": 1228800,
+          "peak_working_set_bytes": 7819264,
+          "cpu_seconds": 0.015625
+        },
+        {
+          "pid": 20984,
+          "parent_pid": 23704,
+          "name": "pwsh.exe",
+          "group": "prueba_cli",
+          "working_set_bytes": 87203840,
+          "private_bytes": 28307456,
+          "peak_working_set_bytes": 87216128,
+          "cpu_seconds": 0.4375
+        },
+        {
+          "pid": 3416,
+          "parent_pid": 20984,
+          "name": "conhost.exe",
+          "group": "prueba_cli",
+          "working_set_bytes": 10944512,
+          "private_bytes": 1904640,
+          "peak_working_set_bytes": 10944512,
+          "cpu_seconds": 0.015625
+        },
+        {
+          "pid": 26556,
+          "parent_pid": 20984,
+          "name": "pill.exe",
+          "group": "prueba_cli",
+          "working_set_bytes": 6299648,
+          "private_bytes": 1077248,
+          "peak_working_set_bytes": 6344704,
+          "cpu_seconds": 0.0
+        }
+      ],
+      "gpu": {
+        "command": [
+          "nvidia-smi",
+          "--query-gpu=name,memory.total,memory.used,memory.free,utilization.gpu",
+          "--format=csv,noheader,nounits"
+        ],
+        "exit_code": 0,
+        "stdout": "NVIDIA GeForce RTX 3060 Ti, 8192, 7084, 941, 6\n",
+        "stderr": ""
+      },
+      "scope": "Procesos CLI/host y Ollama separados; GPU global compartida; CPU acumulada en segundos por PID."
+    },
+    "generacion_activa": {
+      "processes": [
+        {
+          "pid": 14172,
+          "parent_pid": 2552,
+          "name": "ollama app.exe",
+          "group": "ollama",
+          "working_set_bytes": 80285696,
+          "private_bytes": 55189504,
+          "peak_working_set_bytes": 81235968,
+          "cpu_seconds": 3.578125
+        },
+        {
+          "pid": 1276,
+          "parent_pid": 14172,
+          "name": "ollama.exe",
+          "group": "ollama",
+          "working_set_bytes": 84459520,
+          "private_bytes": 82006016,
+          "peak_working_set_bytes": 99872768,
+          "cpu_seconds": 340.1875
+        },
+        {
+          "pid": 23524,
+          "parent_pid": 1276,
+          "name": "conhost.exe",
+          "group": "ollama",
+          "working_set_bytes": 9928704,
+          "private_bytes": 1748992,
+          "peak_working_set_bytes": 10801152,
+          "cpu_seconds": 0.03125
+        },
+        {
+          "pid": 20512,
+          "parent_pid": 1276,
+          "name": "llama-server.exe",
+          "group": "ollama",
+          "working_set_bytes": 964947968,
+          "private_bytes": 4227665920,
+          "peak_working_set_bytes": 1286975488,
+          "cpu_seconds": 49.71875
+        },
+        {
+          "pid": 23624,
+          "parent_pid": 20512,
+          "name": "conhost.exe",
+          "group": "ollama",
+          "working_set_bytes": 7925760,
+          "private_bytes": 1265664,
+          "peak_working_set_bytes": 7925760,
+          "cpu_seconds": 0.0
+        },
+        {
+          "pid": 25104,
+          "parent_pid": 1276,
+          "name": "llama-server.exe",
+          "group": "ollama",
+          "working_set_bytes": 1098792960,
+          "private_bytes": 5913923584,
+          "peak_working_set_bytes": 1101369344,
+          "cpu_seconds": 5.28125
+        },
+        {
+          "pid": 20876,
+          "parent_pid": 25104,
+          "name": "conhost.exe",
+          "group": "ollama",
+          "working_set_bytes": 7819264,
+          "private_bytes": 1228800,
+          "peak_working_set_bytes": 7819264,
+          "cpu_seconds": 0.015625
+        },
+        {
+          "pid": 20984,
+          "parent_pid": 23704,
+          "name": "pwsh.exe",
+          "group": "prueba_cli",
+          "working_set_bytes": 87220224,
+          "private_bytes": 28307456,
+          "peak_working_set_bytes": 87220224,
+          "cpu_seconds": 0.4375
+        },
+        {
+          "pid": 3416,
+          "parent_pid": 20984,
+          "name": "conhost.exe",
+          "group": "prueba_cli",
+          "working_set_bytes": 10952704,
+          "private_bytes": 1904640,
+          "peak_working_set_bytes": 10952704,
+          "cpu_seconds": 0.046875
+        },
+        {
+          "pid": 26556,
+          "parent_pid": 20984,
+          "name": "pill.exe",
+          "group": "prueba_cli",
+          "working_set_bytes": 6459392,
+          "private_bytes": 1232896,
+          "peak_working_set_bytes": 6479872,
+          "cpu_seconds": 0.0
+        }
+      ]
+    }
+  },
+  "resize": {
+    "antes": [
+      120,
+      30
+    ],
+    "despues": [
+      85,
+      25
+    ]
+  },
+  "fecha_utc": "2026-10-20T12:21:58.337171+00:00",
+  "modelo_elegido_prueba": "huihui_ai/qwen3.5-abliterated:2B",
+  "sha256_binario": "63c9f211a44dc41fd9d55cd0892c37ac3acaccc6e02a17e7936944c3494f4ee7",
+  "alcance": "Consola Windows y Ollama reales; no herramientas, agentes ni liberación"
+}

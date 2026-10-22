@@ -1,0 +1,67 @@
+{
+  "fecha_utc": "2026-10-20T12:19:59.462458+00:00",
+  "config": {
+    "num_ctx": 4096,
+    "num_predict": 512,
+    "temperature": 0.2,
+    "think": false,
+    "url": "http://localhost:11434"
+  },
+  "muestras": [
+    {
+      "model": "huihui_ai/qwen3.5-abliterated:2B",
+      "digest": "ff8b5c8b4197bde89c5d2f16a1d60c93762efc41bb8907190baaa5a16231f315",
+      "elapsed_ms": 86249,
+      "first_text_ms": 86062,
+      "load_ms": 61377.8914,
+      "prompt_eval_ms": 24675.733,
+      "eval_ms": 160.218,
+      "eval_tokens": 13,
+      "delta_count": 10,
+      "context_length": 4096,
+      "size_vram_bytes": 1595502754,
+      "runtime_size_bytes": 1595502754,
+      "response": "def suma(a, b):\n    return a + b",
+      "source": "2026-10-20-e2-chat-2b.json"
+    },
+    {
+      "model": "huihui_ai/qwen3-abliterated:4b-v2",
+      "digest": "9d803f2de4330c06c844b9d00c1418c07cb7a87fe67b7e32294323b777487cde",
+      "elapsed_ms": 33813,
+      "first_text_ms": 33704,
+      "load_ms": 33621.7399,
+      "prompt_eval_ms": 76.49,
+      "eval_ms": 109.398,
+      "eval_tokens": 12,
+      "delta_count": 11,
+      "context_length": 4096,
+      "size_vram_bytes": 3180247121,
+      "runtime_size_bytes": 3180247121,
+      "response": "def suma(a, b):\n    return a + b",
+      "source": "2026-10-20-e2-chat-4bv2.json"
+    },
+    {
+      "model": "huihui_ai/qwen3.5-abliterated:4B",
+      "digest": "9acbd90c2645120ea1e4a5fe7ec9c4fe000e547ccebc8a24f950315d582003e6",
+      "elapsed_ms": 42046,
+      "first_text_ms": 41858,
+      "load_ms": 41696.7234,
+      "prompt_eval_ms": 157.071,
+      "eval_ms": 188.135,
+      "eval_tokens": 18,
+      "delta_count": 13,
+      "context_length": 4096,
+      "size_vram_bytes": 3138524281,
+      "runtime_size_bytes": 3138524281,
+      "response": "```python\ndef suma(a, b):\n    return a + b\n```",
+      "source": "2026-10-20-e2-chat-4b.json"
+    }
+  ],
+  "modelo_principal": null,
+  "limites": [
+    "Una muestra por modelo; tiempos incluyen cargas diferentes y estado de cache distinto. No es un benchmark de calidad o latencia estable.",
+    "El codigo generado no se ejecuta; no acredita ciclo de herramientas ni programacion autonoma.",
+    "size_vram procede de Ollama; memoria GPU global compartida registrada aparte. No confundir peso en disco con memoria residente.",
+    "La configuracion del producto mantiene model=null; escoger modelo principal corresponde al usuario."
+  ]
+}

@@ -1,0 +1,656 @@
+{
+  "date_utc": "2026-10-20T12:23:41.651473+00:00",
+  "role": "sd-tester independiente",
+  "verdict": "PASS",
+  "scope": "E2 proveedor/chat/errores y consola Windows reales; no v1 completa ni herramientas/agentes/MCP/liberacion",
+  "checks": [
+    {
+      "id": "live-2b",
+      "result": "PASS",
+      "command": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "--test",
+        "ollama_live",
+        "real_chat_and_errors",
+        "--",
+        "--ignored",
+        "--exact",
+        "--nocapture"
+      ],
+      "env": {
+        "PILL_LIVE_MODEL": "huihui_ai/qwen3.5-abliterated:2B",
+        "PILL_LIVE_EVIDENCE": "evidencias/2026-10-20-e2-chat-2b.json"
+      },
+      "seconds": 87.0,
+      "evidence": "2026-10-20-e2-live-2b.json",
+      "stdout": "\nrunning 1 test\ntest real_chat_and_errors has been running for over 60 seconds\ntest real_chat_and_errors ... ok\n\ntest result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 1 filtered out; finished in 86.60s\n\n",
+      "stderr": "    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.16s\n     Running tests\\ollama_live.rs (target\\debug\\deps\\ollama_live-d1f5a698928e1440.exe)\n",
+      "production_sources_match_final": true
+    },
+    {
+      "id": "live-4bv2",
+      "result": "PASS",
+      "command": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "--test",
+        "ollama_live",
+        "real_chat_and_errors",
+        "--",
+        "--ignored",
+        "--exact",
+        "--nocapture"
+      ],
+      "env": {
+        "PILL_LIVE_MODEL": "huihui_ai/qwen3-abliterated:4b-v2",
+        "PILL_LIVE_EVIDENCE": "evidencias/2026-10-20-e2-chat-4bv2.json"
+      },
+      "seconds": 37.15599999995902,
+      "evidence": "2026-10-20-e2-live-4bv2.json",
+      "stdout": "\nrunning 1 test\ntest real_chat_and_errors ... ok\n\ntest result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 1 filtered out; finished in 33.91s\n\n",
+      "stderr": "   Compiling pill v0.1.0 (D:\\PROJECTS\\PILLCLITER)\n    Finished `test` profile [unoptimized + debuginfo] target(s) in 2.77s\n     Running tests\\ollama_live.rs (target\\debug\\deps\\ollama_live-d1f5a698928e1440.exe)\n",
+      "production_sources_match_final": true
+    },
+    {
+      "id": "live-4b",
+      "result": "PASS",
+      "command": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "--test",
+        "ollama_live",
+        "real_chat_and_errors",
+        "--",
+        "--ignored",
+        "--exact",
+        "--nocapture"
+      ],
+      "env": {
+        "PILL_LIVE_MODEL": "huihui_ai/qwen3.5-abliterated:4B",
+        "PILL_LIVE_EVIDENCE": "evidencias/2026-10-20-e2-chat-4b.json"
+      },
+      "seconds": 51.85900000005495,
+      "evidence": "2026-10-20-e2-live-4b.json",
+      "stdout": "\nrunning 1 test\ntest real_chat_and_errors ... ok\n\ntest result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 2 filtered out; finished in 42.15s\n\n",
+      "stderr": "   Compiling pill v0.1.0 (D:\\PROJECTS\\PILLCLITER)\n    Finished `test` profile [unoptimized + debuginfo] target(s) in 9.34s\n     Running tests\\ollama_live.rs (target\\debug\\deps\\ollama_live-d1f5a698928e1440.exe)\n",
+      "production_sources_match_final": true
+    },
+    {
+      "id": "live-cancel",
+      "result": "PASS",
+      "command": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "--test",
+        "ollama_live",
+        "real_cancel_and_retry",
+        "--",
+        "--ignored",
+        "--exact",
+        "--nocapture"
+      ],
+      "env": {
+        "PILL_LIVE_MODEL": "huihui_ai/qwen3.5-abliterated:2B",
+        "PILL_LIVE_EVIDENCE": "evidencias/2026-10-20-e2-cancel-retry.json"
+      },
+      "seconds": 0.8290000000270084,
+      "evidence": "2026-10-20-e2-live-cancel.json",
+      "stdout": "\nrunning 1 test\ntest real_cancel_and_retry ... ok\n\ntest result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 2 filtered out; finished in 0.40s\n\n",
+      "stderr": "    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.17s\n     Running tests\\ollama_live.rs (target\\debug\\deps\\ollama_live-d1f5a698928e1440.exe)\n",
+      "production_sources_match_final": true
+    },
+    {
+      "id": "live-errors",
+      "result": "PASS",
+      "command": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "--test",
+        "ollama_live",
+        "real_connection_and_context_errors",
+        "--",
+        "--ignored",
+        "--exact",
+        "--nocapture"
+      ],
+      "env": {
+        "PILL_LIVE_MODEL": "huihui_ai/qwen3-abliterated:4b-v2",
+        "PILL_LIVE_EVIDENCE": "evidencias/2026-10-20-e2-errors.json"
+      },
+      "seconds": 2.468999999924563,
+      "evidence": "2026-10-20-e2-live-errors.json",
+      "stdout": "\nrunning 1 test\ntest real_connection_and_context_errors ... ok\n\ntest result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 2 filtered out; finished in 2.09s\n\n",
+      "stderr": "    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.16s\n     Running tests\\ollama_live.rs (target\\debug\\deps\\ollama_live-d1f5a698928e1440.exe)\n",
+      "production_sources_match_final": true
+    },
+    {
+      "id": "console-regression",
+      "result": "PASS",
+      "command": [
+        "python",
+        "diagnostics/test_console.py"
+      ],
+      "env": {
+        "PILL_LIVE_MODEL": null,
+        "PILL_LIVE_EVIDENCE": null
+      },
+      "seconds": 1.6880000000819564,
+      "evidence": "2026-10-20-e2-console-regression.json",
+      "stdout": "PASS: men� sin Enter, filtro, Esc, Tab, ayuda, Unicode, resize, /exit y Ctrl+C; modos/cursor/atributos restaurados.\n",
+      "stderr": "",
+      "production_sources_match_final": true
+    },
+    {
+      "id": "console-ollama-final",
+      "result": "PASS",
+      "command": [
+        "python",
+        "diagnostics/test_ollama_console.py",
+        "--model",
+        "huihui_ai/qwen3.5-abliterated:2B"
+      ],
+      "env": {
+        "PILL_LIVE_MODEL": null,
+        "PILL_LIVE_EVIDENCE": null
+      },
+      "seconds": 2.1570000000065193,
+      "evidence": "2026-10-20-e2-console-ollama-final.json",
+      "stdout": "PASS: elección, digest, pegado sin envío, Ctrl+Enter, chat, entrada/resize durante inferencia, Esc y restauración.\n",
+      "stderr": "",
+      "production_sources_match_final": true
+    }
+  ],
+  "chat_comparison": [
+    {
+      "name": "huihui_ai/qwen3.5-abliterated:2B",
+      "digest": "ff8b5c8b4197bde89c5d2f16a1d60c93762efc41bb8907190baaa5a16231f315",
+      "elapsed_ms": 86249,
+      "first_token_ms": 86062,
+      "load_ms": 61377.8914,
+      "prompt_eval_ms": 24675.733,
+      "eval_count": 13,
+      "eval_duration_ms": 160.218,
+      "delta_count": 10,
+      "effective_context": 4096,
+      "size_vram_bytes": 1595502754,
+      "content": "def suma(a, b):\n    return a + b"
+    },
+    {
+      "name": "huihui_ai/qwen3-abliterated:4b-v2",
+      "digest": "9d803f2de4330c06c844b9d00c1418c07cb7a87fe67b7e32294323b777487cde",
+      "elapsed_ms": 33813,
+      "first_token_ms": 33704,
+      "load_ms": 33621.7399,
+      "prompt_eval_ms": 76.49,
+      "eval_count": 12,
+      "eval_duration_ms": 109.398,
+      "delta_count": 11,
+      "effective_context": 4096,
+      "size_vram_bytes": 3180247121,
+      "content": "def suma(a, b):\n    return a + b"
+    },
+    {
+      "name": "huihui_ai/qwen3.5-abliterated:4B",
+      "digest": "9acbd90c2645120ea1e4a5fe7ec9c4fe000e547ccebc8a24f950315d582003e6",
+      "elapsed_ms": 42046,
+      "first_token_ms": 41858,
+      "load_ms": 41696.7234,
+      "prompt_eval_ms": 157.071,
+      "eval_count": 18,
+      "eval_duration_ms": 188.135,
+      "delta_count": 13,
+      "effective_context": 4096,
+      "size_vram_bytes": 3138524281,
+      "content": "```python\ndef suma(a, b):\n    return a + b\n```"
+    }
+  ],
+  "console": {
+    "binary_sha256": "63c9f211a44dc41fd9d55cd0892c37ac3acaccc6e02a17e7936944c3494f4ee7",
+    "terminal_restored": true,
+    "input_during_generation": true,
+    "resize_during_generation": true,
+    "resize": {
+      "antes": [
+        120,
+        30
+      ],
+      "despues": [
+        85,
+        25
+      ]
+    },
+    "cli_idle": {
+      "pid": 26556,
+      "parent_pid": 20984,
+      "name": "pill.exe",
+      "group": "prueba_cli",
+      "working_set_bytes": 6299648,
+      "private_bytes": 1077248,
+      "peak_working_set_bytes": 6344704,
+      "cpu_seconds": 0.0
+    },
+    "cli_active": {
+      "pid": 26556,
+      "parent_pid": 20984,
+      "name": "pill.exe",
+      "group": "prueba_cli",
+      "working_set_bytes": 6459392,
+      "private_bytes": 1232896,
+      "peak_working_set_bytes": 6479872,
+      "cpu_seconds": 0.0
+    },
+    "idle_cpu_interval_seconds": 0.5150000000139698,
+    "resource_evidence": {
+      "reposo_modelo_seleccionado": {
+        "interval_seconds": 0.5150000000139698,
+        "processes_before": [
+          {
+            "pid": 14172,
+            "parent_pid": 2552,
+            "name": "ollama app.exe",
+            "group": "ollama",
+            "working_set_bytes": 80285696,
+            "private_bytes": 55189504,
+            "peak_working_set_bytes": 81235968,
+            "cpu_seconds": 3.578125
+          },
+          {
+            "pid": 1276,
+            "parent_pid": 14172,
+            "name": "ollama.exe",
+            "group": "ollama",
+            "working_set_bytes": 84439040,
+            "private_bytes": 82006016,
+            "peak_working_set_bytes": 99872768,
+            "cpu_seconds": 340.09375
+          },
+          {
+            "pid": 23524,
+            "parent_pid": 1276,
+            "name": "conhost.exe",
+            "group": "ollama",
+            "working_set_bytes": 9928704,
+            "private_bytes": 1748992,
+            "peak_working_set_bytes": 10801152,
+            "cpu_seconds": 0.03125
+          },
+          {
+            "pid": 20512,
+            "parent_pid": 1276,
+            "name": "llama-server.exe",
+            "group": "ollama",
+            "working_set_bytes": 985153536,
+            "private_bytes": 4247912448,
+            "peak_working_set_bytes": 1286975488,
+            "cpu_seconds": 49.375
+          },
+          {
+            "pid": 23624,
+            "parent_pid": 20512,
+            "name": "conhost.exe",
+            "group": "ollama",
+            "working_set_bytes": 7925760,
+            "private_bytes": 1265664,
+            "peak_working_set_bytes": 7925760,
+            "cpu_seconds": 0.0
+          },
+          {
+            "pid": 25104,
+            "parent_pid": 1276,
+            "name": "llama-server.exe",
+            "group": "ollama",
+            "working_set_bytes": 1098792960,
+            "private_bytes": 5913923584,
+            "peak_working_set_bytes": 1101369344,
+            "cpu_seconds": 5.28125
+          },
+          {
+            "pid": 20876,
+            "parent_pid": 25104,
+            "name": "conhost.exe",
+            "group": "ollama",
+            "working_set_bytes": 7819264,
+            "private_bytes": 1228800,
+            "peak_working_set_bytes": 7819264,
+            "cpu_seconds": 0.015625
+          },
+          {
+            "pid": 20984,
+            "parent_pid": 23704,
+            "name": "pwsh.exe",
+            "group": "prueba_cli",
+            "working_set_bytes": 86298624,
+            "private_bytes": 27361280,
+            "peak_working_set_bytes": 86298624,
+            "cpu_seconds": 0.4375
+          },
+          {
+            "pid": 3416,
+            "parent_pid": 20984,
+            "name": "conhost.exe",
+            "group": "prueba_cli",
+            "working_set_bytes": 10944512,
+            "private_bytes": 1904640,
+            "peak_working_set_bytes": 10944512,
+            "cpu_seconds": 0.015625
+          },
+          {
+            "pid": 26556,
+            "parent_pid": 20984,
+            "name": "pill.exe",
+            "group": "prueba_cli",
+            "working_set_bytes": 6299648,
+            "private_bytes": 1077248,
+            "peak_working_set_bytes": 6344704,
+            "cpu_seconds": 0.0
+          }
+        ],
+        "processes_after": [
+          {
+            "pid": 14172,
+            "parent_pid": 2552,
+            "name": "ollama app.exe",
+            "group": "ollama",
+            "working_set_bytes": 80285696,
+            "private_bytes": 55189504,
+            "peak_working_set_bytes": 81235968,
+            "cpu_seconds": 3.578125
+          },
+          {
+            "pid": 1276,
+            "parent_pid": 14172,
+            "name": "ollama.exe",
+            "group": "ollama",
+            "working_set_bytes": 84439040,
+            "private_bytes": 82006016,
+            "peak_working_set_bytes": 99872768,
+            "cpu_seconds": 340.09375
+          },
+          {
+            "pid": 23524,
+            "parent_pid": 1276,
+            "name": "conhost.exe",
+            "group": "ollama",
+            "working_set_bytes": 9928704,
+            "private_bytes": 1748992,
+            "peak_working_set_bytes": 10801152,
+            "cpu_seconds": 0.03125
+          },
+          {
+            "pid": 20512,
+            "parent_pid": 1276,
+            "name": "llama-server.exe",
+            "group": "ollama",
+            "working_set_bytes": 985153536,
+            "private_bytes": 4247912448,
+            "peak_working_set_bytes": 1286975488,
+            "cpu_seconds": 49.375
+          },
+          {
+            "pid": 23624,
+            "parent_pid": 20512,
+            "name": "conhost.exe",
+            "group": "ollama",
+            "working_set_bytes": 7925760,
+            "private_bytes": 1265664,
+            "peak_working_set_bytes": 7925760,
+            "cpu_seconds": 0.0
+          },
+          {
+            "pid": 25104,
+            "parent_pid": 1276,
+            "name": "llama-server.exe",
+            "group": "ollama",
+            "working_set_bytes": 1098792960,
+            "private_bytes": 5913923584,
+            "peak_working_set_bytes": 1101369344,
+            "cpu_seconds": 5.28125
+          },
+          {
+            "pid": 20876,
+            "parent_pid": 25104,
+            "name": "conhost.exe",
+            "group": "ollama",
+            "working_set_bytes": 7819264,
+            "private_bytes": 1228800,
+            "peak_working_set_bytes": 7819264,
+            "cpu_seconds": 0.015625
+          },
+          {
+            "pid": 20984,
+            "parent_pid": 23704,
+            "name": "pwsh.exe",
+            "group": "prueba_cli",
+            "working_set_bytes": 87203840,
+            "private_bytes": 28307456,
+            "peak_working_set_bytes": 87216128,
+            "cpu_seconds": 0.4375
+          },
+          {
+            "pid": 3416,
+            "parent_pid": 20984,
+            "name": "conhost.exe",
+            "group": "prueba_cli",
+            "working_set_bytes": 10944512,
+            "private_bytes": 1904640,
+            "peak_working_set_bytes": 10944512,
+            "cpu_seconds": 0.015625
+          },
+          {
+            "pid": 26556,
+            "parent_pid": 20984,
+            "name": "pill.exe",
+            "group": "prueba_cli",
+            "working_set_bytes": 6299648,
+            "private_bytes": 1077248,
+            "peak_working_set_bytes": 6344704,
+            "cpu_seconds": 0.0
+          }
+        ],
+        "gpu": {
+          "command": [
+            "nvidia-smi",
+            "--query-gpu=name,memory.total,memory.used,memory.free,utilization.gpu",
+            "--format=csv,noheader,nounits"
+          ],
+          "exit_code": 0,
+          "stdout": "NVIDIA GeForce RTX 3060 Ti, 8192, 7084, 941, 6\n",
+          "stderr": ""
+        },
+        "scope": "Procesos CLI/host y Ollama separados; GPU global compartida; CPU acumulada en segundos por PID."
+      },
+      "generacion_activa": {
+        "processes": [
+          {
+            "pid": 14172,
+            "parent_pid": 2552,
+            "name": "ollama app.exe",
+            "group": "ollama",
+            "working_set_bytes": 80285696,
+            "private_bytes": 55189504,
+            "peak_working_set_bytes": 81235968,
+            "cpu_seconds": 3.578125
+          },
+          {
+            "pid": 1276,
+            "parent_pid": 14172,
+            "name": "ollama.exe",
+            "group": "ollama",
+            "working_set_bytes": 84459520,
+            "private_bytes": 82006016,
+            "peak_working_set_bytes": 99872768,
+            "cpu_seconds": 340.1875
+          },
+          {
+            "pid": 23524,
+            "parent_pid": 1276,
+            "name": "conhost.exe",
+            "group": "ollama",
+            "working_set_bytes": 9928704,
+            "private_bytes": 1748992,
+            "peak_working_set_bytes": 10801152,
+            "cpu_seconds": 0.03125
+          },
+          {
+            "pid": 20512,
+            "parent_pid": 1276,
+            "name": "llama-server.exe",
+            "group": "ollama",
+            "working_set_bytes": 964947968,
+            "private_bytes": 4227665920,
+            "peak_working_set_bytes": 1286975488,
+            "cpu_seconds": 49.71875
+          },
+          {
+            "pid": 23624,
+            "parent_pid": 20512,
+            "name": "conhost.exe",
+            "group": "ollama",
+            "working_set_bytes": 7925760,
+            "private_bytes": 1265664,
+            "peak_working_set_bytes": 7925760,
+            "cpu_seconds": 0.0
+          },
+          {
+            "pid": 25104,
+            "parent_pid": 1276,
+            "name": "llama-server.exe",
+            "group": "ollama",
+            "working_set_bytes": 1098792960,
+            "private_bytes": 5913923584,
+            "peak_working_set_bytes": 1101369344,
+            "cpu_seconds": 5.28125
+          },
+          {
+            "pid": 20876,
+            "parent_pid": 25104,
+            "name": "conhost.exe",
+            "group": "ollama",
+            "working_set_bytes": 7819264,
+            "private_bytes": 1228800,
+            "peak_working_set_bytes": 7819264,
+            "cpu_seconds": 0.015625
+          },
+          {
+            "pid": 20984,
+            "parent_pid": 23704,
+            "name": "pwsh.exe",
+            "group": "prueba_cli",
+            "working_set_bytes": 87220224,
+            "private_bytes": 28307456,
+            "peak_working_set_bytes": 87220224,
+            "cpu_seconds": 0.4375
+          },
+          {
+            "pid": 3416,
+            "parent_pid": 20984,
+            "name": "conhost.exe",
+            "group": "prueba_cli",
+            "working_set_bytes": 10952704,
+            "private_bytes": 1904640,
+            "peak_working_set_bytes": 10952704,
+            "cpu_seconds": 0.046875
+          },
+          {
+            "pid": 26556,
+            "parent_pid": 20984,
+            "name": "pill.exe",
+            "group": "prueba_cli",
+            "working_set_bytes": 6459392,
+            "private_bytes": 1232896,
+            "peak_working_set_bytes": 6479872,
+            "cpu_seconds": 0.0
+          }
+        ]
+      }
+    }
+  },
+  "source_sha256": {
+    "src\\cli.rs": "ca664619d722f741ec9a074b36562e9c2e6db8fcd220505d1c962dc88006395e",
+    "src\\launch.rs": "c19169eb690c924b3e380fef9151804d4548d6e0507b1be0cb6df19e8bb136ea",
+    "src\\lib.rs": "a6efee92616e650599efb172f1f0cbea6d88778708aa06af018b904504fe112a",
+    "src\\main.rs": "3478c56d4317cbbf910c350309e7ae6584b28cf24a5ae2eaff0959f9a6399e08",
+    "src\\config\\mod.rs": "e0cb512d3b407b268a3734d1f007994e2708f8862a7e0e70e0ca48956bd09bd9",
+    "src\\providers\\mod.rs": "634e000cfd43988672227662456b14f9caddcd1e1e1c9b1b4d48c579c7bed6e8",
+    "src\\providers\\ollama\\mod.rs": "57fda0fd3ee37c3750e7e141731e9a58bedda8496c17b272910c05149083c02a",
+    "src\\session\\mod.rs": "decc13cc8bffb2d808af0b0a437336a561fe9c7e81584f0b634a10796826debd",
+    "src\\ui\\mod.rs": "fc2c8e74958055ad5fb7167f1dd3bc86716c611b43ebff5ed730938fd527186b",
+    "src\\ui\\model.rs": "5cb6dd18fcfbfcaeae9eed28586d0e1de012fde9ef25f3c7f3e15601ab7e4bf7",
+    "src\\ui\\native.rs": "c12bff19aac340dd9bb4f6dda8e5690404d896623df9b06fe9184ab0157f454d",
+    "src\\ui\\render.rs": "0d6e851743f7407095706e30b1e9f5796bda90b0c7658d163bd81f2fdb724c99",
+    "tests\\ollama_live.rs": "4fea28dcac5e6d165cfe31d95e5556280d61b25eb8d21d51569391b20f2d364c",
+    "Cargo.toml": "a876b1344442bf7707394f59328580e67b7dac8c5930064e3d58b518f8dcbeb1",
+    "Cargo.lock": "502493d8c92594bab490a05c47aa0586bc226e052beeaca9ea089a9df5d1c88c",
+    "config\\defaults.json": "3e5e33866635c4ee954895978de1aa20572a9d6efb7ce09121c79f218ac931f0",
+    "diagnostics\\measure_e2.py": "22da60b8a5291811a672157c371ca528a7c9376c479752175fec85027a35868a",
+    "diagnostics\\test_console.py": "63d34b95e68ab6218492a2eaa1597e37503eb0bd5979eb751527f4e781102417",
+    "diagnostics\\test_ollama_console.py": "6ae09d2729e6856c977777dbef6332a316d9c81d8026a854976361d52dc41a86",
+    "diagnostics\\console_host.ps1": "37dacf5a9dbe928c1fba652d822d6f0c171360b7453e2f6b94b3d8f50b4261fd"
+  },
+  "binary_sha256": {
+    "bin\\pill.exe": "63c9f211a44dc41fd9d55cd0892c37ac3acaccc6e02a17e7936944c3494f4ee7",
+    "target\\release\\pill.exe": "63c9f211a44dc41fd9d55cd0892c37ac3acaccc6e02a17e7936944c3494f4ee7"
+  },
+  "integration_binary_initial_2b_sha256": "fcf83716dbef829d8be32844c00c8abf52ceaddccd485dc4419a772f7e398bc3",
+  "evidence_sha256": {
+    "evidencias\\2026-10-20-e2-live-2b.json": "ae3fd49d680e840dbbdc67b1ab8a9153f92fbbd800ce071f295403d58ceb4dd5",
+    "evidencias\\2026-10-20-e2-live-2b.stdout.txt": "a9a4aed054b35e95b2d37274ab29117af1d147f0ac98652f08c4cf13c4dd89fb",
+    "evidencias\\2026-10-20-e2-live-2b.stderr.txt": "389755437341b51f050d8b578fd5ade7491e9ac923fbe07a0bbd90075f0160c0",
+    "evidencias\\2026-10-20-e2-live-4bv2.json": "ecdf46e20c29c8d114b432fa10accdb6ec1971d8082100eedc3e92b4c19cf1dc",
+    "evidencias\\2026-10-20-e2-live-4bv2.stdout.txt": "11b4f92368d8e3921a5e2b58181a441c11153e46a86308fdac2b65f632024882",
+    "evidencias\\2026-10-20-e2-live-4bv2.stderr.txt": "12b71258f50bfffc4da14eb1c683fee6a0e0c23592cb00748d5173a0a2345df4",
+    "evidencias\\2026-10-20-e2-live-4b.json": "1a020c37571341fd6060f03b996982c78a005ff03d90031a7c567286704b158b",
+    "evidencias\\2026-10-20-e2-live-4b.stdout.txt": "eee760ec15791e645e11782e48600941d09197059c13c3053268251d15e112ee",
+    "evidencias\\2026-10-20-e2-live-4b.stderr.txt": "dcdee55ea88625049b37292c2f41ec0173b1fd29e81b997153ad22d8d8b2434f",
+    "evidencias\\2026-10-20-e2-live-cancel.json": "104e61b26b1855f2994268ad73d8844b760abd10c7120d41ac4091974698fb68",
+    "evidencias\\2026-10-20-e2-live-cancel.stdout.txt": "e1c2aead23f5fd3aae1be68efbab0bd5937ef64898f7da92c592ca729ba5d316",
+    "evidencias\\2026-10-20-e2-live-cancel.stderr.txt": "e2b444b2d496a89e6100d4549ba708f34378a85af1b1f066ab3a0fbf79a570fc",
+    "evidencias\\2026-10-20-e2-live-errors.json": "1443733e269f16b863684e5cb9a1984463acba45c84549a07d060b96430c9a17",
+    "evidencias\\2026-10-20-e2-live-errors.stdout.txt": "d3c60b699b6db3a11ed5ba0c6ad2e66a68cfb0b5a3f302a74cf94128e0c3d6a0",
+    "evidencias\\2026-10-20-e2-live-errors.stderr.txt": "389755437341b51f050d8b578fd5ade7491e9ac923fbe07a0bbd90075f0160c0",
+    "evidencias\\2026-10-20-e2-console-regression.json": "07867d3de980e9a2a16547ed25ac0de9d7ee78e0d09eb2fb198045b8dd2d9a05",
+    "evidencias\\2026-10-20-e2-console-regression.stdout.txt": "2e29cb76128e0dec82bc5fc77586c461fb1624f3e027ff3c41ed470bf7fa42f9",
+    "evidencias\\2026-10-20-e2-console-regression.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "evidencias\\2026-10-20-e2-console-ollama-final.json": "2768f15020e875d04877573986751304cb78a5e1e7da1d8e734abf0c7475a4ab",
+    "evidencias\\2026-10-20-e2-console-ollama-final.stdout.txt": "ca18ae619ca7099866689923b8e89a695ae5b93311dbee28455a276d21d03330",
+    "evidencias\\2026-10-20-e2-console-ollama-final.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "evidencias\\2026-10-20-e2-chat-2b.json": "c48e833dc065d42db193f2ab07fa7c5694ca43738e4af0bc7ea57bc189b74620",
+    "evidencias\\2026-10-20-e2-chat-4bv2.json": "f21ab42de56ccf1ee518c5b0521c6a1e2ca9fa330ed6d029f46e137ee230e640",
+    "evidencias\\2026-10-20-e2-chat-4b.json": "b661413cc91a52e84b0b1525dfeab8b15f5611e7ea6ead4d0468125cc4c2baa2",
+    "evidencias\\2026-10-20-e2-cancel-retry.json": "f26f6867b2f792f706dd5161cefe115cf7a1c67b7c20e53e37b08ea3334a2436",
+    "evidencias\\2026-10-20-e2-errors.json": "3682f66dd62e62d500d24b6ce2d1a070a341a230bc7a8670fc835edd9edf697e",
+    "evidencias\\2026-10-20-e2-consola.json": "38a0ea0fd1c527cd24cb2ed38f069c998c1939d1cfa5591890e8175b606c1490",
+    "evidencias\\2026-10-20-e2-regresion-consola.json": "3a9dc63ac338a5559d8cba105b624b9ad09633757cbbea238c2a521c8e8115af",
+    "evidencias\\2026-10-20-e2-console-ollama.json": "d6d5287d4eac121094678a121579e194c3c3a11d3f10c1dec766c7bf1474ac5a",
+    "evidencias\\2026-10-20-e2-console-ollama.stdout.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "evidencias\\2026-10-20-e2-console-ollama.stderr.txt": "cceb709d83c1c552fd63d09fa6cfdf2d8b98eb229c3eb51665f2744e665315be",
+    "evidencias\\2026-10-20-e2-console-ollama-diagnose.json": "271e2c72a3b6b75141165010f469b1e53454bbef2fef142b3f34fc1704392b82",
+    "evidencias\\2026-10-20-e2-console-ollama-diagnose.stdout.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "evidencias\\2026-10-20-e2-console-ollama-diagnose.stderr.txt": "7106fd4da8f4786f62f00ed9128470394cca327efc129e7faa29a08ebae876af",
+    "evidencias\\2026-10-20-e2-consola-fallo.json": "46904933e636587333b0c409cc2895e03aa90ac5b74ceb2017886c6f160362d1"
+  },
+  "incidents": [
+    "Consola-regression: hijo PASS y JSON guardado; wrapper fallo al imprimir resumen cp1252. Corregido stdout UTF8/resumen ASCII, sin repetir prueba aprobada. Texto bruto stdout conserva codificacion original.",
+    "Dos intentos consola Ollama no pasaron: diagnostico esperaba glifo emoji que ReadConsoleOutputCharacterW devolvio U+FFFD y espera de recursos 0.5s permitia terminar respuesta corta CAPSULA. Conservados stdout/stderr y captura de fallo. Prueba final abre nueva conversacion, exige Generando y edicion de texto con acento en la misma captura; sin retraso de medida en tramo critico."
+  ],
+  "limits": [
+    "Sin modelo principal elegido; una inferencia activa y ninguna descarga/unload solicitada por pruebas. Ollama compartido puede gestionar residencias automaticamente.",
+    "Tiempos de carga fria y respuestas cortas no son un benchmark de calidad/velocidad general.",
+    "GPU global compartida; size_vram es reporte Ollama por modelo. No atribuir uso global al CLI.",
+    "Mediciones primeras tres inferencias capturan test y ollama.exe/app, omiten llama-server; consola final incorpora hijos llama-server y distingue RAM/CPU de CLI y Ollama.",
+    "Working set no equivale a memoria privada ni incluye VRAM. CPU acumulada 0.0s del CLI refleja resolucion de medida y duracion corta, no garantia de CPU cero.",
+    "Visualizacion de emoji no acreditada en conhost; no cubre grafemas completos.",
+    "PASS de integracion no sustituye lint/build ni reviewer independiente; coordinador consolida los controles finales."
+  ]
+}

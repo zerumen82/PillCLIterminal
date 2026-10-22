@@ -1,0 +1,197 @@
+{
+  "fecha_utc": "2026-10-20T09:11:16.255033+00:00",
+  "resultado": "PASS",
+  "comprobaciones": [
+    {
+      "comando": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "codigo": 0,
+      "segundos": 0.172,
+      "salida": ""
+    },
+    {
+      "comando": [
+        "cargo",
+        "clippy",
+        "--locked",
+        "--offline",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "codigo": 0,
+      "segundos": 0.172,
+      "salida": "    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.05s\n"
+    },
+    {
+      "comando": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline"
+      ],
+      "codigo": 0,
+      "segundos": 0.375,
+      "salida": "\nrunning 9 tests\ntest cli::tests::paths_with_spaces_and_unicode_are_single_arguments ... ok\ntest ui::model::tests::selecting_a_command_executes_only_on_enter ... ok\ntest cli::tests::unknown_missing_and_duplicate_options_fail ... ok\ntest config::tests::unbounded_input_and_busy_polling_are_rejected ... ok\ntest ui::model::tests::a_slash_in_regular_text_does_not_open_menu ... ok\ntest config::tests::partial_preferences_preserve_limits_and_reject_grants ... ok\ntest ui::model::tests::slash_opens_menu_without_enter_and_escape_preserves_input ... ok\ntest ui::render::tests::control_characters_cannot_inject_terminal_sequences ... ok\ntest ui::model::tests::unicode_editing_keeps_utf8_boundaries_and_input_limit ... ok\n\ntest result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s\n\n\nrunning 0 tests\n\ntest result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s\n\n\nrunning 0 tests\n\ntest result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s\n\n    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.12s\n     Running unittests src\\lib.rs (target\\debug\\deps\\pill-e70c8fc083b29fb2.exe)\n     Running unittests src\\main.rs (target\\debug\\deps\\pill-5df0f69a202c0cb0.exe)\n   Doc-tests pill\n"
+    },
+    {
+      "comando": [
+        "cargo",
+        "build",
+        "--release",
+        "--locked",
+        "--offline"
+      ],
+      "codigo": 0,
+      "segundos": 0.094,
+      "salida": "    Finished `release` profile [optimized] target(s) in 0.05s\n"
+    },
+    {
+      "comando": [
+        "pill"
+      ],
+      "condicion": "stdin/stdout redirigidos",
+      "codigo": 1,
+      "esperado": 1,
+      "salida": "pill: pill se inicia desde una consola interactiva, sin redirigir entrada ni salida.\n"
+    },
+    {
+      "comando": [
+        "pill",
+        "--help"
+      ],
+      "condicion": "stdin/stdout redirigidos",
+      "codigo": 0,
+      "esperado": 0,
+      "salida": "pill · consola local\n\nUso: pill [--project RUTA] [--config ARCHIVO]\n\n  --project RUTA     Proyecto activo; por defecto, la carpeta actual.\n  --config ARCHIVO   Preferencias JSON; las rutas relativas parten del proyecto.\n  -h, --help         Mostrar esta ayuda.\n  -V, --version      Mostrar la versión.\n\nEscribe / dentro de pill para ver los comandos disponibles.\nLa interfaz se inicia solo desde una consola interactiva.\n"
+    },
+    {
+      "comando": [
+        "pill",
+        "--version"
+      ],
+      "condicion": "stdin/stdout redirigidos",
+      "codigo": 0,
+      "esperado": 0,
+      "salida": "pill 0.1.0\n"
+    },
+    {
+      "comando": [
+        "pill",
+        "--model",
+        "no-implementado"
+      ],
+      "condicion": "stdin/stdout redirigidos",
+      "codigo": 1,
+      "esperado": 1,
+      "salida": "pill: Opción desconocida: --model. Consulta pill --help.\n"
+    }
+  ],
+  "sha256_binario": "1ab199103eb1bb088685dc58b26123f9a2e1153cdeec17e62a096b1725746949",
+  "bytes_binario": 312320,
+  "archivos_sha256": {
+    "Cargo.toml": "29a3840de96bc79bea25e62855863e5e197c865b65a7acb66ecefb429d26bd94",
+    "Cargo.lock": "73c447ab1b6c4d32eb1c946a26cfb0341c6e34794024361a7c2c4629551032d1",
+    "config\\defaults.json": "cdbfc387530d4aa9eaa1cab08187ad18782c00edebfe1736672db555628c9435",
+    "scripts\\Install-Pill.ps1": "da59f04a88eedf36df28fe90c12c0a0ee5be073f16f0bd727527e2cb1e3d293f",
+    "src\\cli.rs": "915dfda79c9d8907740f9b604d2e899dd034bbf9d76f6491ce47d1feec66c624",
+    "src\\config\\mod.rs": "4d45a6b09e2526f241b4fc4473bd78df1ce9644904171433ca3f19175e23f60e",
+    "src\\launch.rs": "c19169eb690c924b3e380fef9151804d4548d6e0507b1be0cb6df19e8bb136ea",
+    "src\\lib.rs": "35ed103095d73fc5e0acc65d9ee8558588befede7838f14bdb36df078fa27b01",
+    "src\\main.rs": "02760b760c4b402a71f5828d304c50e71fd52ea795e4ec8d33771110a7138dd1",
+    "src\\ui\\mod.rs": "a60f025d63aeaafe59c840c6445bcc1da26376ddd71b43a9f0fda7fba68f292d",
+    "src\\ui\\model.rs": "f6e7eadcdf222af581d2c2a647bbb309bf0dd4ba0ea18a0ac51aff8f59359797",
+    "src\\ui\\native.rs": "67b39a43415823f0afe3765fe8d6476c11dcc7ac8b29d241c5bc1002c3deeb47",
+    "src\\ui\\render.rs": "8808a136a6a4f140674c16b86472710e3752d48f068d30b4c432927cc347348c",
+    "assets\\capsule-ascii.txt": "38c52a685a5ea3e662beba67381200a4c526c4ee91952772f64ac8fdffd5fff1",
+    "assets\\capsule.txt": "9f55a2d012d77799579a12efe1bb50ea2a1d16a38c5b27a44c4f56079c1ebd75"
+  },
+  "dependencias": [
+    {
+      "nombre": "itoa",
+      "version": "1.0.18",
+      "licencia_declarada": "MIT OR Apache-2.0"
+    },
+    {
+      "nombre": "memchr",
+      "version": "2.8.0",
+      "licencia_declarada": "Unlicense OR MIT"
+    },
+    {
+      "nombre": "proc-macro2",
+      "version": "1.0.106",
+      "licencia_declarada": "MIT OR Apache-2.0"
+    },
+    {
+      "nombre": "quote",
+      "version": "1.0.45",
+      "licencia_declarada": "MIT OR Apache-2.0"
+    },
+    {
+      "nombre": "serde",
+      "version": "1.0.228",
+      "licencia_declarada": "MIT OR Apache-2.0"
+    },
+    {
+      "nombre": "serde_core",
+      "version": "1.0.228",
+      "licencia_declarada": "MIT OR Apache-2.0"
+    },
+    {
+      "nombre": "serde_derive",
+      "version": "1.0.228",
+      "licencia_declarada": "MIT OR Apache-2.0"
+    },
+    {
+      "nombre": "serde_json",
+      "version": "1.0.149",
+      "licencia_declarada": "MIT OR Apache-2.0"
+    },
+    {
+      "nombre": "syn",
+      "version": "2.0.117",
+      "licencia_declarada": "MIT OR Apache-2.0"
+    },
+    {
+      "nombre": "thiserror",
+      "version": "2.0.18",
+      "licencia_declarada": "MIT OR Apache-2.0"
+    },
+    {
+      "nombre": "thiserror-impl",
+      "version": "2.0.18",
+      "licencia_declarada": "MIT OR Apache-2.0"
+    },
+    {
+      "nombre": "unicode-ident",
+      "version": "1.0.24",
+      "licencia_declarada": "(MIT OR Apache-2.0) AND Unicode-3.0"
+    },
+    {
+      "nombre": "windows-link",
+      "version": "0.2.1",
+      "licencia_declarada": "MIT OR Apache-2.0"
+    },
+    {
+      "nombre": "windows-sys",
+      "version": "0.61.2",
+      "licencia_declarada": "MIT OR Apache-2.0"
+    },
+    {
+      "nombre": "zmij",
+      "version": "1.0.21",
+      "licencia_declarada": "MIT"
+    }
+  ],
+  "limites": [
+    "Sin inferencia ni herramientas en E1",
+    "PATH persistente bloqueado por permisos del Registro; solo sesión verificada",
+    "Capturas reales UI en 2026-10-20-e1-consola.json"
+  ]
+}

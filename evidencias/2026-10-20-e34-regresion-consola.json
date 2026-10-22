@@ -1,0 +1,70 @@
+{
+  "fecha_utc": "2026-10-20T18:54:48.488353+00:00",
+  "tipo": "Regresión E1 sobre implementación actual; consola Windows real; sin inferencia",
+  "binario": "D:\\PROJECTS\\PILLCLITER\\bin\\pill.exe",
+  "sha256_binario": "4fb5156349d322c64277c6bf299b6bf9009ce5090ab8ded0dc0a3dec023204fa",
+  "sesiones": [
+    {
+      "salida": "/exit con flecha y Enter",
+      "codigo": 0,
+      "estado_antes": {
+        "input_mode": 503,
+        "output_mode": 3,
+        "cursor_size": 25,
+        "cursor_visible": 1,
+        "attributes": 7
+      },
+      "estado_despues": {
+        "input_mode": 503,
+        "output_mode": 3,
+        "cursor_size": 25,
+        "cursor_visible": 1,
+        "attributes": 7
+      },
+      "redimensionado": {
+        "antes": [
+          120,
+          30
+        ],
+        "despues": [
+          73,
+          21
+        ]
+      },
+      "capturas": {
+        "inicio": " .-----+-----.\n(##### |     )  pill\n '-----+-----'\nProyecto: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e1-p5ttwp1u\\Mi código\nConfiguración: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e1-p5ttwp1u\\Mi código\\.pillcli\\config.json\nModelo: sin seleccionar\nConectando con Ollama…\nEscribe / para abrir el menú. /help muestra la ayuda.\n>\n/ comandos · Ctrl+Enter enviar · Enter línea · Esc cancelar · Ctrl+C salir",
+        "barra_sin_enter": " .-----+-----.\n(##### |     )  pill\n '-----+-----'\nProyecto: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e1-p5ttwp1u\\Mi código\nConfiguración: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e1-p5ttwp1u\\Mi código\\.pillcli\\config.json\nModelo: sin seleccionar\nSelección explícita de modelo\nEscribe / para abrir el menú. /help muestra la ayuda.\nElige un número y pulsa Ctrl+Enter (sin descargas):\n1 · huihui_ai/qwen3-abliterated:4b-v2\n2 · huihui_ai/qwen3.5-abliterated:2B\n3 · huihui_ai/qwen3.5-abliterated:4B\n4 · llama2-uncensored:latest\n5 · llama3:latest\n6 · wizard-vicuna-uncensored:latest\n> /\n> /help  Mostrar la ayuda de consola\n  /exit  Volver a tu consola\n  /model  Elegir modelo e iniciar otra conversación\n  /permissions  Ver y conceder comandos registrados\n  /task  Activar tarea con agentes y pruebas reales\n  /chat  Volver al chat con herramientas\n/ comandos · Ctrl+Enter enviar · Enter línea · Esc cancelar · Ctrl+C salir",
+        "filtro": " .-----+-----.\n(##### |     )  pill\n '-----+-----'\nProyecto: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e1-p5ttwp1u\\Mi código\nConfiguración: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e1-p5ttwp1u\\Mi código\\.pillcli\\config.json\nModelo: sin seleccionar\nSelección explícita de modelo\nEscribe / para abrir el menú. /help muestra la ayuda.\nElige un número y pulsa Ctrl+Enter (sin descargas):\n1 · huihui_ai/qwen3-abliterated:4b-v2\n2 · huihui_ai/qwen3.5-abliterated:2B\n3 · huihui_ai/qwen3.5-abliterated:4B\n4 · llama2-uncensored:latest\n5 · llama3:latest\n6 · wizard-vicuna-uncensored:latest\n> /e\n> /exit  Volver a tu consola\n/ comandos · Ctrl+Enter enviar · Enter línea · Esc cancelar · Ctrl+C salir",
+        "escape": " .-----+-----.\n(##### |     )  pill\n '-----+-----'\nProyecto: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e1-p5ttwp1u\\Mi código\nConfiguración: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e1-p5ttwp1u\\Mi código\\.pillcli\\config.json\nModelo: sin seleccionar\nSelección explícita de modelo\nEscribe / para abrir el menú. /help muestra la ayuda.\nElige un número y pulsa Ctrl+Enter (sin descargas):\n1 · huihui_ai/qwen3-abliterated:4b-v2\n2 · huihui_ai/qwen3.5-abliterated:2B\n3 · huihui_ai/qwen3.5-abliterated:4B\n4 · llama2-uncensored:latest\n5 · llama3:latest\n6 · wizard-vicuna-uncensored:latest\n> /e\n/ comandos · Ctrl+Enter enviar · Enter línea · Esc cancelar · Ctrl+C salir",
+        "ayuda": " .-----+-----.\n(##### |     )  pill\n '-----+-----'\nProyecto: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e1-p5ttwp1u\\Mi código\nConfiguración: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e1-p5ttwp1u\\Mi código\\.pillcli\\config.json\nModelo: sin seleccionar\nSelección explícita de modelo\nEscribe / para abrir el menú. /help muestra la ayuda.\nElige un número y pulsa Ctrl+Enter (sin descargas):\n1 · huihui_ai/qwen3-abliterated:4b-v2\n2 · huihui_ai/qwen3.5-abliterated:2B\n3 · huihui_ai/qwen3.5-abliterated:4B\n4 · llama2-uncensored:latest\n5 · llama3:latest\n6 · wizard-vicuna-uncensored:latest\n/help · Mostrar la ayuda de consola\n/exit · Salir y restaurar la consola\nFlechas: seleccionar. Tab: completar. Enter: ejecutar. Esc: cerrar menú.\n/model · Elegir modelo y empezar otra conversación\nCtrl+Enter envía; Enter añade línea. Esc cancela la operación activa.\nEl chat usa herramientas reales del proyecto. /permissions muestra comandos; /task activa agentes y pruebas. /chat vuel\nve al chat. MCP y /liberate pendientes.\nPgUp/PgDn desplazan respuestas; flechas sin menú recuperan peticiones anteriores.\n>\n/ comandos · Ctrl+Enter enviar · Enter línea · Esc cancelar · Ctrl+C salir",
+        "unicode": " .-----+-----.\n(##### |     )  pill\n '-----+-----'\nProyecto: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e1-p5ttwp1u\\Mi código\nConfiguración: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e1-p5ttwp1u\\Mi código\\.pillcli\\config.json\nModelo: sin seleccionar\nSelección explícita de modelo\nEscribe / para abrir el menú. /help muestra la ayuda.\nElige un número y pulsa Ctrl+Enter (sin descargas):\n1 · huihui_ai/qwen3-abliterated:4b-v2\n2 · huihui_ai/qwen3.5-abliterated:2B\n3 · huihui_ai/qwen3.5-abliterated:4B\n4 · llama2-uncensored:latest\n5 · llama3:latest\n6 · wizard-vicuna-uncensored:latest\n/help · Mostrar la ayuda de consola\n/exit · Salir y restaurar la consola\nFlechas: seleccionar. Tab: completar. Enter: ejecutar. Esc: cerrar menú.\n/model · Elegir modelo y empezar otra conversación\nCtrl+Enter envía; Enter añade línea. Esc cancela la operación activa.\nEl chat usa herramientas reales del proyecto. /permissions muestra comandos; /task activa agentes y pruebas. /chat vuel\nve al chat. MCP y /liberate pendientes.\nPgUp/PgDn desplazan respuestas; flechas sin menú recuperan peticiones anteriores.\n> áz\n/ comandos · Ctrl+Enter enviar · Enter línea · Esc cancelar · Ctrl+C salir",
+        "redimensionado": " .-----+-----.\n(##### |     )  pill\n '-----+-----'\nProyecto: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e1-p5ttwp1u\\Mi\nConfiguración: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e1-p5ttwp\nModelo: sin seleccionar\nSelección explícita de modelo\n/exit · Salir y restaurar la consola\nFlechas: seleccionar. Tab: completar. Enter: ejecutar. Esc: cerrar menú\n.\n/model · Elegir modelo y empezar otra conversación\nCtrl+Enter envía; Enter añade línea. Esc cancela la operación activa\n.\nEl chat usa herramientas reales del proyecto. /permissions muestra coman\ndos; /task activa agentes y pruebas. /chat vuelve al chat. MCP y /libera\nte pendientes.\nPgUp/PgDn desplazan respuestas; flechas sin menú recuperan peticiones a\nnteriores.\n> áz\n/ comandos · Ctrl+Enter enviar · Enter línea · Esc cancelar · Ctrl+"
+      },
+      "resultado": "PASS"
+    },
+    {
+      "salida": "Ctrl+C",
+      "codigo": 0,
+      "estado_antes": {
+        "input_mode": 503,
+        "output_mode": 3,
+        "cursor_size": 25,
+        "cursor_visible": 1,
+        "attributes": 7
+      },
+      "estado_despues": {
+        "input_mode": 503,
+        "output_mode": 3,
+        "cursor_size": 25,
+        "cursor_visible": 1,
+        "attributes": 7
+      },
+      "redimensionado": null,
+      "capturas": {
+        "inicio": "╭─────┬─────╮\n│█████│     │  pill\n╰─────┴─────╯\nProyecto: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e1-9ms40ewt\\Mi código\nConfiguración: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e1-9ms40ewt\\Mi código\\.pillcli\\config.json\nModelo: sin seleccionar\nConectando con Ollama…\nEscribe / para abrir el menú. /help muestra la ayuda.\n>\n/ comandos · Ctrl+Enter enviar · Enter línea · Esc cancelar · Ctrl+C salir"
+      },
+      "resultado": "PASS"
+    }
+  ],
+  "resultado": "PASS"
+}
