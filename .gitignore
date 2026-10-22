@@ -1,3 +1,5 @@
 target/
 /bin/*.exe
 .pillcli/
+__pycache__/
+*.pyc
