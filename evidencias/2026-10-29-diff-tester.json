@@ -1,0 +1,42 @@
+{
+  "bin_sha256": "32abf02d4422a0b13347dfdc353a413eb5794449a3c06540ba4507e75596d1be",
+  "bin_size": 13276672,
+  "prev_sha_ref": "62a185... (contexto usuario: 13240320 bytes)",
+  "prev_size_ref": 13240320,
+  "diff_real_bin": true,
+  "bin_diff_detail": "nuevo: 32abf02d4422a0b13347dfdc353a413eb5794449a3c06540ba4507e75596d1be / 13276672 bytes; anterior (referido): 13240320 bytes",
+  "defaults": {
+    "ui.color": true,
+    "ui.diff_context_lines": 3,
+    "ui.diff_max_cells": 262144,
+    "valid_color": true,
+    "valid_context": true,
+    "valid_max_cells": true
+  },
+  "contract_evidence": {
+    "has_plus_minus": true,
+    "plus_lines_in_render": true,
+    "context_marker_space": true,
+    "has_at_at_header": true,
+    "metadata_before_diff": true,
+    "metadata_saltos": true,
+    "metadata_bom": true,
+    "metadata_escapes_notice": true,
+    "tone_enum_colors": true,
+    "no_ansi_in_content_assert": true,
+    "no_normalization_notice": true,
+    "no_patch_tool": true,
+    "tu_header_in_model": true,
+    "respuesta_action_headers_present": true
+  },
+  "presentation_separation": {
+    "tú_header": false,
+    "respuesta_header": false,
+    "respuesta_parcial": false,
+    "respuesta_completa_ms": true,
+    "accion_header": false,
+    "respuesta_curso": true
+  },
+  "inference_declared": "El prefijo + o - real en una conversación interactiva requiere ejecutar el menú / y elegir una fila con Enter; no se invoca aquí para no interferir con el coordinador. Se cubre por evidencia de código y binario existente.",
+  "limit_cover_others": true
+}
