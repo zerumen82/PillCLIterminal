@@ -122,3 +122,167 @@
 - El usuario dijo «de la 1 10» sobre la segunda lista de mejoras de consola. Se implementaron las diez, sin paquetes nuevos y sin cambiar `ollama.model` null, `num_ctx` 4096, `num_predict` 512, `think` false ni `temperature` 0.2. Con `think` activo, la barra dice `razonando · N caracteres` y el historial guarda una sola línea `Razonamiento plegado`; el texto no se vuelca ni sale como delta. Las listas de modelo y de permisos se marcan con flechas y Ctrl+Enter; el número escrito sigue valiendo. Cada herramienta deja una línea corta: coincidencias, cambio `old → new`, entradas o código de salida. La cabecera dice `Reserva:` con la misma cuenta de siempre y añade `cerca del límite` al 80 %. Inicio y Fin se quedan en la línea, Ctrl+flechas saltan palabras y, en varias líneas, arriba y abajo mueven el cursor; en una sola línea siguen recuperando peticiones. Escribir ya no pone el scroll a cero. Si hay texto nuevo oculto, una fila dice `hay texto por debajo`. PgUp no deja el historial en blanco. La cabecera de una tarea dice `Modo: Tarea · rol · paso`. El aviso de efectos parciales incluye la ruta corta `.pillcli/...`. `/model` sigue sin levantar ese bloqueo. En permisos, Ctrl+Enter concede o retira; una raíz extra no se concede ni se retira. `/liberate` pide Enter solo cuando hay exclusividad y modelos de esta sesión; la acción de backend sigue siendo inmediata, así que las pruebas de liberación no cambian. `cargo fmt --all`, `cargo clippy --locked --offline --all-targets -- -D warnings`, `cargo test --locked --offline` y `cargo build --release --locked --offline` terminaron con código 0. Pruebas: 77 en verde (47 biblioteca, 12 comandos, 10 archivos, 4 MCP, 4 liberación) y 5 opt-in ignoradas. Release y `bin/pill.exe` idénticos, SHA-256 `0BA51AAD5156D199C0DD5EEEFA03D74E3CF3EEDECE457CF3880D2F05354C009B`, 12259840 bytes, 2026-10-22 21:53:51. `Install-Pill.ps1 -SkipBuild -SessionOnly` no tocó el Registro. `python diagnostics/test_console.py --evidence evidencias/2026-10-22-ui-listas.json` respondió PASS; no se reescribieron las evidencias del 2026-10-20 ni `evidencias/2026-10-22-ui-consola.json`. No se descargó un modelo real ni se detuvo ComfyUI. `diagnostics/test_ollama_console.py` sigue desfasada y no se ejecutó. No hay tester PASS ni reviewer APPROVE. No se declara E5 cerrada ni la v1 terminada.
 
 - El usuario dijo «todo. haz commit y luego pusheamos» sobre las cinco mejoras siguientes. Se implementaron sin paquetes nuevos y sin cambiar `ollama.model` null, `num_ctx` 4096, `num_predict` 512, `think` false ni `temperature` 0.2. Ctrl+R abre y cierra el texto del razonamiento; el pliegue sigue siendo una línea corta y el texto no sale como delta. `/journal` lee las últimas líneas del `.jsonl` más reciente y no crea un diario; si no hay, lo dice. La barra añade los segundos mientras hay trabajo, sin sustituir la actividad. Retroceso, Supr, izquierda y derecha borran o mueven un grafema local. `.pillcli/model.json` guarda los mensajes que el modelo vio y `.pillcli/console.json` el historial de pantalla. La primera elección recupera el modelo solo si nombre y digest coinciden; un modelo distinto no borra ese archivo. Una elección posterior de `/model` empieza otra conversación, así el siguiente arranque no finge la memoria anterior. Si el archivo supera `agents.max_journal_bytes`, se omiten mensajes antiguos que no son el sistema y se dice cuántos. Un historial que no cabe en el contexto sigue rechazándose con el error de siempre. `/model` no levanta los efectos parciales. `cargo fmt --all`, `cargo clippy --locked --offline --all-targets -- -D warnings`, `cargo test --locked --offline` y `cargo build --release --locked --offline` terminaron con código 0. Pruebas: 83 en verde (52 biblioteca, 12 comandos, 11 archivos, 4 MCP, 4 liberación) y 5 opt-in ignoradas. Release y `bin/pill.exe` idénticos, SHA-256 `FDD485C66C146517B3780FB65B065E646F38F345FE58A43259F7A3BEE3583127`, 12284416 bytes, 2026-10-22 22:48:41. `Install-Pill.ps1 -SkipBuild -SessionOnly` no tocó el Registro. `python diagnostics/test_console.py --evidence evidencias/2026-10-22-ui-diario.json` respondió PASS; no se reescribieron las evidencias anteriores. No se descargó un modelo real ni se detuvo ComfyUI. No hay tester PASS ni reviewer APPROVE. No se declara E5 cerrada ni la v1 terminada.
+
+## 2026-10-27
+
+- El usuario pidió revisar `memory.md` y los pendientes. Se leyeron las reglas globales, la bitácora y `spec/03-PENDIENTES.md`, y se contrastaron los seguimientos de requisitos y del plan. Último corte registrado: 2026-10-22, 83 pruebas locales, formato/Clippy/build y sonda básica de consola PASS; cinco pruebas opt-in ignoradas. Es evidencia histórica, no una comprobación nueva. E5 y las mejoras posteriores siguen sin tester PASS ni reviewer APPROVE independientes; E6 sigue pendiente.
+- Pendientes conservados: mover/eliminar, lecturas independientes concurrentes, interrupción real del stream con herramientas incompletas, recuperación/reconciliación automática y lotes de archivos, elección del modelo principal, PATH persistente, política adicional de pegado del menú, inventario completo de licencias transitivas de E5 y validación real de liberación de GPU. Se confirmó que `diagnostics/test_ollama_console.py:70` aún espera el estado antiguo `Preparado · herramientas pendientes`.
+- Discrepancia documental confirmada: existe repositorio Git, aunque `AGENTS.md` afirma lo contrario. `git log -1` muestra `8149330`, de 2026-10-22 22:51:40 +02:00, «Ignora la caché de Python del diagnóstico»; `git remote -v` no muestra remotos. Antes de esta anotación ya había cambios sin confirmar en `Cargo.toml`, `tests/tools_live.rs`, `PLAN-ORIGINAL.md` y numerosas evidencias. No se alteraron esos archivos ni se hicieron commits o push.
+- Alcance de esta sesión: revisión de estado y anotación en bitácora. No se ejecutaron pruebas, lint ni build, no se modificó código y no se declara cerrada ninguna etapa.
+
+- Continuación autorizada: el usuario dijo «hazlo todol» y aprobó expresamente el diseño de mover/borrar con confirmación concreta, lecturas concurrentes, reconciliación sin repetir escrituras y resultados por archivo. Se aplican skills `fix` y `plan`; contratos nuevos en `spec/07-R09.md`, `spec/08-RECUPERACION.md` y `spec/09-CIERRE-20261027.md`. Se delegaron archivos, recuperación y controles independientes de reviewer/tester conforme a las reglas. No se incorporan paquetes ni modelos nuevos.
+- Auditoría independiente inicial CHANGES_REQUESTED: MCP posterior a envío se etiquetaba failed sin bloquear; persistencia truncaba un hardlink antes de validarlo; gpu.nvidia_smi de configuración podía ejecutar un programa sin concesión; preparación MCP soltaba los handles antes de arrancar. Se corrigieron esas rutas y las cotas de transporte/listado/argumentos, IDs ambiguos, permisos de un uso y recuperación histórica conservadora. La revisión final sigue pendiente.
+- Controles en curso: `cargo check --locked --offline --all-targets` PASS tras corregir el uso de alias privados de rmcp. Primer wrapper detuvo Clippy por un if colapsable, corregido. Segundo wrapper pasó formato/Clippy y detectó que una oferta de archivo obsoleta impedía abrir el resto de permisos; se invalida y retira esa oferta. Fallos conservados en `evidencias/2026-10-27-checks-inicial.json` y `evidencias/2026-10-27-checks-segundo.json`. Tercer wrapper pasa formato/Clippy/pruebas; release en curso. Estos controles todavía no equivalen al cierre de v1.
+
+- Corte final de código: `2026-10-27-checks-cuarto.json` PASS en formato, Clippy, 119 pruebas locales, build release y metadatos Windows offline. Siete pruebas opt-in pendientes de ejecutar por separado. Release/distribuido idénticos SHA-256 `900f33be9fa88ba6445c2d66d7c117299f8cf11c37c6977b0cec188c968675f1`, copiados solo con PATH de sesión. Reviewer independiente APPROVE, 35/35 hashes comprobados, en `2026-10-27-review.md`. Inventario completo de 160 paquetes externos con licencia declarada y ninguno sin licencia en `2026-10-27-licencias.json`. No se elige licencia del proyecto.
+- Tester independiente: básica-r3 PASS sobre el binario final tras corregir el layout real a 73×21; funciones-consola-r3 PASS en 21 comprobaciones. Dos fallos previos conservados. La sonda viva r3 tenía un predicado anticuado: durante trabajo real la barra puede decir Trabajando/razonando además de Generando. Se corrigió la comprobación con una misma captura y se tomó evidencia antes del muestreo bloqueante; `2026-10-27-tester-ollama-consola-r4.json` PASS real sin cambiar el producto ni ampliar límites de generación.
+- Los agentes independientes sufrieron límites de uso/capacidad después de estas comprobaciones. El coordinador continúa las integraciones opt-in en serie mediante `diagnostics/run_live_checks.py`, con stdout/stderr, hashes y evidencia separada de cada caso; no presenta sus propias ejecuciones como un veredicto independiente todavía inexistente. El chequeo Git normal confundió los CRLF preexistentes con espacios finales; la comprobación con `cr-at-eol` PASS sin normalizar ni pisar los archivos ajenos.
+
+- Integraciones reales finales: `2026-10-27-live-summary.json` PASS en los seis casos opt-in ejecutados en serie (chat/stream, cancelación/reintento, errores de contexto/conexión, corrección con herramientas, cinco roles y corte real de NDJSON). Cada caso conserva stdout/stderr e informe propio; fuentes intactas. La consola real de cinco roles respondió PASS 29/29 (`2026-10-27-consola-cinco-roles.json`): prueba exit1 antes→exit0 después, pruebas sin modificar, lectura reviewer/SHA final, diarios correlacionados y separados, Ctrl+R sobre razonamiento real, salida y restauración. Perfil de herramientas 4b-v2/contexto16384/predict2048/thinktrue; no es elección principal.
+- GPU real exclusiva PASS (`2026-10-27-gpu-real.json` y `.rust.json`): servidor propio en puerto efímero con PID propietario del listener y Job Object propio. Modelo 2B ya instalado, contexto8192/predict512/thinkfalse, 1.712.964.238 bytes en GPU. Arranque/modo compartido conservaron; concesión explícita temporal y /liberate exclusivo descargaron solo su modelo, confirmado por own /api/ps vacío. Servidor compartido y cinco procesos Python ajenos conservaron identidad; /api/ps compartido idéntico antes/después, modelos instalados intactos y todos los procesos del diagnóstico cerrados. VRAM global7716→5310→5301MiB, sin atribuir el delta exclusivamente al modelo; no se mató ComfyUI ni se descargó su memoria. Séptimo opt-in explícito PASS.
+- Cierre independiente: tester FINAL PASS y auditoría57/57PASS en `2026-10-27-tester.md` y `2026-10-27-tester-auditoria.json`, sobre las mismas fuentes/binario `900f33be9fa88ba6445c2d66d7c117299f8cf11c37c6977b0cec188c968675f1`. Reviewer de código APPROVE conservado. El CLI tuvo148muestras, working set máximo observado9.379.840bytes, privados1.998.848bytes y deltaCPU0,53125s; Ollama/hosts separados, sin promesa ni umbral. R05 acredita dos lecturas reales de8MiB con865.029.500ns de solapamiento; no hay pausas/barreras artificiales.
+- E5 y las ampliaciones R04/R05/R08/R09/R14/UI quedan cerradas en el alcance verificado del corte27. README, guía de agentes, plan y especificaciones actualizados distinguiendo los cortes históricos; resumen reproducible en `2026-10-27-resumen.json`. No se repiten lint/build por estos cambios exclusivamente documentales posteriores. No se crean commits ni remoto ni push, y se conservan las diferencias CRLF preexistentes. No hubo paquetes/modelos nuevos.
+- E6/v1 NO cerrada. Se formularon preguntas al usuario que siguen sin respuesta: conservar selección manual o elegir modelo principal (P04); autorizar expresamente el instalador estándar persistente para sustituir solo la restricción P07 de AGENTS.md; y aprobar Ctrl+Enter en confirmación final de /liberate o aceptar Enter con el límite de pegado documentado (P08). La skill plan exige aprobación antes de cambiar esa interacción; no se cambia sin respuesta. El modelo continúa null, no se escribe el Registro y /liberate conserva su interacción aprobada anterior. La representación/ancho de todos los glifos sigue limitada por la consola.
+
+- Reviewer independiente: APPROVE DOCUMENTAL FINAL registrado en evidencias/2026-10-27-review.md tras alinear 12 documentos y validar 46 enlaces/anclas de su alcance; 35/35 fuentes y ambos binarios 900f33be intactos. Validación local complementaria PASS en 14 documentos, 50 enlaces y AST de 8 diagnósticos Python (evidencias/2026-10-27-documentos.json). No quedan hallazgos bloqueantes del corte E5. E6 espera las respuestas P04/P07/P08; no se deduce autorización de su ausencia.
+
+- Nueva petición: revisar y sugerir mejoras de UI/logo, recursos y fiabilidad del cliente/ediciones. Se revisaron código, configuración, pruebas y capturas del corte E5; dos agentes auditaron UI y fiabilidad por separado. Se consultaron fuentes oficiales de Microsoft sobre VT/ReplaceFileW y Ollama sobre contexto/API. No se implementa funcionalidad ni se cambian prioridades sin decisión del usuario.
+- Auditoría real Win32 sin inferencia: evidencias/2026-10-27-auditoria-ui.json sobre binario900f33be confirma Esc sin cerrar selector de modelos y pie de permisos que anuncia enviar/nueva línea pese a mostrar detalle/conceder. No se crearon concesiones ni ejecutaron comandos; salida0/restauración exacta/host propio cerrado. Ambos defectos se registran en spec/03-PENDIENTES.md; no se presentan como corregidos.
+- Se creó REVISION-USABILIDAD-FIABILIDAD.md con cápsula/cabecera compactas, permisos legibles, modos explícitos, diff, guardado robusto con errores visibles, restauración por turnos completos, recuperación guiada, optimización de render/lecturas/MCP, perfiles medidos y evaluación repetida. Los riesgos de pérdida de historial y vínculos tool/sistema proceden de lectura del código y no se afirman como fallos de disco reproducidos. Los datos de recursos son históricos; no se promete ahorro nuevo.
+- UI y fiabilidad emitieron APPROVE DOCUMENTAL independientes sobre el informe y la deuda nueva. Validación local de formato/enlaces/evidencia y35/35fuentes intactas PASS en evidencias/2026-10-27-validacion-propuestas.json. No se repiten lint/build ni integraciones al no modificar código/configuración/binarios. No se instalaron paquetes/modelos ni se modificó Registro ni se hicieron commits. Las propuestas no cambian las decisiones P04/P07/P08 pendientes.
+
+## 2026-10-28
+
+- Se retoma «arréglalo todo» sobre la revisión de usabilidad/fiabilidad y se añade instalación/desregistro seguro. El usuario aprobó expresamente registrar D:\PROJECTS\PILLCLITER\bin en User PATH mediante el instalador revisado DESPUÉS de las pruebas; no autoriza retirar entradas ajenas ni desinstalar realmente. Esta autorización sustituye P07 solo para ese registro. Model sigue null; no se incorporan paquetes nuevos.
+- Contrato previo a implementación en spec/10-USABILIDAD-FIABILIDAD-INSTALACION.md, U01–U15; contratos especializados11/12/13. Skills fix y plan aplicadas; la petición aprueba el diseño recomendado. Se reparten UI, persistencia y scripts entre agentes con propiedad de archivos separada. Las interrupciones por cuota dejaron fuentes en curso; se retoman sin repetir autorizaciones. El release900f anterior no acredita estos cambios nuevos.
+- En desarrollo: configUIcompacta/bytes/render/perfiles, metadatosconreintentosacotados soloenconsultas, timeoutsporprimerfragmento/inactividad/total, lecturasconpoolnativosinruntimeporlectura; UI/persistencia/scripts todavía integrándose. No se anuncia build/lint ni cierre de esta nueva entrega. No se ha modificado User PATH aún.
+
+- Seguimiento 2026-10-28: las regresiones nuevas detectaron que el catalogo de herramientas ya no cabia en el contexto incluido (4157/4096 bytes reservados). Se acortaron descripciones conservando contratos y permisos; la regresion paso sin subir el contexto ni elegir modelo. Las seis expectativas antiguas de UI se actualizaron al contrato aprobado (Ctrl+Enter, detalles navegables y paginacion real); 64 pruebas de biblioteca PASS en ese corte intermedio.
+- Fallos intermedios conservados: Clippy detecto un prestamo redundante en archivado y una prueba nueva usaba concesiones dentro de la raiz del modelo (correctamente rechazadas); se corrigieron codigo/fixture. Una edicion de coordinacion escribio dos archivos con codificacion local de Windows; rustfmt lo detecto, se restituyo UTF-8 antes de compilar. No se instalaron dependencias.
+- Reviewer independiente solicito cambios R01 ayuda desfasada, R02 bloqueo/preview de recuperacion desincronizados, R03 metadatos /api/ps invalidos presentados como no cargado y R04 un limite de exploracion del proyecto bloqueaba ofertas privadas seguras. Se corrigieron y se anadieron regresiones; re-review pendiente. Evidencia inicial: evidencias/2026-10-28-review-current-inicial.json.
+- Instalador revisado: reviewer y tester ejecutaron independientemente 45 comprobaciones Process/temp PASS, preservando User y Machine PATH. Evidencias evidencias/2026-10-28-review-installer-process.json y evidencias/2026-10-28-tester-installation-process.json. Usaban release anterior: no acreditan Rust actual. Sigue pendiente el release nuevo, pruebas finales y registro User PATH expresamente autorizado al pasar controles. No se ha ejecutado desinstalacion real ni registro User PATH.
+
+- Controles independientes del corte intermedio2c017922: formato, Clippy,157pruebas locales y releasePASS;8opt-in ignoradas no contadas. Evidencia evidencias/2026-10-28-tester-independent-segundo.json. Se ejecutaron despues7integraciones opt-in reales en serie, todasPASS: chat, cancelacion, errores, edicion con herramientas, cinco roles, interrupcionNDJSON y corpus2tareas/4archivos. Modelo existente4b-v2, digest9d803f2d..., contexto16384/predict2048/thinktrue solo pruebas; modelo principalnull conservado. Evidencias prefijo2026-10-28-live. No nuevas descargas ni efectos en proyectos del usuario.
+- Medicion real de UI con borrador sin enviar: antes900f CPUdelta0,03125s/working-set7835648/privados1441792; despues2c0179 CPUdelta0,015625s/working-set20578304/privados1777664. Una muestra con80entradas, resolucionCPU de Windows y procesos distintos: no prueba ahorro universal. Aumentaron working-set y privados en esta observacion; no se oculta. Artefacto2026-10-28-ui-resources.json. Pintor en bufferreal:100frames150490bytescompletos frente2690incrementales,0bytesmismoestado; no mideCPU/GPU.
+- Consola legacy sobre2c0179PASS restaurando estado. Sonda nueva descubrio titulo /status fuera de vista y JSON de /archive ocultando explicacion; se conservaron FAIL2026-10-28-ui-improvements.json y ui-diagnostico-detalles.json. Se corrigen detalles desde principio con titulo fijo/navegacion coherente, resumen de archivo y pies sin confirmar filas vacias. Se repiten controles/build/review porque cambiaUI. Los modulos de ejecucion de las7integraciones permanecen intactos.
+- Revision de /copy con documentacion Microsoft: OpenClipboard(NULL) seguido de EmptyClipboard impide SetClipboardData; corregido a ventana de consola valida y rechazo previo si no existe. Fuente https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-openclipboard . No se ejercita escritura del portapapeles global para conservar su contenido; sonda verifica ausencia de respuesta copiable sin modificarlo. Este limite se declara, no se presenta como prueba de copia global realizada.
+
+- Fuentes finales congeladas: tester independiente cuarto PASS formato/Clippy,158tests locales,buildreleaseoffline y45checks instalador sobre binariofinal. SHA96968d21f9c1a7603187d78544496bd484f17c1e4190bb25a3876496a42bfa16,13208064bytes. Reviewer APPROVE actualizado UI coincide con todos los hashes actuales (sinmismatches). Consola legacy independientePASS y consola mejoras independiente16/16PASS en treshosts con estado restaurado; evidencia2026-10-28-tester-ui-final.json. No se ha registrado aun UserPATH.
+- El primer intento de sonda final esperaba desbloqueo despues de reconocer solo una de dos incidencias del mismo diario truncado. El backend conservo correctamente el bloqueo por la otra. Se corrigio solo la sonda para revisar las dos individualmente y comprobar que una no borra la otra; PASSpropio e independiente sobreSHA96968d sin cambiarproduccion. Se conserva FAILui-final.json y PASSui-final-segundo.json/tester-ui-final.json.
+- Medicion comparativa final antes900f/despues96968d: working-set7737344/9302016,privados1359872/1851392,CPUdelta0,015625/0,03125s. Esta muestra invierte el sentido del deltaCPU del corteintermedio, confirmando que no hay evidencia de ahorroCPU universal. Se anota incrementoRAM en la muestra. El pintor sigue emitiendo menosbytes en su caso acotado; la medicion no acredita aceleracion de Ollama. Artefacto2026-10-28-ui-resources-final.json.
+
+- Registro real primer intento detenido por validacion antes de efectos: el release de Cargo tiene dos enlacesNTFS (`release/pill.exe` y `release/deps/pill.exe`). El lector generico del instalador exigiaLinks1. Reviewer/tester confirmaron de formaindependiente UserPATHraw/tipo intactos, bin900f intacto, manifiestoausente y release96968d intacto (tester-installation-failure-snapshot.json). El FAIL se conserva en instalacion-user-real.json; no se presenta como instalacion realizada.
+- Spec11 y scripts corregidos solo para fuente compilada: OpenBuildArtifact READ|SYNCHRONIZE sinWRITE/DELETE y shareREAD; permite sus enlaces y copia porhandle. Destinos/manifest siguen OpenRegular Links1. Se prueba bloqueo de escritura poralias y conservacion de ambos alias/hash tras install/uninstall en muestra. Una expectativa adicional de impedir eliminar OTRO nombrehardlink fallo en Windows (47checks, evidencia guardada); no es requisito para inmovilidad de bytes y se corrigio la especificacion sin modificar la politica de escrituras. Segundo intento local49checksPASS; fuentesRust/UI/release96968d no cambiaron. Pendientes suplementoreviewer/tester y segundo intento de registroreal.
+
+- CIERRE 2026-10-28: la lectura del artefacto Cargo corregida obtuvo reviewer APPROVE (review-current-installer-final.json),49tests independientes PASS y9comprobaciones adicionales sobre el artefacto REAL/alias deps (tester-source-artifact-readonly.json). Se preserva ClippyFAIL inicial y posteriores PASS; el suplemento de scripts no cambia Rust/UI del release96968d.
+- Registro real SEGUNDO intento PASS mediante Install-Pill.ps1 -SkipBuild -ExpectedPreviousHash900f... autorizado expresamente. Se anadio D:\PROJECTS\PILLCLITER\bin solo a User PATH y al proceso instalador; valor previo, orden, entradas y tipoREG_SZ se conservaron segun plan exacto. Machine PATH intacto. Notificacion de entorno enviada. Se creo bin/installation.json completo, con propiedad de la entrada añadida, hash e identidad. La version previa se conservo en pill.exe.previous.7ca79eb3f1bb48d198cd7e093fcbe357; no se eliminaron proyectos ni modelos.
+- Proceso nuevo con entorno recompuesto de Machine/User persistentes resolvio D:\PROJECTS\PILLCLITER\bin\pill.exe y devolvio pill0.1.0. Bin instalado y release comparten SHA96968d21f9c1a7603187d78544496bd484f17c1e4190bb25a3876496a42bfa16. Diez comprobaciones finales PASS en instalacion-user-real-segundo.json: planexacto, Machineintacto, hash, manifiesto, resolucion/versionnuevoproceso, WhatIfpreservaPATH/manifiesto/binario y planidempotente. La desinstalacion REAL no se ejecuto. Consola instalada verificada otra vez PASS en installed-console.json, con restauracion Win32.
+- Documentacion/AGENTS/planes alineados: P07 cerrado, E6/v1 NO terminada porque P04(modeloprincipal) y P08 siguen requiriendo decision del usuario. Modelo incluido null conservado. Sin paquetes/modelos/skills instalados, commits ni borrados reales de usuario. Se mantienen explicitamente limites: portapapeles global no ejercitado y GPUexclusiva no repetida; no se ocultan mediciones de mayor RAM ni se promete ahorroCPU universal.
+
+- Indice final de evidencia y hashes: `evidencias/2026-10-28-cierre.json`, PASS12comprobaciones agregadas; ASTPython y revision de espacios tambienPASS. Las consolas ya abiertas pueden conservar su entorno: iniciar desde una consola con PATH actualizado o ejecutar el instalador con -SessionOnly en la sesion que se quiera actualizar. No queda trabajo de implementacion autorizado de este corte; P04/P08 y los limites declarados no se sustituyen por decisiones automaticas.
+
+
+## 2026-10-28 · Pulido posterior aprobado
+
+- El usuario aprobó «hazlo» tras recomendar empezar por1y2: distinguir revisión
+  en /recover/atajo perfiles y evitar clonar todo el historial por frame.
+  Diseño/aceptación en spec/14-PULIDO-RENDER.md antes de implementar. Se leen
+  AGENTS global/local y memory; se aplican fix y refactor. Sin dependencias,
+  modelo principal, permisos o cambios de PATH nuevos. El release96968d queda
+  como comparación instalada; no se afirma que sus pruebas cubran lo nuevo.
+- Causas por lectura: structured_label solo muestra estado histórico y oculta
+  reviewed/needs_review; footer detalle omite Profiles; render clona todas las
+  cadenas de la caché aunque luego solo toma las filas visibles. Se corrigen
+  claridad y después estructura en pasos separados con pruebas y medición.
+
+- Paso de claridad:39pruebas UI PASS antes de optimizar; contador calculado al
+  recibir informe, no en cada frame. Prioriza needs_review sobre reviewed
+  contradictorio y conserva unknown. Encabezado muestra Pendientes/Revisadas/Total.
+- Paso de render: se comparte Arc de cache, se concatenan slices lógicamente y
+  solo se clona la ventana visible. fit_history/fit_detail permanecen. Clippy
+  PASS y41pruebasUI PASS (una medición opt-in todavía ignorada en ese comando).
+  Comparación exhaustiva de ventanas con cache/respuesta vacías, Unicode,
+  saltos finales, scroll enorme y áreas0-8; cache reusada hasta cambiar ancho o
+  contenido. Reviewer independiente pidió reforzar la invalidación trasmessage
+  y corregir concordancia del contador; ambos aplicados antes del freeze.
+- Medición explícita root PASS:5muestras*128frames sobre8192filas/622592bytes
+  en cache caliente, builddebug. Camino anterior79.691.776bytes de payload
+  clonado por muestra frente126.616del nuevo. Tiempo de pared en JSON, sin
+  umbral frágil ni atribución a RAM/CPU global. Evidencia
+  evidencias/2026-10-28-polish-window-root.json. Tester ejecuta controles,
+  release y medición propios; aún no se actualiza bin instalado96968d.
+
+- Prueba roja de UI sobre el instalado96968d con la sonda ampliada: FAIL
+  esperado por ausencia del atajo de perfil, tras6checks anterioresPASS;
+  evidencia polish-ui-baseline.json conservada. No cambia producción.
+- Tester independiente PASS formato/Clippy,162pruebas locales y release
+  offline62a1857654b2a15fc793029f2f54bc26e36e5ec815eb4e834d366180ae47f90f
+  (13240320bytes), fuentes sin cambios durante controles. Medición opt-in
+  ejecutada apartePASS; las9ignoradas del comando general no se cuentanPASS.
+- Tres pares Win32 reales con655359bytes de historial y248caracteres sin
+  enviar: medianaCPU acumulada delCLI0,28125s anterior→0,03125s nuevo. RAM
+  variable entrepares; no se afirma ahorro deRAM ni resultado universal.
+  Scope exacto/hashes en polish-resources-summary.json. No hay inferencia ni
+  cambio de modelo principal, GPU ajena o PATH durante mediciones.
+- Sonda de tamaño produjo dosFAIL de fixture, preservados. SetConsoleWindowInfo
+  en el buffer alterno no redimensiona el buffer cuyo handle guarda la app.
+  Tester adapta solo su HWND propio con calibración de píxeles/celdas,
+  conservando la exigencia real73x21 y sin tocar fuentesRust.
+
+- Cierre funcional: reviewer APPROVE conhashes finales en review-polish.json;
+  tester formato/Clippy,162tests/release PASS y21checks Win32 PASS en73x21real
+  (pulido-tester-ui-tercero.json). Perfil, lista/detalle y reinicio conservan
+  cursor/pie/contadores; cadaACK mantiene unknown y respeta lo no revisado.
+  AST de diagnósticos actualizado; los dosFAIL de fixture quedan registrados.
+- Actualización real aprobada como parte de aplicar1y2: instalador revisado
+  -SkipBuild -SessionOnly,8checksPASS en polish-installed.json. User/Machine
+  PATH, propiedadUser e install_id conservados. Bin instalado y release
+  comparten62a1857654b2a15fc793029f2f54bc26e36e5ec815eb4e834d366180ae47f90f.
+  Consolelegacy del bin instalado PASS con estadosrestaurados. Se conservó
+  respaldo de96968d; sin desinstalación, commits ni dependencias nuevas.
+- README/especificaciones alineados con esta entrega1y2. Las mejoras3y4
+  requieren entrega aparte; modelo principalnull/P04 y decisiónP08 siguen
+  pendientes. No se convierte la medición de payloads/debug o CPU de un caso
+  en una promesa general de RAM/CPU ni de velocidad del modelo.
+
+- Tester FINAL independiente PASS en pulido-tester-final.json(17checks),
+  con suplemento postinstall(10checks de sololectura): hashes de bin/build,
+  manifiesto completo/install_id/propiedadUser, PATHraw+tipoREG_SZ conservados,
+  proceso nuevo versión0.1.0 y consola instaladaPASS. El tester no modificó
+  códigoRust ni PATH. Indice final con12comprobaciones agregadasPASS y hashes:
+  evidencias/2026-10-28-polish-cierre.json. Se conservaron fallos y rojo de
+  baseline. Skillfix/refactor completadas en el alcance aprobado1y2.
+
+
+## 2026-10-29 · README de producto y publicación en GitHub
+
+- El usuario pidió revisar `memory.md`, añadir un README en español con
+  descripción del producto y características, y subir el proyecto a
+  https://github.com/zerumen82/PillCLIterminal. Se leyeron las reglas
+  globales, la bitácora y el README previo. Sobre las opciones presentadas
+  eligió: reescribir `README.md`, publicar todo el contenido actual
+  incluido el trabajo en curso del 2026-10-29, no subir `bin/`
+  (`installation.json` y respaldos van al `.gitignore`) y autorizó
+  commit, remoto y push. Sin cambios de código, dependencias, modelo
+  principal, PATH ni permisos.
+- Se reescribió `README.md` como README de producto: descripción en el
+  encabezado, características verificadas agrupadas (interfaz, chat,
+  herramientas con permisos, tarea multiagente, sin éxitos ficticios),
+  tabla de comandos existentes en `src/ui/model.rs`, instalación,
+  comprobación, límites explícitos y estructura. Los enlaces a evidencias
+  del corte 2026-10-28 se conservan. Se declara explícito que la entrega
+  diff del 2026-10-29 sigue sin tester PASS ni reviewer APPROVE y que
+  E6/v1 no está cerrada. Comprobación documental: los 12 comandos
+  listados coinciden con `src/ui/model.rs`; el `git status` tras la
+  reescritura muestra solo cambios esperados.
+- Se añadió `/bin/` al `.gitignore` (los `bin/*.exe` ya estaban
+  ignorados). No se modificaron specs, scripts ni fuentes.
+
+## 2026-10-29 · Diff y separación visual aprobados
+
+- El usuario aprueba «hazlo» tras recomendar diff y conversación como1y2.
+  Aplico plan y documento spec/15-DIFF-CONVERSACION antes de implementar:
+  diff+contexto acotado, color opcional saneado y encabezados explícitos.
+  Sin nueva dependencia ni cambios a permisos, transcript del modelo, cápsula,
+  modelo principal o PATH. Baseline instalado62a185 del corte anterior se
+  conserva para comparar; no valida lo nuevo.
