@@ -31,6 +31,9 @@ pub enum Key {
     PageUp,
     PageDown,
     ToggleReasoning,
+    AltP,
+    AltE,
+    AltT,
     Copy,
 }
 
@@ -113,7 +116,7 @@ pub(crate) struct DetailView {
     pub title: String,
     pub text: String,
     pub scroll: usize,
-    pub(super) highlights: std::collections::BTreeMap<usize,super::diff::DiffTone>,
+    pub(super) highlights: std::collections::BTreeMap<usize, super::diff::DiffTone>,
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -165,7 +168,7 @@ pub struct App {
     pub(crate) model_storage_warning: Option<String>,
     pub(crate) console_storage_warning: Option<String>,
     max_history_bytes: usize,
-    diff_settings: Option<(usize,usize)>,
+    diff_settings: Option<(usize, usize)>,
     max_detail_entries: usize,
     history_bytes: usize,
     history_revision: u64,
@@ -285,7 +288,7 @@ impl App {
 
     pub fn configure_ui(&mut self, config: &crate::config::UiConfig) {
         self.max_history_bytes = config.max_history_bytes;
-        self.diff_settings=Some((config.diff_context_lines,config.diff_max_cells));
+        self.diff_settings = Some((config.diff_context_lines, config.diff_max_cells));
         self.max_detail_entries = config.max_detail_entries;
         self.trim_history();
     }
@@ -376,29 +379,59 @@ impl App {
         });
     }
 
-    fn open_change_detail(&mut self,title:&str,item:&Value) {
-        let result=item_result(item);
-        let Some((context,max_cells))=self.diff_settings else {self.open_detail(title,status_detail(item));return;};
-        let Some(change)=result.get("diff").and_then(Value::as_object) else {self.open_detail(title,status_detail(item));return;};
-        let before=match change.get("before") {Some(Value::Null)=>"",Some(Value::String(text))=>text,_=>{self.open_detail(title,status_detail(item));return;}};
-        let Some(after)=change.get("after").and_then(Value::as_str) else {self.open_detail(title,status_detail(item));return;};
-        let metadata:serde_json::Map<String,Value>=result.as_object().expect("diff pertenece a objeto").iter().filter(|(key,_)|key.as_str()!="diff").map(|(key,value)|(key.clone(),value.clone())).collect();
-        let mut text=status_detail(&Value::Object(metadata));
-        if before.len().saturating_add(after.len())>self.max_history_bytes {
+    fn open_change_detail(&mut self, title: &str, item: &Value) {
+        let result = item_result(item);
+        let Some((context, max_cells)) = self.diff_settings else {
+            self.open_detail(title, status_detail(item));
+            return;
+        };
+        let Some(change) = result.get("diff").and_then(Value::as_object) else {
+            self.open_detail(title, status_detail(item));
+            return;
+        };
+        let before = match change.get("before") {
+            Some(Value::Null) => "",
+            Some(Value::String(text)) => text,
+            _ => {
+                self.open_detail(title, status_detail(item));
+                return;
+            }
+        };
+        let Some(after) = change.get("after").and_then(Value::as_str) else {
+            self.open_detail(title, status_detail(item));
+            return;
+        };
+        let metadata: serde_json::Map<String, Value> = result
+            .as_object()
+            .expect("diff pertenece a objeto")
+            .iter()
+            .filter(|(key, _)| key.as_str() != "diff")
+            .map(|(key, value)| (key.clone(), value.clone()))
+            .collect();
+        let mut text = status_detail(&Value::Object(metadata));
+        if before.len().saturating_add(after.len()) > self.max_history_bytes {
             text.push_str("\nDiff omitido: las fuentes superan el limite de bytes de la vista. Conserva los SHA y el respaldo indicados.");
-            self.open_detail(title,text);return;
+            self.open_detail(title, text);
+            return;
         }
-        let diff=super::diff::format(before,after,context,max_cells);
+        let diff = super::diff::format(before, after, context, max_cells);
         text.push_str("\n\nDiff (+ añadido, - eliminado):\n");
-        let offset=text.bytes().filter(|b|*b==b'\n').count();
+        let offset = text.bytes().filter(|b| *b == b'\n').count();
         text.push_str(&diff.text);
-        let cut=floor_char(&text,self.max_history_bytes);
-        let content_lines=text[..cut].lines().count();
-        let highlights=diff.highlights.into_iter().filter_map(|(line,tone)|{
-            let index=line+offset;(index<content_lines).then_some((index,tone))
-        }).collect();
-        self.open_detail(title,text);
-        if let Some(view)=&mut self.detail_view{view.highlights=highlights;}
+        let cut = floor_char(&text, self.max_history_bytes);
+        let content_lines = text[..cut].lines().count();
+        let highlights = diff
+            .highlights
+            .into_iter()
+            .filter_map(|(line, tone)| {
+                let index = line + offset;
+                (index < content_lines).then_some((index, tone))
+            })
+            .collect();
+        self.open_detail(title, text);
+        if let Some(view) = &mut self.detail_view {
+            view.highlights = highlights;
+        }
     }
 
     fn set_structured(&mut self, kind: ChoiceKind, items: Vec<Value>, explanation: &str) {
@@ -426,8 +459,12 @@ impl App {
         let kind = choices.kind;
         let item = choices.items[index].clone();
         self.previewed_choice = Some((kind, choice_key(kind, &item)));
-        let title=structured_label(kind,&item);
-        if matches!(kind,ChoiceKind::Changes|ChoiceKind::Undo){self.open_change_detail(&title,&item);}else{self.open_detail(&title,status_detail(&item));}
+        let title = structured_label(kind, &item);
+        if matches!(kind, ChoiceKind::Changes | ChoiceKind::Undo) {
+            self.open_change_detail(&title, &item);
+        } else {
+            self.open_detail(&title, status_detail(&item));
+        }
     }
 
     fn submit_structured(&mut self, prompt: &str) {
@@ -1194,6 +1231,38 @@ impl App {
             }
             return false;
         }
+        if key == Key::AltP && !self.busy {
+            self.input.clear();
+            self.cursor = 0;
+            self.task_mode = false;
+            self.ask_mode = true;
+            self.task_step = None;
+            self.message(
+                "Modo Preguntar: herramientas de solo lectura, sin editar ni ejecutar comandos.",
+            );
+            self.status = self.idle_status();
+            return false;
+        }
+        if key == Key::AltE && !self.busy {
+            self.input.clear();
+            self.cursor = 0;
+            self.task_mode = false;
+            self.ask_mode = false;
+            self.task_step = None;
+            self.message("Modo chat con herramientas · Editar; acciones y resultados visibles.");
+            self.status = self.idle_status();
+            return false;
+        }
+        if key == Key::AltT && !self.busy {
+            self.input.clear();
+            self.cursor = 0;
+            self.task_mode = true;
+            self.ask_mode = false;
+            self.task_step = None;
+            self.message("Modo tarea: próxima petición usa coordinador, explorador, implementador, tester y reviewer. Necesita pruebas concedidas.");
+            self.status = self.idle_status();
+            return false;
+        }
         match key {
             Key::Interrupt => return true,
             Key::Text(value, repeat) if !value.is_control() => {
@@ -1329,27 +1398,26 @@ impl App {
                 match chosen.as_str() {
                     "/exit" => return true,
                     "/help" => {
-                        self.message("/help · Mostrar la ayuda de consola");
+                        self.message("Comandos disponibles (escribe / y usa flechas/Tab/Enter):");
+                        self.message("/help · Mostrar esta ayuda");
                         self.message("/exit · Salir y restaurar la consola");
-                        self.message("Flechas: seleccionar. Tab: completar. Enter: ejecutar. Esc: cerrar menú.");
-                        self.message("/model · Elegir modelo y empezar otra conversación");
+                        self.message("/model · Elegir modelo (Ctrl+Enter para confirmar)");
+                        self.message("/permissions · Conceder/retirar comandos y MCP (Enter: detalle, Ctrl+Enter: concede/retira)");
                         self.message(
-                            "Ctrl+Enter envía; Enter añade línea. Esc cancela la operación activa.",
+                            "/task · Modo tarea multiagente (requiere pruebas concedidas)",
                         );
-                        self.message("/liberate · Liberar solo modelos que esta sesión seleccionó, y solo con exclusividad concedida");
-                        self.message("El chat usa herramientas reales del proyecto. /permissions muestra comandos, servidores MCP y exclusividad; cada concesión es independiente. /task activa agentes y pruebas. /chat vuelve al chat.");
-                        self.message("En /permissions, Enter muestra el detalle y Ctrl+Enter concede o retira. PgUp y PgDn mueven una pantalla cuando hay texto por encima.");
-                        self.message("Flechas marcan la fila de modelos o permisos. En el borrador, Inicio y Fin quedan en la línea y Ctrl+flechas saltan palabras.");
-                        self.message("Ctrl+R abre y cierra el razonamiento de la última respuesta. /journal muestra el diario local sin crear uno nuevo.");
-                        self.message("/liberate pide Ctrl+Enter para confirmar si esta sesión tiene modelos y la exclusividad está concedida. Esc cancela.");
-                        self.message("/ask consulta de solo lectura; /edit permite herramientas de edicion; /chat es alias de /edit.");
-                        self.message("/status muestra seleccion, memoria y limites; /profile ofrece perfiles sin cambiar modelo.");
-                        self.message("/recover inspecciona efectos y permite reconocer evidencia con Ctrl+Enter tras verla; /changes muestra cambios verificados.");
-                        self.message("/undo restaura respaldo solo si coincide SHA actual; /archive conserva evidencia moviendola tras confirmar huella.");
-                        self.message(
-                            "/copy o Ctrl+Y copia la ultima respuesta completa al portapapeles.",
-                        );
-                        self.message("PgUp/PgDn desplazan respuestas; flechas sin menú ni lista recuperan peticiones anteriores.");
+                        self.message("/chat · Chat con herramientas (alias /edit)");
+                        self.message("/ask · Solo lectura (sin herramientas de escritura)");
+                        self.message("/status · Modelo, configuración, recursos y cuotas");
+                        self.message("/profile · Elegir perfil de contexto/generación");
+                        self.message("/recover · Inspeccionar evidencia durable");
+                        self.message("/changes · Cambios verificados");
+                        self.message("/undo · Restaurar respaldo (coincide SHA actual)");
+                        self.message("/archive · Archivar evidencia revisada");
+                        self.message("/copy · Copiar respuesta/detalle visible");
+                        self.message("/journal · Leer diario local");
+                        self.message("/liberate · Liberar modelos de esta sesión (Enter si exclusividad concedida)");
+                        self.message("Teclas: Ctrl+Enter envía; Enter añade línea; Esc cancela; PgUp/PgDn desplaza; flechas recuperan peticiones; Ctrl+R pliega razonamiento; Inicio/Fin en línea; Ctrl+flechas saltan palabras.");
                     }
                     "/permissions" if !self.busy => {
                         self.begin(Action::Permissions, "Preparando propuestas completas…")

@@ -83,8 +83,12 @@ pub fn frame(
             .file_name()
             .unwrap_or(project.as_os_str())
             .to_string_lossy();
-        let label=clean(&format!("{}  pill · {project_name}",logo.trim()),columns);
-        lines.push(if config.color{format!("\x1b[{color}m{label}\x1b[0m")}else{label});
+        let label = clean(&format!("{}  pill · {project_name}", logo.trim()), columns);
+        lines.push(if config.color {
+            format!("\x1b[{color}m{label}\x1b[0m")
+        } else {
+            label
+        });
         lines.push(clean(
             &format!(
                 "{} · {} · {}",
@@ -107,8 +111,12 @@ pub fn frame(
             } else {
                 line.to_owned()
             };
-            let label=clean(&label,columns);
-            lines.push(if config.color{format!("\x1b[{color}m{label}\x1b[0m")}else{label});
+            let label = clean(&label, columns);
+            lines.push(if config.color {
+                format!("\x1b[{color}m{label}\x1b[0m")
+            } else {
+                label
+            });
         }
         lines.push(clean(&format!("Proyecto: {}", project.display()), columns));
         lines.push(clean(
@@ -198,12 +206,15 @@ pub fn frame(
     // Arc comparte las cadenas envueltas; solo se copian las filas del frame.
     let cached = (!detail_open).then(|| app.wrapped_history(columns));
     let history: &[String] = cached.as_deref().map_or(&[], Vec::as_slice);
-    let (updates,tones) = if let Some(detail) = &app.detail_view {
-        detail_rows(detail,columns)
+    let (updates, tones) = if let Some(detail) = &app.detail_view {
+        detail_rows(detail, columns)
     } else {
-        let mut rows=wrap_text(&app.response,columns);
-        if !app.response.is_empty(){rows.insert(0,"Respuesta (en curso):".into());rows.insert(0,String::new());}
-        (rows,Vec::new())
+        let mut rows = wrap_text(&app.response, columns);
+        if !app.response.is_empty() {
+            rows.insert(0, "Respuesta (en curso):".into());
+            rows.insert(0, String::new());
+        }
+        (rows, Vec::new())
     };
     let history_len = history.len() + updates.len();
     // Una fila propia por aviso: el pie ya ocupa el ancho y, si se le añade, se recorta.
@@ -225,12 +236,22 @@ pub fn frame(
         let end = history_len.saturating_sub(scroll);
         (end.saturating_sub(available), end)
     };
-    let visible_start=lines.len();
+    let visible_start = lines.len();
     append_visible(&mut lines, history, &updates, start, end);
     if detail_open && config.color {
-        for (line,tone) in lines[visible_start..].iter_mut().zip(tones[start..end].iter()) {
-            let color=match tone {Some(super::diff::DiffTone::Added)=>Some(32),Some(super::diff::DiffTone::Removed)=>Some(31),Some(super::diff::DiffTone::Hunk)=>Some(36),_=>None};
-            if let Some(color)=color {*line=format!("\x1b[{color}m{line}\x1b[0m");}
+        for (line, tone) in lines[visible_start..]
+            .iter_mut()
+            .zip(tones[start..end].iter())
+        {
+            let color = match tone {
+                Some(super::diff::DiffTone::Added) => Some(32),
+                Some(super::diff::DiffTone::Removed) => Some(31),
+                Some(super::diff::DiffTone::Hunk) => Some(36),
+                _ => None,
+            };
+            if let Some(color) = color {
+                *line = format!("\x1b[{color}m{line}\x1b[0m");
+            }
         }
     }
     let cursor_row = lines.len() + 1 + input.cursor_offset;
@@ -253,19 +274,43 @@ pub fn frame(
     }
 }
 
-fn detail_rows(view:&super::model::DetailView,columns:usize)->(Vec<String>,Vec<Option<super::diff::DiffTone>>) {
+fn detail_rows(
+    view: &super::model::DetailView,
+    columns: usize,
+) -> (Vec<String>, Vec<Option<super::diff::DiffTone>>) {
     use super::diff::DiffTone;
-    let mut rows=Vec::new();let mut tones=Vec::new();
-    if view.text.is_empty()||columns==0{return(rows,tones);}
-    for (index,line) in view.text.split('\n').enumerate(){
-        let tone=view.highlights.get(&index).copied();
-        let marker=match tone{Some(DiffTone::Added)=>Some("+"),Some(DiffTone::Removed)=>Some("-"),Some(DiffTone::Context)=>Some(" "),_=>None};
-        let body=marker.and_then(|marker|line.strip_prefix(marker)).unwrap_or(line);
-        let available=columns.saturating_sub(if marker.is_some(){2}else{0});
-        let wrapped=if body.is_empty(){vec![String::new()]}else{wrap_text(body,available)};
-        for row in wrapped {rows.push(if let Some(marker)=marker{format!("{marker} {row}")}else{row});tones.push(tone);}
+    let mut rows = Vec::new();
+    let mut tones = Vec::new();
+    if view.text.is_empty() || columns == 0 {
+        return (rows, tones);
     }
-    (rows,tones)
+    for (index, line) in view.text.split('\n').enumerate() {
+        let tone = view.highlights.get(&index).copied();
+        let marker = match tone {
+            Some(DiffTone::Added) => Some("+"),
+            Some(DiffTone::Removed) => Some("-"),
+            Some(DiffTone::Context) => Some(" "),
+            _ => None,
+        };
+        let body = marker
+            .and_then(|marker| line.strip_prefix(marker))
+            .unwrap_or(line);
+        let available = columns.saturating_sub(if marker.is_some() { 2 } else { 0 });
+        let wrapped = if body.is_empty() {
+            vec![String::new()]
+        } else {
+            wrap_text(body, available)
+        };
+        for row in wrapped {
+            rows.push(if let Some(marker) = marker {
+                format!("{marker} {row}")
+            } else {
+                row
+            });
+            tones.push(tone);
+        }
+    }
+    (rows, tones)
 }
 
 /// Selecciona la ventana sobre dos slices, sin recorrer ni copiar su prefijo.
@@ -307,7 +352,11 @@ fn context_line(app: &App) -> String {
     match (app.context_used, app.context_limit) {
         (Some(used), Some(limit)) => {
             let mut line = format!("Reserva: {used}/{limit}");
-            if u128::try_from(used).unwrap_or(u128::MAX) * 100 >= u128::from(limit) * 80 {
+            let percent = u128::try_from(used).unwrap_or(u128::MAX) * 100 / u128::from(limit);
+            line.push_str(&format!(" ({}%)", percent));
+            if percent >= 95 {
+                line.push_str(" · crítico");
+            } else if percent >= 80 {
                 line.push_str(" · cerca del límite");
             }
             line

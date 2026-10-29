@@ -12,7 +12,10 @@
     "max_input_rows": 4,
     "color": true,
     "diff_context_lines": 3,
-    "diff_max_cells": 262144
+    "diff_max_cells": 262144,
+    "reserve_percent_warning": 80,
+    "reserve_percent_critical": 95,
+    "reserve_color_warning": true
   },
   "ollama": {
     "url": "http://localhost:11434",
