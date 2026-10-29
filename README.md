@@ -7,6 +7,12 @@ efectos. Se invoca como `pill` desde una consola interactiva ya abierta (PATH re
 
 Ejecutar sin reiniciar: si el PATH de sesión no incluye `bin`, usar `.\bin\pill.exe` directamente. `/gpu` ejecuta `nvidia-smi` en modo solo lectura (sin atribución de procesos, sin permisos, sin matar GPU).
 
+### Ejecución e instalación (estado verificado 2026-10-29)
+- **Instalación**: `bin/pill.exe` acompaña el repositorio; PATH persistente (`HKCU:\Environment`) incluye `D:\PROJECTS\PILLCLITER\bin`; no requiere registro ni desinstalación ajena.
+- **Modelo**: configurable en `config/defaults.json`; predeterminado `huihui_ai/qwen3-abliterated:4b-v2`; validado (`trim().is_empty()` / `char::is_control` rechazan); nunca hardcodeado en fuente.
+- **Ejecución**: `pill --help`, `pill --version`; menú `/`; `Ctrl+C` restaura consola; `/gpu` solo lectura; `/permissions` concede paso a paso.
+- **Sin red ni modelos ocultos**: Ollama en `localhost:11434`; `ollama.model` configurable; no se instala modelo principal automáticamente.
+
 [Guía de instalación y mejoras](INSTALACION-Y-MEJORAS.md) ·
 [Bitácora completa](memory.md) · [Plan aprobado](PLAN-IMPLEMENTACION.md)
 
