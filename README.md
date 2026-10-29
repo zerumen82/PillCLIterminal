@@ -3,7 +3,9 @@
 Agente de programación **local** para la terminal de **Windows**, escrito en **Rust**.
 Habla con **Ollama en tu propio equipo** (sin nube), edita tu proyecto con
 herramientas reales y exige **permisos explícitos** para cualquier acción con
-efectos. Se invoca como `pill` desde una consola interactiva ya abierta.
+efectos. Se invoca como `pill` desde una consola interactiva ya abierta (PATH registrado en `HKCU:\Environment`; `D:\PROJECTS\PILLCLITER\bin` incluido). `pill --help` y `pill --version` confirman ejecución; `Ctrl+C` restaura la consola exacta.
+
+Ejecutar sin reiniciar: si el PATH de sesión no incluye `bin`, usar `.\bin\pill.exe` directamente. `/gpu` ejecuta `nvidia-smi` en modo solo lectura (sin atribución de procesos, sin permisos, sin matar GPU).
 
 [Guía de instalación y mejoras](INSTALACION-Y-MEJORAS.md) ·
 [Bitácora completa](memory.md) · [Plan aprobado](PLAN-IMPLEMENTACION.md)
