@@ -190,6 +190,9 @@ pub struct UiConfig {
     pub max_detail_entries: usize,
     pub render_interval_ms: u64,
     pub max_input_rows: usize,
+    pub reserve_percent_warning: usize,
+    pub reserve_percent_critical: usize,
+    pub reserve_color_warning: bool,
 }
 
 #[derive(Clone, Copy, Debug, Deserialize)]
@@ -304,6 +307,9 @@ impl Config {
             || !(1..=32).contains(&self.ui.max_input_rows)
             || self.ui.diff_context_lines > 16
             || !(1..=4194304).contains(&self.ui.diff_max_cells)
+            || !(0..=100).contains(&self.ui.reserve_percent_warning)
+            || !(0..=100).contains(&self.ui.reserve_percent_critical)
+            || self.ui.reserve_percent_warning > self.ui.reserve_percent_critical
         {
             return Err(Error::Config(
                 "límites inválidos de historial, detalle o render en ui".into(),

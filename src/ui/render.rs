@@ -533,7 +533,9 @@ mod tests {
             ..test_config_defaults()
         };
         let wide = frame(&mut app, Path::new("proyecto"), &config, None, 80, 40);
-        assert!(wide.text.contains("Reserva: 3300/4096 · cerca del límite"));
+        assert!(wide.text.contains("Reserva: 3300/4096"));
+        assert!(wide.text.contains("(80%)"));
+        assert!(wide.text.contains("· cerca del límite"));
         assert!(wide.text.contains("Modo: Tarea · tester · paso 3"));
         assert!(wide.text.contains(".pillcli"));
         assert!(wide.text.contains("linea vieja"));
