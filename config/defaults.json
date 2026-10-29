@@ -19,7 +19,7 @@
   },
   "ollama": {
     "url": "http://localhost:11434",
-    "model": null,
+    "model": "huihui_ai/qwen3-abliterated:4b-v2",
     "event_buffer": 32,
     "metadata_retries": 2,
     "retry_delay_ms": 150,
