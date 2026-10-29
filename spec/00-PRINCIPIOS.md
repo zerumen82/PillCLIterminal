@@ -1,5 +1,7 @@
 # Principios y definición de listo
 
+Seguimiento vigente 2026-10-27: E5 y las ampliaciones de archivos, concurrencia, recuperación y consola tienen tester PASS y reviewer APPROVE; evidencia en `../evidencias/2026-10-27-tester.md` y `../evidencias/2026-10-27-review.md`. El párrafo siguiente es histórico; E6/v1 sigue pendiente por P04/P07/P08.
+
 Estado: plan y dependencias aprobados por el usuario el 2026-10-20, con la precisión de invocación `pill` exclusivamente desde consola. Base E1 e integración E2 verificadas con tester PASS y reviewer APPROVE; avance E3/E4 registrado a continuación. E5 está implementada y comprobada en local el 2026-10-22; su cierre independiente y E6 siguen pendientes. La existencia de especificaciones no acredita funcionalidades sin evidencia.
 
 Continuación E3/E4: herramientas de archivos, comandos concedidos y cinco roles implementados; formato/lint/48 pruebas/build offline PASS. Tester independiente PASS (26/26 comprobaciones de consola) y reviewer de código APPROVE sobre el binario de aquel corte, con perfil explícito de razonamiento documentado. Los fallos de modelo observados se conservan; el ejecutor rechaza falsos éxitos y aplica feedback/reintentos acotados y traspasos de hechos reales. Lecturas paralelas, mover/eliminar y recuperación automática conservan sus pendientes. MCP y `/liberate` pasaron a E5; aquel PASS no los cubre.

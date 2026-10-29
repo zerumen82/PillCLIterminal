@@ -1,0 +1,33 @@
+{
+  "fecha_utc": "2026-10-28T15:58:11.499095+00:00",
+  "result": "PASS",
+  "cases": [
+    {
+      "name": "aritmetica-bom-crlf",
+      "files": 2,
+      "before": {
+        "code": 1,
+        "stdout": "A_FAIL\nB_FAIL\n"
+      },
+      "golden_after": {
+        "code": 0,
+        "stdout": "A_PASS\nB_PASS\nCORPUS_PASS\n"
+      },
+      "result": "PASS"
+    },
+    {
+      "name": "texto-lf",
+      "files": 2,
+      "before": {
+        "code": 1,
+        "stdout": "A_FAIL\nB_FAIL\n"
+      },
+      "golden_after": {
+        "code": 0,
+        "stdout": "A_PASS\nB_PASS\nCORPUS_PASS\n"
+      },
+      "result": "PASS"
+    }
+  ],
+  "scope": "Auditoria independiente de muestras: las pruebas detectan ambos defectos y aceptan bytes esperados. No verifica cliente ni inferencia; ejecucion de corpus Ollama sigue pendiente."
+}

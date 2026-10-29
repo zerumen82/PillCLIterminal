@@ -1,0 +1,27 @@
+{
+  "overlap_ns": 865029500,
+  "reads": [
+    {
+      "bytes": 8388608,
+      "execution": {
+        "finished_ns": 867477400,
+        "started_ns": 235000,
+        "thread": "ThreadId(7)"
+      },
+      "path": "uno.txt",
+      "sha256": "0c77bc0a0795a93612d45256897456d0fcb24f151c44c150d07ecd03f4ef5168"
+    },
+    {
+      "bytes": 8388608,
+      "execution": {
+        "finished_ns": 865609400,
+        "started_ns": 579900,
+        "thread": "ThreadId(8)"
+      },
+      "path": "dos.txt",
+      "sha256": "0c77bc0a0795a93612d45256897456d0fcb24f151c44c150d07ecd03f4ef5168"
+    }
+  ],
+  "result": "PASS",
+  "scope": "Dos lecturas reales, sin barrera ni pausas artificiales; tiempos tomados dentro de cada hilo"
+}

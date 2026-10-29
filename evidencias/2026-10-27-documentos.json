@@ -1,0 +1,353 @@
+{
+  "fecha_utc": "2026-10-27T20:59:27.838969+00:00",
+  "checks": [
+    {
+      "file": "README.md",
+      "utf8": true,
+      "code_fences_balanced": true,
+      "no_trailing_spaces": true
+    },
+    {
+      "file": "AGENTS.md",
+      "utf8": true,
+      "code_fences_balanced": true,
+      "no_trailing_spaces": true
+    },
+    {
+      "file": "PLAN-IMPLEMENTACION.md",
+      "utf8": true,
+      "code_fences_balanced": true,
+      "no_trailing_spaces": true
+    },
+    {
+      "file": "memory.md",
+      "utf8": true,
+      "code_fences_balanced": true,
+      "no_trailing_spaces": true
+    },
+    {
+      "file": "spec\\00-PRINCIPIOS.md",
+      "utf8": true,
+      "code_fences_balanced": true,
+      "no_trailing_spaces": true
+    },
+    {
+      "file": "spec\\01-ARQUITECTURA.md",
+      "utf8": true,
+      "code_fences_balanced": true,
+      "no_trailing_spaces": true
+    },
+    {
+      "file": "spec\\02-REQUISITOS.md",
+      "utf8": true,
+      "code_fences_balanced": true,
+      "no_trailing_spaces": true
+    },
+    {
+      "file": "spec\\03-PENDIENTES.md",
+      "utf8": true,
+      "code_fences_balanced": true,
+      "no_trailing_spaces": true
+    },
+    {
+      "file": "spec\\04-EJERCITO.md",
+      "utf8": true,
+      "code_fences_balanced": true,
+      "no_trailing_spaces": true
+    },
+    {
+      "file": "spec\\05-E3-E4.md",
+      "utf8": true,
+      "code_fences_balanced": true,
+      "no_trailing_spaces": true
+    },
+    {
+      "file": "spec\\06-E5.md",
+      "utf8": true,
+      "code_fences_balanced": true,
+      "no_trailing_spaces": true
+    },
+    {
+      "file": "spec\\07-R09.md",
+      "utf8": true,
+      "code_fences_balanced": true,
+      "no_trailing_spaces": true
+    },
+    {
+      "file": "spec\\08-RECUPERACION.md",
+      "utf8": true,
+      "code_fences_balanced": true,
+      "no_trailing_spaces": true
+    },
+    {
+      "file": "spec\\09-CIERRE-20261027.md",
+      "utf8": true,
+      "code_fences_balanced": true,
+      "no_trailing_spaces": true
+    }
+  ],
+  "local_links": [
+    {
+      "source": "README.md",
+      "target": "INSTALACION-Y-MEJORAS.md",
+      "exists": true
+    },
+    {
+      "source": "README.md",
+      "target": "evidencias/2026-10-27-tester.md",
+      "exists": true
+    },
+    {
+      "source": "README.md",
+      "target": "evidencias/2026-10-27-review.md",
+      "exists": true
+    },
+    {
+      "source": "README.md",
+      "target": "spec/09-CIERRE-20261027.md",
+      "exists": true
+    },
+    {
+      "source": "README.md",
+      "target": "spec/07-R09.md",
+      "exists": true
+    },
+    {
+      "source": "README.md",
+      "target": "spec/08-RECUPERACION.md",
+      "exists": true
+    },
+    {
+      "source": "README.md",
+      "target": "evidencias/2026-10-20-e2-comparacion.md",
+      "exists": true
+    },
+    {
+      "source": "README.md",
+      "target": "evidencias/2026-10-20-e2-consola.json",
+      "exists": true
+    },
+    {
+      "source": "README.md",
+      "target": "evidencias/2026-10-20-e2-tester.md",
+      "exists": true
+    },
+    {
+      "source": "README.md",
+      "target": "evidencias/2026-10-20-e2-review.md",
+      "exists": true
+    },
+    {
+      "source": "README.md",
+      "target": "PLAN-IMPLEMENTACION.md",
+      "exists": true
+    },
+    {
+      "source": "README.md",
+      "target": "spec/00-PRINCIPIOS.md",
+      "exists": true
+    },
+    {
+      "source": "README.md",
+      "target": "spec/02-REQUISITOS.md",
+      "exists": true
+    },
+    {
+      "source": "README.md",
+      "target": "spec/03-PENDIENTES.md",
+      "exists": true
+    },
+    {
+      "source": "README.md",
+      "target": "memory.md",
+      "exists": true
+    },
+    {
+      "source": "PLAN-IMPLEMENTACION.md",
+      "target": "spec/05-E3-E4.md",
+      "exists": true
+    },
+    {
+      "source": "PLAN-IMPLEMENTACION.md",
+      "target": "spec/02-REQUISITOS.md",
+      "exists": true
+    },
+    {
+      "source": "PLAN-IMPLEMENTACION.md",
+      "target": "spec/06-E5.md",
+      "exists": true
+    },
+    {
+      "source": "PLAN-IMPLEMENTACION.md",
+      "target": "evidencias/2026-10-20-e2-comparacion.md",
+      "exists": true
+    },
+    {
+      "source": "PLAN-IMPLEMENTACION.md",
+      "target": "spec/00-PRINCIPIOS.md",
+      "exists": true
+    },
+    {
+      "source": "PLAN-IMPLEMENTACION.md",
+      "target": "spec/01-ARQUITECTURA.md",
+      "exists": true
+    },
+    {
+      "source": "PLAN-IMPLEMENTACION.md",
+      "target": "spec/02-REQUISITOS.md",
+      "exists": true
+    },
+    {
+      "source": "PLAN-IMPLEMENTACION.md",
+      "target": "spec/03-PENDIENTES.md",
+      "exists": true
+    },
+    {
+      "source": "PLAN-IMPLEMENTACION.md",
+      "target": "spec/04-EJERCITO.md",
+      "exists": true
+    },
+    {
+      "source": "PLAN-IMPLEMENTACION.md",
+      "target": "AGENTS.md",
+      "exists": true
+    },
+    {
+      "source": "spec\\00-PRINCIPIOS.md",
+      "target": "../AGENTS.md",
+      "exists": true
+    },
+    {
+      "source": "spec\\00-PRINCIPIOS.md",
+      "target": "../memory.md",
+      "exists": true
+    },
+    {
+      "source": "spec\\00-PRINCIPIOS.md",
+      "target": "03-PENDIENTES.md",
+      "exists": true
+    },
+    {
+      "source": "spec\\01-ARQUITECTURA.md",
+      "target": "../PLAN-IMPLEMENTACION.md",
+      "exists": true
+    },
+    {
+      "source": "spec\\01-ARQUITECTURA.md",
+      "target": "09-CIERRE-20261027.md",
+      "exists": true
+    },
+    {
+      "source": "spec\\01-ARQUITECTURA.md",
+      "target": "05-E3-E4.md",
+      "exists": true
+    },
+    {
+      "source": "spec\\01-ARQUITECTURA.md",
+      "target": "03-PENDIENTES.md",
+      "exists": true
+    },
+    {
+      "source": "spec\\01-ARQUITECTURA.md",
+      "target": "../REVISION-OLLAMA-ARCHIVOS.md",
+      "exists": true
+    },
+    {
+      "source": "spec\\02-REQUISITOS.md",
+      "target": "09-CIERRE-20261027.md",
+      "exists": true
+    },
+    {
+      "source": "spec\\02-REQUISITOS.md",
+      "target": "../evidencias/2026-10-20-e2-review.md",
+      "exists": true
+    },
+    {
+      "source": "spec\\02-REQUISITOS.md",
+      "target": "../evidencias/2026-10-20-e2-tester.md",
+      "exists": true
+    },
+    {
+      "source": "spec\\02-REQUISITOS.md",
+      "target": "../evidencias/2026-10-20-e2-comparacion.json",
+      "exists": true
+    },
+    {
+      "source": "spec\\02-REQUISITOS.md",
+      "target": "../evidencias/2026-10-20-e2-cancel-retry.json",
+      "exists": true
+    },
+    {
+      "source": "spec\\02-REQUISITOS.md",
+      "target": "../evidencias/2026-10-20-e2-errors.json",
+      "exists": true
+    },
+    {
+      "source": "spec\\02-REQUISITOS.md",
+      "target": "../evidencias/2026-10-20-e2-consola.json",
+      "exists": true
+    },
+    {
+      "source": "spec\\02-REQUISITOS.md",
+      "target": "../evidencias/2026-10-20-e2-regresion-consola.json",
+      "exists": true
+    },
+    {
+      "source": "spec\\02-REQUISITOS.md",
+      "target": "../evidencias/2026-10-20-e34-checks.json",
+      "exists": true
+    },
+    {
+      "source": "spec\\02-REQUISITOS.md",
+      "target": "../evidencias/2026-10-20-e34-review.md",
+      "exists": true
+    },
+    {
+      "source": "spec\\02-REQUISITOS.md",
+      "target": "../evidencias/2026-10-20-e34-tester.md",
+      "exists": true
+    },
+    {
+      "source": "spec\\02-REQUISITOS.md",
+      "target": "../evidencias/2026-10-20-e34-consola-completa.json",
+      "exists": true
+    },
+    {
+      "source": "spec\\03-PENDIENTES.md",
+      "target": "09-CIERRE-20261027.md",
+      "exists": true
+    },
+    {
+      "source": "spec\\05-E3-E4.md",
+      "target": "../evidencias/2026-10-20-e34-tester.md",
+      "exists": true
+    },
+    {
+      "source": "spec\\05-E3-E4.md",
+      "target": "../evidencias/2026-10-20-e34-review.md",
+      "exists": true
+    },
+    {
+      "source": "spec\\05-E3-E4.md",
+      "target": "../evidencias/2026-10-20-e34-consola-completa.json",
+      "exists": true
+    },
+    {
+      "source": "spec\\05-E3-E4.md",
+      "target": "../evidencias/2026-10-20-e34-checks.json",
+      "exists": true
+    }
+  ],
+  "python_ast": [
+    "diagnostics/test_console.py",
+    "diagnostics/test_features_console.py",
+    "diagnostics/test_ollama_console.py",
+    "diagnostics/test_tools_console.py",
+    "diagnostics/test_gpu_live.py",
+    "diagnostics/run_live_checks.py",
+    "diagnostics/verify_e34.py",
+    "diagnostics/mcp_fixture.py"
+  ],
+  "result": "PASS",
+  "scope": "Validación documental local y sintaxis Python; no reemplaza la revisión independiente ni pruebas de ejecución"
+}

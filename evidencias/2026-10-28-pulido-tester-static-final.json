@@ -1,0 +1,20 @@
+{
+  "fecha_utc": "2026-10-28T22:15:54.908639+00:00",
+  "role": "tester independiente",
+  "result": "PASS",
+  "scope": "Parseo AST de todos los diagnosticos y checksum del diagnostico UI final. Fuentes Rust no cambiadas.",
+  "python_files": 12,
+  "script_sha256": "7211b43b2fa779128b1009f46e8e979c44fafbffc52fc0ab53bf116339d12d7f",
+  "diagnostic_fix": {
+    "failed_attempts": [
+      "2026-10-28-pulido-tester-ui.json",
+      "2026-10-28-pulido-tester-ui-segundo.json"
+    ],
+    "cause": "SetConsoleWindowInfo actuo en un buffer pero la ventana observada permanecia120x30 con buffers VT. Se cambio solo helperdeprueba a SetWindowPos del HWND propio, con celda de fuente real y validacion exacta73x21.",
+    "primary_sources": [
+      "https://learn.microsoft.com/en-us/windows/console/setconsolewindowinfo",
+      "https://learn.microsoft.com/en-us/windows/console/getcurrentconsolefontex",
+      "https://learn.microsoft.com/en-us/windows/console/console-font-infoex"
+    ]
+  }
+}

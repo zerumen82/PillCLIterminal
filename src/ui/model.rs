@@ -2,7 +2,8 @@ use crate::{
     session::{Action, Event, ListedModel},
     tools::mcp::Offer,
 };
-use std::{collections::VecDeque, time::Instant};
+use serde_json::{Value, json};
+use std::{collections::VecDeque, sync::Arc, time::Instant};
 
 const REASONING_MARK: &str = "Razonamiento abierto";
 const REASONING_VIEW_CHARS: usize = 4000;
@@ -30,6 +31,7 @@ pub enum Key {
     PageUp,
     PageDown,
     ToggleReasoning,
+    Copy,
 }
 
 pub struct Command {
@@ -69,7 +71,64 @@ pub const COMMANDS: &[Command] = &[
         name: "/liberate",
         description: "Liberar modelos de esta sesión si hay exclusividad concedida",
     },
+    Command {
+        name: "/status",
+        description: "Ver modelo, configuración, recursos y cuotas",
+    },
+    Command {
+        name: "/ask",
+        description: "Preguntar con herramientas de solo lectura",
+    },
+    Command {
+        name: "/edit",
+        description: "Editar con herramientas y permisos vigentes",
+    },
+    Command {
+        name: "/changes",
+        description: "Inspeccionar cambios y resultados observados",
+    },
+    Command {
+        name: "/recover",
+        description: "Revisar operaciones pendientes con evidencia",
+    },
+    Command {
+        name: "/undo",
+        description: "Restaurar un respaldo con versión comprobada",
+    },
+    Command {
+        name: "/profile",
+        description: "Elegir perfil de contexto y generación",
+    },
+    Command {
+        name: "/archive",
+        description: "Archivar evidencia revisada con confirmación",
+    },
+    Command {
+        name: "/copy",
+        description: "Copiar la última respuesta o el detalle visible",
+    },
 ];
+
+pub(crate) struct DetailView {
+    pub title: String,
+    pub text: String,
+    pub scroll: usize,
+    pub(super) highlights: std::collections::BTreeMap<usize,super::diff::DiffTone>,
+}
+
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+enum ChoiceKind {
+    Recovery,
+    Changes,
+    Undo,
+    Profiles,
+    Archive,
+}
+
+struct StructuredChoices {
+    kind: ChoiceKind,
+    items: Vec<Value>,
+}
 
 pub struct App {
     pub input: String,
@@ -100,6 +159,30 @@ pub struct App {
     pub(crate) exclusive: bool,
     pub(crate) partial_effects: bool,
     pub(crate) view_rows: usize,
+    pub(crate) history_rows: usize,
+    pub(crate) ask_mode: bool,
+    pub(crate) detail_view: Option<DetailView>,
+    pub(crate) model_storage_warning: Option<String>,
+    pub(crate) console_storage_warning: Option<String>,
+    max_history_bytes: usize,
+    diff_settings: Option<(usize,usize)>,
+    max_detail_entries: usize,
+    history_bytes: usize,
+    history_revision: u64,
+    pub(crate) history_omitted: usize,
+    pub(crate) history_clipped_bytes: usize,
+    wrapped_revision: u64,
+    wrapped_columns: usize,
+    wrapped_history: Arc<Vec<String>>,
+    structured: Option<StructuredChoices>,
+    recovery_report: Value,
+    recovery_progress: String,
+    changes: Vec<Value>,
+    status_report: Value,
+    details: VecDeque<Value>,
+    last_answer: String,
+    pub(crate) copy_requested: Option<String>,
+    previewed_choice: Option<(ChoiceKind, String)>,
     pick: usize,
     reasoning_chars: usize,
     reasoning_text: String,
@@ -143,6 +226,30 @@ impl App {
             exclusive: false,
             partial_effects: false,
             view_rows: 24,
+            history_rows: 1,
+            ask_mode: false,
+            detail_view: None,
+            model_storage_warning: None,
+            console_storage_warning: None,
+            max_history_bytes: usize::MAX,
+            diff_settings: None,
+            max_detail_entries: max_history,
+            history_bytes: 0,
+            history_revision: 0,
+            history_omitted: 0,
+            history_clipped_bytes: 0,
+            wrapped_revision: u64::MAX,
+            wrapped_columns: 0,
+            wrapped_history: Arc::new(Vec::new()),
+            structured: None,
+            recovery_report: Value::Null,
+            recovery_progress: String::new(),
+            changes: Vec::new(),
+            status_report: Value::Null,
+            details: VecDeque::new(),
+            last_answer: String::new(),
+            copy_requested: None,
+            previewed_choice: None,
             pick: 0,
             reasoning_chars: 0,
             reasoning_text: String::new(),
@@ -176,10 +283,69 @@ impl App {
             .collect()
     }
 
+    pub fn configure_ui(&mut self, config: &crate::config::UiConfig) {
+        self.max_history_bytes = config.max_history_bytes;
+        self.diff_settings=Some((config.diff_context_lines,config.diff_max_cells));
+        self.max_detail_entries = config.max_detail_entries;
+        self.trim_history();
+    }
+
     pub fn message(&mut self, text: impl Into<String>) {
-        self.history.push_back(text.into());
-        while self.history.len() > self.max_history {
-            self.history.pop_front();
+        let mut text = text.into();
+        if text.len() > self.max_history_bytes {
+            let original = text.len();
+            let mut end = self.max_history_bytes;
+            while !text.is_char_boundary(end) {
+                end -= 1;
+            }
+            text.truncate(end);
+            self.history_clipped_bytes = self.history_clipped_bytes.saturating_add(original - end);
+        }
+        self.history_bytes = self.history_bytes.saturating_add(text.len());
+        self.history.push_back(text);
+        self.trim_history();
+        self.history_revision = self.history_revision.wrapping_add(1);
+    }
+
+    fn trim_history(&mut self) {
+        while self.history.len() > self.max_history || self.history_bytes > self.max_history_bytes {
+            if let Some(removed) = self.history.pop_front() {
+                self.history_bytes = self.history_bytes.saturating_sub(removed.len());
+                self.history_omitted = self.history_omitted.saturating_add(1);
+                self.history_revision = self.history_revision.wrapping_add(1);
+            } else {
+                break;
+            }
+        }
+    }
+
+    pub(crate) fn wrapped_history(&mut self, columns: usize) -> Arc<Vec<String>> {
+        if self.wrapped_revision != self.history_revision || self.wrapped_columns != columns {
+            self.wrapped_history = Arc::new(
+                self.history
+                    .iter()
+                    .flat_map(|entry| super::render::wrap_text(entry, columns))
+                    .collect(),
+            );
+            self.wrapped_revision = self.history_revision;
+            self.wrapped_columns = columns;
+        }
+        self.wrapped_history.clone()
+    }
+
+    fn retain_detail(&mut self, value: Value) {
+        self.details.push_back(value);
+        while self.details.len() > self.max_detail_entries
+            || self
+                .details
+                .iter()
+                .map(|entry| entry.to_string().len())
+                .sum::<usize>()
+                > self.max_history_bytes
+        {
+            if self.details.pop_front().is_none() {
+                break;
+            }
         }
     }
 
@@ -194,14 +360,280 @@ impl App {
         self.action.take()
     }
 
+    fn open_detail(&mut self, title: &str, mut text: String) {
+        if text.len() > self.max_history_bytes {
+            let original = text.len();
+            text.truncate(floor_char(&text, self.max_history_bytes));
+            text.push_str(&format!(
+                "\nVista recortada: {original} bytes en el resultado completo."
+            ));
+        }
+        self.detail_view = Some(DetailView {
+            title: title.into(),
+            text,
+            scroll: 0,
+            highlights: Default::default(),
+        });
+    }
+
+    fn open_change_detail(&mut self,title:&str,item:&Value) {
+        let result=item_result(item);
+        let Some((context,max_cells))=self.diff_settings else {self.open_detail(title,status_detail(item));return;};
+        let Some(change)=result.get("diff").and_then(Value::as_object) else {self.open_detail(title,status_detail(item));return;};
+        let before=match change.get("before") {Some(Value::Null)=>"",Some(Value::String(text))=>text,_=>{self.open_detail(title,status_detail(item));return;}};
+        let Some(after)=change.get("after").and_then(Value::as_str) else {self.open_detail(title,status_detail(item));return;};
+        let metadata:serde_json::Map<String,Value>=result.as_object().expect("diff pertenece a objeto").iter().filter(|(key,_)|key.as_str()!="diff").map(|(key,value)|(key.clone(),value.clone())).collect();
+        let mut text=status_detail(&Value::Object(metadata));
+        if before.len().saturating_add(after.len())>self.max_history_bytes {
+            text.push_str("\nDiff omitido: las fuentes superan el limite de bytes de la vista. Conserva los SHA y el respaldo indicados.");
+            self.open_detail(title,text);return;
+        }
+        let diff=super::diff::format(before,after,context,max_cells);
+        text.push_str("\n\nDiff (+ añadido, - eliminado):\n");
+        let offset=text.bytes().filter(|b|*b==b'\n').count();
+        text.push_str(&diff.text);
+        let cut=floor_char(&text,self.max_history_bytes);
+        let content_lines=text[..cut].lines().count();
+        let highlights=diff.highlights.into_iter().filter_map(|(line,tone)|{
+            let index=line+offset;(index<content_lines).then_some((index,tone))
+        }).collect();
+        self.open_detail(title,text);
+        if let Some(view)=&mut self.detail_view{view.highlights=highlights;}
+    }
+
+    fn set_structured(&mut self, kind: ChoiceKind, items: Vec<Value>, explanation: &str) {
+        self.choosing = false;
+        self.granting = false;
+        self.detail_view = None;
+        self.previewed_choice = None;
+        self.pick = 0;
+        self.message(explanation);
+        if items.is_empty() {
+            self.message("No hay entradas disponibles en esta vista.");
+        }
+        self.structured = Some(StructuredChoices { kind, items });
+    }
+
+    fn detail_structured(&mut self, prompt: &str) {
+        let Some(choices) = &self.structured else {
+            return;
+        };
+        let Some(index) = self.list_index(prompt, choices.items.len()) else {
+            self.message("Elige una fila válida; no se ejecutó ninguna acción.");
+            return;
+        };
+        self.pick = index;
+        let kind = choices.kind;
+        let item = choices.items[index].clone();
+        self.previewed_choice = Some((kind, choice_key(kind, &item)));
+        let title=structured_label(kind,&item);
+        if matches!(kind,ChoiceKind::Changes|ChoiceKind::Undo){self.open_change_detail(&title,&item);}else{self.open_detail(&title,status_detail(&item));}
+    }
+
+    fn submit_structured(&mut self, prompt: &str) {
+        let Some(choices) = &self.structured else {
+            return;
+        };
+        let Some(index) = self.list_index(prompt, choices.items.len()) else {
+            self.message("Elige una fila válida; no se ejecutó ninguna acción.");
+            return;
+        };
+        let kind = choices.kind;
+        let item = choices.items[index].clone();
+        self.pick = index;
+        if kind == ChoiceKind::Changes {
+            self.detail_structured(prompt);
+            return;
+        }
+        if matches!(
+            kind,
+            ChoiceKind::Recovery | ChoiceKind::Undo | ChoiceKind::Archive | ChoiceKind::Profiles
+        ) && self.previewed_choice.as_ref() != Some(&(kind, choice_key(kind, &item)))
+        {
+            self.detail_structured(prompt);
+            self.message(
+                "Revisa la evidencia de esta fila; Ctrl+Enter confirma y Esc vuelve sin actuar.",
+            );
+            return;
+        }
+        match kind {
+            ChoiceKind::Recovery => {
+                if item["needs_review"] != true {
+                    self.message(
+                        "Esta entrada no necesita revisión; no se repitió ninguna operación.",
+                    );
+                    return;
+                }
+                if let Some(fingerprint) = item["fingerprint"]
+                    .as_str()
+                    .filter(|value| !value.is_empty())
+                {
+                    self.begin(
+                        Action::AcknowledgeRecovery {
+                            fingerprint: fingerprint.into(),
+                        },
+                        "Registrando revisión humana de evidencia vigente…",
+                    );
+                } else {
+                    self.message(
+                        "No hay huella vigente para revisar; vuelve a consultar /recover.",
+                    );
+                }
+            }
+            ChoiceKind::Undo => {
+                if let Some((path, expected_sha256, backup_path, backup_sha256)) =
+                    undo_fields(&item)
+                {
+                    self.begin(
+                        Action::Undo {
+                            path,
+                            expected_sha256,
+                            backup_path,
+                            backup_sha256,
+                        },
+                        "Comprobando versión actual y restaurando el respaldo seleccionado…",
+                    );
+                } else {
+                    self.message("Este resultado no contiene un respaldo y versiones restaurables; no se ha cambiado nada.");
+                }
+            }
+            ChoiceKind::Profiles => {
+                if let Some(name) = item["id"]
+                    .as_str()
+                    .or_else(|| item["name"].as_str())
+                    .filter(|name| !name.is_empty())
+                {
+                    self.begin(
+                        Action::SelectProfile(name.into()),
+                        "Validando el perfil elegido…",
+                    );
+                } else {
+                    self.message("Perfil sin identificador; no se cambió la configuración.");
+                }
+            }
+            ChoiceKind::Archive => {
+                if let Some(fingerprint) = item["fingerprint"]
+                    .as_str()
+                    .filter(|value| !value.is_empty())
+                {
+                    self.begin(
+                        Action::ConfirmArchive {
+                            fingerprint: fingerprint.into(),
+                        },
+                        "Archivando exclusivamente la evidencia revisada…",
+                    );
+                } else {
+                    self.message("No hay huella de archivo vigente; vuelve a consultar /archive.");
+                }
+            }
+            ChoiceKind::Changes => {}
+        }
+    }
+
+    fn request_copy(&mut self) {
+        let text = self
+            .detail_view
+            .as_ref()
+            .map(|view| view.text.clone())
+            .unwrap_or_else(|| self.last_answer.clone());
+        if text.is_empty() {
+            self.message("No hay respuesta completa para copiar.");
+        } else {
+            self.copy_requested = Some(text);
+        }
+    }
+
+    pub(crate) fn mode_label(&self) -> String {
+        if let Some((role, step)) = &self.task_step
+            && self.task_mode
+        {
+            return format!("Tarea · {role} · paso {step}");
+        }
+        if self.task_mode {
+            "Tarea".into()
+        } else if self.ask_mode {
+            "Preguntar · solo lectura".into()
+        } else {
+            "Editar".into()
+        }
+    }
+
+    pub(crate) fn recovery_heading(&self) -> Option<&str> {
+        self.structured
+            .as_ref()
+            .filter(|choices| choices.kind == ChoiceKind::Recovery)
+            .map(|_| self.recovery_progress.as_str())
+    }
+
+    pub(crate) fn footer(&self) -> &'static str {
+        if self.detail_view.is_some() {
+            if self
+                .structured
+                .as_ref()
+                .is_some_and(|choices| choices.kind == ChoiceKind::Profiles)
+            {
+                return "PgUp/PgDn · Ctrl+Enter aplicar perfil · Esc volver";
+            }
+
+            if self.granting
+                || self.structured.as_ref().is_some_and(|choices| {
+                    matches!(
+                        choices.kind,
+                        ChoiceKind::Recovery | ChoiceKind::Undo | ChoiceKind::Archive
+                    )
+                })
+            {
+                return "PgUp/PgDn · Ctrl+Y copiar · Ctrl+Enter confirmar · Esc volver";
+            }
+            return "PgUp/PgDn desplazar · Ctrl+Y copiar · Esc volver";
+        }
+        if self.confirm_liberate {
+            return "/ comandos · Ctrl+Enter descargar · Enter detalle · Esc cancelar";
+        }
+        if self.menu_open() {
+            return "/ comandos · Flechas elegir · Enter ejecutar · Esc cerrar";
+        }
+        if self.granting {
+            return "/ comandos · Enter detalle · Ctrl+Enter conceder/retirar · Esc cerrar";
+        }
+        if self.choosing {
+            return "/ comandos · Elige un número · Ctrl+Enter elegir · Esc cancelar";
+        }
+        if let Some(choices) = &self.structured {
+            if choices.items.is_empty() {
+                return "/ comandos · Sin filas disponibles · Esc cerrar";
+            }
+            return match choices.kind {
+                ChoiceKind::Changes => {
+                    "/ comandos · Flechas elegir · Enter ver diff/evidencia · Esc cerrar"
+                }
+                ChoiceKind::Profiles => {
+                    "/ comandos · Enter detalle · Ctrl+Enter aplicar perfil · Esc cerrar"
+                }
+                _ => "/ comandos · Enter evidencia · Ctrl+Enter confirmar fila · Esc cerrar",
+            };
+        }
+        "/ comandos · Ctrl+Enter enviar · Enter línea · Esc cancelar · Ctrl+Y copiar"
+    }
+
     pub(crate) fn load_local_history(&mut self, files: &crate::files::Files) {
-        let bytes = match files.read_private("console.json") {
-            Ok(Some(bytes)) => bytes,
-            Ok(None) => return,
-            Err(_) => {
-                self.message("No se pudo leer el historial local de la consola.");
+        let stored = match files.read_private_checked_with("console.json", |bytes| {
+            serde_json::from_slice::<ConsoleHistory>(bytes).is_ok()
+        }) {
+            Ok(value) => value,
+            Err(error) => {
+                let warning = format!("No se pudo leer el historial local de la consola: {error}");
+                self.console_storage_warning = Some(warning.clone());
+                self.message(warning);
                 return;
             }
+        };
+        if let Some(warning) = stored.warning {
+            self.console_storage_warning = Some(warning.clone());
+            self.message(warning);
+        }
+        let Some(bytes) = stored.bytes else {
+            return;
         };
         let Ok(saved) = serde_json::from_slice::<ConsoleHistory>(&bytes) else {
             self.message("No se pudo leer el historial local de la consola.");
@@ -223,7 +655,7 @@ impl App {
         }
     }
 
-    pub(crate) fn save_local_history(&self, files: &crate::files::Files) {
+    pub(crate) fn save_local_history(&mut self, files: &crate::files::Files) {
         let lines: Vec<String> = self
             .history
             .iter()
@@ -261,11 +693,112 @@ impl App {
         let Ok(bytes) = serde_json::to_vec(&saved) else {
             return;
         };
-        let _ = files.write_private("console.json", &bytes);
+        match files.write_private("console.json", &bytes) {
+            Ok(()) => self.console_storage_warning = None,
+            Err(error) => {
+                let warning = format!("Historial de consola sin guardar: {error}");
+                if self.console_storage_warning.as_ref() != Some(&warning) {
+                    self.message(warning.clone());
+                }
+                self.console_storage_warning = Some(warning);
+            }
+        }
     }
 
     pub fn event(&mut self, event: Event) {
         match event {
+            Event::StorageWarning(text) => {
+                self.model_storage_warning = (!text.is_empty()).then_some(text.clone());
+                if !text.is_empty() {
+                    self.message(text);
+                }
+                return;
+            }
+            Event::Status { report } => {
+                self.status_report = report.clone();
+                self.open_detail("Estado de la sesión", status_detail(&report));
+                self.status = self.idle_status();
+            }
+            Event::Recovery { report } | Event::RecoveryReviewed { report } => {
+                self.partial_effects = report["needs_review"].as_bool().unwrap_or(true);
+                self.recovery_report = report.clone();
+                let items = report["entries"].as_array().cloned().unwrap_or_default();
+                self.recovery_progress = recovery_progress(&items, self.partial_effects);
+                self.set_structured(ChoiceKind::Recovery,items,"Recuperación: Enter muestra evidencia; Ctrl+Enter registra revisión humana de la fila vigente.");
+                self.status = self.idle_status();
+            }
+            Event::Changes { items } => {
+                let undo = self
+                    .structured
+                    .as_ref()
+                    .is_some_and(|choices| choices.kind == ChoiceKind::Undo);
+                self.changes = items;
+                let visible = if undo {
+                    self.changes
+                        .iter()
+                        .filter(|item| undo_fields(item).is_some())
+                        .cloned()
+                        .collect()
+                } else if self.changes.is_empty() {
+                    self.details.iter().cloned().collect()
+                } else {
+                    self.changes.clone()
+                };
+                self.set_structured(if undo {ChoiceKind::Undo} else {ChoiceKind::Changes},visible,
+                    if undo {"Restaurar: revisa la fila con Enter. Ctrl+Enter confirma ruta, versión actual y respaldo."} else {"Cambios observados: flechas eligen y Enter muestra diff y evidencia."});
+                self.status = self.idle_status();
+            }
+            Event::UndoComplete { result } => {
+                if result["status"] == "verified" {
+                    self.message(
+                        "Restauración verificada; el contenido anterior también quedó respaldado.",
+                    );
+                } else {
+                    self.message(format!("Restauración no verificada: {}", result));
+                }
+                if matches!(
+                    result["status"].as_str(),
+                    Some("partial" | "unknown" | "applied")
+                ) {
+                    self.partial_effects = true;
+                }
+                self.retain_detail(json!({"name":"restore_backup","result":result}));
+                self.structured = None;
+                self.status = self.idle_status();
+            }
+            Event::Profiles(items) => {
+                self.set_structured(ChoiceKind::Profiles,items,"Perfil: Enter muestra parámetros; Ctrl+Enter aplica tu elección sin cambiar el modelo.");
+                self.status = self.idle_status();
+            }
+            Event::ProfileSelected { report } => {
+                self.structured = None;
+                self.status_report = report.clone();
+                self.message(format!("Perfil aplicado: {}", profile_label(&report)));
+                self.open_detail("Perfil seleccionado", status_detail(&report));
+                self.status = self.idle_status();
+            }
+            Event::Archive { report } | Event::ArchiveComplete { report } => {
+                let items = report["entries"]
+                    .as_array()
+                    .or_else(|| report["items"].as_array())
+                    .cloned()
+                    .unwrap_or_default();
+                self.set_structured(ChoiceKind::Archive,items,"Archivo: Enter muestra evidencia y destino. Ctrl+Enter confirma únicamente la fila revisada.");
+                if let Some(summary) = report["summary"].as_str() {
+                    self.message(summary);
+                }
+                for key in ["project_scan", "retention"] {
+                    if let Some(error) = report[key]["error"].as_str() {
+                        self.message(format!("{key}: {error}"));
+                    }
+                }
+                if report["status"] == "verified"
+                    && let Some(destination) = report["archived"]["destination"].as_str()
+                {
+                    self.message(format!("Archivado verificado: {destination}"));
+                }
+                self.status = self.idle_status();
+            }
             Event::Budget { used, limit } => {
                 self.context_used = Some(used);
                 self.context_limit = Some(limit);
@@ -320,20 +853,31 @@ impl App {
                     self.status = self.idle_status();
                 }
                 let extra = tool_extra(&name, &arguments, &result);
-                self.message(format!("[{role}] {name} · {state} · {extra}"));
+                self.message(format!("Acción [{role}]: {name} · {state} · {extra}"));
+                self.retain_detail(
+                    json!({"role":role,"name":name,"arguments":arguments,"result":result}),
+                );
                 return;
             }
             Event::Notice { role, text } => {
                 self.fold_reasoning();
                 if !self.response.is_empty() {
                     let progress = std::mem::take(&mut self.response);
-                    self.message(format!("Progreso: {progress}"));
+                    self.message(format!("\nRespuesta del agente (progreso):\n{progress}"));
                 }
-                self.message(format!("[{role}] {text}"));
+                self.message(format!("Agente [{role}]:\n{text}"));
                 if role == "sistema" {
+                    if text.contains("Efectos bloqueados:") {
+                        self.partial_effects = true;
+                        self.journal_hint = ".pillcli/sessions".into();
+                    }
                     self.note_exclusive(&text);
                     self.apply_unloaded(&text);
-                    self.status = liberation_status(&text).into();
+                    self.status = if self.partial_effects {
+                        self.idle_status()
+                    } else {
+                        liberation_status(&text).into()
+                    };
                     return;
                 }
                 self.status = if self.busy {
@@ -344,6 +888,7 @@ impl App {
                 return;
             }
             Event::Permissions(proposals) => {
+                self.structured = None;
                 self.choosing = false;
                 self.granting = !proposals.is_empty();
                 self.message("Flechas marcan una fila. Enter muestra el detalle. Ctrl+Enter concede o retira. Esc cierra sin cambiar nada.");
@@ -351,7 +896,7 @@ impl App {
                     self.message(format!(
                         "{} · {} · {}",
                         index + 1,
-                        proposal.id,
+                        proposal_label(proposal),
                         proposal_state(&proposal.id, &proposal.detail)
                     ));
                 }
@@ -402,6 +947,7 @@ impl App {
                 return;
             }
             Event::Models(models) => {
+                self.structured = None;
                 self.models = models;
                 self.choosing = true;
                 self.pick = 0;
@@ -416,11 +962,7 @@ impl App {
                             i + 1,
                             model.name,
                             size_label(model.size),
-                            if model.loaded {
-                                "en memoria"
-                            } else {
-                                "no cargado"
-                            }
+                            model.memory_label()
                         )
                     })
                     .collect();
@@ -476,7 +1018,8 @@ impl App {
             } => {
                 let streamed = std::mem::take(&mut self.response);
                 let response = answer.unwrap_or(streamed);
-                self.message(format!("Modelo: {response}"));
+                self.last_answer = response.clone();
+                self.message(format!("\nRespuesta:\n{response}"));
                 if let (Some(prompt), Some(generated), Some(load_ns)) = (
                     metrics
                         .get("prompt_eval_count")
@@ -540,7 +1083,7 @@ impl App {
     fn partial(&mut self) {
         if !self.response.is_empty() {
             let response = std::mem::take(&mut self.response);
-            self.message(format!("Respuesta parcial NO confirmada: {response}"));
+            self.message(format!("\nRespuesta parcial NO confirmada:\n{response}"));
         }
     }
 
@@ -556,7 +1099,11 @@ impl App {
             return;
         }
         let prompt = self.input.trim().to_owned();
-        if self.granting {
+        if self.structured.is_some() {
+            self.submit_structured(&prompt);
+            self.finish_edit();
+            return;
+        } else if self.granting {
             let Some(index) = self.list_index(&prompt, self.proposals.len()) else {
                 self.message("Elige una propuesta válida; ninguna se concedió.");
                 return;
@@ -588,7 +1135,7 @@ impl App {
             self.message("Selecciona primero un modelo con /model.");
             return;
         } else {
-            self.message(format!("Tú: {prompt}"));
+            self.message(format!("\nTú:\n{prompt}"));
             self.response.clear();
             self.sent.push_back(prompt.clone());
             while self.sent.len() > self.max_history {
@@ -599,6 +1146,8 @@ impl App {
             self.begin(
                 if self.task_mode {
                     Action::Task(prompt)
+                } else if self.ask_mode {
+                    Action::Ask(prompt)
                 } else {
                     Action::Chat(prompt)
                 },
@@ -610,6 +1159,41 @@ impl App {
 
     /// Devuelve true únicamente cuando se solicita salir.
     pub fn key(&mut self, key: Key) -> bool {
+        if key == Key::Interrupt {
+            return true;
+        }
+        if key == Key::Copy {
+            self.request_copy();
+            return false;
+        }
+        if self.detail_view.is_some() {
+            match key {
+                Key::Escape => self.detail_view = None,
+                Key::PageUp => {
+                    let page = self.page_rows();
+                    if let Some(view) = &mut self.detail_view {
+                        view.scroll = view.scroll.saturating_sub(page);
+                    }
+                }
+                Key::PageDown => {
+                    let page = self.page_rows();
+                    if let Some(view) = &mut self.detail_view {
+                        view.scroll = view.scroll.saturating_add(page);
+                    }
+                }
+                Key::Home => {
+                    if let Some(view) = &mut self.detail_view {
+                        view.scroll = 0;
+                    }
+                }
+                Key::Submit if self.granting || self.structured.is_some() => {
+                    self.detail_view = None;
+                    self.submit();
+                }
+                _ => {}
+            }
+            return false;
+        }
         match key {
             Key::Interrupt => return true,
             Key::Text(value, repeat) if !value.is_control() => {
@@ -650,6 +1234,8 @@ impl App {
                 }
                 self.dismissed = true;
                 self.granting = false;
+                self.choosing = false;
+                self.structured = None;
                 if self.busy {
                     self.action = Some(Action::Cancel);
                 }
@@ -701,18 +1287,24 @@ impl App {
             }
             Key::Enter => {
                 if self.confirm_liberate {
-                    self.confirm_liberate = false;
-                    if !self.busy {
-                        self.begin(Action::Liberate, "Comprobando memoria de esta sesión…");
-                    }
+                    self.message(
+                        "Ctrl+Enter confirma la descarga. Enter no descarga; Esc cancela.",
+                    );
+                    return false;
+                }
+                if self.structured.is_some() && !self.command_input() {
+                    let prompt = self.input.trim().to_owned();
+                    self.detail_structured(&prompt);
+                    self.finish_edit();
                     return false;
                 }
                 if self.granting && !self.command_input() {
                     let prompt = self.input.trim().to_owned();
                     let index = self.list_index(&prompt, self.proposals.len());
                     if let Some(proposal) = index.and_then(|value| self.proposals.get(value)) {
-                        let line = format!("{} · {}", proposal.id, proposal.detail);
-                        self.message(line);
+                        let title = proposal_label(proposal);
+                        let detail = permission_detail(proposal);
+                        self.open_detail(&title, detail);
                         self.finish_edit();
                     } else {
                         self.message("Elige una propuesta válida; ninguna se concedió.");
@@ -749,7 +1341,14 @@ impl App {
                         self.message("En /permissions, Enter muestra el detalle y Ctrl+Enter concede o retira. PgUp y PgDn mueven una pantalla cuando hay texto por encima.");
                         self.message("Flechas marcan la fila de modelos o permisos. En el borrador, Inicio y Fin quedan en la línea y Ctrl+flechas saltan palabras.");
                         self.message("Ctrl+R abre y cierra el razonamiento de la última respuesta. /journal muestra el diario local sin crear uno nuevo.");
-                        self.message("/liberate pide Enter para confirmar si esta sesión tiene modelos y la exclusividad está concedida. Esc cancela.");
+                        self.message("/liberate pide Ctrl+Enter para confirmar si esta sesión tiene modelos y la exclusividad está concedida. Esc cancela.");
+                        self.message("/ask consulta de solo lectura; /edit permite herramientas de edicion; /chat es alias de /edit.");
+                        self.message("/status muestra seleccion, memoria y limites; /profile ofrece perfiles sin cambiar modelo.");
+                        self.message("/recover inspecciona efectos y permite reconocer evidencia con Ctrl+Enter tras verla; /changes muestra cambios verificados.");
+                        self.message("/undo restaura respaldo solo si coincide SHA actual; /archive conserva evidencia moviendola tras confirmar huella.");
+                        self.message(
+                            "/copy o Ctrl+Y copia la ultima respuesta completa al portapapeles.",
+                        );
                         self.message("PgUp/PgDn desplazan respuestas; flechas sin menú ni lista recuperan peticiones anteriores.");
                     }
                     "/permissions" if !self.busy => {
@@ -757,14 +1356,51 @@ impl App {
                     }
                     "/task" if !self.busy => {
                         self.task_mode = true;
+                        self.ask_mode = false;
                         self.message("Modo tarea: próxima petición usa coordinador, explorador, implementador, tester y reviewer. Necesita pruebas concedidas.");
                         self.status = self.idle_status();
                     }
-                    "/chat" if !self.busy => {
+                    "/chat" | "/edit" if !self.busy => {
                         self.task_mode = false;
+                        self.ask_mode = false;
                         self.task_step = None;
-                        self.message("Modo chat con herramientas; acciones y resultados visibles.");
+                        self.message(
+                            "Modo chat con herramientas · Editar; acciones y resultados visibles.",
+                        );
                         self.status = self.idle_status();
+                    }
+                    "/ask" if !self.busy => {
+                        self.task_mode = false;
+                        self.ask_mode = true;
+                        self.task_step = None;
+                        self.message("Modo Preguntar: herramientas de solo lectura, sin editar ni ejecutar comandos.");
+                        self.status = self.idle_status();
+                    }
+                    "/status" if !self.busy => {
+                        self.begin(Action::Status, "Consultando estado y cuotas…")
+                    }
+                    "/recover" if !self.busy => {
+                        self.begin(Action::Recovery, "Inspeccionando evidencia durable…")
+                    }
+                    "/changes" if !self.busy => {
+                        self.structured = None;
+                        self.begin(Action::Changes, "Leyendo cambios observados…");
+                    }
+                    "/undo" if !self.busy => {
+                        self.structured = Some(StructuredChoices {
+                            kind: ChoiceKind::Undo,
+                            items: Vec::new(),
+                        });
+                        self.begin(Action::Changes, "Buscando respaldos restaurables…");
+                    }
+                    "/profile" if !self.busy => {
+                        self.begin(Action::Profiles, "Consultando perfiles disponibles…")
+                    }
+                    "/archive" if !self.busy => {
+                        self.begin(Action::Archive, "Inspeccionando evidencia revisada…")
+                    }
+                    "/copy" => {
+                        self.request_copy();
                     }
                     "/model" if !self.busy => self.begin(Action::Discover, "Consultando Ollama…"),
                     "/journal" if !self.busy => self.begin(Action::Journal, "Leyendo el diario…"),
@@ -796,7 +1432,9 @@ impl App {
         if self.exclusive && !self.session_models.is_empty() {
             self.confirm_liberate = true;
             let names = self.session_models.join(", ");
-            self.message(format!("Enter confirma descargar: {names}. Esc cancela."));
+            self.message(format!(
+                "Ctrl+Enter confirma descargar: {names}. Enter no descarga; Esc cancela."
+            ));
         } else {
             self.begin(Action::Liberate, "Comprobando memoria de esta sesión…");
         }
@@ -817,18 +1455,23 @@ impl App {
     }
 
     fn choice_len(&self) -> usize {
-        if self.menu_open() {
+        if self.menu_open() || self.detail_view.is_some() {
             0
         } else if self.choosing {
             self.models.len()
         } else if self.granting {
             self.proposals.len()
+        } else if let Some(choices) = &self.structured {
+            choices.items.len()
         } else {
             0
         }
     }
 
-    pub(crate) fn choice_rows(&self) -> Vec<String> {
+    pub(crate) fn choice_rows(&self, max_rows: usize) -> Vec<String> {
+        if self.detail_view.is_some() {
+            return Vec::new();
+        }
         let items: Vec<String> = if self.choosing {
             self.models
                 .iter()
@@ -839,11 +1482,7 @@ impl App {
                         index + 1,
                         model.name,
                         size_label(model.size),
-                        if model.loaded {
-                            "en memoria"
-                        } else {
-                            "no cargado"
-                        }
+                        model.memory_label()
                     )
                 })
                 .collect()
@@ -855,18 +1494,27 @@ impl App {
                     format!(
                         "{} · {} · {}",
                         index + 1,
-                        proposal.id,
+                        proposal_label(proposal),
                         proposal_state(&proposal.id, &proposal.detail)
                     )
+                })
+                .collect()
+        } else if let Some(choices) = &self.structured {
+            choices
+                .items
+                .iter()
+                .enumerate()
+                .map(|(index, item)| {
+                    format!("{} · {}", index + 1, structured_label(choices.kind, item))
                 })
                 .collect()
         } else {
             Vec::new()
         };
-        if items.is_empty() {
+        if items.is_empty() || max_rows == 0 {
             return Vec::new();
         }
-        let window = 8.min(items.len());
+        let window = max_rows.min(items.len());
         let pick = self.pick.min(items.len() - 1);
         let start = pick.saturating_sub(window / 2).min(items.len() - window);
         items
@@ -926,6 +1574,8 @@ impl App {
         self.reasoning_open = false;
         self.history
             .retain(|line| !line.starts_with(REASONING_MARK));
+        self.history_bytes = self.history.iter().map(String::len).sum();
+        self.history_revision = self.history_revision.wrapping_add(1);
     }
 
     fn toggle_reasoning(&mut self) {
@@ -974,7 +1624,7 @@ impl App {
     }
 
     fn page_rows(&self) -> usize {
-        self.view_rows.saturating_sub(12).max(1)
+        self.history_rows.max(1)
     }
 
     fn idle_status(&self) -> String {
@@ -986,8 +1636,10 @@ impl App {
             }
         } else if self.task_mode {
             "Preparado · Tarea".into()
+        } else if self.ask_mode {
+            "Preparado · Preguntar".into()
         } else {
-            "Preparado · Chat".into()
+            "Preparado · Editar".into()
         }
     }
 
@@ -1025,6 +1677,267 @@ fn liberation_status(text: &str) -> &'static str {
     }
 }
 
+fn proposal_label(offer: &Offer) -> String {
+    let parsed = serde_json::from_str::<Value>(&offer.detail).ok();
+    let value = parsed.as_ref().unwrap_or(&Value::Null);
+    let path = value["path"].as_str().unwrap_or("");
+    if offer.id.starts_with("file:") {
+        return match value["operation"].as_str() {
+            Some("move") => format!(
+                "Mover {path} → {}",
+                value["destination"]
+                    .as_str()
+                    .unwrap_or("destino no disponible")
+            ),
+            Some("delete") => format!("Eliminar {path}"),
+            _ => format!("Operación de archivo {path}"),
+        };
+    }
+    if let Some(id) = offer.id.strip_prefix("command:") {
+        return format!("Ejecutar prueba/comando {id}");
+    }
+    if let Some(id) = offer.id.strip_prefix("mcp:") {
+        return format!("Servidor MCP {id}");
+    }
+    if offer.id == "exclusive" {
+        return "Exclusividad del servidor Ollama".into();
+    }
+    if offer.id.starts_with("root:") {
+        return "Raíz adicional propuesta · no aplicada".into();
+    }
+    offer.id.clone()
+}
+
+fn permission_detail(offer: &Offer) -> String {
+    let mut lines = vec![
+        proposal_label(offer),
+        format!("Estado: {}", proposal_state(&offer.id, &offer.detail)),
+        format!("Huella: {}", offer.fingerprint),
+    ];
+    match serde_json::from_str::<Value>(&offer.detail) {
+        Ok(value) => lines.push(status_detail(&value)),
+        Err(_) => lines.push(offer.detail.clone()),
+    }
+    lines.join("\n")
+}
+
+fn item_result(item: &Value) -> &Value {
+    item.get("result").unwrap_or(item)
+}
+
+fn undo_fields(item: &Value) -> Option<(String, String, String, String)> {
+    let value = item_result(item);
+    if value["status"] != "verified" {
+        return None;
+    }
+    let field = |name: &str| {
+        value[name]
+            .as_str()
+            .filter(|s| !s.is_empty())
+            .map(str::to_owned)
+    };
+    Some((
+        field("path")?,
+        field("sha256")?,
+        field("backup_path")?,
+        field("backup_sha256")?,
+    ))
+}
+
+fn choice_key(kind: ChoiceKind, item: &Value) -> String {
+    match kind {
+        ChoiceKind::Undo => undo_fields(item)
+            .map(|fields| format!("{}\n{}\n{}\n{}", fields.0, fields.1, fields.2, fields.3))
+            .unwrap_or_default(),
+        ChoiceKind::Profiles => item["id"]
+            .as_str()
+            .or_else(|| item["name"].as_str())
+            .unwrap_or("")
+            .into(),
+        _ => item["fingerprint"].as_str().unwrap_or("").into(),
+    }
+}
+
+fn profile_label(value: &Value) -> String {
+    let id = value["id"]
+        .as_str()
+        .or_else(|| value["name"].as_str())
+        .or_else(|| value["profile_id"].as_str())
+        .unwrap_or("perfil elegido");
+    let parameters = value.get("profile").unwrap_or(value);
+    if let (Some(context), Some(predict)) = (
+        parameters["num_ctx"].as_u64(),
+        parameters["num_predict"].as_u64(),
+    ) {
+        format!(
+            "{id} · contexto {context} · generación {predict} · thinking {}",
+            parameters["think"]
+        )
+    } else {
+        id.into()
+    }
+}
+
+fn recovery_review_label(item: &Value) -> &'static str {
+    if item["needs_review"] != false {
+        "pendiente"
+    } else if item["reviewed"] == true {
+        "revisada"
+    } else {
+        "sin revisión pendiente"
+    }
+}
+
+fn recovery_progress(items: &[Value], blocked: bool) -> String {
+    let pending = items
+        .iter()
+        .filter(|item| item["needs_review"] != false)
+        .count();
+    let reviewed = items
+        .iter()
+        .filter(|item| item["needs_review"] == false && item["reviewed"] == true)
+        .count();
+    if blocked && pending == 0 {
+        return format!(
+            "Recuperación: estado sin resolver · Revisadas: {reviewed} · Total: {}",
+            items.len()
+        );
+    }
+    format!(
+        "Recuperación · Pendientes: {pending} · Revisadas: {reviewed} · Total: {}",
+        items.len()
+    )
+}
+
+fn structured_label(kind: ChoiceKind, item: &Value) -> String {
+    match kind {
+        ChoiceKind::Recovery => format!(
+            "{} · {} · {} · {}",
+            recovery_review_label(item),
+            item["tool"].as_str().unwrap_or("operación"),
+            item["path"].as_str().unwrap_or("diario/efectos externos"),
+            item["state"].as_str().unwrap_or("estado no disponible")
+        ),
+        ChoiceKind::Profiles => profile_label(item),
+        ChoiceKind::Archive => item["label"]
+            .as_str()
+            .or_else(|| item["path"].as_str())
+            .unwrap_or("Evidencia revisada")
+            .into(),
+        ChoiceKind::Changes | ChoiceKind::Undo => {
+            let value = item_result(item);
+            format!(
+                "{}{} · {}",
+                if kind == ChoiceKind::Undo {
+                    "Restaurar "
+                } else {
+                    ""
+                },
+                value["path"]
+                    .as_str()
+                    .unwrap_or_else(|| item["name"].as_str().unwrap_or("resultado observado")),
+                value["status"].as_str().unwrap_or("sin estado")
+            )
+        }
+    }
+}
+
+fn status_detail(value: &Value) -> String {
+    fn label(key: &str) -> String {
+        match key {
+            "path" => "Ruta",
+            "destination" => "Destino",
+            "source_path" => "Origen completo",
+            "program" => "Programa",
+            "args" => "Argumentos",
+            "cwd" => "Directorio de trabajo",
+            "fingerprint" => "Huella vigente",
+            "sha256" => "SHA observado",
+            "base_sha256" => "SHA de base",
+            "expected_sha256" => "SHA esperado",
+            "backup_path" => "Respaldo",
+            "backup_sha256" => "SHA del respaldo",
+            "before" => "Antes",
+            "after" => "Después",
+            "diff" => "Cambios observados",
+            "old" => "Coincidencia solicitada",
+            "new" => "Reemplazo solicitado",
+            "error" => "Motivo del fallo",
+            "status" => "Estado",
+            "arguments" => "Petición",
+            "result" => "Resultado observado",
+            "name" => "Nombre",
+            "watched_files" => "Archivos vinculados a la concesión",
+            "observed_files" => "Versiones observadas",
+            "granted" => "Concedido",
+            "entries" => "Entradas",
+            "needs_review" => "Requiere revisión",
+            "detail" => "Detalle",
+            "reason" => "Motivo",
+            "command" => "Comando observado",
+            "context" => "Contexto",
+            "requested" => "Solicitado",
+            "observed" => "Observado",
+            "loaded" => "Cargado",
+            "selected" => "Seleccionado",
+            "owned" => "De esta sesión",
+            "limits" => "Límites",
+            "usage" => "Uso",
+            "profiles" => "Perfiles",
+            "model" => "Modelo",
+            "state" => "Estado de recuperación",
+            "snapshot" => "Estado actual",
+            "target" => "Resultado previsto",
+            _ => return key.replace('_', " "),
+        }
+        .into()
+    }
+    fn append(value: &Value, depth: usize, lines: &mut Vec<String>) {
+        let indent = "  ".repeat(depth);
+        match value {
+            Value::Object(map) => {
+                for (key, value) in map {
+                    if value.is_object() || value.is_array() {
+                        lines.push(format!("{indent}{}:", label(key)));
+                        append(value, depth + 1, lines);
+                    } else {
+                        lines.push(format!(
+                            "{indent}{}: {}",
+                            label(key),
+                            value
+                                .as_str()
+                                .map(str::to_owned)
+                                .unwrap_or_else(|| value.to_string())
+                        ));
+                    }
+                }
+            }
+            Value::Array(values) => {
+                for value in values {
+                    if value.is_object() || value.is_array() {
+                        lines.push(format!("{indent}—"));
+                        append(value, depth + 1, lines);
+                    } else {
+                        lines.push(format!(
+                            "{indent}• {}",
+                            value
+                                .as_str()
+                                .map(str::to_owned)
+                                .unwrap_or_else(|| value.to_string())
+                        ));
+                    }
+                }
+            }
+            Value::String(text) => lines.push(format!("{indent}{text}")),
+            Value::Null => lines.push(format!("{indent}no disponible")),
+            other => lines.push(format!("{indent}{other}")),
+        }
+    }
+    let mut lines = Vec::new();
+    append(value, 0, &mut lines);
+    lines.join("\n")
+}
+
 fn proposal_state(id: &str, detail: &str) -> &'static str {
     if id.starts_with("root:") {
         "rechazada"
@@ -1041,6 +1954,25 @@ fn tool_extra(name: &str, arguments: &serde_json::Value, result: &serde_json::Va
         .and_then(serde_json::Value::as_str)
         .or_else(|| arguments.get("path").and_then(serde_json::Value::as_str))
         .unwrap_or("");
+    if result["status"] != "verified"
+        && let Some(error) = result["error"]
+            .as_str()
+            .or_else(|| result["reason"].as_str())
+    {
+        return if path.is_empty() {
+            clip(error, 160)
+        } else {
+            format!("{path} · {}", clip(error, 160))
+        };
+    }
+    if name == "move_file" && result["status"] == "verified" {
+        return format!(
+            "{path} → {}",
+            result["destination"]
+                .as_str()
+                .unwrap_or("destino verificado")
+        );
+    }
     if name == "search_files" {
         let count = result
             .get("matches")
@@ -1154,7 +2086,7 @@ fn is_regional(character: char) -> bool {
     ('\u{1F1E6}'..='\u{1F1FF}').contains(&character)
 }
 
-fn next_boundary(text: &str, start: usize) -> usize {
+pub(super) fn next_boundary(text: &str, start: usize) -> usize {
     let start = floor_char(text, start);
     let Some(first) = text[start..].chars().next() else {
         return start;
@@ -1431,7 +2363,10 @@ mod tests {
         let tool_line = app.history.back().unwrap();
         assert!(tool_line.contains("edit_file"));
         assert!(tool_line.contains("partial"));
-        assert!(tool_line.contains("a - b → a + b"));
+        assert!(tool_line.contains("ventana"));
+        assert!(!tool_line.contains("a - b → a + b"));
+        assert_eq!(app.details.back().unwrap()["arguments"]["old"], "a - b");
+        assert_eq!(app.details.back().unwrap()["result"]["status"], "partial");
         assert!(!tool_line.contains('{'));
         app.event(Event::Selected(crate::providers::ollama::SelectedModel {
             model: crate::providers::ollama::Model {
@@ -1458,7 +2393,7 @@ mod tests {
         let row = app
             .history
             .iter()
-            .find(|line| line.contains("mcp:eco"))
+            .find(|line| line.contains("Servidor MCP eco"))
             .unwrap();
         assert!(row.contains("no concedido"));
         assert!(!row.contains("program"));
@@ -1466,18 +2401,39 @@ mod tests {
         assert!(!app.key(Key::Enter));
         assert!(app.take_action().is_none());
         assert!(app.granting);
-        assert!(app.history.back().unwrap().contains("program"));
-        app.key(Key::Text('1', 1));
+        let detail = app.detail_view.as_ref().unwrap();
+        assert!(detail.title.contains("Servidor MCP eco"));
+        assert!(detail.text.contains("Programa: python"));
+        assert!(detail.text.contains("Huella: abc"));
+        assert!(app.footer().contains("confirmar"));
         app.key(Key::Submit);
         assert!(matches!(app.take_action(), Some(Action::Grant { id, .. }) if id == "mcp:eco"));
     }
 
     #[test]
     fn page_up_moves_more_than_one_line_and_failures_name_the_cause() {
-        let mut app = App::new(128, 16);
+        let mut app = App::new(128, 128);
         app.view_rows = 40;
+        for index in 0..80 {
+            app.message(format!("línea {index}"));
+        }
+        let mut config: crate::config::Config =
+            serde_json::from_str(include_str!("../../config/defaults.json")).unwrap();
+        config.ui.compact_header = true;
+        crate::ui::render::frame(
+            &mut app,
+            std::path::Path::new("proyecto"),
+            &config.ui,
+            None,
+            80,
+            40,
+        );
+        let visible = app.history_rows;
+        assert!(visible > 1);
         app.key(Key::PageUp);
-        assert!(app.scroll > 1);
+        assert_eq!(app.scroll, visible);
+        app.key(Key::PageDown);
+        assert_eq!(app.scroll, 0);
         app.digest = "digest".into();
         app.event(Event::Failed(
             "historial demasiado grande para el contexto configurado".into(),
@@ -1497,12 +2453,12 @@ mod tests {
             ListedModel {
                 name: "qwen".into(),
                 size: 2 * 1024 * 1024 * 1024,
-                loaded: true,
+                loaded: Some(true),
             },
             ListedModel {
                 name: "tiny".into(),
                 size: 50 * 1024 * 1024,
-                loaded: false,
+                loaded: Some(false),
             },
         ]));
         let text = app.history.iter().cloned().collect::<Vec<_>>().join("\n");
@@ -1594,12 +2550,12 @@ mod tests {
             ListedModel {
                 name: "uno".into(),
                 size: 1024 * 1024,
-                loaded: false,
+                loaded: Some(false),
             },
             ListedModel {
                 name: "dos".into(),
                 size: 1024 * 1024,
-                loaded: true,
+                loaded: Some(true),
             },
         ]));
         assert!(!app.key(Key::Down));
@@ -1730,6 +2686,9 @@ mod tests {
         }
         assert!(!app.key(Key::Enter));
         app.key(Key::Enter);
+        assert!(app.take_action().is_none(), "un salto pegado no descarga");
+        assert!(app.confirm_liberate);
+        app.key(Key::Submit);
         assert!(matches!(app.take_action(), Some(Action::Liberate)));
     }
 
@@ -1825,5 +2784,168 @@ mod tests {
         app.key(Key::Left);
         app.key(Key::Backspace);
         assert_eq!(app.input, "!");
+    }
+
+    #[test]
+    fn escape_closes_models_and_preserves_effective_model_and_draft() {
+        let mut app = App::new(256, 32);
+        app.model_label = "modelo vigente".into();
+        app.digest = "digest vigente".into();
+        app.input = "borrador sin enviar".into();
+        app.cursor = app.input.len();
+        app.event(Event::Models(vec![ListedModel {
+            name: "otro".into(),
+            size: 1,
+            loaded: Some(false),
+        }]));
+        assert!(app.choosing);
+        assert!(app.footer().contains("Ctrl+Enter elegir"));
+        app.key(Key::Escape);
+        assert!(!app.choosing);
+        assert_eq!(app.model_label, "modelo vigente");
+        assert_eq!(app.digest, "digest vigente");
+        assert_eq!(app.input, "borrador sin enviar");
+        assert!(app.take_action().is_none());
+    }
+
+    #[test]
+    fn file_permissions_use_semantic_rows_and_keep_full_fingerprint_in_detail() {
+        let mut app = App::new(256, 32);
+        let fingerprint = "a".repeat(64);
+        app.event(Event::Permissions(vec![Offer{id:format!("file:{fingerprint}"),fingerprint:fingerprint.clone(),detail:json!({"operation":"move","path":"origen.txt","destination":"destino.txt","granted":false}).to_string()}]));
+        let row = app.choice_rows(1).remove(0);
+        assert!(row.contains("Mover origen.txt → destino.txt"));
+        assert!(!row.contains(&fingerprint));
+        assert!(app.footer().contains("Enter detalle"));
+        assert!(app.footer().contains("conceder/retirar"));
+        assert!(!app.footer().contains("Enter línea"));
+        app.key(Key::Enter);
+        assert!(app.take_action().is_none());
+        assert!(
+            app.detail_view
+                .as_ref()
+                .unwrap()
+                .text
+                .contains(&fingerprint)
+        );
+    }
+
+    #[test]
+    fn ask_mode_dispatches_readonly_action_and_edit_restores_explicit_editing() {
+        let mut app = App::new(256, 32);
+        app.digest = "digest explícito".into();
+        for character in "/ask".chars() {
+            app.key(Key::Text(character, 1));
+        }
+        app.key(Key::Enter);
+        assert!(app.ask_mode && !app.task_mode);
+        assert!(app.mode_label().contains("solo lectura"));
+        app.input = "lee este proyecto".into();
+        app.cursor = app.input.len();
+        app.key(Key::Submit);
+        assert!(matches!(app.take_action(),Some(Action::Ask(text)) if text=="lee este proyecto"));
+        app.busy = false;
+        for character in "/edit".chars() {
+            app.key(Key::Text(character, 1));
+        }
+        app.key(Key::Enter);
+        assert!(!app.ask_mode && !app.task_mode);
+        app.input = "edita este proyecto".into();
+        app.cursor = app.input.len();
+        app.key(Key::Submit);
+        assert!(
+            matches!(app.take_action(),Some(Action::Chat(text)) if text=="edita este proyecto")
+        );
+    }
+
+    #[test]
+    fn recovery_needs_preview_and_exact_current_fingerprint_before_human_ack() {
+        let mut app = App::new(256, 32);
+        let entry = json!({"tool":"mcp__servidor__write","path":"dato.txt","state":"unknown","needs_review":true,"fingerprint":"evidencia-1"});
+        app.event(Event::Recovery {
+            report: json!({"needs_review":true,"entries":[entry]}),
+        });
+        app.key(Key::Submit);
+        assert!(app.detail_view.is_some());
+        assert!(app.take_action().is_none());
+        app.key(Key::Submit);
+        assert!(
+            matches!(app.take_action(),Some(Action::AcknowledgeRecovery{fingerprint}) if fingerprint=="evidencia-1")
+        );
+        assert!(app.partial_effects);
+        app.event(Event::RecoveryReviewed{report:json!({"needs_review":false,"entries":[{"tool":"mcp__servidor__write","state":"unknown","needs_review":false,"reviewed":true,"fingerprint":"evidencia-1"}]})});
+        assert!(!app.partial_effects);
+        assert_eq!(app.recovery_report["entries"][0]["state"], "unknown");
+    }
+
+    #[test]
+    fn screen_byte_quota_preserves_utf8_and_reports_retention_without_affecting_copy() {
+        let mut config: crate::config::Config =
+            serde_json::from_str(include_str!("../../config/defaults.json")).unwrap();
+        config.ui.max_history_bytes = 4096;
+        let mut app = App::new(256, 64);
+        app.configure_ui(&config.ui);
+        app.message("antiguo".repeat(300));
+        app.message("á".repeat(3000));
+        assert!(app.history_bytes <= config.ui.max_history_bytes);
+        assert!(
+            app.history
+                .iter()
+                .all(|text| std::str::from_utf8(text.as_bytes()).is_ok())
+        );
+        assert!(app.history_omitted > 0);
+        assert!(app.history_clipped_bytes > 0);
+        app.last_answer = "respuesta íntegra\nsegunda línea".into();
+        app.key(Key::Copy);
+        assert_eq!(
+            app.copy_requested.as_deref(),
+            Some("respuesta íntegra\nsegunda línea")
+        );
+    }
+    #[test]
+    fn recovery_progress_keeps_unknown_history_and_counts_unreviewed_evidence_conservatively() {
+        let mut app = App::new(4096, 128);
+        let entries = json!([
+            {"tool":"mcp__s__write","state":"unknown","needs_review":false,"reviewed":true,"fingerprint":"a"},
+            {"tool":"edit_file","state":"unknown","needs_review":true,"reviewed":true,"fingerprint":"b"},
+            {"tool":"create_file","state":"applied","needs_review":false,"reviewed":false,"fingerprint":"c"},
+            {"tool":"diario","state":"unknown","fingerprint":"d"}]);
+        app.event(Event::Recovery {
+            report: json!({"needs_review":true,"entries":entries}),
+        });
+        assert_eq!(
+            app.recovery_heading(),
+            Some("Recuperación · Pendientes: 2 · Revisadas: 1 · Total: 4")
+        );
+        let rows = app.choice_rows(10);
+        assert!(rows[0].contains("revisada") && rows[0].contains("unknown"));
+        assert!(rows[1].contains("pendiente"));
+        assert!(rows[2].contains("sin revisión pendiente"));
+        assert!(rows[3].contains("pendiente"));
+        app.key(Key::Enter);
+        app.key(Key::Submit);
+        assert!(app.take_action().is_none());
+        assert!(app.partial_effects);
+        app.event(Event::Recovery {
+            report: json!({"needs_review":true,"entries":[]}),
+        });
+        assert!(
+            app.recovery_heading()
+                .unwrap()
+                .contains("estado sin resolver")
+        );
+        assert!(!app.recovery_heading().unwrap().contains("0 pendientes"));
+    }
+
+    #[test]
+    fn profile_detail_announces_existing_apply_action_after_preview() {
+        let mut app = App::new(4096, 128);
+        app.event(Event::Profiles(vec![
+            json!({"name":"codigo","num_ctx":8192,"num_predict":1024,"think":false}),
+        ]));
+        app.key(Key::Enter);
+        assert!(app.footer().contains("Ctrl+Enter aplicar perfil"));
+        app.key(Key::Submit);
+        assert!(matches!(app.take_action(),Some(Action::SelectProfile(name)) if name=="codigo"));
     }
 }

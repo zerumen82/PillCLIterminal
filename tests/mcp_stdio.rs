@@ -252,3 +252,144 @@ fn an_external_file_argument_is_rejected_before_launch() {
     assert!(error.contains("fuera de la raíz"), "{error}");
     assert!(!project.root.join("started.txt").exists());
 }
+
+#[test]
+fn effects_before_death_timeout_or_tool_error_block_following_effects_and_restart() {
+    for mode in ["write_die", "write_hang", "write_error"] {
+        let project = Project::new();
+        let config = config(&project, mode, 1000, 1000);
+        let tools = Toolset::new(&project.root, &config, None, &project.trust).unwrap();
+        let offer = tools
+            .offers()
+            .unwrap()
+            .into_iter()
+            .find(|o| o.id == "mcp:eco")
+            .unwrap();
+        tools.grant_offer(&offer.id, &offer.fingerprint).unwrap();
+        let request = call("mcp__eco__echo", json!({"text":"real"}));
+        let mut journal = tools.journal().unwrap();
+        let id = journal
+            .record(Role::Implementer, "requested", Some(&request), None)
+            .unwrap();
+        let result = runtime().block_on(tools.execute(
+            Role::Implementer,
+            &request,
+            Arc::new(AtomicBool::new(false)),
+        ));
+        journal
+            .observed(Role::Implementer, &request, &result, &id)
+            .unwrap();
+        assert_eq!(result["status"], "unknown", "{mode}: {result}");
+        assert_eq!(
+            fs::read_to_string(project.root.join("effect.txt")).unwrap(),
+            "efecto real antes del resultado"
+        );
+        let create = call(
+            "create_file",
+            json!({"path":"no.txt","content":"bloqueado"}),
+        );
+        let rejected = runtime().block_on(tools.execute(
+            Role::Implementer,
+            &create,
+            Arc::new(AtomicBool::new(false)),
+        ));
+        assert_eq!(rejected["status"], "failed");
+        let restored = Toolset::new(&project.root, &config, None, &project.trust).unwrap();
+        assert!(restored.recovery_report().contains("Efectos bloqueados"));
+        let rejected = runtime().block_on(restored.execute(
+            Role::Implementer,
+            &create,
+            Arc::new(AtomicBool::new(false)),
+        ));
+        assert_eq!(rejected["status"], "failed");
+        assert!(!project.root.join("no.txt").exists());
+    }
+}
+
+#[test]
+fn oversized_arguments_are_rejected_before_starting_server_and_ambiguous_ids_are_invalid() {
+    let project = Project::new();
+    let mut config = config(&project, "echo", 1000, 1000);
+    config.mcp.max_message_bytes = 1024;
+    let tools = Toolset::new(&project.root, &config, None, &project.trust).unwrap();
+    let offers = tools.offers().unwrap();
+    let offer = offer(&offers, "mcp:eco");
+    tools.grant_offer(&offer.id, &offer.fingerprint).unwrap();
+    let result = runtime().block_on(tools.execute(
+        Role::Implementer,
+        &call("mcp__eco__echo", json!({"text":"a".repeat(2048)})),
+        Arc::new(AtomicBool::new(false)),
+    ));
+    assert_eq!(result["status"], "failed");
+    assert!(!project.root.join("started.txt").exists());
+    config.mcp.servers[0].id = "eco__otra".into();
+    assert!(config.mcp.validate().is_err());
+}
+
+#[test]
+fn catalog_cache_reuses_metadata_but_rechecks_revocation_and_script_hash() {
+    let project = Project::new();
+    let tools = toolset(&project, "echo", 5_000, 5_000);
+    let offers = tools.offers().unwrap();
+    let mcp = offer(&offers, "mcp:eco");
+    tools.grant_offer(&mcp.id, &mcp.fingerprint).unwrap();
+    let rt = runtime();
+    let first = rt.block_on(tools.mcp_schemas());
+    assert!(first.1.is_empty(), "{:?}", first.1);
+    assert!(!first.0.is_empty());
+    let launches = fs::read(project.root.join("launches.txt")).unwrap();
+    let second = rt.block_on(tools.mcp_schemas());
+    assert_eq!(first.0, second.0);
+    assert_eq!(
+        launches,
+        fs::read(project.root.join("launches.txt")).unwrap()
+    );
+    tools.revoke_offer("mcp:eco").unwrap();
+    assert!(rt.block_on(tools.mcp_schemas()).0.is_empty());
+    assert_eq!(
+        launches,
+        fs::read(project.root.join("launches.txt")).unwrap()
+    );
+    let offers = tools.offers().unwrap();
+    let mcp = offer(&offers, "mcp:eco");
+    tools.grant_offer(&mcp.id, &mcp.fingerprint).unwrap();
+    use std::io::Write;
+    fs::OpenOptions::new()
+        .append(true)
+        .open(project.root.join("mcp_fixture.py"))
+        .unwrap()
+        .write_all(b"\n# script changed after cached catalog\n")
+        .unwrap();
+    assert!(rt.block_on(tools.mcp_schemas()).0.is_empty());
+    assert_eq!(
+        launches,
+        fs::read(project.root.join("launches.txt")).unwrap()
+    );
+}
+#[test]
+fn shutting_down_own_mcp_also_finishes_its_remaining_descendant() {
+    use windows_sys::Win32::{
+        Foundation::{CloseHandle, WAIT_OBJECT_0},
+        System::Threading::{OpenProcess, PROCESS_SYNCHRONIZE, WaitForSingleObject},
+    };
+    let project = Project::new();
+    let tools = toolset(&project, "descendant", 5_000, 5_000);
+    let offers = tools.offers().unwrap();
+    let mcp = offer(&offers, "mcp:eco");
+    tools.grant_offer(&mcp.id, &mcp.fingerprint).unwrap();
+    let result = runtime().block_on(tools.mcp_schemas());
+    assert!(result.1.is_empty(), "{:?}", result.1);
+    assert!(!result.0.is_empty());
+    let pid = fs::read_to_string(project.root.join("descendant.txt"))
+        .unwrap()
+        .parse::<u32>()
+        .unwrap();
+    unsafe {
+        let handle = OpenProcess(PROCESS_SYNCHRONIZE, 0, pid);
+        if !handle.is_null() {
+            let state = WaitForSingleObject(handle, 0);
+            CloseHandle(handle);
+            assert_eq!(state, WAIT_OBJECT_0, "el descendiente propio sigue activo");
+        }
+    }
+}

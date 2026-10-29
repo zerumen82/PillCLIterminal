@@ -1,5 +1,11 @@
   quierevisa e# PLAN ORIGINAL · Agente de programación local para terminal
 
+Estado vigente 2026-10-28: mejora integral U01-U15 verificada con tester PASS,
+reviewer APPROVE e instalacion real de pill en User PATH (P07 cerrado).
+E6/v1 conserva P04/P08. Los estados de fechas anteriores son historicos;
+fuentes y evidencia actuales en [memory.md](memory.md).
+
+
 > **Visión:** una cápsula verde en la consola que convierte instrucciones en cambios verificables en el proyecto, sin ceder el control del equipo.
 >
 > **Estado:** referencia histórica, actualizada el 2026-10-20. Aprobados: Rust, terminal con cápsula propia, multiagentes, cliente MCP `stdio`, lectura/escritura sin confirmación por archivo y ejecución de pruebas/compilación dentro del proyecto. Instalaciones y acciones destructivas requieren confirmación. Búsqueda web después del ciclo local. Los tres modelos Huihui ya están descargados; no hay implementación del CLI. El [plan técnico](PLAN-IMPLEMENTACION.md) y `spec/00` a `spec/04` concretan las propuestas pendientes de aprobación.

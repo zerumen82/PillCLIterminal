@@ -1,0 +1,21 @@
+{
+  "closed_loopback_url": "http://127.0.0.1:58645",
+  "connection_error": "Conexión Ollama: error sending request for url (http://127.0.0.1:58645/api/tags)",
+  "context_error": "Ollama: ollama.num_ctx=40961 supera el contexto anunciado 40960",
+  "model": {
+    "capabilities": [
+      "completion",
+      "tools",
+      "thinking"
+    ],
+    "context_limit": 40960,
+    "model": {
+      "digest": "9d803f2de4330c06c844b9d00c1418c07cb7a87fe67b7e32294323b777487cde",
+      "name": "huihui_ai/qwen3-abliterated:4b-v2",
+      "size": 2497289828
+    }
+  },
+  "requested_context": 40961,
+  "result": "PASS",
+  "scope": "Metadatos reales, contexto anunciado excedido y conexión rechazada real; sin generación ni servidor simulado."
+}

@@ -140,7 +140,8 @@ def press(text='', vk=0, control=0):
         K.CloseHandle(i)
 
 
-def run_session(exit_with_control=False):
+def run_session(exit_with_control=False, failure_path=None, binary=None):
+    binary = Path(binary or ROOT / "bin/pill.exe").resolve()
     captures = {}
     resize = None
     with tempfile.TemporaryDirectory(prefix='pill-e1-') as directory:
@@ -148,13 +149,13 @@ def run_session(exit_with_control=False):
         # Configuración parcial real, dentro de una muestra descartable.
         project = folder / 'Mi código'
         (project / '.pillcli').mkdir(parents=True)
-        preferences = '{"ui":{"poll_ms":100}}' if exit_with_control else '{"ui":{"ascii_logo":true,"logo_color":"cyan"}}'
+        preferences = '{"ui":{"poll_ms":100,"compact_header":false}}' if exit_with_control else '{"ui":{"ascii_logo":true,"logo_color":"cyan","compact_header":false}}'
         (project / '.pillcli/config.json').write_text(preferences, encoding='utf-8')
         startup = subprocess.STARTUPINFO()
         startup.dwFlags |= subprocess.STARTF_USESHOWWINDOW
         startup.wShowWindow = 0
         host = subprocess.Popen([shutil.which('pwsh'), '-NoProfile', '-File', str(ROOT / 'diagnostics/console_host.ps1'),
-                                 directory, str(ROOT / 'bin/pill.exe'), str(project)],
+                                 directory, str(binary), str(project)],
                                 creationflags=subprocess.CREATE_NEW_CONSOLE, startupinfo=startup)
         try:
             wait_for(lambda: (folder / 'ready').exists(), 'host preparado')
@@ -184,7 +185,9 @@ def run_session(exit_with_control=False):
                 press(vk=0x09)
                 wait_for(lambda: '> /help' in screen(), 'Tab completa')
                 press(vk=0x0D)
-                wait_for(lambda: 'El chat usa herramientas reales' in screen(), 'ayuda real ejecutada')
+                # Con muchos modelos instalados, el listado deja visibles solo
+                # las últimas líneas de ayuda; no exigir una frase intermedia.
+                wait_for(lambda: 'PgUp/PgDn desplazan respuestas' in screen(), 'ayuda real ejecutada')
                 captures['ayuda'] = screen()
                 press('á🟢z')
                 press(vk=0x25)
@@ -210,6 +213,15 @@ def run_session(exit_with_control=False):
             assert before == after, (before, after)
             return {'salida': 'Ctrl+C' if exit_with_control else '/exit con flecha y Enter',
                     'codigo': code, 'estado_antes': before, 'estado_despues': after, 'redimensionado': resize, 'capturas': captures, 'resultado': 'PASS'}
+        except Exception as error:
+            if failure_path is not None:
+                failure_path.write_text(json.dumps({
+                    'resultado': 'FAIL', 'error': repr(error), 'capturas': captures,
+                    'pantalla': screen(), 'dimensiones': dimensions(),
+                    'estado': state(),
+                    'sha256_binario': hashlib.sha256(binary.read_bytes()).hexdigest(),
+                }, ensure_ascii=False, indent=2), encoding='utf-8')
+            raise
         finally:
             (folder / 'finish').touch()
             if host.poll() is None and not (folder / 'result').exists():
@@ -225,12 +237,15 @@ def run_session(exit_with_control=False):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
+    parser.add_argument('--binary', type=Path, default=ROOT / 'bin/pill.exe')
     parser.add_argument('--evidence', default=str(ROOT / 'evidencias/2026-10-20-e2-regresion-consola.json'))
     args = parser.parse_args()
-    sessions = [run_session(), run_session(exit_with_control=True)]
-    binary = ROOT / 'bin/pill.exe'
+    output = Path(args.evidence)
+    output.parent.mkdir(parents=True, exist_ok=True)
+    failure_path = output.with_name(output.stem + '-fallo.json')
+    sessions = [run_session(failure_path=failure_path, binary=args.binary), run_session(exit_with_control=True, failure_path=failure_path, binary=args.binary)]
+    binary = args.binary.resolve()
     report = {'fecha_utc': datetime.now(timezone.utc).isoformat(), 'tipo': 'Regresión E1 sobre implementación actual; consola Windows real; sin inferencia',
               'binario': str(binary), 'sha256_binario': hashlib.sha256(binary.read_bytes()).hexdigest(), 'sesiones': sessions, 'resultado': 'PASS'}
-    output = Path(args.evidence)
     output.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding='utf-8')
     print('PASS: menú sin Enter, filtro, Esc, Tab, ayuda, Unicode, resize, /exit y Ctrl+C; modos/cursor/atributos restaurados.')

@@ -1,0 +1,46 @@
+{
+  "checks": [
+    {
+      "command": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.4369999999762513,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "cargo",
+        "clippy",
+        "--locked",
+        "--offline",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 5.360000000044238,
+      "stdout": "",
+      "stderr": "    Checking pill v0.1.0 (D:\\PROJECTS\\PILLCLITER)\n    Finished `dev` profile [unoptimized + debuginfo] target(s) in 5.21s\n"
+    },
+    {
+      "command": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline"
+      ],
+      "exit_code": 101,
+      "elapsed_s": 114.56199999997625,
+      "stdout": "\nrunning 52 tests\ntest cli::tests::paths_with_spaces_and_unicode_are_single_arguments ... ok\ntest cli::tests::unknown_missing_and_duplicate_options_fail ... ok\ntest agents::tests::empty_reply_can_preserve_observed_work_but_never_imply_review_approval ... ok\ntest agents::tests::handoff_contains_complete_observations_without_generated_instructions_or_hashes ... ok\ntest agents::tests::another_success_cannot_hide_a_failed_test_but_same_test_can_be_retried ... ok\ntest agents::tests::claimed_change_or_pass_does_not_replace_role_tool_evidence ... ok\ntest config::tests::partial_preferences_preserve_limits_and_reject_grants ... ok\ntest config::tests::unbounded_input_and_busy_polling_are_rejected ... ok\ntest gpu::tests::exclusive_unloads_only_names_selected_by_this_session ... ok\ntest files::tests::live_write_and_delete_handles_are_excluded_and_directory_cannot_be_renamed ... ok\ntest gpu::tests::shared_server_keeps_every_loaded_model ... ok\ntest gpu::tests::missing_nvidia_binary_does_not_invent_memory ... ok\ntest files::tests::failed_publication_rolls_back_only_into_absent_destination ... ok\ntest providers::ollama::tests::malformed_final_records_errors_and_length_cannot_confirm_partial_text ... ok\ntest providers::ollama::tests::local_endpoint_rejects_remote_and_credential_leaks ... ok\ntest providers::ollama::tests::ndjson_handles_split_utf8_crlf_limits_and_truncation ... ok\ntest providers::ollama::tests::thinking_notifies_by_blocks_and_stays_out_of_the_answer ... ok\ntest providers::ollama::tests::tool_fragments_stay_pending_until_valid_final_and_reject_ambiguous_arguments ... ok\ntest providers::ollama::tests::reserved_context_of_empty_messages_matches_the_gate ... ok\ntest tools::tests::partial_effect_stays_pending_across_new_requests_and_blocks_writes ... ok\ntest session::tests::saved_transcript_drops_the_oldest_dialogue_until_it_fits ... ok\ntest ui::model::tests::a_slash_in_regular_text_does_not_open_menu ... ok\ntest ui::model::tests::arrows_select_a_model_and_revoke_or_refuse_a_permission ... ok\ntest ui::model::tests::backspace_removes_a_whole_grapheme ... ok\ntest files::tests::publication_collision_preserves_occupant_base_and_staged_data ... ok\ntest ui::model::tests::ctrl_r_opens_and_closes_reasoning_without_mixing_it_into_the_answer ... ok\ntest ui::model::tests::grants_and_liberation_use_their_own_status ... ok\ntest ui::model::tests::liberate_asks_before_unloading_session_models ... ok\ntest ui::model::tests::journal_command_is_before_liberate_and_reads_without_clearing_partial_effects ... ok\ntest ui::model::tests::liberate_is_available_and_does_not_steal_the_exit_filter ... ok\ntest ui::model::tests::page_up_moves_more_than_one_line_and_failures_name_the_cause ... ok\ntest ui::model::tests::model_list_shows_size_and_whether_it_is_loaded ... ok\ntest ui::model::tests::pasted_newlines_never_submit_chat_and_busy_preserves_new_input ... ok\ntest ui::model::tests::reasoning_stays_folded_and_a_task_step_names_the_role ... ok\ntest ui::model::tests::permissions_show_a_short_row_until_enter_asks_for_detail ... ok\ntest ui::model::tests::selecting_a_command_executes_only_on_enter ... ok\ntest ui::model::tests::search_names_matches_and_partial_effects_keep_the_journal ... ok\ntest ui::model::tests::slash_in_ordinary_request_allows_newline_and_explicit_submit ... ok\ntest ui::model::tests::slash_opens_menu_without_enter_and_escape_preserves_input ... ok\ntest ui::model::tests::task_mode_is_visible_and_partial_effects_survive_model_selection ... ok\ntest ui::model::tests::startup_notice_reports_the_result_without_a_working_status ... ok\ntest ui::model::tests::typing_keeps_the_page_and_motion_stays_inside_the_line ... ok\ntest ui::model::tests::unicode_editing_keeps_utf8_boundaries_and_input_limit ... ok\ntest ui::model::tests::tool_activity_and_budget_do_not_end_the_operation ... ok\ntest ui::render::tests::control_characters_cannot_inject_terminal_sequences ... ok\ntest ui::render::tests::multiline_draft_keeps_the_cursor_on_its_own_line ... ok\ntest ui::render::tests::reserve_task_journal_and_scroll_stay_on_screen ... ok\ntest ui::render::tests::busy_status_shows_elapsed_seconds_without_replacing_the_activity ... ok\ntest tools::tests::exclusive_grant_and_revoke_round_trip_and_a_root_stays_refused ... ok\ntest files::tests::empty_pinned_directory_changed_to_junction_fails_closed_on_relative_io ... ok\ntest files::tests::concurrent_enumerations_have_independent_cursors_across_buffers ... ok\ntest tools::tests::successful_test_is_invalidated_by_changed_read_or_script_even_after_rereading ... ok\n\ntest result: ok. 52 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.69s\n\n\nrunning 0 tests\n\ntest result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s\n\n\nrunning 12 tests\ntest command_scope_and_private_store_are_enforced ... ok\ntest cwd_requires_a_locked_observed_descendant ... ok\ntest junctions_cannot_redirect_command_working_directory ... ok\ntest invalid_utf8_is_reported_and_decoded_output_stays_bounded ... ok\ntest nonzero_exit_and_output_limits_are_observed ... ok\ntest changed_script_definition_and_stale_ui_proposal_require_new_consent ... ok\ntest cancellation_kills_only_the_owned_process_tree ... ok\ntest parent_exit_also_cleans_up_its_remaining_descendants ... ok\ntest scripts_are_pinned_against_external_write_during_execution ... ok\ntest shell_metacharacters_remain_literal_arguments ... ok\ntest registered_command_requires_explicit_grant_and_executes_real_output ... ok\ntest timeout_kills_only_the_owned_process_tree ... ok\n\ntest result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 6.97s\n\n\nrunning 4 tests\ntest an_empty_directory_is_inspected_and_only_the_confirmed_directory_is_removed ... ok\ntest moving_requires_human_grant_and_consumes_it_even_if_same_object_returns ... ok\ntest changed_base_invalidates_displayed_and_already_granted_operations ... FAILED\ntest file_delete_requires_read_and_denied_roles_cannot_consume_human_grant ... ok\n\nfailures:\n\n---- changed_base_invalidates_displayed_and_already_granted_operations stdout ----\n\nthread 'changed_base_invalidates_displayed_and_already_granted_operations' (25212) panicked at tests\\file_permissions.rs:70:42:\ncalled `Result::unwrap()` on an `Err` value: \"conflicto: la base de archivo cambió; SHA actual be736dfa8c3d1080e49cadc8ca0645106514145dc712981c9abe9e44f7061647\"\nnote: run with `RUST_BACKTRACE=1` environment variable to display a backtrace\n\n\nfailures:\n    changed_base_invalidates_displayed_and_already_granted_operations\n\ntest result: FAILED. 3 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s\n\n",
+      "stderr": "   Compiling pill v0.1.0 (D:\\PROJECTS\\PILLCLITER)\n    Finished `test` profile [unoptimized + debuginfo] target(s) in 1m 43s\n     Running unittests src\\lib.rs (target\\debug\\deps\\pill-566abc7c96baab8b.exe)\n     Running unittests src\\main.rs (target\\debug\\deps\\pill-85d56201c0c9291b.exe)\n     Running tests\\commands_real.rs (target\\debug\\deps\\commands_real-f7360158bdba2e90.exe)\n     Running tests\\file_permissions.rs (target\\debug\\deps\\file_permissions-b4f09a47d9a92af5.exe)\nerror: test failed, to rerun pass `--test file_permissions`\n"
+    }
+  ],
+  "result": "FAIL"
+}

@@ -1,0 +1,9 @@
+{
+  "resultado": "FAIL",
+  "fecha": "2026-10-27",
+  "comando": "python diagnostics/test_console.py --evidence evidencias/2026-10-27-tester-consola-basica.json",
+  "codigo": 1,
+  "error": "AssertionError: Tiempo agotado: ayuda real ejecutada",
+  "sha256_binario": "055B4F50122B0E74EF825A83EDE45B2416D208AB6082E6F55E87E290614862CE",
+  "limite": "La sonda anterior no guardó pantalla de fallo; la frase intermedia de ayuda puede quedar fuera del viewport con ocho modelos."
+}

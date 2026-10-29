@@ -1,5 +1,7 @@
 # Pendientes y riesgos
 
+Seguimiento 2026-10-27: implementación aprobada de R09, lecturas nativas concurrentes y reconciliación de diarios, con 119 pruebas locales, siete integraciones opt-in explícitas, tester PASS y reviewer APPROVE del corte E5 y ampliaciones. Ver [contrato del corte](09-CIERRE-20261027.md). El estado del 20/22 de octubre que sigue es histórico y no describe la ausencia actual de esas funciones. E6 conserva las decisiones de modelo principal, PATH persistente y límites de pegado/glifos que requieren resolución explícita.
+
 Estado: 2026-10-20. Base E1/E2, herramientas nativas E3/E4 y muestra de corrección con cinco roles verificadas, tester PASS y reviewer APPROVE. PATH de sesión verificado; inscripción persistente bloqueada por permisos del Registro. El resto de los requisitos de v1 se conserva a continuación.
 
 Continuación E3/E4: archivos, ejecución de comandos y muestra de cinco roles con tester PASS/reviewer APPROVE; evidencia en `spec/05-E3-E4.md`. Las lecturas del producto todavía se serializan: R05 permanece parcial hasta verificar dos lecturas independientes concurrentes. Mover/eliminar (R09) y recuperación automática siguen pendientes. R04 conserva la interrupción de stream de herramientas en integración real pendiente; sus fragmentos inválidos están cubiertos por parser y el ciclo válido por inferencia real.
@@ -15,10 +17,10 @@ Límites declarados E3/E4: la cota conservadora de bytes de esquemas/historial p
 | ID | Pendiente | Cierre verificable |
 |---|---|---|
 | P01 | Plan técnico y dependencias aprobados; precisión de nombre `pill` y consola registrada | Cerrado por respuesta del usuario; no cambia la necesidad de aprobar modificaciones posteriores |
-| P02 | Licencias y compatibilidad de dependencias futuras | E3/E4: 93 paquetes externos en árbol Windows, licencias declaradas permisivas y build Rust 1.94 verificado offline. E5 añade `rmcp` 3.6.0 (Apache-2.0, features `client` y `transport-child-process`) y `jsonschema` 0.59.0 (MIT, sin resolución HTTP ni de archivos). El primer `cargo check --locked` necesitó red para bajar transitivas ausentes de la caché; después, formato, Clippy, pruebas y release usaron `--locked --offline`. No se repitió el recuento completo de licencias transitivas. Otras plataformas no están acreditadas |
+| P02 | Licencias y compatibilidad de dependencias futuras | E3/E4: 93 paquetes externos en árbol Windows, licencias declaradas permisivas y build Rust 1.94 verificado offline. E5 añade `rmcp` 3.6.0 (Apache-2.0, features `client` y `transport-child-process`) y `jsonschema` 0.59.0 (MIT, sin resolución HTTP ni de archivos). El primer `cargo check --locked` necesitó red para bajar transitivas ausentes de la caché; después, formato, Clippy, pruebas y release usaron `--locked --offline`. El 2026-10-27 se inventarió el árbol Windows completo: 160 paquetes externos, todos con licencia declarada; evidencia en `../evidencias/2026-10-27-licencias.json`. No se elige licencia del proyecto. Otras plataformas no están acreditadas |
 | P03 | Enlace MSVC | Cerrado para E1: compilación release y ejecución del binario real correctas, sin actualizar toolchain |
 | P06 | Acceso a dependencias | Cerrado para interfaz: el usuario eligió Win32 nativo con caché disponible. Ratatui/Crossterm/Clap retirados. La falta de conexión sigue siendo un riesgo para dependencias futuras no presentes |
-| P07 | Registrar `pill` en PATH de usuario | Binario local y script preparados; escritura del Registro rechazada por el entorno. Ejecutar `scripts/Install-Pill.ps1 -SkipBuild` en consola habitual; no afirmar instalación persistente hasta verificarla |
+| P07 | Registro de pill en PATH de usuario | CERRADO 2026-10-28 con autorizacion expresa, instalador revisado, 49tests independientes y registro real PASS. Preserva valor/tipo/entradas previas y Machine PATH; manifiesto acredita entrada propia. Desinstalacion real fuera de esta autorizacion. Evidencia: `../evidencias/2026-10-28-instalacion-user-real-segundo.json` |
 | P08 | Pegado multilínea y glifos | Ctrl+Enter envía peticiones y Enter añade línea: PASS real E2. Comandos del menú conservan Enter. Retroceso, Supr, izquierda y derecha mueven o borran un grafema local (ZWJ, marcas, selector, tono, tecla y bandera) sin biblioteca nueva; el salto por palabras sigue por espacios. El ancho no ASCII sigue siendo conservador. Una captura antigua de conhost mostró U+FFFD al leer un emoji; esta entrega no acredita todos los glifos. La política adicional de pegado del menú sigue pendiente |
 | P04 | Decidir modelo principal mediante mediciones | Tres muestras reales Huihui completadas: ver comparación E2. Selección principal pendiente del usuario; los tiempos incluyen cargas/cachés distintas y no acreditan calidad general |
 | P05 | Publicación de archivos frente a cambios externos | Verificada para archivo individual mediante pruebas Windows de carrera, bloqueos, preservación DACL/BOM/CRLF, colisión, rollback y resultado parcial; no hay transacción de varios archivos |
@@ -37,6 +39,24 @@ Límites declarados E3/E4: la cota conservadora de bytes de esquemas/historial p
 - El `link.exe` encontrado en PATH pertenece a Cygwin. Se localizaron Visual Studio Build Tools mediante `vswhere`; validar que Cargo utiliza herramientas MSVC correctas, no asumirlo por el nombre del ejecutable.
 - El control de entrada verifica terminales y cantidad de procesos de consola, no identidad del padre ni antigüedad. Se han observado rechazo de consola propia y aceptación en PTY; no se promete una detección universal de cómo se lanzó cada proceso.
 
+## Hallazgos de usabilidad y fiabilidad · 2026-10-27
+
+Auditoría posterior al corte E5, solicitada para revisar y sugerir mejoras.
+No se modificó el producto. Propuestas y prioridades pendientes de decisión
+en [REVISION-USABILIDAD-FIABILIDAD.md](../REVISION-USABILIDAD-FIABILIDAD.md).
+
+- Defectos reproducidos en consola real: Esc no cierra el selector de modelos;
+  el pie de permisos anuncia enviar/nueva línea cuando las acciones reales
+  son conceder/retirar y mostrar detalle. Evidencia nueva:
+  `../evidencias/2026-10-27-auditoria-ui.json`.
+- Riesgos confirmados por lectura, sin nueva prueba de corte/disco lleno:
+  guardado de conversación por truncado y errores descartados; recorte por
+  mensajes individuales y restauración de instrucciones de sistema antiguas.
+- Mejoras propuestas: recuperación guiada, permisos y diff legibles, cabecera
+  y cápsula compactas, modos con capacidades explícitas, cálculo de ancho,
+  render incremental, cuotas visibles y evaluación de fiabilidad más amplia.
+  El ahorro de recursos y el aumento de éxito deben medirse antes de afirmarlos.
+
 ## Fuera de la primera entrega aprobada
 
 Búsqueda web y MCP remoto HTTP; instalación automática de dependencias/modelos/servidores; borrado recursivo; sandbox Docker/WSL; worktrees para editar en paralelo; comparación con otros motores antes de disponer de una línea base.
@@ -47,4 +67,27 @@ Estas exclusiones no eliminan la búsqueda web del objetivo futuro: el usuario a
 
 El 2026-10-22 el usuario pidió alinear la documentación con el repositorio. `AGENTS.md` describe la estructura real de `pill` 0.1.0, los comandos de comprobación y los límites de v1. La instrucción anterior de conservarlo como andamiaje vacío queda sustituida por esa petición. Estas especificaciones siguen sin inventar comandos que no existen.
 
-`PLAN-ORIGINAL.md` sigue siendo referencia histórica: el prefijo externo de su H1 se conserva y la revisión inicial de Ollama es una instantánea anterior a los modelos Huihui. El plan técnico y las especificaciones aprobadas gobiernan la implementación. El seguimiento de etapas distingue E1–E4, cerradas en su alcance, de E5, implementada en local y pendiente de tester y reviewer, y de E6, todavía pendiente.
+`PLAN-ORIGINAL.md` sigue siendo referencia histórica: el prefijo externo de su H1 se conserva y la revisión inicial de Ollama es una instantánea anterior a los modelos Huihui. El plan técnico y las especificaciones aprobadas gobiernan la implementación. El seguimiento de etapas distingue E1–E4, cerradas en su alcance, de E5, implementada y con reviewer APPROVE del código 2026-10-27, con tester PASS independiente del mismo corte, y de E6, todavía pendiente por P04/P08; P07 se verifico el 2026-10-28.
+
+
+## Cierre de la mejora integral 2026-10-28
+
+Las propuestas de la auditoria anterior fueron aprobadas en U01-U15 e
+implementadas con tester PASS y reviewer APPROVE sobre fuentes finales.
+P07 queda cerrado; P04 y P08 requieren decision del usuario. La instalacion
+real rechazo inicialmente el hardlink normal de Cargo sin alterar datos;
+se corrigio solo la lectura del artefacto y se conservaron ambos FAIL y PASS.
+Quedan como limites declarados la copia global al portapapeles no ejercitada,
+la descarga GPU exclusiva no repetida y ausencia de una promesa general de
+ahorro de RAM/CPU o de corte fisico de energia. El informe de recursos final
+registra incrementos de memoria en la muestra; no los presenta como ahorro.
+
+
+## Pulido posterior1y2 · verificado
+
+Cerradas la distinción revisada/pendiente, contador de recuperación y omisión
+del atajo de perfiles. Render selecciona referencias a caché y copia su ventana;
+162tests,21checksUI y medición explícita PASS, con reviewer APPROVE. La CPU
+observada bajó en la prueba de historial largo; RAM variable no justifica
+promesa general. Portapapeles aislado(3) y especificación adicional de pegado(4/P08)
+quedan fuera de esta entrega aprobada1y2. P04/P08 conservan su decisión pendiente.

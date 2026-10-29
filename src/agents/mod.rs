@@ -34,7 +34,7 @@ fn activity_text(name: &str, arguments: &Value) -> String {
         "list_files" => format!("listando {path}"),
         "search_files" => format!("buscando {path}"),
         "create_file" => "creando".into(),
-        "edit_file" => "editando".into(),
+        "edit_file" | "edit_file_many" => "editando".into(),
         "run_command" => {
             let id = arguments.get("id").and_then(Value::as_str).unwrap_or("");
             format!("ejecutando {id}")
@@ -92,6 +92,12 @@ impl Engine<'_> {
         let mut messages = history.to_vec();
         messages.push(Message::new("user", prompt));
         self.turn(Role::Implementer, messages, false).await
+    }
+    pub async fn ask(&mut self, prompt: &str, history: &[Message]) -> Result<Reply, ollama::Error> {
+        self.tools.reset_versions();
+        let mut messages = history.to_vec();
+        messages.push(Message::new("user", prompt));
+        self.turn(Role::Explorer, messages, false).await
     }
     async fn turn(
         &mut self,
@@ -242,46 +248,82 @@ impl Engine<'_> {
                     metrics: outcome.metrics,
                 });
             }
-            for call in outcome.tool_calls {
+            let mut calls = std::collections::VecDeque::from(outcome.tool_calls);
+            while let Some(first_call) = calls.pop_front() {
                 self.check()?;
-                let id = self
-                    .journal
-                    .record(role, "requested", Some(&call), None)
-                    .map_err(ollama::Error::Protocol)?;
+                let mut batch = vec![first_call];
+                if Toolset::is_native_read(&batch[0]) {
+                    while batch.len() < self.limits.max_parallel_reads
+                        && calls.front().is_some_and(Toolset::is_native_read)
+                    {
+                        batch.push(calls.pop_front().expect("comprobada"));
+                    }
+                }
+                let mut ids = Vec::new();
+                for call in &batch {
+                    let target = self.tools.intended_sha256(call);
+                    ids.push(
+                        self.journal
+                            .requested(role, call, target.as_deref())
+                            .map_err(ollama::Error::Protocol)?,
+                    );
+                }
                 // No cancelar esta sección tras iniciar efectos: el comando cancela su job,
                 // archivos terminan su publicación, y el resultado se registra antes de await.
-                self.events
-                    .send(Event::Activity {
-                        role: role.name().into(),
-                        text: activity_text(&call.function.name, &call.function.arguments),
-                    })
-                    .await
-                    .map_err(|_| {
-                        ollama::Error::Protocol(
-                            "consola cerrada; consultar diario de efectos".into(),
-                        )
-                    })?;
-                let result = self.tools.execute(role, &call, self.cancel.clone()).await;
-                let logged = self.journal.observed(role, &call, &result, &id);
-                self.events
-                    .send(Event::Tool {
-                        role: role.name().into(),
-                        call_id: id,
-                        name: call.function.name.clone(),
-                        arguments: call.function.arguments.clone(),
-                        result: result.clone(),
-                        journal: journal_label(&self.journal.path),
-                    })
-                    .await
-                    .map_err(|_| {
-                        ollama::Error::Protocol(
-                            "consola cerrada; consultar diario de efectos".into(),
-                        )
-                    })?;
-                logged.map_err(ollama::Error::Protocol)?;
-                let mut tool = Message::new("tool", result.to_string());
-                tool.tool_name = Some(call.function.name);
-                messages.push(tool);
+                for call in &batch {
+                    self.events
+                        .send(Event::Activity {
+                            role: role.name().into(),
+                            text: activity_text(&call.function.name, &call.function.arguments),
+                        })
+                        .await
+                        .map_err(|_| {
+                            ollama::Error::Protocol(
+                                "consola cerrada; consultar diario de efectos".into(),
+                            )
+                        })?;
+                }
+                let results = if batch.len() > 1 {
+                    self.tools
+                        .execute_reads_traced(role, &batch, self.cancel.clone())
+                } else {
+                    vec![(
+                        self.tools
+                            .execute(role, &batch[0], self.cancel.clone())
+                            .await,
+                        Value::Null,
+                    )]
+                };
+                for ((call, id), (result, execution)) in batch.into_iter().zip(ids).zip(results) {
+                    let logged = self
+                        .journal
+                        .observed_read(role, &call, &result, &id, &execution);
+                    if logged.is_err() {
+                        self.tools.block_effects();
+                    }
+                    self.events
+                        .send(Event::Tool {
+                            role: role.name().into(),
+                            call_id: id,
+                            name: call.function.name.clone(),
+                            arguments: call.function.arguments.clone(),
+                            result: result.clone(),
+                            journal: journal_label(&self.journal.path),
+                        })
+                        .await
+                        .map_err(|_| {
+                            ollama::Error::Protocol(
+                                "consola cerrada; consultar diario de efectos".into(),
+                            )
+                        })?;
+                    logged.map_err(ollama::Error::Protocol)?;
+                    let mut tool = Message::new("tool", result.to_string());
+                    tool.tool_name = Some(call.function.name);
+                    messages.push(tool);
+                    if result["status"] == "awaiting_confirmation" {
+                        return Err(ollama::Error::Protocol("Operación pendiente de confirmación concreta: abre /permissions, revisa origen, destino y SHA, concede con Ctrl+Enter y vuelve a pedir la operación. No se ha ejecutado.".into()));
+                    }
+                }
             }
         }
         Err(ollama::Error::Protocol(format!(
@@ -416,7 +458,7 @@ impl Engine<'_> {
                 let read_paths: Vec<String> = reply
                     .transcript
                     .iter()
-                    .filter(|m| m.role == "tool" && m.tool_name.as_deref() == Some("read_file"))
+                    .filter(|m| review_observation(m))
                     .filter_map(|m| serde_json::from_str::<Value>(&m.content).ok())
                     .filter(|r| r["status"] == "verified")
                     .filter_map(|r| r["path"].as_str().map(str::to_owned))
@@ -432,8 +474,7 @@ impl Engine<'_> {
                     ));
                 }
                 if !reply.transcript.iter().any(|m| {
-                    m.role == "tool"
-                        && m.tool_name.as_deref() == Some("read_file")
+                    review_observation(m)
                         && serde_json::from_str::<Value>(&m.content)
                             .is_ok_and(|r| r["status"] == "verified")
                 }) {
@@ -553,8 +594,16 @@ fn missing_role_evidence(
         })
     };
     let feedback = match role {
-        Role::Implementer if !verified(&["create_file", "edit_file"]) => {
-            let unchanged = verified(&["read_file", "list_files", "search_files"])
+        Role::Implementer
+            if !verified(&[
+                "create_file",
+                "edit_file",
+                "edit_file_many",
+                "move_file",
+                "delete_file",
+            ]) =>
+        {
+            let unchanged = verified(&["read_file", "list_files", "search_files", "inspect_path"])
                 && serde_json::from_str::<Value>(content).is_ok_and(|value| {
                     value["changes_needed"] == false
                         && value["reason"]
@@ -566,7 +615,9 @@ fn missing_role_evidence(
             }
             "El ejecutor no ha observado cambios aplicados por tu rol. Lee e implementa con herramientas la corrección solicitada. Si ya no hace falta ningún cambio, inspecciona realmente los archivos y devuelve JSON {\"changes_needed\":false,\"reason\":\"motivo observado\"}; el tester comprobará esa conclusión. Para edit_file usa como old una coincidencia literal mínima y única del contenido leído; no reconstruyas el archivo ni normalices sus saltos CRLF/BOM."
         }
-        Role::Explorer if !verified(&["read_file", "list_files", "search_files"]) => {
+        Role::Explorer
+            if !verified(&["read_file", "list_files", "search_files", "inspect_path"]) =>
+        {
             "No hay exploración real registrada. Usa las herramientas de lectura antes de devolver hallazgos."
         }
         Role::Tester
@@ -577,7 +628,7 @@ fn missing_role_evidence(
             "No hay ninguna prueba real ejecutada por tu rol. Ejecuta con run_command uno de los ids concedidos; el texto PASS no es evidencia."
         }
         Role::Reviewer if !reviewer_read_changes(messages, changed) => {
-            "Faltan lecturas reales de los archivos cambiados. Usa read_file para inspeccionarlos y luego emite tu veredicto JSON. No edites ni ejecutes comandos."
+            "Faltan lecturas reales de los archivos cambiados. Usa read_file y, para verificar ausencia o carpeta vacía, inspect_path; luego emite tu veredicto JSON. No edites ni ejecutes comandos."
         }
         _ => return None,
     };
@@ -592,14 +643,27 @@ fn empty_can_finish(role: Role, messages: &[Message], changed: &[String]) -> boo
 fn reviewer_read_changes(messages: &[Message], changed: &[String]) -> bool {
     let paths: Vec<_> = messages
         .iter()
-        .filter(|message| {
-            message.role == "tool" && message.tool_name.as_deref() == Some("read_file")
-        })
+        .filter(|message| review_observation(message))
         .filter_map(|message| serde_json::from_str::<Value>(&message.content).ok())
         .filter(|result| result["status"] == "verified")
         .filter_map(|result| result["path"].as_str().map(str::to_owned))
         .collect();
     !paths.is_empty() && changed.iter().all(|path| paths.contains(path))
+}
+
+fn review_observation(message: &Message) -> bool {
+    if message.role != "tool" {
+        return false;
+    }
+    if message.tool_name.as_deref() == Some("read_file") {
+        return true;
+    }
+    message.tool_name.as_deref() == Some("inspect_path")
+        && serde_json::from_str::<Value>(&message.content).is_ok_and(|r| {
+            r["absent"] == true
+                || r["kind"] == "empty_directory"
+                || (r["kind"] == "file" && r["utf8_text"] == false)
+        })
 }
 
 #[cfg(test)]

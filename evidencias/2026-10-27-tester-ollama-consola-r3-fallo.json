@@ -1,0 +1,162 @@
+{
+  "error": "AssertionError('Tiempo agotado: entrada durante inferencia')",
+  "captures": {
+    "seleccion_inicial": "\u256d\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u256e\n\u2502\u2588\u2588\u2588\u2588\u2588\u2502     \u2502  pill\n\u2570\u2500\u2500\u2500\u2500\u2500\u2534\u2500\u2500\u2500\u2500\u2500\u256f\nProyecto: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e2-z7yd158c\\Proyecto \u00f1\nConfiguraci\u00f3n: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e2-z7yd158c\\Proyecto \u00f1\\.pillcli\\config.json\nModelo: sin seleccionar\nSelecci\u00f3n expl\u00edcita de modelo\nModo: Chat\nReserva: 1050/4096\nMemoria de esta sesi\u00f3n: ninguna \u00b7 exclusividad no concedida\n1 \u00b7 huihui_ai/qwen2.5-abliterate:7b-instruct-q4_K_M \u00b7 4.3 GiB \u00b7 no cargado\n2 \u00b7 huihui_ai/qwen3-abliterated:4b-v2 \u00b7 2.3 GiB \u00b7 no cargado\n3 \u00b7 huihui_ai/qwen3.5-abliterated:2B \u00b7 1.8 GiB \u00b7 no cargado\n4 \u00b7 huihui_ai/qwen3.5-abliterated:4B \u00b7 3.0 GiB \u00b7 no cargado\n5 \u00b7 llama2-uncensored:latest \u00b7 3.5 GiB \u00b7 no cargado\n6 \u00b7 llama3:latest \u00b7 4.3 GiB \u00b7 no cargado\n7 \u00b7 qwen2.5:7b \u00b7 4.3 GiB \u00b7 no cargado\n8 \u00b7 wizard-vicuna-uncensored:latest \u00b7 3.5 GiB \u00b7 no cargado\n>\n> 1 \u00b7 huihui_ai/qwen2.5-abliterate:7b-instruct-q4_K_M \u00b7 4.3 GiB \u00b7 no cargado\n  2 \u00b7 huihui_ai/qwen3-abliterated:4b-v2 \u00b7 2.3 GiB \u00b7 no cargado\n  3 \u00b7 huihui_ai/qwen3.5-abliterated:2B \u00b7 1.8 GiB \u00b7 no cargado\n  4 \u00b7 huihui_ai/qwen3.5-abliterated:4B \u00b7 3.0 GiB \u00b7 no cargado\n  5 \u00b7 llama2-uncensored:latest \u00b7 3.5 GiB \u00b7 no cargado\n  6 \u00b7 llama3:latest \u00b7 4.3 GiB \u00b7 no cargado\n  7 \u00b7 qwen2.5:7b \u00b7 4.3 GiB \u00b7 no cargado\n  8 \u00b7 wizard-vicuna-uncensored:latest \u00b7 3.5 GiB \u00b7 no cargado\n\u2191 hay texto por encima\n/ comandos \u00b7 Elige un n\u00famero \u00b7 Ctrl+Enter elegir \u00b7 Esc cancelar \u00b7 Ctrl+C salir",
+    "modelo_y_digest": "\u256d\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u256e\n\u2502\u2588\u2588\u2588\u2588\u2588\u2502     \u2502  pill\n\u2570\u2500\u2500\u2500\u2500\u2500\u2534\u2500\u2500\u2500\u2500\u2500\u256f\nProyecto: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e2-z7yd158c\\Proyecto \u00f1\nConfiguraci\u00f3n: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e2-z7yd158c\\Proyecto \u00f1\\.pillcli\\config.json\nModelo: huihui_ai/qwen3-abliterated:4b-v2\nDigest: 9d803f2de4330c06c844b9d00c1418c07cb7a87fe67b7e32294323b777487cde\nPreparado \u00b7 Chat\nModo: Chat\nReserva: 1050/4096\nMemoria de esta sesi\u00f3n: huihui_ai/qwen3-abliterated:4b-v2 \u00b7 exclusividad no concedida\nEscribe / para abrir el men\u00fa. /help muestra la ayuda.\n[sistema] servidor compartido o exclusividad no concedida; /api/ps no identifica al cliente y no se descarga nada\nmedici\u00f3n NVIDIA no disponible\nReconciliaci\u00f3n local: 0 aplicadas, 0 pendientes, 0 desconocidas. No se repitieron operaciones.\nElige un n\u00famero y pulsa Ctrl+Enter (sin descargas):\n1 \u00b7 huihui_ai/qwen2.5-abliterate:7b-instruct-q4_K_M \u00b7 4.3 GiB \u00b7 no cargado\n2 \u00b7 huihui_ai/qwen3-abliterated:4b-v2 \u00b7 2.3 GiB \u00b7 no cargado\n3 \u00b7 huihui_ai/qwen3.5-abliterated:2B \u00b7 1.8 GiB \u00b7 no cargado\n4 \u00b7 huihui_ai/qwen3.5-abliterated:4B \u00b7 3.0 GiB \u00b7 no cargado\n5 \u00b7 llama2-uncensored:latest \u00b7 3.5 GiB \u00b7 no cargado\n6 \u00b7 llama3:latest \u00b7 4.3 GiB \u00b7 no cargado\n7 \u00b7 qwen2.5:7b \u00b7 4.3 GiB \u00b7 no cargado\n8 \u00b7 wizard-vicuna-uncensored:latest \u00b7 3.5 GiB \u00b7 no cargado\nCapacidades: completion, tools, thinking \u00b7 contexto m\u00e1ximo anunciado: 40960\nNueva conversaci\u00f3n. Ctrl+Enter env\u00eda; Enter a\u00f1ade l\u00ednea. Esc cancela.\n>\n/ comandos \u00b7 Ctrl+Enter enviar \u00b7 Enter l\u00ednea \u00b7 Esc cancelar \u00b7 Ctrl+C salir",
+    "pegado_sin_envio": "\u256d\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u256e\n\u2502\u2588\u2588\u2588\u2588\u2588\u2502     \u2502  pill\n\u2570\u2500\u2500\u2500\u2500\u2500\u2534\u2500\u2500\u2500\u2500\u2500\u256f\nProyecto: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e2-z7yd158c\\Proyecto \u00f1\nConfiguraci\u00f3n: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e2-z7yd158c\\Proyecto \u00f1\\.pillcli\\config.json\nModelo: huihui_ai/qwen3-abliterated:4b-v2\nDigest: 9d803f2de4330c06c844b9d00c1418c07cb7a87fe67b7e32294323b777487cde\nPreparado \u00b7 Chat\nModo: Chat\nReserva: 1050/4096\nMemoria de esta sesi\u00f3n: huihui_ai/qwen3-abliterated:4b-v2 \u00b7 exclusividad no concedida\nEscribe / para abrir el men\u00fa. /help muestra la ayuda.\n[sistema] servidor compartido o exclusividad no concedida; /api/ps no identifica al cliente y no se descarga nada\nmedici\u00f3n NVIDIA no disponible\nReconciliaci\u00f3n local: 0 aplicadas, 0 pendientes, 0 desconocidas. No se repitieron operaciones.\nElige un n\u00famero y pulsa Ctrl+Enter (sin descargas):\n1 \u00b7 huihui_ai/qwen2.5-abliterate:7b-instruct-q4_K_M \u00b7 4.3 GiB \u00b7 no cargado\n2 \u00b7 huihui_ai/qwen3-abliterated:4b-v2 \u00b7 2.3 GiB \u00b7 no cargado\n3 \u00b7 huihui_ai/qwen3.5-abliterated:2B \u00b7 1.8 GiB \u00b7 no cargado\n4 \u00b7 huihui_ai/qwen3.5-abliterated:4B \u00b7 3.0 GiB \u00b7 no cargado\n5 \u00b7 llama2-uncensored:latest \u00b7 3.5 GiB \u00b7 no cargado\n6 \u00b7 llama3:latest \u00b7 4.3 GiB \u00b7 no cargado\n7 \u00b7 qwen2.5:7b \u00b7 4.3 GiB \u00b7 no cargado\n8 \u00b7 wizard-vicuna-uncensored:latest \u00b7 3.5 GiB \u00b7 no cargado\nCapacidades: completion, tools, thinking \u00b7 contexto m\u00e1ximo anunciado: 40960\nNueva conversaci\u00f3n. Ctrl+Enter env\u00eda; Enter a\u00f1ade l\u00ednea. Esc cancela.\n> Responde solamente con la palabra\n  CAPSULA\n/ comandos \u00b7 Ctrl+Enter enviar \u00b7 Enter l\u00ednea \u00b7 Esc cancelar \u00b7 Ctrl+C salir",
+    "respuesta_real": "\u256d\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u256e\n\u2502\u2588\u2588\u2588\u2588\u2588\u2502     \u2502  pill\n\u2570\u2500\u2500\u2500\u2500\u2500\u2534\u2500\u2500\u2500\u2500\u2500\u256f\nProyecto: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e2-z7yd158c\\Proyecto \u00f1\nConfiguraci\u00f3n: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e2-z7yd158c\\Proyecto \u00f1\\.pillcli\\config.json\nModelo: huihui_ai/qwen3-abliterated:4b-v2\nDigest: 9d803f2de4330c06c844b9d00c1418c07cb7a87fe67b7e32294323b777487cde\nRespuesta completa \u00b7 37738 ms \u00b7 primer texto 37663 ms\nModo: Chat\nReserva: 1288/4096\nMemoria de esta sesi\u00f3n: huihui_ai/qwen3-abliterated:4b-v2 \u00b7 exclusividad no concedida\n1 \u00b7 huihui_ai/qwen2.5-abliterate:7b-instruct-q4_K_M \u00b7 4.3 GiB \u00b7 no cargado\n2 \u00b7 huihui_ai/qwen3-abliterated:4b-v2 \u00b7 2.3 GiB \u00b7 no cargado\n3 \u00b7 huihui_ai/qwen3.5-abliterated:2B \u00b7 1.8 GiB \u00b7 no cargado\n4 \u00b7 huihui_ai/qwen3.5-abliterated:4B \u00b7 3.0 GiB \u00b7 no cargado\n5 \u00b7 llama2-uncensored:latest \u00b7 3.5 GiB \u00b7 no cargado\n6 \u00b7 llama3:latest \u00b7 4.3 GiB \u00b7 no cargado\n7 \u00b7 qwen2.5:7b \u00b7 4.3 GiB \u00b7 no cargado\n8 \u00b7 wizard-vicuna-uncensored:latest \u00b7 3.5 GiB \u00b7 no cargado\nCapacidades: completion, tools, thinking \u00b7 contexto m\u00e1ximo anunciado: 40960\nNueva conversaci\u00f3n. Ctrl+Enter env\u00eda; Enter a\u00f1ade l\u00ednea. Esc cancela.\nT\u00fa: Responde solamente con la palabra\nCAPSULA\n[implementador] Trabajando\u2026\nModelo: CAPSULA\nOllama: 678 tokens de entrada \u00b7 4 generados \u00b7 carga 37338 ms\n>\n\u2191 hay texto por encima\n/ comandos \u00b7 Ctrl+Enter enviar \u00b7 Enter l\u00ednea \u00b7 Esc cancelar \u00b7 Ctrl+C salir",
+    "nueva_conversacion": "\u256d\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u256e\n\u2502\u2588\u2588\u2588\u2588\u2588\u2502     \u2502  pill\n\u2570\u2500\u2500\u2500\u2500\u2500\u2534\u2500\u2500\u2500\u2500\u2500\u256f\nProyecto: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e2-z7yd158c\\Proyecto \u00f1\nConfiguraci\u00f3n: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e2-z7yd158c\\Proyecto \u00f1\\.pillcli\\config.json\nModelo: huihui_ai/qwen3-abliterated:4b-v2\nDigest: 9d803f2de4330c06c844b9d00c1418c07cb7a87fe67b7e32294323b777487cde\nPreparado \u00b7 Chat\nModo: Chat\nReserva: 1050/4096\nMemoria de esta sesi\u00f3n: huihui_ai/qwen3-abliterated:4b-v2 \u00b7 exclusividad no concedida\nCAPSULA\n[implementador] Trabajando\u2026\nModelo: CAPSULA\nOllama: 678 tokens de entrada \u00b7 4 generados \u00b7 carga 37338 ms\nElige un n\u00famero y pulsa Ctrl+Enter (sin descargas):\n1 \u00b7 huihui_ai/qwen2.5-abliterate:7b-instruct-q4_K_M \u00b7 4.3 GiB \u00b7 no cargado\n2 \u00b7 huihui_ai/qwen3-abliterated:4b-v2 \u00b7 2.3 GiB \u00b7 en memoria\n3 \u00b7 huihui_ai/qwen3.5-abliterated:2B \u00b7 1.8 GiB \u00b7 no cargado\n4 \u00b7 huihui_ai/qwen3.5-abliterated:4B \u00b7 3.0 GiB \u00b7 no cargado\n5 \u00b7 llama2-uncensored:latest \u00b7 3.5 GiB \u00b7 no cargado\n6 \u00b7 llama3:latest \u00b7 4.3 GiB \u00b7 no cargado\n7 \u00b7 qwen2.5:7b \u00b7 4.3 GiB \u00b7 no cargado\n8 \u00b7 wizard-vicuna-uncensored:latest \u00b7 3.5 GiB \u00b7 no cargado\nCapacidades: completion, tools, thinking \u00b7 contexto m\u00e1ximo anunciado: 40960\nNueva conversaci\u00f3n. Ctrl+Enter env\u00eda; Enter a\u00f1ade l\u00ednea. Esc cancela.\n>\n\u2191 hay texto por encima\n/ comandos \u00b7 Ctrl+Enter enviar \u00b7 Enter l\u00ednea \u00b7 Esc cancelar \u00b7 Ctrl+C salir"
+  },
+  "resources": {
+    "reposo_modelo_seleccionado": {
+      "interval_seconds": 0.5160000000032596,
+      "processes_before": [
+        {
+          "pid": 14420,
+          "parent_pid": 17388,
+          "name": "ollama app.exe",
+          "group": "ollama",
+          "working_set_bytes": 37425152,
+          "private_bytes": 54247424,
+          "peak_working_set_bytes": 71831552,
+          "cpu_seconds": 4.46875
+        },
+        {
+          "pid": 15016,
+          "parent_pid": 14420,
+          "name": "ollama.exe",
+          "group": "ollama",
+          "working_set_bytes": 41349120,
+          "private_bytes": 78376960,
+          "peak_working_set_bytes": 54956032,
+          "cpu_seconds": 124.03125
+        },
+        {
+          "pid": 13468,
+          "parent_pid": 15016,
+          "name": "conhost.exe",
+          "group": "ollama",
+          "working_set_bytes": 2183168,
+          "private_bytes": 1794048,
+          "peak_working_set_bytes": 10825728,
+          "cpu_seconds": 0.125
+        },
+        {
+          "pid": 17092,
+          "parent_pid": 10160,
+          "name": "pwsh.exe",
+          "group": "prueba_cli",
+          "working_set_bytes": 86024192,
+          "private_bytes": 27402240,
+          "peak_working_set_bytes": 86024192,
+          "cpu_seconds": 0.4375
+        },
+        {
+          "pid": 19664,
+          "parent_pid": 17092,
+          "name": "conhost.exe",
+          "group": "prueba_cli",
+          "working_set_bytes": 10768384,
+          "private_bytes": 1933312,
+          "peak_working_set_bytes": 10768384,
+          "cpu_seconds": 0.046875
+        },
+        {
+          "pid": 17184,
+          "parent_pid": 17092,
+          "name": "pill.exe",
+          "group": "prueba_cli",
+          "working_set_bytes": 7733248,
+          "private_bytes": 1327104,
+          "peak_working_set_bytes": 7811072,
+          "cpu_seconds": 0.0
+        }
+      ],
+      "processes_after": [
+        {
+          "pid": 14420,
+          "parent_pid": 17388,
+          "name": "ollama app.exe",
+          "group": "ollama",
+          "working_set_bytes": 37425152,
+          "private_bytes": 54247424,
+          "peak_working_set_bytes": 71831552,
+          "cpu_seconds": 4.46875
+        },
+        {
+          "pid": 15016,
+          "parent_pid": 14420,
+          "name": "ollama.exe",
+          "group": "ollama",
+          "working_set_bytes": 41349120,
+          "private_bytes": 78376960,
+          "peak_working_set_bytes": 54956032,
+          "cpu_seconds": 124.03125
+        },
+        {
+          "pid": 13468,
+          "parent_pid": 15016,
+          "name": "conhost.exe",
+          "group": "ollama",
+          "working_set_bytes": 2183168,
+          "private_bytes": 1794048,
+          "peak_working_set_bytes": 10825728,
+          "cpu_seconds": 0.125
+        },
+        {
+          "pid": 17092,
+          "parent_pid": 10160,
+          "name": "pwsh.exe",
+          "group": "prueba_cli",
+          "working_set_bytes": 86028288,
+          "private_bytes": 27402240,
+          "peak_working_set_bytes": 86028288,
+          "cpu_seconds": 0.4375
+        },
+        {
+          "pid": 19664,
+          "parent_pid": 17092,
+          "name": "conhost.exe",
+          "group": "prueba_cli",
+          "working_set_bytes": 10768384,
+          "private_bytes": 1933312,
+          "peak_working_set_bytes": 10768384,
+          "cpu_seconds": 0.046875
+        },
+        {
+          "pid": 17184,
+          "parent_pid": 17092,
+          "name": "pill.exe",
+          "group": "prueba_cli",
+          "working_set_bytes": 7733248,
+          "private_bytes": 1327104,
+          "peak_working_set_bytes": 7811072,
+          "cpu_seconds": 0.0
+        }
+      ],
+      "gpu": {
+        "command": [
+          "nvidia-smi",
+          "--query-gpu=name,memory.total,memory.used,memory.free,utilization.gpu",
+          "--format=csv,noheader,nounits"
+        ],
+        "exit_code": 0,
+        "stdout": "NVIDIA GeForce RTX 3060 Ti, 8192, 5201, 2824, 3\n",
+        "stderr": ""
+      },
+      "scope": "Procesos CLI/host y Ollama separados; GPU global compartida; CPU acumulada en segundos por PID."
+    }
+  },
+  "screen": "\u256d\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u256e\n\u2502\u2588\u2588\u2588\u2588\u2588\u2502     \u2502  pill\n\u2570\u2500\u2500\u2500\u2500\u2500\u2534\u2500\u2500\u2500\u2500\u2500\u256f\nProyecto: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e2-z7yd158c\\Proyecto \u00f1\nConfiguraci\u00f3n: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e2-z7yd158c\\Proyecto \u00f1\\.pillcli\\config.json\nModelo: huihui_ai/qwen3-abliterated:4b-v2\nDigest: 9d803f2de4330c06c844b9d00c1418c07cb7a87fe67b7e32294323b777487cde\nRespuesta completa \u00b7 3359 ms \u00b7 primer texto 32 ms\nModo: Chat\nReserva: 2819/4096\nMemoria de esta sesi\u00f3n: huihui_ai/qwen3-abliterated:4b-v2 \u00b7 exclusividad no concedida\nticas, es un n\u00famero par y es fundamental en operaciones aritm\u00e9ticas, como la suma y la multiplicaci\u00f3n. Tambi\u00e9n se u\nsa en la representaci\u00f3n de posiciones, como en el sistema de coordenadas.\n\n3. **Tres**: El n\u00famero tres es el tercer n\u00famero natural. Representa la cantidad de tres objetos o elementos. En matem\n\u00e1ticas, es un n\u00famero impar y es importante en la teor\u00eda de n\u00fameros. Tambi\u00e9n se usa en la representaci\u00f3n de posici\nones, como en el sistema de coordenadas.\n\n4. **Cuatro**: El n\u00famero cuatro es el cuarto n\u00famero natural. Representa la cantidad de cuatro objetos o elementos. En\n matem\u00e1ticas, es un n\u00famero par y es fundamental en operaciones aritm\u00e9ticas, como la suma y la multiplicaci\u00f3n. Tambi\n\u00e9n se usa en la representaci\u00f3n de posiciones, como en el sistema de coordenadas.\n\n5. **Cinco**: El n\u00famero cinco es el quinto n\u00famero natural. Representa la cantidad de cinco objetos o elementos. En ma\ntem\u00e1ticas, es un n\u00famero impar y es importante en la teor\u00eda de n\u00fameros. Tambi\u00e9n se usa en la represent\n... (continuaci\u00f3n)\nOllama: 680 tokens de entrada \u00b7 352 generados \u00b7 carga 4 ms\n> \u00e1XYZz\n\u2191 hay texto por encima\n/ comandos \u00b7 Ctrl+Enter enviar \u00b7 Enter l\u00ednea \u00b7 Esc cancelar \u00b7 Ctrl+C salir",
+  "state": {
+    "input_mode": 440,
+    "output_mode": 7,
+    "cursor_size": 25,
+    "cursor_visible": 1,
+    "attributes": 7
+  },
+  "dimensions": [
+    120,
+    30
+  ]
+}

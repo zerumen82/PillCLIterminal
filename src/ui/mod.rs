@@ -1,7 +1,9 @@
+mod diff;
 pub mod model;
 #[cfg(windows)]
 mod native;
 mod render;
+mod text;
 
 use crate::{Error, config::LoadedConfig};
 use std::path::Path;

@@ -1,0 +1,89 @@
+{
+  "fecha_utc": "2026-10-28T21:22:34.4156687+00:00",
+  "result": "PASS",
+  "authorization": "Registro User PATH autorizado expresamente tras PASS y APPROVE; sin desinstalacion real",
+  "user_before": {
+    "Scope": "User",
+    "Exists": true,
+    "Value": "C:\\Users\\INdaHouse\\.pi\\agent\\bin;C:\\Users\\INdaHouse\\.kimi-code\\bin;C:\\Users\\INdaHouse\\.grok\\bin;C:\\Users\\INdaHouse\\AppData\\Local\\agy\\bin;C:\\Users\\INdaHouse\\.local\\bin;C:\\Program Files\\PowerShell\\7;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;C:\\Windows\\System32\\OpenSSH\\;C:\\Program Files\\7-Zip;C:\\Program Files\\Git\\cmd;C:\\Program Files\\Git\\bin;C:\\Program Files\\CPUID\\CPU-Z;C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\Common7\\IDE\\CommonExtensions\\Microsoft\\VBCSharp\\LanguageServices\\InteractiveHost\\Desktop;C:\\Program Files\\Microsoft Visual Studio\\2022\\BuildTools\\Common7\\IDE;C:\\cygwin64\\bin;C:\\Program Files\\dotnet\\;C:\\Program Files\\nodejs\\;C:\\Users\\INdaHouse\\AppData\\Local\\Programs\\Python\\Python312\\Scripts\\;C:\\Users\\INdaHouse\\AppData\\Local\\Programs\\Python\\Python312\\;C:\\Users\\INdaHouse\\AppData\\Local\\Programs\\Python\\Python311\\Scripts\\;C:\\Users\\INdaHouse\\AppData\\Local\\Programs\\Python\\Python311\\;C:\\Users\\INdaHouse\\AppData\\Local\\JetBrains\\PyCharmCE2024.1\\bin;C:\\Users\\INdaHouse\\AppData\\Local\\JetBrains\\PyCharmCE2024.2\\bin;C:\\Program Files\\PowerShell\\7\\;C:\\Users\\INdaHouse\\scoop\\apps\\git\\current\\cmd;C:\\Users\\INdaHouse\\scoop\\shims;C:\\Users\\INdaHouse\\.cargo\\bin;\\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Programs\\Jan\\resources\\bin;C:\\Users\\INdaHouse\\AppData\\Local\\selfidx;C:\\Users\\INdaHouse\\AppData\\Local\\selfidx;C:\\Users\\INdaHouse\\AppData\\Local\\Programs\\Ollama;$env:LOCALAPPDATA\\selfidx;C:\\Users\\INdaHouse\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\INdaHouse\\AppData\\Local\\cursor-agent;D:\\flutter\\bin;C:\\Users\\INdaHouse\\.tabnine\\agent\\.bin;C:\\Users\\INdaHouse\\.dotnet\\tools;C:\\Users\\INdaHouse\\AppData\\Roaming\\npm;C:\\Users\\INdaHouse\\AppData\\Local\\Microsoft\\WinGet\\Links;C:\\Users\\INdaHouse\\AppData\\Local\\Nvidia Corporation\\Personal AI Router\\bin",
+    "Kind": "String"
+  },
+  "expected_user_after": {
+    "Scope": "User",
+    "Exists": true,
+    "Value": "C:\\Users\\INdaHouse\\.pi\\agent\\bin;C:\\Users\\INdaHouse\\.kimi-code\\bin;C:\\Users\\INdaHouse\\.grok\\bin;C:\\Users\\INdaHouse\\AppData\\Local\\agy\\bin;C:\\Users\\INdaHouse\\.local\\bin;C:\\Program Files\\PowerShell\\7;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;C:\\Windows\\System32\\OpenSSH\\;C:\\Program Files\\7-Zip;C:\\Program Files\\Git\\cmd;C:\\Program Files\\Git\\bin;C:\\Program Files\\CPUID\\CPU-Z;C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\Common7\\IDE\\CommonExtensions\\Microsoft\\VBCSharp\\LanguageServices\\InteractiveHost\\Desktop;C:\\Program Files\\Microsoft Visual Studio\\2022\\BuildTools\\Common7\\IDE;C:\\cygwin64\\bin;C:\\Program Files\\dotnet\\;C:\\Program Files\\nodejs\\;C:\\Users\\INdaHouse\\AppData\\Local\\Programs\\Python\\Python312\\Scripts\\;C:\\Users\\INdaHouse\\AppData\\Local\\Programs\\Python\\Python312\\;C:\\Users\\INdaHouse\\AppData\\Local\\Programs\\Python\\Python311\\Scripts\\;C:\\Users\\INdaHouse\\AppData\\Local\\Programs\\Python\\Python311\\;C:\\Users\\INdaHouse\\AppData\\Local\\JetBrains\\PyCharmCE2024.1\\bin;C:\\Users\\INdaHouse\\AppData\\Local\\JetBrains\\PyCharmCE2024.2\\bin;C:\\Program Files\\PowerShell\\7\\;C:\\Users\\INdaHouse\\scoop\\apps\\git\\current\\cmd;C:\\Users\\INdaHouse\\scoop\\shims;C:\\Users\\INdaHouse\\.cargo\\bin;\\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Programs\\Jan\\resources\\bin;C:\\Users\\INdaHouse\\AppData\\Local\\selfidx;C:\\Users\\INdaHouse\\AppData\\Local\\selfidx;C:\\Users\\INdaHouse\\AppData\\Local\\Programs\\Ollama;$env:LOCALAPPDATA\\selfidx;C:\\Users\\INdaHouse\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\INdaHouse\\AppData\\Local\\cursor-agent;D:\\flutter\\bin;C:\\Users\\INdaHouse\\.tabnine\\agent\\.bin;C:\\Users\\INdaHouse\\.dotnet\\tools;C:\\Users\\INdaHouse\\AppData\\Roaming\\npm;C:\\Users\\INdaHouse\\AppData\\Local\\Microsoft\\WinGet\\Links;C:\\Users\\INdaHouse\\AppData\\Local\\Nvidia Corporation\\Personal AI Router\\bin;D:\\PROJECTS\\PILLCLITER\\bin",
+    "Kind": "String"
+  },
+  "checks": {
+    "user_exact_plan": true,
+    "machine_path_unchanged": true,
+    "binary_hash_matches_release": true,
+    "manifest_complete": true,
+    "fresh_process_resolves_installed": true,
+    "fresh_process_version": true,
+    "uninstall_whatif_preserves_user": true,
+    "uninstall_whatif_preserves_manifest": true,
+    "uninstall_whatif_preserves_binary": true,
+    "registration_plan_idempotent": true
+  },
+  "tester": "evidencias/2026-10-28-tester-final.json",
+  "installer_tests": "evidencias/2026-10-28-tester-installation-artifact-final.json",
+  "reviewer": "evidencias/2026-10-28-review-current-installer-final.json",
+  "installation": {
+    "Status": "Installed",
+    "Scope": "User",
+    "Binary": "D:\\PROJECTS\\PILLCLITER\\bin\\pill.exe",
+    "Sha256": "96968d21f9c1a7603187d78544496bd484f17c1e4190bb25a3876496a42bfa16",
+    "Version": "0.1.0",
+    "UserPathAdded": true,
+    "ProcessPathAdded": true,
+    "Manifest": "D:\\PROJECTS\\PILLCLITER\\bin\\installation.json",
+    "PreviousBinary": "D:\\PROJECTS\\PILLCLITER\\bin\\pill.exe.previous.7ca79eb3f1bb48d198cd7e093fcbe357",
+    "EnvironmentNotified": true,
+    "Idempotent": false
+  },
+  "user_after": {
+    "Scope": "User",
+    "Exists": true,
+    "Value": "C:\\Users\\INdaHouse\\.pi\\agent\\bin;C:\\Users\\INdaHouse\\.kimi-code\\bin;C:\\Users\\INdaHouse\\.grok\\bin;C:\\Users\\INdaHouse\\AppData\\Local\\agy\\bin;C:\\Users\\INdaHouse\\.local\\bin;C:\\Program Files\\PowerShell\\7;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;C:\\Windows\\System32\\OpenSSH\\;C:\\Program Files\\7-Zip;C:\\Program Files\\Git\\cmd;C:\\Program Files\\Git\\bin;C:\\Program Files\\CPUID\\CPU-Z;C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\Common7\\IDE\\CommonExtensions\\Microsoft\\VBCSharp\\LanguageServices\\InteractiveHost\\Desktop;C:\\Program Files\\Microsoft Visual Studio\\2022\\BuildTools\\Common7\\IDE;C:\\cygwin64\\bin;C:\\Program Files\\dotnet\\;C:\\Program Files\\nodejs\\;C:\\Users\\INdaHouse\\AppData\\Local\\Programs\\Python\\Python312\\Scripts\\;C:\\Users\\INdaHouse\\AppData\\Local\\Programs\\Python\\Python312\\;C:\\Users\\INdaHouse\\AppData\\Local\\Programs\\Python\\Python311\\Scripts\\;C:\\Users\\INdaHouse\\AppData\\Local\\Programs\\Python\\Python311\\;C:\\Users\\INdaHouse\\AppData\\Local\\JetBrains\\PyCharmCE2024.1\\bin;C:\\Users\\INdaHouse\\AppData\\Local\\JetBrains\\PyCharmCE2024.2\\bin;C:\\Program Files\\PowerShell\\7\\;C:\\Users\\INdaHouse\\scoop\\apps\\git\\current\\cmd;C:\\Users\\INdaHouse\\scoop\\shims;C:\\Users\\INdaHouse\\.cargo\\bin;\\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Programs\\Jan\\resources\\bin;C:\\Users\\INdaHouse\\AppData\\Local\\selfidx;C:\\Users\\INdaHouse\\AppData\\Local\\selfidx;C:\\Users\\INdaHouse\\AppData\\Local\\Programs\\Ollama;$env:LOCALAPPDATA\\selfidx;C:\\Users\\INdaHouse\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\INdaHouse\\AppData\\Local\\cursor-agent;D:\\flutter\\bin;C:\\Users\\INdaHouse\\.tabnine\\agent\\.bin;C:\\Users\\INdaHouse\\.dotnet\\tools;C:\\Users\\INdaHouse\\AppData\\Roaming\\npm;C:\\Users\\INdaHouse\\AppData\\Local\\Microsoft\\WinGet\\Links;C:\\Users\\INdaHouse\\AppData\\Local\\Nvidia Corporation\\Personal AI Router\\bin;D:\\PROJECTS\\PILLCLITER\\bin",
+    "Kind": "String"
+  },
+  "manifest": {
+    "schema": 1,
+    "project_root": "D:\\PROJECTS\\PILLCLITER",
+    "binary": "D:\\PROJECTS\\PILLCLITER\\bin\\pill.exe",
+    "binary_sha256": "96968d21f9c1a7603187d78544496bd484f17c1e4190bb25a3876496a42bfa16",
+    "binary_identity": "539437924:51249152:1511928",
+    "version": "0.1.0",
+    "install_id": "0e4f159a-1776-47e6-802f-12eae6edbb6a",
+    "state": "complete",
+    "scopes": {
+      "User": {
+        "added": true,
+        "raw_entry": "D:\\PROJECTS\\PILLCLITER\\bin",
+        "before_exists": true,
+        "before_sha256": "c3e9ee219eb52cf14dc2aa48f20da1a9b74b9a916b59349f64d8d435077a0e9c",
+        "after_sha256": "4d1e26ffe697ada253ce2fd4bf0e00150a3bff2c53c30e426ab3ae7e6cda2aed"
+      },
+      "Process": {
+        "added": true,
+        "raw_entry": "D:\\PROJECTS\\PILLCLITER\\bin",
+        "before_exists": true,
+        "before_sha256": "93fc91973bc70c8869f981e8c62735d1a8a48ebe2a38a82e26f5ea6ea30d4b09",
+        "after_sha256": "7d6f0fce5d49b903efa6d1958a167d0c9d21cb216e14d0a27df6bd7aa51c7387",
+        "process_id": 24672,
+        "creation_ticks": 639288193533121789
+      }
+    }
+  },
+  "fresh_process": {
+    "source": "D:\\PROJECTS\\PILLCLITER\\bin\\pill.exe",
+    "version": "pill 0.1.0"
+  },
+  "uninstall_whatif": {
+    "Status": "WhatIf",
+    "Scope": "User",
+    "Binary": "D:\\PROJECTS\\PILLCLITER\\bin\\pill.exe",
+    "RemoveBinary": false
+  }
+}

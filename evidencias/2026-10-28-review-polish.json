@@ -1,0 +1,48 @@
+{
+  "fecha_utc": "2026-10-28T22:08:19.748704+00:00",
+  "role": "reviewer independiente",
+  "verdict": "APPROVE",
+  "scope": "Código de pulido1y2, sobre snapshot actual. No sustituye tester PASS de lint/build/consola/binario ni autoriza registro nuevo de PATH.",
+  "spec": "spec/14-PULIDO-RENDER.md",
+  "production_changes_since_prior_verified": [
+    "src/ui/model.rs",
+    "src/ui/render.rs"
+  ],
+  "blocking_findings": [],
+  "review": [
+    "Filas de recuperación separan revisión humana del estado histórico; unknown permanece unknown y las huellas/call_id originales no se transforman.",
+    "needs_review faltante o distinto de false cuenta pendiente. La condición prevalece sobre reviewed=true contradictorio. blocked con cero incidencias contadas se presenta como estado sin resolver, evitando cero pendiente falso.",
+    "Contador solo se expone en recuperación y su detalle. El alto restante se calcula después de reservar contador/título; no se cambian presupuesto/cursor/scroll por constantes nuevas.",
+    "Atajo del detalle de perfiles anuncia la acción Ctrl+Enter aplicar perfil ya implementada, con la validación y preview existentes.",
+    "Caché envuelta permanece en Arc propietario local durante frame; no se clona su Vec<String> completa. append_visible copia únicamente las cadenas de los intervalos de dos slices.",
+    "Los llamadores generan start<=end: detalle limita a history_len y chat calcula end=len-scroll/start=end-available por saturación. El corte en ambos slices conserva concatenación y orden.",
+    "fit_history y fit_detail conservan semántica de selección anterior. Regresión compara con algoritmo anterior para vacíos, Unicode, respuesta, trailing newline, base0-8 y scroll hasta usize::MAX.",
+    "Caché se conserva con igual anchura/contenido y se invalida al cambiar anchura o mensaje; prueba comprueba identidad Arc tras ambos cambios.",
+    "Benchmark explícito usa cinco muestras de128selecciones sobre8192líneas y misma ventana. Reporta tiempo de pared y payload de cadenas copiado, sin umbral temporal ni promesa global CPU/RAM. Evidencia de root es debug y se declara como tal.",
+    "Comparación con cierre anterior confirma únicamente dos fuentes de producción UI modificadas; módulos de recuperación/permisos/proveedor/instalador/configuración no cambian."
+  ],
+  "validation_seen_not_executed_by_reviewer": {
+    "root_benchmark": "evidencias/2026-10-28-polish-window-root.json",
+    "scope": "Inspección del artefacto, no ejecución independiente del benchmark. Cargo y consola son responsabilidad del tester actual."
+  },
+  "validation_required": [
+    "Formato y Clippy finales",
+    "Pruebas locales y release offline sobre este snapshot",
+    "Consola real73x21 de conteo/ACK individual/reinicio y detalle perfiles",
+    "Benchmark final ejecutado con alcance declarado",
+    "Hash instalado y propiedad PATH preservados al actualizar binario"
+  ],
+  "source_sha256": {
+    "src/ui/model.rs": "4a1598a3f59dcce326db0bfa7f61dea173ccaca243743a783427dd586453a105",
+    "src/ui/render.rs": "04639a53ec6a0ebab2978d2704a11d25ce57728d3e5b12ab51f2837313dc67a0",
+    "src/ui/native.rs": "c75c704d2c85888c2ce4c505bfce36789740986da142955e907ce04dcd88f03f",
+    "src/session/mod.rs": "e5e6eb8c57f533dad4107a8941eeb53bbd54d126d640fb2f96cf33c6d2d33bf6",
+    "src/tools/recovery.rs": "41146c69d296072fa26fcbd51dcc3f600fe0dde3029ef2db3f3a008af2283027",
+    "src/tools/mod.rs": "b866f383b1cf0c807cf84f574d0fb2f22187c28e7b0cfaa8d5ee8dfdfcf08b2a",
+    "Cargo.toml": "a5766d7aaf7a7ca5a166bd453923c587280ff2136e4a44103faee86f913ed370",
+    "Cargo.lock": "94b7873d04808a197ce7ae749d9b965fa0f39a40e980efcb79c6307e758a163f",
+    "config/defaults.json": "885a17c90db0a8f733b013eae021a105144a0a9f11a63431e035f164fad590dd",
+    "spec/14-PULIDO-RENDER.md": "7620e11420f203453d88d5b356073c1b2d4f42a45c3413cb28459b65584261ad"
+  },
+  "independence": "Reviewer no editó producción ni ejecutó Cargo, instaló paquetes/modelos o modificó PATH/portapapeles."
+}

@@ -1,0 +1,30 @@
+{
+  "fecha_utc": "2026-10-28T22:16:25.8344756+00:00",
+  "result": "PASS",
+  "scope": "Actualizacion del binario por instalador revisado SessionOnly; conserva User/Machine PATH y propiedad User",
+  "checks": {
+    "user_path_unchanged": true,
+    "machine_path_unchanged": true,
+    "user_ownership_preserved": true,
+    "install_id_preserved": true,
+    "installed_hash_matches_release": true,
+    "manifest_hash_matches": true,
+    "resolves_installed": true,
+    "version_ok": true
+  },
+  "installation": {
+    "Status": "Installed",
+    "Scope": "Process",
+    "Binary": "D:\\PROJECTS\\PILLCLITER\\bin\\pill.exe",
+    "Sha256": "62a1857654b2a15fc793029f2f54bc26e36e5ec815eb4e834d366180ae47f90f",
+    "Version": "0.1.0",
+    "UserPathAdded": false,
+    "ProcessPathAdded": true,
+    "Manifest": "D:\\PROJECTS\\PILLCLITER\\bin\\installation.json",
+    "PreviousBinary": "D:\\PROJECTS\\PILLCLITER\\bin\\pill.exe.previous.ebe21e83625f4aa0bc5dc0c75b5520a1",
+    "EnvironmentNotified": null,
+    "Idempotent": false
+  },
+  "command_source": "D:\\PROJECTS\\PILLCLITER\\bin\\pill.exe",
+  "version": "pill 0.1.0"
+}

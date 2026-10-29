@@ -1,0 +1,22 @@
+{
+  "fecha_utc": "2026-10-28T22:18:12.801825+00:00",
+  "role": "tester independiente",
+  "verdict": "PASS",
+  "scope": "Suplemento de solo lectura posterior a instalacion del coordinador: hash/manifest/propiedadUser/valorrawyversionejecutable. No escribePATH ni ejecutaUIadicional ni desinstala.",
+  "checks": {
+    "installed_hash_matches_independent_build": true,
+    "manifest_complete": true,
+    "manifest_hash_matches_installed": true,
+    "installation_id_preserved": true,
+    "user_ownership_record_preserved": true,
+    "user_path_raw_preserved_since_registration": true,
+    "user_registry_kind_preserved": true,
+    "installed_version_process_pass": true,
+    "installed_console_matches_sha": true,
+    "installed_console_pass": true
+  },
+  "binary_sha256": "62a1857654b2a15fc793029f2f54bc26e36e5ec815eb4e834d366180ae47f90f",
+  "version": "pill 0.1.0",
+  "previous": "2026-10-28-pulido-tester-final.json",
+  "installed_console": "2026-10-28-polish-installed-console.json"
+}

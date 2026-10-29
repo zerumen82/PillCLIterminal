@@ -1,0 +1,93 @@
+{
+  "config": {
+    "num_ctx": 8192,
+    "num_predict": 512,
+    "think": false
+  },
+  "digest": "ff8b5c8b4197bde89c5d2f16a1d60c93762efc41bb8907190baaa5a16231f315",
+  "error": null,
+  "events": [
+    "Notice { role: \"sistema\", text: \"servidor compartido o exclusividad no concedida; /api/ps no identifica al cliente y no se descarga nada\\nmedición NVIDIA no disponible\\nReconciliación local: 0 aplicadas, 0 pendientes, 0 desconocidas. No se repitieron operaciones.\" }",
+    "Budget { used: 1050, limit: 8192 }",
+    "Selected(SelectedModel { model: Model { name: \"huihui_ai/qwen3.5-abliterated:2B\", digest: \"ff8b5c8b4197bde89c5d2f16a1d60c93762efc41bb8907190baaa5a16231f315\", size: 1945323683 }, capabilities: [\"completion\", \"vision\", \"tools\", \"thinking\"], context_limit: 262144 })",
+    "Notice { role: \"implementador\", text: \"Trabajando…\" }",
+    "Budget { used: 3686, limit: 8192 }",
+    "Delta(\"Pr\")",
+    "Delta(\"ueba\")",
+    "Delta(\"_GPU\")",
+    "Delta(\"_LOCAL\")",
+    "Budget { used: 1336, limit: 8192 }",
+    "Complete { elapsed_ms: 43605, first_token_ms: Some(43528), metrics: Object {\"created_at\": String(\"2026-10-27T20:54:27.0575223Z\"), \"done\": Bool(true), \"done_reason\": String(\"stop\"), \"eval_count\": Number(5), \"eval_duration\": Number(31333000), \"load_duration\": Number(42205848800), \"model\": String(\"huihui_ai/qwen3.5-abliterated:2B\"), \"prompt_eval_cached_count\": Number(0), \"prompt_eval_count\": Number(943), \"prompt_eval_duration\": Number(1306023000), \"total_duration\": Number(43557496400)}, answer: Some(\"Prueba_GPU_LOCAL\") }",
+    "Budget { used: 1336, limit: 8192 }",
+    "Liberated(\"servidor compartido o exclusividad no concedida; /api/ps no identifica al cliente y no se descarga nada\\nconservados: huihui_ai/qwen3.5-abliterated:2B\\nmedición NVIDIA no disponible\")",
+    "Budget { used: 1336, limit: 8192 }",
+    "Permissions([Offer { id: \"exclusive\", fingerprint: \"fae1614facce8fb1d1bb9e5c4db7312c1a3334df584edadeae215720db29084c\", detail: \"exclusividad sobre http://127.0.0.1:51893; concedida=false. Solo descargará modelos que esta sesión seleccione.\" }])",
+    "Budget { used: 1336, limit: 8192 }",
+    "Granted(\"exclusive\")",
+    "Budget { used: 1336, limit: 8192 }",
+    "Liberated(\"exclusividad concedida; se solicita la descarga solo de los modelos que esta sesión seleccionó\\ndescargados: huihui_ai/qwen3.5-abliterated:2B\\nmedición NVIDIA no disponible\")"
+  ],
+  "exclusive_report": "exclusividad concedida; se solicita la descarga solo de los modelos que esta sesión seleccionó\ndescargados: huihui_ai/qwen3.5-abliterated:2B\nmedición NVIDIA no disponible",
+  "exclusive_url": "http://127.0.0.1:51893",
+  "installed_models_unchanged": true,
+  "model": "huihui_ai/qwen3.5-abliterated:2B",
+  "model_was_on_gpu": true,
+  "result": "PASS",
+  "running_after_exclusive_release": {
+    "models": []
+  },
+  "running_after_real_chat": {
+    "models": [
+      {
+        "context_length": 8192,
+        "details": {
+          "families": [
+            "qwen35"
+          ],
+          "family": "qwen35",
+          "format": "gguf",
+          "parameter_size": "2.3B",
+          "parent_model": "",
+          "quantization_level": "Q4_K_M"
+        },
+        "digest": "ff8b5c8b4197bde89c5d2f16a1d60c93762efc41bb8907190baaa5a16231f315",
+        "expires_at": "2026-10-27T21:59:27.0575223+01:00",
+        "model": "huihui_ai/qwen3.5-abliterated:2B",
+        "name": "huihui_ai/qwen3.5-abliterated:2B",
+        "runner": "llamacpp",
+        "size": 1712964238,
+        "size_vram": 1712964238
+      }
+    ]
+  },
+  "running_after_shared_release": {
+    "models": [
+      {
+        "context_length": 8192,
+        "details": {
+          "families": [
+            "qwen35"
+          ],
+          "family": "qwen35",
+          "format": "gguf",
+          "parameter_size": "2.3B",
+          "parent_model": "",
+          "quantization_level": "Q4_K_M"
+        },
+        "digest": "ff8b5c8b4197bde89c5d2f16a1d60c93762efc41bb8907190baaa5a16231f315",
+        "expires_at": "2026-10-27T21:59:27.0575223+01:00",
+        "model": "huihui_ai/qwen3.5-abliterated:2B",
+        "name": "huihui_ai/qwen3.5-abliterated:2B",
+        "runner": "llamacpp",
+        "size": 1712964238,
+        "size_vram": 1712964238
+      }
+    ]
+  },
+  "running_before": {
+    "models": []
+  },
+  "scope": "Servidor propio en puerto loopback distinto del habitual; concesión temporal explícita; chat real, conservación compartida y descarga exclusiva confirmada por /api/ps. La VRAM global se registra por separado; no se atribuye su delta exclusivamente a este modelo.",
+  "selected_model_size_vram_before": 1712964238,
+  "shared_report": "servidor compartido o exclusividad no concedida; /api/ps no identifica al cliente y no se descarga nada\nconservados: huihui_ai/qwen3.5-abliterated:2B\nmedición NVIDIA no disponible"
+}

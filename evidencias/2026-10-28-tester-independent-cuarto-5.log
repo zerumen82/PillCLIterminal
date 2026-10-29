@@ -1,0 +1,3 @@
+What If: Realizando la operación "Preparar pill y registrar PATH Process sin sustituir entradas ajenas" en el objetivo "C:\Users\INdaHouse\AppData\Local\Temp\pill-install-tests-75657caeec5140dc9eaa7b07914c6473\proyecto ñ\bin\pill.exe".
+What If: Realizando la operación "Retirar solo el PATH Process acreditado por el manifiesto; borrar binario=True" en el objetivo "C:\Users\INdaHouse\AppData\Local\Temp\pill-install-tests-75657caeec5140dc9eaa7b07914c6473\proyecto ñ\bin".
+PASS: 45 comprobaciones; User/Machine PATH intactos=True; muestras=C:\Users\INdaHouse\AppData\Local\Temp\pill-install-tests-75657caeec5140dc9eaa7b07914c6473

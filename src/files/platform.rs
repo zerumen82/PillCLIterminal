@@ -16,7 +16,7 @@ use windows_sys::{
         Foundation::OBJECT_ATTRIBUTES,
         Storage::FileSystem::{
             FILE_CREATE, FILE_DIRECTORY_FILE, FILE_NON_DIRECTORY_FILE, FILE_OPEN, FILE_OPEN_IF,
-            FILE_OPEN_REPARSE_POINT, FILE_OVERWRITE_IF, FILE_SYNCHRONOUS_IO_NONALERT, NtCreateFile,
+            FILE_OPEN_REPARSE_POINT, FILE_SYNCHRONOUS_IO_NONALERT, NtCreateFile,
             NtSetInformationFile,
         },
     },
@@ -33,11 +33,12 @@ use windows_sys::{
         },
         Storage::FileSystem::{
             BY_HANDLE_FILE_INFORMATION, DELETE, FILE_ATTRIBUTE_DIRECTORY,
-            FILE_ATTRIBUTE_REPARSE_POINT, FILE_FLAG_BACKUP_SEMANTICS, FILE_FLAG_OPEN_REPARSE_POINT,
-            FILE_ID_BOTH_DIR_INFO, FILE_RENAME_INFO, FILE_SHARE_READ, FILE_SHARE_WRITE,
+            FILE_ATTRIBUTE_REPARSE_POINT, FILE_DISPOSITION_INFO, FILE_FLAG_BACKUP_SEMANTICS,
+            FILE_FLAG_OPEN_REPARSE_POINT, FILE_ID_BOTH_DIR_INFO, FILE_RENAME_INFO,
+            FILE_SHARE_DELETE, FILE_SHARE_READ, FILE_SHARE_WRITE, FileDispositionInfo,
             FileIdBothDirectoryInfo, FileIdBothDirectoryRestartInfo, GetFileInformationByHandle,
-            GetFileInformationByHandleEx, GetFinalPathNameByHandleW, SYNCHRONIZE, WRITE_DAC,
-            WRITE_OWNER,
+            GetFileInformationByHandleEx, GetFinalPathNameByHandleW, SYNCHRONIZE,
+            SetFileInformationByHandle, WRITE_DAC, WRITE_OWNER,
         },
         System::IO::IO_STATUS_BLOCK,
     },
@@ -102,14 +103,14 @@ pub(super) fn create_file_at(parent: &File, name: &OsStr) -> Result<File, FileEr
     Ok(file)
 }
 
-/// Sustituye el contenido si el nombre ya existe. Rechaza reparse y hardlinks.
-pub(super) fn overwrite_file_at(parent: &File, name: &OsStr) -> Result<File, FileError> {
+/// Serializa publicaciones privadas entre objetos Files y procesos del producto.
+pub(super) fn private_lock_at(parent: &File) -> Result<File, FileError> {
     let file = open_at(
         parent,
-        name,
+        ".writer.lock".as_ref(),
         GENERIC_READ | GENERIC_WRITE,
-        FILE_SHARE_READ,
-        FILE_OVERWRITE_IF,
+        0,
+        FILE_OPEN_IF,
         FILE_NON_DIRECTORY_FILE,
     )?;
     check_regular(&file)?;
@@ -127,6 +128,19 @@ pub(super) fn open_directory_at(
         GENERIC_READ,
         FILE_SHARE_READ | FILE_SHARE_WRITE,
         if create { FILE_OPEN_IF } else { FILE_OPEN },
+        FILE_DIRECTORY_FILE,
+    )?;
+    check_directory(&file)?;
+    Ok(file)
+}
+
+pub(super) fn moving_directory_at(parent: &File, name: &OsStr) -> Result<File, FileError> {
+    let file = open_at(
+        parent,
+        name,
+        GENERIC_READ | DELETE,
+        FILE_SHARE_READ | FILE_SHARE_WRITE,
+        FILE_OPEN,
         FILE_DIRECTORY_FILE,
     )?;
     check_directory(&file)?;
@@ -159,6 +173,68 @@ pub(super) fn open_any_at(parent: &File, name: &OsStr) -> Result<File, FileError
         return Err(FileError::Protected("reparse no admitido".into()));
     }
     Ok(file)
+}
+
+/// Un único handle observa la base y ejecuta rename/disposition. No comparte
+/// WRITE ni DELETE, de modo que la base permanece estable hasta el efecto.
+pub(super) fn open_operation_at(
+    parent: &File,
+    name: &OsStr,
+    mutate: bool,
+) -> Result<File, FileError> {
+    let file = open_at(
+        parent,
+        name,
+        GENERIC_READ | if mutate { DELETE } else { 0 },
+        FILE_SHARE_READ,
+        FILE_OPEN,
+        0,
+    )?;
+    if is_directory(&file)? {
+        check_directory(&file)?;
+    } else {
+        check_regular(&file)?;
+    }
+    Ok(file)
+}
+
+pub(super) fn identity(file: &File) -> Result<String, FileError> {
+    let info = information(file)?;
+    Ok(format!(
+        "{:08x}:{:08x}{:08x}",
+        info.dwVolumeSerialNumber, info.nFileIndexHigh, info.nFileIndexLow
+    ))
+}
+
+/// El iterador permite el DELETE del handle propio, sin cambiar sus bloqueos.
+pub(super) fn empty_directory(file: &File) -> Result<bool, FileError> {
+    let iterator = open_at(
+        file,
+        OsStr::new(""),
+        GENERIC_READ,
+        FILE_SHARE_READ | FILE_SHARE_WRITE | FILE_SHARE_DELETE,
+        FILE_OPEN,
+        FILE_DIRECTORY_FILE,
+    )?;
+    let (names, truncated) = entries_from_handle(&iterator, 1)?;
+    Ok(names.is_empty() && !truncated)
+}
+
+pub(super) fn mark_delete(file: &File) -> Result<(), FileError> {
+    let disposition = FILE_DISPOSITION_INFO { DeleteFile: true };
+    // SAFETY: estructura del tamaño documentado; el handle propio tiene DELETE.
+    if unsafe {
+        SetFileInformationByHandle(
+            file.as_raw_handle(),
+            FileDispositionInfo,
+            (&disposition as *const FILE_DISPOSITION_INFO).cast(),
+            size_of::<FILE_DISPOSITION_INFO>() as u32,
+        )
+    } == 0
+    {
+        return Err(io::Error::last_os_error().into());
+    }
+    Ok(())
 }
 
 fn open_at(
@@ -234,7 +310,21 @@ pub(super) fn entries(directory: &File, limit: usize) -> Result<(Vec<OsString>, 
     check_directory(directory)?;
     // Un nuevo FILE_OBJECT tiene cursor propio. try_clone compartiría el cursor
     // y dos exploraciones podrían interrumpirse sus enumeraciones.
-    let iterator = open_directory_at(directory, OsStr::new(""), false)?;
+    // El handle fijado conserva sus restricciones. El cursor independiente
+    // comparte DELETE para coexistir con el handle propio de un traslado.
+    let iterator = open_at(
+        directory,
+        OsStr::new(""),
+        GENERIC_READ,
+        FILE_SHARE_READ | FILE_SHARE_WRITE | FILE_SHARE_DELETE,
+        FILE_OPEN,
+        FILE_DIRECTORY_FILE,
+    )?;
+    check_directory(&iterator)?;
+    entries_from_handle(&iterator, limit)
+}
+
+fn entries_from_handle(iterator: &File, limit: usize) -> Result<(Vec<OsString>, bool), FileError> {
     let mut names = Vec::new();
     // Una entrada admite hasta 32767 caracteres UTF-16; buffer alineado.
     let mut buffer =

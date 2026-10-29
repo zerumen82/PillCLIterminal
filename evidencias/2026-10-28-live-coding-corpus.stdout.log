@@ -1,0 +1,6 @@
+
+running 1 test
+test real_model_repairs_two_multi_file_tasks_preserving_bom_crlf_and_backups ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 33.85s
+

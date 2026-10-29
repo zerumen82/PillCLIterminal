@@ -1,0 +1,901 @@
+{
+  "checks": [
+    {
+      "command": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.48399999999674037,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "cargo",
+        "clippy",
+        "--locked",
+        "--offline",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 3.4839999999967404,
+      "stdout": "",
+      "stderr": "    Checking pill v0.1.0 (D:\\PROJECTS\\PILLCLITER)\n    Finished `dev` profile [unoptimized + debuginfo] target(s) in 3.32s\n"
+    },
+    {
+      "command": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 47.31300000002375,
+      "stdout": "\nrunning 52 tests\ntest cli::tests::paths_with_spaces_and_unicode_are_single_arguments ... ok\ntest agents::tests::claimed_change_or_pass_does_not_replace_role_tool_evidence ... ok\ntest cli::tests::unknown_missing_and_duplicate_options_fail ... ok\ntest agents::tests::empty_reply_can_preserve_observed_work_but_never_imply_review_approval ... ok\ntest agents::tests::handoff_contains_complete_observations_without_generated_instructions_or_hashes ... ok\ntest agents::tests::another_success_cannot_hide_a_failed_test_but_same_test_can_be_retried ... ok\ntest config::tests::partial_preferences_preserve_limits_and_reject_grants ... ok\ntest config::tests::unbounded_input_and_busy_polling_are_rejected ... ok\ntest gpu::tests::exclusive_unloads_only_names_selected_by_this_session ... ok\ntest gpu::tests::missing_nvidia_binary_does_not_invent_memory ... ok\ntest files::tests::live_write_and_delete_handles_are_excluded_and_directory_cannot_be_renamed ... ok\ntest gpu::tests::shared_server_keeps_every_loaded_model ... ok\ntest files::tests::failed_publication_rolls_back_only_into_absent_destination ... ok\ntest providers::ollama::tests::local_endpoint_rejects_remote_and_credential_leaks ... ok\ntest providers::ollama::tests::reserved_context_of_empty_messages_matches_the_gate ... ok\ntest providers::ollama::tests::malformed_final_records_errors_and_length_cannot_confirm_partial_text ... ok\ntest providers::ollama::tests::thinking_notifies_by_blocks_and_stays_out_of_the_answer ... ok\ntest providers::ollama::tests::tool_fragments_stay_pending_until_valid_final_and_reject_ambiguous_arguments ... ok\ntest providers::ollama::tests::ndjson_handles_split_utf8_crlf_limits_and_truncation ... ok\ntest files::tests::publication_collision_preserves_occupant_base_and_staged_data ... ok\ntest session::tests::saved_transcript_drops_the_oldest_dialogue_until_it_fits ... ok\ntest tools::tests::partial_effect_stays_pending_across_new_requests_and_blocks_writes ... ok\ntest ui::model::tests::a_slash_in_regular_text_does_not_open_menu ... ok\ntest ui::model::tests::arrows_select_a_model_and_revoke_or_refuse_a_permission ... ok\ntest ui::model::tests::backspace_removes_a_whole_grapheme ... ok\ntest ui::model::tests::ctrl_r_opens_and_closes_reasoning_without_mixing_it_into_the_answer ... ok\ntest ui::model::tests::grants_and_liberation_use_their_own_status ... ok\ntest tools::tests::exclusive_grant_and_revoke_round_trip_and_a_root_stays_refused ... ok\ntest ui::model::tests::journal_command_is_before_liberate_and_reads_without_clearing_partial_effects ... ok\ntest ui::model::tests::liberate_asks_before_unloading_session_models ... ok\ntest ui::model::tests::liberate_is_available_and_does_not_steal_the_exit_filter ... ok\ntest ui::model::tests::model_list_shows_size_and_whether_it_is_loaded ... ok\ntest ui::model::tests::page_up_moves_more_than_one_line_and_failures_name_the_cause ... ok\ntest ui::model::tests::pasted_newlines_never_submit_chat_and_busy_preserves_new_input ... ok\ntest ui::model::tests::permissions_show_a_short_row_until_enter_asks_for_detail ... ok\ntest ui::model::tests::reasoning_stays_folded_and_a_task_step_names_the_role ... ok\ntest ui::model::tests::search_names_matches_and_partial_effects_keep_the_journal ... ok\ntest ui::model::tests::slash_in_ordinary_request_allows_newline_and_explicit_submit ... ok\ntest ui::model::tests::selecting_a_command_executes_only_on_enter ... ok\ntest ui::model::tests::slash_opens_menu_without_enter_and_escape_preserves_input ... ok\ntest files::tests::empty_pinned_directory_changed_to_junction_fails_closed_on_relative_io ... ok\ntest ui::model::tests::startup_notice_reports_the_result_without_a_working_status ... ok\ntest ui::model::tests::task_mode_is_visible_and_partial_effects_survive_model_selection ... ok\ntest ui::model::tests::tool_activity_and_budget_do_not_end_the_operation ... ok\ntest ui::model::tests::typing_keeps_the_page_and_motion_stays_inside_the_line ... ok\ntest ui::model::tests::unicode_editing_keeps_utf8_boundaries_and_input_limit ... ok\ntest ui::render::tests::busy_status_shows_elapsed_seconds_without_replacing_the_activity ... ok\ntest ui::render::tests::control_characters_cannot_inject_terminal_sequences ... ok\ntest ui::render::tests::multiline_draft_keeps_the_cursor_on_its_own_line ... ok\ntest ui::render::tests::reserve_task_journal_and_scroll_stay_on_screen ... ok\ntest files::tests::concurrent_enumerations_have_independent_cursors_across_buffers ... ok\ntest tools::tests::successful_test_is_invalidated_by_changed_read_or_script_even_after_rereading ... ok\n\ntest result: ok. 52 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.62s\n\n\nrunning 0 tests\n\ntest result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s\n\n\nrunning 12 tests\ntest command_scope_and_private_store_are_enforced ... ok\ntest cwd_requires_a_locked_observed_descendant ... ok\ntest junctions_cannot_redirect_command_working_directory ... ok\ntest nonzero_exit_and_output_limits_are_observed ... ok\ntest invalid_utf8_is_reported_and_decoded_output_stays_bounded ... ok\ntest changed_script_definition_and_stale_ui_proposal_require_new_consent ... ok\ntest parent_exit_also_cleans_up_its_remaining_descendants ... ok\ntest cancellation_kills_only_the_owned_process_tree ... ok\ntest shell_metacharacters_remain_literal_arguments ... ok\ntest scripts_are_pinned_against_external_write_during_execution ... ok\ntest registered_command_requires_explicit_grant_and_executes_real_output ... ok\ntest timeout_kills_only_the_owned_process_tree ... ok\n\ntest result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 6.64s\n\n\nrunning 4 tests\ntest an_empty_directory_is_inspected_and_only_the_confirmed_directory_is_removed ... ok\ntest file_delete_requires_read_and_denied_roles_cannot_consume_human_grant ... ok\ntest moving_requires_human_grant_and_consumes_it_even_if_same_object_returns ... ok\ntest changed_base_invalidates_displayed_and_already_granted_operations ... ok\n\ntest result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s\n\n\nrunning 17 tests\ntest existing_external_writer_blocks_edit_without_lost_update ... ok\ntest destructive_operations_reject_links_protected_paths_and_external_writers ... ok\ntest approvals_do_not_survive_source_replacement_with_same_bytes ... ok\ntest explicit_protection_covers_file_and_directory ... ok\ntest byte_search_entry_and_backup_limits_are_explicit ... ok\ntest delete_file_or_empty_directory_requires_current_object_and_exact_operation ... ok\ntest editing_preserves_restricted_owner_group_and_dacl ... ok\ntest private_hardlink_is_rejected_before_any_truncation ... ok\ntest move_requires_concrete_approval_preserves_binary_bytes_and_never_replaces ... ok\ntest private_session_journal_is_created_by_handle_and_cannot_be_accessed_by_tools ... ok\ntest traversal_ads_devices_controls_and_exclusions_are_rejected ... ok\ntest recovery_journal_reads_enforce_limits_and_refuse_links ... ok\ntest stale_base_and_ambiguous_patch_never_change_disk ... ok\ntest hardlinks_and_junctions_are_never_followed ... ok\ntest private_transcript_overwrites_and_journal_tail_does_not_create_a_session ... ok\ntest two_independent_executors_cannot_both_apply_same_base ... ok\ntest unicode_bom_crlf_create_edit_reread_and_persistent_backup ... ok\n\ntest result: ok. 17 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.11s\n\n\nrunning 4 tests\ntest requests_wait_until_liberation_finishes ... ok\ntest shared_mode_never_calls_generate_even_for_a_selected_model ... ok\ntest exclusive_unloads_only_the_model_selected_in_this_session ... ok\ntest an_unconfirmed_unload_is_not_reported_as_success ... ok\n\ntest result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.09s\n\n\nrunning 6 tests\ntest an_external_file_argument_is_rejected_before_launch ... ok\ntest oversized_arguments_are_rejected_before_starting_server_and_ambiguous_ids_are_invalid ... ok\ntest one_grant_does_not_approve_the_others_and_echo_is_a_real_process ... ok\ntest external_schema_refs_fail_without_publishing_a_tool ... ok\ntest a_server_that_hangs_or_dies_is_not_success ... ok\ntest effects_before_death_timeout_or_tool_error_block_following_effects_and_restart ... ok\n\ntest result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.71s\n\n\nrunning 3 tests\ntest real_cancel_and_retry ... ignored, requiere Ollama real; usa el modelo explícito y cancela sin descargarlo\ntest real_chat_and_errors ... ignored, requiere Ollama real; PILL_LIVE_MODEL y PILL_LIVE_EVIDENCE explícitos\ntest real_connection_and_context_errors ... ignored, requiere metadatos de Ollama real; no genera ni descarga modelos\n\ntest result: ok. 0 passed; 0 failed; 3 ignored; 0 measured; 0 filtered out; finished in 0.00s\n\n\nrunning 2 tests\ntest a_batch_reserves_each_durable_result_before_starting_any_effect ... ok\ntest independent_read_batch_preserves_order_versions_and_permission_boundaries ... ok\n\ntest result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.04s\n\n\nrunning 16 tests\ntest empty_project_has_no_operations_to_replay ... ok\ntest external_edit_remains_unknown_and_is_never_overwritten ... ok\ntest incomplete_commands_and_mcp_are_unknown_after_restart ... ok\ntest historical_mcp_failures_and_interrupted_commands_are_not_safe_to_retry ... ok\ntest durable_partial_is_not_cleared_by_matching_bytes_after_restart ... ok\ntest duplicate_or_unpaired_effect_records_are_not_trusted ... ok\ntest awaiting_confirmation_did_not_execute_and_summary_does_not_emit_journal_text ... ok\ntest incomplete_metadata_and_delete_without_base_remain_unknown ... ok\ntest interrupted_batch_reports_each_file_and_preserves_completed_bytes ... ok\ntest journal_path_cannot_escape_the_authorized_root ... ok\ntest intact_edit_base_is_pending_and_expected_target_is_applied ... ok\ntest lost_creation_response_is_reconciled_without_writing ... ok\ntest move_and_delete_without_final_response_reconcile_actual_paths ... ok\ntest missing_creation_is_pending_and_is_not_created ... ok\ntest verified_historical_write_does_not_overwrite_or_block_later_user_edit ... ok\ntest truncated_or_oversized_record_blocks_effects ... ok\n\ntest result: ok. 16 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.08s\n\n\nrunning 1 test\ntest real_tool_stream_interruption_never_executes_unconfirmed_calls ... ignored, requiere Ollama real y modelo/evidencia explícitos; interrumpe solo el flujo del diagnóstico\n\ntest result: ok. 0 passed; 0 failed; 1 ignored; 0 measured; 0 filtered out; finished in 0.00s\n\n\nrunning 2 tests\ntest five_agents_repair_and_verify_project ... ignored, requiere Ollama; cinco roles con conversaciones y herramientas reales\ntest model_repairs_project_with_tools ... ignored, requiere Ollama y Python explícitos; edita solo fixture descartable\n\ntest result: ok. 0 passed; 0 failed; 2 ignored; 0 measured; 0 filtered out; finished in 0.00s\n\n\nrunning 0 tests\n\ntest result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s\n\n",
+      "stderr": "   Compiling pill v0.1.0 (D:\\PROJECTS\\PILLCLITER)\n    Finished `test` profile [unoptimized + debuginfo] target(s) in 29.06s\n     Running unittests src\\lib.rs (target\\debug\\deps\\pill-566abc7c96baab8b.exe)\n     Running unittests src\\main.rs (target\\debug\\deps\\pill-85d56201c0c9291b.exe)\n     Running tests\\commands_real.rs (target\\debug\\deps\\commands_real-f7360158bdba2e90.exe)\n     Running tests\\file_permissions.rs (target\\debug\\deps\\file_permissions-b4f09a47d9a92af5.exe)\n     Running tests\\files_real.rs (target\\debug\\deps\\files_real-e0d180816c73f92a.exe)\n     Running tests\\gpu_release.rs (target\\debug\\deps\\gpu_release-00c44aa67b9bb632.exe)\n     Running tests\\mcp_stdio.rs (target\\debug\\deps\\mcp_stdio-08f142392daf58b8.exe)\n     Running tests\\ollama_live.rs (target\\debug\\deps\\ollama_live-df5ad880912f9801.exe)\n     Running tests\\parallel_reads.rs (target\\debug\\deps\\parallel_reads-81a04075874a93cb.exe)\n     Running tests\\recovery_real.rs (target\\debug\\deps\\recovery_real-a500db23fbcdbeae.exe)\n     Running tests\\stream_live.rs (target\\debug\\deps\\stream_live-3d4f7d1a25fd5de6.exe)\n     Running tests\\tools_live.rs (target\\debug\\deps\\tools_live-80b55306b6b35431.exe)\n   Doc-tests pill\n"
+    },
+    {
+      "command": [
+        "cargo",
+        "build",
+        "--release",
+        "--locked",
+        "--offline"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 65.75,
+      "stdout": "",
+      "stderr": "   Compiling pill v0.1.0 (D:\\PROJECTS\\PILLCLITER)\n    Finished `release` profile [optimized] target(s) in 1m 05s\n"
+    }
+  ],
+  "result": "PASS",
+  "metadata_exit_code": 0,
+  "packages": [
+    {
+      "name": "ahash",
+      "version": "0.8.12",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "aho-corasick",
+      "version": "1.1.5",
+      "license": "Unlicense OR MIT"
+    },
+    {
+      "name": "allocator-api2",
+      "version": "0.2.21",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "atomic-waker",
+      "version": "1.1.2",
+      "license": "Apache-2.0 OR MIT"
+    },
+    {
+      "name": "autocfg",
+      "version": "1.5.1",
+      "license": "Apache-2.0 OR MIT"
+    },
+    {
+      "name": "base64",
+      "version": "0.22.1",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "base64",
+      "version": "0.23.1",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "bit-set",
+      "version": "0.8.0",
+      "license": "Apache-2.0 OR MIT"
+    },
+    {
+      "name": "bit-vec",
+      "version": "0.8.0",
+      "license": "Apache-2.0 OR MIT"
+    },
+    {
+      "name": "bitflags",
+      "version": "2.13.2",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "block-buffer",
+      "version": "0.10.4",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "borrow-or-share",
+      "version": "0.2.4",
+      "license": "MIT-0"
+    },
+    {
+      "name": "bytecount",
+      "version": "0.6.9",
+      "license": "Apache-2.0/MIT"
+    },
+    {
+      "name": "bytes",
+      "version": "1.12.1",
+      "license": "MIT"
+    },
+    {
+      "name": "cfg-if",
+      "version": "1.0.5",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "chrono",
+      "version": "0.4.45",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "cpufeatures",
+      "version": "0.2.17",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "crypto-common",
+      "version": "0.1.7",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "data-encoding",
+      "version": "2.11.1",
+      "license": "MIT"
+    },
+    {
+      "name": "digest",
+      "version": "0.10.7",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "displaydoc",
+      "version": "0.2.7",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "email_address",
+      "version": "0.2.9",
+      "license": "MIT"
+    },
+    {
+      "name": "equivalent",
+      "version": "1.0.3",
+      "license": "Apache-2.0 OR MIT"
+    },
+    {
+      "name": "fancy-regex",
+      "version": "0.19.2",
+      "license": "MIT"
+    },
+    {
+      "name": "fastrand",
+      "version": "2.5.0",
+      "license": "Apache-2.0 OR MIT"
+    },
+    {
+      "name": "fluent-uri",
+      "version": "0.4.1",
+      "license": "MIT"
+    },
+    {
+      "name": "foldhash",
+      "version": "0.2.0",
+      "license": "Zlib"
+    },
+    {
+      "name": "form_urlencoded",
+      "version": "1.2.2",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "fraction",
+      "version": "0.17.0",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "futures",
+      "version": "0.3.32",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "futures-channel",
+      "version": "0.3.34",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "futures-core",
+      "version": "0.3.34",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "futures-executor",
+      "version": "0.3.32",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "futures-io",
+      "version": "0.3.34",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "futures-macro",
+      "version": "0.3.32",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "futures-sink",
+      "version": "0.3.34",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "futures-task",
+      "version": "0.3.34",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "futures-util",
+      "version": "0.3.32",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "generic-array",
+      "version": "0.14.7",
+      "license": "MIT"
+    },
+    {
+      "name": "getrandom",
+      "version": "0.3.4",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "getrandom",
+      "version": "0.4.3",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "hashbrown",
+      "version": "0.17.1",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "heck",
+      "version": "0.5.0",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "http",
+      "version": "1.5.0",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "http-body",
+      "version": "1.1.0",
+      "license": "MIT"
+    },
+    {
+      "name": "http-body-util",
+      "version": "0.1.5",
+      "license": "MIT"
+    },
+    {
+      "name": "httparse",
+      "version": "1.10.1",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "hyper",
+      "version": "1.12.0",
+      "license": "MIT"
+    },
+    {
+      "name": "hyper-util",
+      "version": "0.1.21",
+      "license": "MIT"
+    },
+    {
+      "name": "icu_collections",
+      "version": "2.4.0",
+      "license": "Unicode-3.0"
+    },
+    {
+      "name": "icu_locale_core",
+      "version": "2.4.0",
+      "license": "Unicode-3.0"
+    },
+    {
+      "name": "icu_normalizer",
+      "version": "2.4.0",
+      "license": "Unicode-3.0"
+    },
+    {
+      "name": "icu_normalizer_data",
+      "version": "2.4.0",
+      "license": "Unicode-3.0"
+    },
+    {
+      "name": "icu_properties",
+      "version": "2.4.0",
+      "license": "Unicode-3.0"
+    },
+    {
+      "name": "icu_properties_data",
+      "version": "2.4.0",
+      "license": "Unicode-3.0"
+    },
+    {
+      "name": "icu_provider",
+      "version": "2.4.0",
+      "license": "Unicode-3.0"
+    },
+    {
+      "name": "idna",
+      "version": "1.1.0",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "idna_adapter",
+      "version": "1.2.2",
+      "license": "Apache-2.0 OR MIT"
+    },
+    {
+      "name": "indexmap",
+      "version": "2.14.2",
+      "license": "Apache-2.0 OR MIT"
+    },
+    {
+      "name": "ipnet",
+      "version": "2.12.2",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "itoa",
+      "version": "1.0.18",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "jsonschema",
+      "version": "0.59.0",
+      "license": "MIT"
+    },
+    {
+      "name": "jsonschema-regex",
+      "version": "0.59.0",
+      "license": "MIT"
+    },
+    {
+      "name": "jsonschema-value",
+      "version": "0.59.0",
+      "license": "MIT"
+    },
+    {
+      "name": "libc",
+      "version": "0.2.191",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "litemap",
+      "version": "0.8.3",
+      "license": "Unicode-3.0"
+    },
+    {
+      "name": "lock_api",
+      "version": "0.4.14",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "log",
+      "version": "0.4.34",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "memchr",
+      "version": "2.8.3",
+      "license": "Unlicense OR MIT"
+    },
+    {
+      "name": "micromap",
+      "version": "0.3.0",
+      "license": "MIT"
+    },
+    {
+      "name": "mio",
+      "version": "1.2.4",
+      "license": "MIT"
+    },
+    {
+      "name": "num",
+      "version": "0.4.3",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "num-bigint",
+      "version": "0.4.8",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "num-cmp",
+      "version": "0.1.0",
+      "license": "MIT/Apache-2.0"
+    },
+    {
+      "name": "num-complex",
+      "version": "0.4.6",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "num-integer",
+      "version": "0.1.47",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "num-iter",
+      "version": "0.1.46",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "num-rational",
+      "version": "0.4.2",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "num-traits",
+      "version": "0.2.19",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "once_cell",
+      "version": "1.21.4",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "outref",
+      "version": "0.5.2",
+      "license": "MIT"
+    },
+    {
+      "name": "parking_lot",
+      "version": "0.12.5",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "parking_lot_core",
+      "version": "0.9.12",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "percent-encoding",
+      "version": "2.3.2",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "pin-project-lite",
+      "version": "0.2.17",
+      "license": "Apache-2.0 OR MIT"
+    },
+    {
+      "name": "potential_utf",
+      "version": "0.1.6",
+      "license": "Unicode-3.0"
+    },
+    {
+      "name": "proc-macro2",
+      "version": "1.0.107",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "process-wrap",
+      "version": "10.0.1",
+      "license": "Apache-2.0 OR MIT"
+    },
+    {
+      "name": "quote",
+      "version": "1.0.47",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "ref-cast",
+      "version": "1.0.27",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "ref-cast-impl",
+      "version": "1.0.27",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "referencing",
+      "version": "0.59.0",
+      "license": "MIT"
+    },
+    {
+      "name": "regex",
+      "version": "1.13.1",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "regex-automata",
+      "version": "0.4.18",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "regex-syntax",
+      "version": "0.8.11",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "reqwest",
+      "version": "0.13.3",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "rmcp",
+      "version": "3.6.0",
+      "license": "Apache-2.0"
+    },
+    {
+      "name": "scopeguard",
+      "version": "1.2.0",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "serde",
+      "version": "1.0.228",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "serde_core",
+      "version": "1.0.228",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "serde_derive",
+      "version": "1.0.228",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "serde_json",
+      "version": "1.0.149",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "sha2",
+      "version": "0.10.9",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "slab",
+      "version": "0.4.12",
+      "license": "MIT"
+    },
+    {
+      "name": "smallvec",
+      "version": "1.16.3",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "socket2",
+      "version": "0.6.5",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "stable_deref_trait",
+      "version": "1.2.1",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "strum",
+      "version": "0.28.0",
+      "license": "MIT"
+    },
+    {
+      "name": "strum_macros",
+      "version": "0.28.0",
+      "license": "MIT"
+    },
+    {
+      "name": "syn",
+      "version": "2.0.119",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "syn",
+      "version": "3.0.9",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "sync_wrapper",
+      "version": "1.0.2",
+      "license": "Apache-2.0"
+    },
+    {
+      "name": "synstructure",
+      "version": "0.14.0",
+      "license": "MIT"
+    },
+    {
+      "name": "tempfile",
+      "version": "3.27.0",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "thiserror",
+      "version": "2.0.18",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "thiserror-impl",
+      "version": "2.0.18",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "tinystr",
+      "version": "0.8.5",
+      "license": "Unicode-3.0"
+    },
+    {
+      "name": "tokio",
+      "version": "1.52.3",
+      "license": "MIT"
+    },
+    {
+      "name": "tokio-macros",
+      "version": "2.7.2",
+      "license": "MIT"
+    },
+    {
+      "name": "tokio-stream",
+      "version": "0.1.19",
+      "license": "MIT"
+    },
+    {
+      "name": "tokio-util",
+      "version": "0.7.20",
+      "license": "MIT"
+    },
+    {
+      "name": "tower",
+      "version": "0.5.3",
+      "license": "MIT"
+    },
+    {
+      "name": "tower-http",
+      "version": "0.6.11",
+      "license": "MIT"
+    },
+    {
+      "name": "tower-layer",
+      "version": "0.3.3",
+      "license": "MIT"
+    },
+    {
+      "name": "tower-service",
+      "version": "0.3.3",
+      "license": "MIT"
+    },
+    {
+      "name": "tracing",
+      "version": "0.1.44",
+      "license": "MIT"
+    },
+    {
+      "name": "tracing-attributes",
+      "version": "0.1.31",
+      "license": "MIT"
+    },
+    {
+      "name": "tracing-core",
+      "version": "0.1.36",
+      "license": "MIT"
+    },
+    {
+      "name": "try-lock",
+      "version": "0.2.5",
+      "license": "MIT"
+    },
+    {
+      "name": "typenum",
+      "version": "1.20.1",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "unicode-general-category",
+      "version": "1.1.0",
+      "license": "Apache-2.0"
+    },
+    {
+      "name": "unicode-ident",
+      "version": "1.0.27",
+      "license": "(MIT OR Apache-2.0) AND Unicode-3.0"
+    },
+    {
+      "name": "url",
+      "version": "2.5.8",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "utf8_iter",
+      "version": "1.0.4",
+      "license": "Apache-2.0 OR MIT"
+    },
+    {
+      "name": "uuid-simd",
+      "version": "0.8.0",
+      "license": "MIT"
+    },
+    {
+      "name": "version_check",
+      "version": "0.9.5",
+      "license": "MIT/Apache-2.0"
+    },
+    {
+      "name": "vsimd",
+      "version": "0.8.0",
+      "license": "MIT"
+    },
+    {
+      "name": "want",
+      "version": "0.3.2",
+      "license": "MIT"
+    },
+    {
+      "name": "windows",
+      "version": "0.62.2",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "windows-collections",
+      "version": "0.3.2",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "windows-core",
+      "version": "0.62.2",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "windows-future",
+      "version": "0.3.2",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "windows-implement",
+      "version": "0.60.2",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "windows-interface",
+      "version": "0.59.3",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "windows-link",
+      "version": "0.2.1",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "windows-numerics",
+      "version": "0.3.1",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "windows-result",
+      "version": "0.4.1",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "windows-strings",
+      "version": "0.5.1",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "windows-sys",
+      "version": "0.61.2",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "windows-threading",
+      "version": "0.2.1",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "writeable",
+      "version": "0.6.4",
+      "license": "Unicode-3.0"
+    },
+    {
+      "name": "yoke",
+      "version": "0.8.4",
+      "license": "Unicode-3.0"
+    },
+    {
+      "name": "yoke-derive",
+      "version": "0.8.4",
+      "license": "Unicode-3.0"
+    },
+    {
+      "name": "zerocopy",
+      "version": "0.8.63",
+      "license": "BSD-2-Clause OR Apache-2.0 OR MIT"
+    },
+    {
+      "name": "zerofrom",
+      "version": "0.1.8",
+      "license": "Unicode-3.0"
+    },
+    {
+      "name": "zerofrom-derive",
+      "version": "0.1.8",
+      "license": "Unicode-3.0"
+    },
+    {
+      "name": "zerotrie",
+      "version": "0.2.5",
+      "license": "Unicode-3.0"
+    },
+    {
+      "name": "zerovec",
+      "version": "0.11.9",
+      "license": "Unicode-3.0"
+    },
+    {
+      "name": "zerovec-derive",
+      "version": "0.11.7",
+      "license": "Unicode-3.0"
+    },
+    {
+      "name": "zmij",
+      "version": "1.0.23",
+      "license": "MIT"
+    }
+  ],
+  "source_sha256": {
+    "Cargo.toml": "f41edbe1556b5a8270cf63a49f1c1fb827980740e70aefa25b4967e037c707f8",
+    "Cargo.lock": "94b7873d04808a197ce7ae749d9b965fa0f39a40e980efcb79c6307e758a163f",
+    "config\\defaults.json": "427d84002b636ac899a2009e0bf27b09ba56a2cd426559a0edda0918678cfcc2",
+    "src\\agents\\mod.rs": "1f8246d5226eaf844a4aed31e1746f760ddd13b90e00e539a2f4c15ce3e8b422",
+    "src\\cli.rs": "ca664619d722f741ec9a074b36562e9c2e6db8fcd220505d1c962dc88006395e",
+    "src\\config\\mod.rs": "eaf29b1dc18cbf8676e2b3948d9a3b2b1b610a4123aab8dce88bcc337bb77907",
+    "src\\files\\mod.rs": "717a5763a41ad6f0b9d69c6a71f808f279135fce63efcdd0f2962aa44810b040",
+    "src\\files\\platform.rs": "a577138c6cdd5c79f3094619c571d3bd75e74b38a4921c339c2307ec4fbb41c3",
+    "src\\files\\tests.rs": "9934da6bf52e57dbcc29e9a6668c21b77cb0c8505da97b3df4cd38832bba5f4c",
+    "src\\gpu\\mod.rs": "15f5d44373688cd41037e8c02d599ac4e27e7e55965302d75782bfebe93c6be2",
+    "src\\launch.rs": "c19169eb690c924b3e380fef9151804d4548d6e0507b1be0cb6df19e8bb136ea",
+    "src\\lib.rs": "3be1c1ceda56681ec3454571b7e30ed0f7ee6c316e1f62e2da3e8e27d90697ce",
+    "src\\main.rs": "3478c56d4317cbbf910c350309e7ae6584b28cf24a5ae2eaff0959f9a6399e08",
+    "src\\providers\\mod.rs": "634e000cfd43988672227662456b14f9caddcd1e1e1c9b1b4d48c579c7bed6e8",
+    "src\\providers\\ollama\\mod.rs": "6956e83d1a1133fa80b7af27fc23508827ecb22c56fa39ec10d2edcf8810c503",
+    "src\\session\\mod.rs": "719ff6d92c46ef4bb946ee93ace965ca69a046dd678bd5e2414dfc0b4e2bd34a",
+    "src\\tools\\commands.rs": "44de8d7d32d9cfe577db2cd5f3b3013f2a67a43058dd4792846ecbed56b5d963",
+    "src\\tools\\mcp.rs": "d82d80462ff6678b4b82230774dc64c8441ed18bd8503ed24ef8a010ab74a69d",
+    "src\\tools\\mod.rs": "77ff3f128c93742d1c1bf595d46d3c0e65d21685ad8531cba18d46d3e6de94d7",
+    "src\\tools\\recovery.rs": "7b326765ffcf0e24e818d680468996d095ce325fee9dffb135b44fee979f2c7f",
+    "src\\ui\\mod.rs": "fc2c8e74958055ad5fb7167f1dd3bc86716c611b43ebff5ed730938fd527186b",
+    "src\\ui\\model.rs": "6cb7306d37eb9ebab23f7a0db7b8433002a4cff2ed6fe16d5630ac214a88a0bd",
+    "src\\ui\\native.rs": "e8edab749dcaae8b62ef417d2c92c2e517d66d5a656fc659253d6dccf8f1718f",
+    "src\\ui\\render.rs": "683ef3b042c8c17d5274cd1b9028268825611c19781f7798e466e7d16c350dc9",
+    "tests\\commands_real.rs": "ff38b0a655300faf6b4a543e7b73dc4b6aa5896782216ee970b80c246924a504",
+    "tests\\file_permissions.rs": "44e4b8e9cc1237bed5a67966a91d5afacfc8db0a78d7213ca04a7111ca4894c4",
+    "tests\\files_real.rs": "de00f5967d118ff1b9e6e4c8e4ef029caed4e6e1a3c0add6f1ecf915a7ea8f6d",
+    "tests\\gpu_live.rs": "5322361828bfc7691dcf14e282511c28909d48c73dada8889b5a470d88fe8c48",
+    "tests\\gpu_release.rs": "4bf3f108b5d51310c99306f7fcf07a92140ba7c0c1359cca03c3899bc7fdb866",
+    "tests\\mcp_stdio.rs": "30a732433f81415b735d8be54232aa8fb09e5654ce164e3e79f265df29022018",
+    "tests\\ollama_live.rs": "630bf6f5f6fadf2f69304cd774b57fe3cb70d3e1de85aaeffb22578afde0b233",
+    "tests\\parallel_reads.rs": "8d7ea0e461f9685a4deef46ce8009ee379b62f0854812515e4c3864cc6416f05",
+    "tests\\recovery_real.rs": "00035566d8257c78da64d8553cf78e4f4b174d9ed61add4e52a13e6b46a236d9",
+    "tests\\stream_live.rs": "21c0263d96b52a31c441babbfe0acc12f343f65f3894b881f8a9d02a208627f4",
+    "tests\\tools_live.rs": "146d191b84ca9a51588c93b335b109f1a3957420c4227c0161b567e060af584e"
+  },
+  "binary_sha256": "055b4f50122b0e74ef825a83ede45b2416d208ab6082e6f55e87e290614862ce",
+  "integration_note": "Las pruebas ignoradas no cuentan como PASS de integracion; informes opt-in separados."
+}

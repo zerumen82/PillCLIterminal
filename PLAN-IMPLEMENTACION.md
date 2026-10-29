@@ -1,10 +1,18 @@
 # Plan de implementación · pill
 
+Estado vigente 2026-10-28: mejora integral U01-U15 verificada con tester PASS,
+reviewer APPROVE e instalacion real de pill en User PATH (P07 cerrado).
+E6/v1 conserva P04/P08. Los estados de fechas anteriores son historicos;
+fuentes y evidencia actuales en [memory.md](memory.md).
+
+
 Fecha: 2026-10-20. Estado: aprobado por el usuario junto con las dependencias; base E1 e integración E2 verificadas, tester PASS y reviewer APPROVE. Precisión aprobada: invocación `pill`, exclusivamente desde consola interactiva existente.
 
 Seguimiento E3/E4: implementadas herramientas de archivos y comandos concedidos y flujo de cinco roles. Formato/lint/48 pruebas/build offline PASS, reviewer APPROVE y tester de consola PASS (26/26 checks) con perfil explícito de razonamiento. Los fallos observados motivaron feedback/reintentos acotados y traspasos de hechos reales; se conservan sus informes. Contratos, evidencia y límites en [ejecución E3/E4](spec/05-E3-E4.md) y [requisitos actuales](spec/02-REQUISITOS.md#continuación-e3e4--2026-10-20). R05 mantiene lecturas paralelas pendientes; mover/eliminar y recuperación automática siguen sin entregar. Ese corte no cubre el código de E5.
 
 Seguimiento E5 al 2026-10-22: cliente MCP en `src/tools/mcp.rs` y liberación en `src/gpu/` y `src/session/`. Contrato en [spec/06-E5.md](spec/06-E5.md). Formato, Clippy con warnings denegados, 60 pruebas locales y build release offline PASS; cinco pruebas opt-in de Ollama siguen ignoradas. Release y `bin/pill.exe` idénticos, SHA-256 `8FEA4F07FDC6F7532EB287EADDAD940A0AA6C6C25EF68E6F8E1E922B5490E9F5`. La sonda de consola E1 pasó sobre ese binario. No hay tester PASS ni reviewer APPROVE de E5, así que la etapa no está cerrada y no se declara v1. Este párrafo prevalece sobre cualquier frase anterior que deje MCP o `/liberate` sin implementar.
+
+Seguimiento 2026-10-27: el usuario aprobó completar pendientes y el diseño de archivos, concurrencia y recuperación. Contratos en `spec/07-R09.md`, `spec/08-RECUPERACION.md` y `spec/09-CIERRE-20261027.md`; implementación verificada con 119 pruebas locales, siete integraciones opt-in, tester PASS y reviewer APPROVE del corte E5 y ampliaciones. E6 sigue pendiente por P04/P07/P08. No se incorporan dependencias ni modelos nuevos.
 
 ## 1. Contexto y decisiones
 
@@ -52,7 +60,7 @@ Fuentes principales: [RMCP](https://docs.rs/rmcp/3.6.0/rmcp/), [JSON Schema](htt
 
 ### Etapas de implementación propuestas
 
-Seguimiento al 2026-10-22: E1 y E2 cerradas con tester PASS y reviewer APPROVE. E2 cubre tres modelos, errores reales, cancelación/reintento y consola con entrada durante la generación. E3 y E4 están entregadas en el alcance de la cabecera: lectura, creación, edición, comandos concedidos y cinco roles. La política vive en `src/tools/`; no existe `src/policy/` ni `src/mcp/`. El cliente MCP está en `src/tools/mcp.rs`. Las pruebas reales están en `tests/files_real.rs`, `tests/commands_real.rs`, `tests/tools_live.rs`, `tests/mcp_stdio.rs` y `tests/gpu_release.rs`. No existen `tests/files/`, `tests/agents/`, `tests/fixtures/` ni `tests/gpu/`. Mover y eliminar (R09) siguen pendientes. E5 está implementada en local y pendiente de cierre independiente. E6 pendiente. P07 (PATH persistente) y P04 (modelo principal) siguen abiertos. La herramienta de tareas no está disponible en esta sesión; se registra el seguimiento aquí y en `memory.md`.
+Seguimiento histórico al 2026-10-22 (la continuación vigente está en la cabecera): E1 y E2 cerradas con tester PASS y reviewer APPROVE. E2 cubre tres modelos, errores reales, cancelación/reintento y consola con entrada durante la generación. E3 y E4 están entregadas en el alcance de la cabecera: lectura, creación, edición, comandos concedidos y cinco roles. La política vive en `src/tools/`; no existe `src/policy/` ni `src/mcp/`. El cliente MCP está en `src/tools/mcp.rs`. Las pruebas reales están en `tests/files_real.rs`, `tests/commands_real.rs`, `tests/tools_live.rs`, `tests/mcp_stdio.rs` y `tests/gpu_release.rs`. No existen `tests/files/`, `tests/agents/`, `tests/fixtures/` ni `tests/gpu/`. Mover y eliminar (R09) siguen pendientes. E5 está implementada en local y pendiente de cierre independiente. E6 pendiente. P07 (PATH persistente) y P04 (modelo principal) siguen abiertos. La herramienta de tareas no está disponible en esta sesión; se registra el seguimiento aquí y en `memory.md`.
 
 El usuario eligió consola nativa y desbloqueó E1. El comando `pill` se ha verificado desde `bin/` mediante PATH de sesión. La inscripción de PATH persistente está preparada en `scripts/Install-Pill.ps1`, pero el entorno rechazó el acceso al Registro; requiere ejecución en la consola habitual del usuario. No se instaló una aplicación gráfica.
 

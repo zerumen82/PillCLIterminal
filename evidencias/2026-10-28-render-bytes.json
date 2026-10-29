@@ -1,0 +1,8 @@
+{
+  "frames": 100,
+  "full_repaint_bytes": 150490,
+  "incremental_bytes": 2690,
+  "result": "PASS",
+  "scope": "Bytes reales emitidos por el pintor a un buffer; no es una medicion CPU/GPU ni de terminal fisico",
+  "unchanged_frame_bytes": 0
+}

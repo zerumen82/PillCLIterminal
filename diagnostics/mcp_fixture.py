@@ -44,6 +44,13 @@ def main():
     mode = sys.argv[1] if len(sys.argv) > 1 else "echo"
     with open("started.txt", "w", encoding="utf-8") as marker:
         marker.write(mode)
+    with open("launches.txt", "a", encoding="utf-8") as marker:
+        marker.write(str(os.getpid()) + "\n")
+    if mode == "descendant":
+        import subprocess
+        child = subprocess.Popen([sys.executable, "-c", "import time; time.sleep(30)"], stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        with open("descendant.txt", "w", encoding="utf-8") as marker:
+            marker.write(str(child.pid))
     for raw in sys.stdin:
         with open("inbox.txt", "a", encoding="utf-8") as record:
             record.write(raw)
@@ -80,6 +87,14 @@ def main():
                 return
             send({"jsonrpc": "2.0", "id": identifier, "result": {"tools": tools(mode)}})
         elif method == "tools/call":
+            if mode in ("write_die", "write_hang", "write_error"):
+                with open("effect.txt", "w", encoding="utf-8") as effect:
+                    effect.write("efecto real antes del resultado")
+                if mode == "write_die":
+                    os._exit(3)
+                if mode == "write_hang":
+                    time.sleep(30)
+                    return
             if mode == "die":
                 os._exit(3)
             if mode == "hang":
@@ -93,7 +108,7 @@ def main():
                     "id": identifier,
                     "result": {
                         "content": [{"type": "text", "text": text}],
-                        "isError": False,
+                        "isError": mode == "write_error",
                     },
                 }
             )

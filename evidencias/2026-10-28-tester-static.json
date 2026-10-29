@@ -1,0 +1,67 @@
+{
+  "fecha_utc": "2026-10-28T15:54:31.076220+00:00",
+  "python_ast": [
+    {
+      "file": "diagnostics\\mcp_fixture.py",
+      "sha256": "96206533080f7d6fbc3a94697ce617f86cf76b26a5e00a611c4263383f8e4aee",
+      "ast": "PASS"
+    },
+    {
+      "file": "diagnostics\\measure_e2.py",
+      "sha256": "22da60b8a5291811a672157c371ca528a7c9376c479752175fec85027a35868a",
+      "ast": "PASS"
+    },
+    {
+      "file": "diagnostics\\review_windows_handles.py",
+      "sha256": "210fac01fe6d022815f289f4df3084868abddeadbb56a9bdda7f396618360e40",
+      "ast": "PASS"
+    },
+    {
+      "file": "diagnostics\\run_live_checks.py",
+      "sha256": "146f3cfc0cc969db49ed8d19789f0640b819d1a43db94f7e16ff4709df57ab15",
+      "ast": "PASS"
+    },
+    {
+      "file": "diagnostics\\test_console.py",
+      "sha256": "03306b4e17ed0e6e06dbfe6d4886eeb210da64484ac5abb900502e4a22942b20",
+      "ast": "PASS"
+    },
+    {
+      "file": "diagnostics\\test_features_console.py",
+      "sha256": "70ecfd399c835f7875782f968e059b3ef3c72f8ee126b527ab4f745e97519824",
+      "ast": "PASS"
+    },
+    {
+      "file": "diagnostics\\test_gpu_live.py",
+      "sha256": "f7ebb85fdcb2f042fca52ef4a11284980e28b93516b790a3312714df6a5d1486",
+      "ast": "PASS"
+    },
+    {
+      "file": "diagnostics\\test_ollama_console.py",
+      "sha256": "e949f7c4db0ccfb6b51453b280fc6d9623b34a6848441f1a5e0a678c1ee077d2",
+      "ast": "PASS"
+    },
+    {
+      "file": "diagnostics\\test_tools_console.py",
+      "sha256": "76eb0cd8de8ef50efc9aaa2e0c1622177f2e183ea3fb037c9d47d4ea3aa18740",
+      "ast": "PASS"
+    },
+    {
+      "file": "diagnostics\\test_ui_improvements.py",
+      "sha256": "e8e55ec1535328617a53c06a01dc565bb6376f31c1b095d34caa15da629b3432",
+      "ast": "PASS"
+    },
+    {
+      "file": "diagnostics\\verify_e34.py",
+      "sha256": "059c453ce511dc063ad23aef8bd5711b71228905a23e9815f967755324c134dc",
+      "ast": "PASS"
+    }
+  ],
+  "diff_check": {
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "result": "PASS",
+  "scope": "AST de diagnosticos y whitespace; no prueba funcional ni build"
+}

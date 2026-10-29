@@ -86,17 +86,14 @@ def run(args):
             console.wait_for(lambda: 'consentimiento explícito' in console.screen(), 'propuestas')
             captures['propuesta'] = console.screen()
             checks['propuesta_real'] = 'test_suma' in captures['propuesta']
-            # Enter representativo de un salto pegado: jamás debe conceder.
+            # Enter muestra la definición completa y jamás concede.
             console.press('1')
             console.press(vk=0x0D)
-            console.press(vk=0x0D)
-            time.sleep(0.3)
+            console.wait_for(lambda: 'watched_files' in console.screen() or 'test_calc.py' in console.screen(), 'detalle de la prueba registrada')
             captures['enter_sin_concesion'] = console.screen()
             checks['enter_no_concede'] = not trust.exists() and 'Comando concedido' not in console.screen()
-            # Conserva la misma propuesta vigente; retira los dos saltos antes
-            # del consentimiento explícito. No hay una segunda consulta en vuelo.
-            for _ in range(2):
-                console.press(vk=0x08)
+            checks['enter_muestra_definicion'] = args.python in console.screen() or 'test_calc.py' in console.screen()
+            # El detalle limpia el borrador y mantiene marcada la misma fila.
             submit('')
             console.wait_for(lambda: 'Comando concedido' in console.screen(), 'concesión explícita')
             captures['concesion'] = console.screen()
@@ -121,6 +118,28 @@ def run(args):
                 submit('Lee calc.py mediante read_file y dime qué operación realiza suma. No edites archivos ni ejecutes comandos.')
                 report['operaciones']['chat'] = observe_operation(args.timeout, captures, 'chat', host.pid)
                 checks['chat_completo'] = report['operaciones']['chat']['estado'] == 'complete'
+                screens = report['operaciones']['chat']['pantallas']
+                reasoning_observed = any('razonando ·' in screen or 'Razonamiento plegado' in screen for screen in screens)
+                report['razonamiento_real_observado'] = reasoning_observed
+                if reasoning_observed and checks['chat_completo']:
+                    console.press(vk=0x52, control=0x0008)
+                    # El texto puede ocupar varias pantallas: buscar su cabecera
+                    # con PgUp sin asumir una longitud de razonamiento concreta.
+                    opened = False
+                    for _ in range(40):
+                        if 'Razonamiento abierto' in console.screen():
+                            opened = True
+                            break
+                        console.press(vk=0x21)
+                        time.sleep(0.05)
+                    captures['razonamiento_abierto'] = console.screen()
+                    checks['ctrl_r_abre_razonamiento_real'] = opened
+                    console.press(vk=0x52, control=0x0008)
+                    console.wait_for(lambda: 'Razonamiento abierto' not in console.screen(), 'Ctrl+R repliega el razonamiento')
+                    captures['razonamiento_replegado'] = console.screen()
+                    checks['ctrl_r_cierra_razonamiento_real'] = True
+                    for _ in range(40):
+                        console.press(vk=0x22)
             command('/exit')
             console.wait_for(lambda: (folder / 'result').exists(), 'salida')
             report['codigo_salida'] = int((folder / 'result').read_text(encoding='utf-8-sig').strip())
@@ -179,7 +198,7 @@ def run(args):
                 requests = {record['call_id'] for record in records if record.get('stage') == 'requested'}
                 checks['resultados_vinculados'] = bool(observed) and all(record['call_id'] in requests for record in observed)
                 screens = [screen for operation in report['operaciones'].values() for screen in operation['pantallas']]
-                checks['resultados_visibles'] = any('read_file:' in screen or 'edit_file:' in screen or 'run_command:' in screen for screen in screens)
+                checks['resultados_visibles'] = any('read_file ·' in screen or 'edit_file ·' in screen or 'run_command ·' in screen for screen in screens)
         samples = list(report['recursos']['reposo'])
         for operation in report['operaciones'].values():
             samples.extend(operation['recursos'])

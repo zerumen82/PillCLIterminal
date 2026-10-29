@@ -14,6 +14,12 @@ use crate::config::OllamaConfig;
 
 #[derive(Debug, thiserror::Error)]
 pub enum Error {
+    #[error("Ollama: tiempo agotado en {phase}; respuesta no confirmada")]
+    Timeout { phase: Phase },
+    #[error(
+        "Ollama: historial demasiado grande para el contexto configurado ({used}/{limit}); reduce el historial o elige otro perfil"
+    )]
+    Context { used: usize, limit: u32 },
     #[error("Ollama: respuesta final vacía")]
     EmptyResponse,
     #[error("Ollama: {0}")]
@@ -22,6 +28,27 @@ pub enum Error {
     Http(#[from] reqwest::Error),
     #[error("Respuesta Ollama no válida: {0}")]
     Json(#[from] serde_json::Error),
+}
+
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum Phase {
+    Connection,
+    Metadata,
+    FirstChunk,
+    Inactivity,
+    Total,
+}
+
+impl std::fmt::Display for Phase {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(match self {
+            Self::Connection => "conexión",
+            Self::Metadata => "consulta de metadatos",
+            Self::FirstChunk => "carga/primer fragmento",
+            Self::Inactivity => "inactividad del flujo",
+            Self::Total => "límite total de respuesta",
+        })
+    }
 }
 
 #[derive(Clone, Debug, Deserialize, Serialize)]
@@ -170,6 +197,50 @@ impl Ollama {
         self.base.join(path).expect("rutas API constantes válidas")
     }
 
+    async fn metadata(&self, path: &str, payload: Option<Value>) -> Result<Value, Error> {
+        if !matches!(
+            (path, payload.is_some()),
+            ("api/tags" | "api/ps", false) | ("api/show", true)
+        ) {
+            return Err(Error::Protocol(
+                "ruta no admitida para reintento de consulta".into(),
+            ));
+        }
+        let deadline = Instant::now() + Duration::from_millis(self.config.response_timeout_ms);
+        for attempt in 0..=self.config.metadata_retries {
+            let remaining = deadline.saturating_duration_since(Instant::now());
+            if remaining.is_zero() {
+                return Err(Error::Timeout {
+                    phase: Phase::Metadata,
+                });
+            }
+            let request = if let Some(body) = &payload {
+                self.client.post(self.endpoint(path)).json(body)
+            } else {
+                self.client.get(self.endpoint(path))
+            };
+            let response = request.timeout(remaining).send().await;
+            let retry = match &response {
+                Ok(response) => matches!(response.status().as_u16(), 429 | 502 | 503 | 504),
+                Err(error) => error.is_connect() || error.is_timeout(),
+            };
+            if retry && attempt < self.config.metadata_retries {
+                let delay = Duration::from_millis(
+                    self.config.retry_delay_ms.saturating_mul(1u64 << attempt),
+                );
+                if delay >= deadline.saturating_duration_since(Instant::now()) {
+                    return Err(Error::Timeout {
+                        phase: Phase::Metadata,
+                    });
+                }
+                tokio::time::sleep(delay).await;
+                continue;
+            }
+            return self.body(response?).await;
+        }
+        unreachable!("el último intento devuelve resultado")
+    }
+
     async fn body(&self, response: reqwest::Response) -> Result<Value, Error> {
         let status = response.status();
         let mut stream = response.bytes_stream();
@@ -200,9 +271,7 @@ impl Ollama {
         struct Tags {
             models: Vec<Model>,
         }
-        let value = self
-            .body(self.client.get(self.endpoint("api/tags")).send().await?)
-            .await?;
+        let value = self.metadata("api/tags", None).await?;
         let mut models = serde_json::from_value::<Tags>(value)?.models;
         if models
             .iter()
@@ -224,13 +293,7 @@ impl Ollama {
                 Error::Protocol(format!("modelo no instalado: {name}; no se descargará"))
             })?;
         let value = self
-            .body(
-                self.client
-                    .post(self.endpoint("api/show"))
-                    .json(&json!({"model":name}))
-                    .send()
-                    .await?,
-            )
+            .metadata("api/show", Some(json!({"model":name})))
             .await?;
         let capabilities: Vec<String> = serde_json::from_value(
             value
@@ -275,8 +338,7 @@ impl Ollama {
     }
 
     pub async fn running(&self) -> Result<Value, Error> {
-        self.body(self.client.get(self.endpoint("api/ps")).send().await?)
-            .await
+        self.metadata("api/ps", None).await
     }
 
     /// Pide a Ollama que descargue un modelo. No borra el modelo del disco.
@@ -338,7 +400,10 @@ impl Ollama {
         // La misma reserva que muestra la cabecera. No es un contador del tokenizer.
         let estimate = reserved_context(messages, tools, format, self.config.num_predict)?;
         if estimate > self.config.num_ctx as usize {
-            return Err(Error::Protocol("historial demasiado grande para el contexto configurado; vuelve a seleccionar el modelo para iniciar otra conversación".into()));
+            return Err(Error::Context {
+                used: estimate,
+                limit: self.config.num_ctx,
+            });
         }
         // Detectar reemplazos antes de cada generación; no adoptar otro digest en silencio.
         if self
@@ -371,12 +436,38 @@ impl Ollama {
             request["think"] = json!(self.config.think);
         }
         // No enviar keep_alive: el servidor es compartido y E2 no descarga recursos.
-        let response = self
-            .client
-            .post(self.endpoint("api/chat"))
-            .json(&request)
-            .send()
-            .await?;
+        let request_started = Instant::now();
+        let deadline = request_started + Duration::from_millis(self.config.response_timeout_ms);
+        let first_deadline =
+            request_started + Duration::from_millis(self.config.first_chunk_timeout_ms);
+        let response = tokio::time::timeout_at(
+            tokio::time::Instant::from_std(deadline.min(first_deadline)),
+            self.client
+                .post(self.endpoint("api/chat"))
+                .json(&request)
+                .send(),
+        )
+        .await
+        .map_err(|_| Error::Timeout {
+            phase: if deadline < first_deadline {
+                Phase::Total
+            } else {
+                Phase::FirstChunk
+            },
+        })?
+        .map_err(|error| {
+            if error.is_timeout() {
+                Error::Timeout {
+                    phase: if error.is_connect() {
+                        Phase::Connection
+                    } else {
+                        Phase::Total
+                    },
+                }
+            } else {
+                Error::Http(error)
+            }
+        })?;
         if !response.status().is_success() {
             self.body(response).await?;
             return Err(Error::Protocol("respuesta HTTP inesperada".into()));
@@ -384,8 +475,43 @@ impl Ollama {
         let mut stream = response.bytes_stream();
         let mut parser = Ndjson::new(self.config.max_line_bytes, self.config.max_response_bytes);
         let mut state = StreamState::default();
-        while let Some(chunk) = stream.next().await {
-            for value in parser.push(&chunk?)? {
+        let mut received = false;
+        loop {
+            let phase_deadline = if received {
+                Instant::now() + Duration::from_millis(self.config.idle_timeout_ms)
+            } else {
+                first_deadline
+            };
+            let next = tokio::time::timeout_at(
+                tokio::time::Instant::from_std(deadline.min(phase_deadline)),
+                stream.next(),
+            )
+            .await
+            .map_err(|_| Error::Timeout {
+                phase: if deadline < phase_deadline {
+                    Phase::Total
+                } else if received {
+                    Phase::Inactivity
+                } else {
+                    Phase::FirstChunk
+                },
+            })?;
+            let Some(chunk) = next else {
+                break;
+            };
+            let chunk = chunk.map_err(|e| {
+                if e.is_timeout() {
+                    Error::Timeout {
+                        phase: Phase::Total,
+                    }
+                } else {
+                    Error::Http(e)
+                }
+            })?;
+            if !chunk.is_empty() {
+                received = true;
+            }
+            for value in parser.push(&chunk)? {
                 if let Some(outcome) = self
                     .confirmed(
                         model,

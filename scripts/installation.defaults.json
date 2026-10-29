@@ -1,0 +1,6 @@
+{
+  "verification_timeout_ms": 10000,
+  "mutex_timeout_ms": 10000,
+  "notification_timeout_ms": 2000,
+  "max_manifest_bytes": 65536
+}

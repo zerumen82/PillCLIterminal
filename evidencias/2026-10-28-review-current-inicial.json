@@ -1,0 +1,61 @@
+{
+  "fecha_utc": "2026-10-28T15:53:48.029469+00:00",
+  "role": "reviewer independiente",
+  "verdict": "CHANGES_REQUESTED",
+  "scope": "Revisión estática del corte en desarrollo; instalación en muestras real ejecutada",
+  "checks": {
+    "installer_process": "PASS45; evidencias/2026-10-28-review-installer-process.json",
+    "user_machine_path": "Sin modificar",
+    "cargo": "No ejecutado por reviewer; serializado por coordinador"
+  },
+  "findings": [
+    {
+      "id": "R01",
+      "priority": "P2",
+      "file": "src/ui/model.rs",
+      "problem": "/help instruye Enter para confirmar /liberate; contrato e implementación exigen Ctrl+Enter. Ayuda de nuevos comandos incompleta."
+    },
+    {
+      "id": "R02",
+      "priority": "P2",
+      "file": "src/tools/mod.rs",
+      "problem": "recovery_view devuelve needs_review actualizado sin sincronizar uncertain_effects; UI sí quita banner según reporte. Si requested-only queda demostrado Applied tras fallo del registro observed, bloquear puede persistir sin entrada que admita ACK."
+    },
+    {
+      "id": "R03",
+      "priority": "P2",
+      "file": "src/session/mod.rs",
+      "problem": "status_report trata /api/ps JSON sin lista models como loaded=false sin error; estado desconocido se presenta como no cargado."
+    },
+    {
+      "id": "R04",
+      "priority": "P2",
+      "file": "src/tools/recovery.rs",
+      "problem": "archive_offers propaga error de enumeración del proyecto completo y pierde acceso a ofertas seguras de sesiones/privadas; default1024 basta para repro en proyecto grande."
+    }
+  ],
+  "resolved_during_review": [
+    "Restauración humana restore_backup integrada al reconciliador",
+    "Ofertas de archivo privadas/proyecto conectadas al backend"
+  ],
+  "limits": [
+    "Aún requiere fuentes finales estables, controles Rust, consola real, tester independiente y nueva revisión de hallazgos resueltos",
+    "PASS de scripts usa release real disponible anterior; no acredita fuentes Rust nuevas"
+  ],
+  "sha256": {
+    "scripts/Install-Pill.ps1": "3382395c094078836f0254f12c9e679c8d01e81128755e1887a57b57c52b730f",
+    "scripts/Uninstall-Pill.ps1": "054f6b8f4e0e80fd16e9ce7c1b3f711643509a7b4a5cf7ee045bb7b43bbcfe74",
+    "scripts/Pill.Installation.psm1": "59938b4769c7c80fdf7ac17e0c6ca990c7dcf9a471fba16e6e9b08b211d39dd5",
+    "src/files/mod.rs": "95a41941da7892c66ec07f58145755fd325128842c2106bffb6492357c66ae39",
+    "src/tools/recovery.rs": "8e2a4e724a1a110486b1832bb3e22027461c9ca08692cd607ab050f4eb1a2de4",
+    "src/tools/mod.rs": "47fe9c044fb1d77236fe3603c039694489d9fd525e23950009d6612431187b8e",
+    "src/tools/mcp.rs": "92d731ca01f50a433ff777b438dd6a11b31b5eafa3f986b72d7fe5c3c2d570d8",
+    "src/tools/process_job.rs": "eb5b012ca3b348cf6addf6b2dbae620a5086194edc7475aa431ae4b4f9545d44",
+    "src/tools/read_pool.rs": "b7d515a671345d124bf1e5bd349b7af671d32e10833b702024e86418dbbb76e3",
+    "src/session/mod.rs": "c5be40b01ede341fd469dd6099311db3a8d10409ee24110e1e48244b58fc6c88",
+    "src/ui/model.rs": "8042a98a6a8bd2fa43dc97b3b1447fac5c3ffd14ad61cb703ec9408c4eac8430",
+    "src/ui/native.rs": "bed1a18ede8154852c09b089f959b3135df6c05f81249f69c85f5edea2220507",
+    "src/ui/render.rs": "b9a7febbfacfee24d88e3182bc5829256721eb826b5e51dda03039d1965cf689",
+    "src/config/mod.rs": "2f21c8053fadd9a03009d106524cf9adc66826605e5837397d28f6310ddc9562"
+  }
+}

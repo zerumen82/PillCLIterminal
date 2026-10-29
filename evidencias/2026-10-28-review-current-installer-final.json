@@ -1,0 +1,55 @@
+{
+  "fecha_utc": "2026-10-28T16:28:29.905386+00:00",
+  "role": "reviewer independiente",
+  "verdict": "APPROVE",
+  "scope": "Suplemento final de instalación: excepción de solo lectura para artefacto de Cargo con hardlinks. Completa revisión de fuentes sin modificar PATH real.",
+  "previous": "2026-10-28-review-current-ui-final.json",
+  "blocking_findings": [],
+  "production_differences_since_previous": [
+    "scripts/Install-Pill.ps1",
+    "scripts/Pill.Installation.psm1"
+  ],
+  "code_review": [
+    "OpenBuildArtifact llama helper privado con create=false y buildArtifact=true; único uso productivo en Install-Pill.ps1 para context.Source",
+    "Handle de fuente pide0x80100000 GENERIC_READ|SYNCHRONIZE, sin WRITE ni DELETE, share1 FILE_SHARE_READ; FileStream solo lectura",
+    "NtCreateFile relativo al padre fijado conserva opciones no-directorio y open-reparse; Inspect rechaza reparse y directorios; Links>=1 únicamente para fuente de lectura",
+    "OpenRegular conserva Links==1 para destino, temporal y manifiestos; Uninstall no modificado y conserva comprobación hash+identidad",
+    "Copia preparada se relee y compara con hash fuente antes de publicar; fuente solo leída y nunca renombrada/borrada por instalador",
+    "Prueba strict hardlink fuera del sourcelock comprueba restricción real y no un error de sharing accidental"
+  ],
+  "executed_independently": {
+    "suite": "evidencias/2026-10-28-review-installer-build-artifact-segundo.json",
+    "result": "PASS",
+    "checks": 49,
+    "user_path_unchanged": true,
+    "machine_path_unchanged": true,
+    "source_sha256": "96968d21f9c1a7603187d78544496bd484f17c1e4190bb25a3876496a42bfa16",
+    "real_cargo_links_observed": [
+      "target/release/pill.exe",
+      "target/release/deps/pill.exe"
+    ]
+  },
+  "honest_failure_preserved": {
+    "evidence": "evidencias/2026-10-28-review-installer-build-artifact.json",
+    "result": "FAIL47",
+    "cause": "Expectativa de diagnóstico excesiva: Windows permitió retirar otro nombre hardlink. No implica cambio de bytes ni una escritura del lector. Se elimina esa promesa; prueba final mantiene bloqueo de writer por alias, rechazo de destino hardlink y hash de ambos alias tras instalar/desinstalar la muestra."
+  },
+  "binary_before_real_registration": {
+    "release_sha256": "96968d21f9c1a7603187d78544496bd484f17c1e4190bb25a3876496a42bfa16",
+    "installed_old_sha256": "900f33be9fa88ba6445c2d66d7c117299f8cf11c37c6977b0cec188c968675f1"
+  },
+  "limits": [
+    "La excepción no promete inmovilizar nombres de alias cambiados por procesos ajenos; se fija el handle de bytes leído y se verifica la copia",
+    "Revisión anterior de Rust/UI conserva vigencia: únicos cambios de producción desde ella son los2scripts listados",
+    "Tester debe conservar PASS independiente del nuevo script antes de registro real autorizado; esta ejecución reviewer también comprobó49casos",
+    "Reviewer no registró PATH real, no desinstaló instalación del usuario ni modificó producción"
+  ],
+  "sha256": {
+    "scripts/Install-Pill.ps1": "5831485db5068233383ccf5931a02e422a454e794c52a8f2d1a878d0d4dc0e00",
+    "scripts/Pill.Installation.psm1": "9dccf995668d80c4f1b715bb6369fd3093473078c35e467d1de94769abbd5c58",
+    "scripts/Uninstall-Pill.ps1": "054f6b8f4e0e80fd16e9ce7c1b3f711643509a7b4a5cf7ee045bb7b43bbcfe74",
+    "scripts/installation.defaults.json": "c64582a0f2f00c742cf51566ecfc631be41594c49946e830f930a358f06711a5",
+    "diagnostics/test_installation.ps1": "b8bf37115a0ef50f31375e1f19715f74d3698ba0eadf7ee6e356249ce77bc5bd",
+    "spec/11-INSTALACION-SEGURA.md": "10db501c7d82cc9b671ddb7b412da17349be5ff7815ac007afeb5d3bb4c15f29"
+  }
+}

@@ -1,0 +1,282 @@
+   Compiling pill v0.1.0 (D:\PROJECTS\PILLCLITER)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 30.43s
+     Running unittests src\lib.rs (target\debug\deps\pill-616d1cedaab3457c.exe)
+
+running 66 tests
+test agents::tests::another_success_cannot_hide_a_failed_test_but_same_test_can_be_retried ... ok
+test cli::tests::paths_with_spaces_and_unicode_are_single_arguments ... ok
+test agents::tests::empty_reply_can_preserve_observed_work_but_never_imply_review_approval ... ok
+test cli::tests::unknown_missing_and_duplicate_options_fail ... ok
+test agents::tests::claimed_change_or_pass_does_not_replace_role_tool_evidence ... ok
+test agents::tests::handoff_contains_complete_observations_without_generated_instructions_or_hashes ... ok
+test config::tests::partial_preferences_preserve_limits_and_reject_grants ... ok
+test config::tests::unbounded_input_and_busy_polling_are_rejected ... ok
+test files::tests::failed_publication_rolls_back_only_into_absent_destination ... ok
+test gpu::tests::exclusive_unloads_only_names_selected_by_this_session ... ok
+test gpu::tests::missing_nvidia_binary_does_not_invent_memory ... ok
+test gpu::tests::shared_server_keeps_every_loaded_model ... ok
+test providers::ollama::tests::local_endpoint_rejects_remote_and_credential_leaks ... ok
+test providers::ollama::tests::ndjson_handles_split_utf8_crlf_limits_and_truncation ... ok
+test files::tests::live_write_and_delete_handles_are_excluded_and_directory_cannot_be_renamed ... ok
+test providers::ollama::tests::malformed_final_records_errors_and_length_cannot_confirm_partial_text ... ok
+test providers::ollama::tests::reserved_context_of_empty_messages_matches_the_gate ... ok
+test providers::ollama::tests::thinking_notifies_by_blocks_and_stays_out_of_the_answer ... ok
+test providers::ollama::tests::tool_fragments_stay_pending_until_valid_final_and_reject_ambiguous_arguments ... ok
+test session::tests::persisted_turns_never_leave_tool_results_without_their_calls ... ok
+test session::tests::storage_warning_is_an_explicit_nonterminal_event ... ok
+test files::tests::publication_collision_preserves_occupant_base_and_staged_data ... ok
+test session::tests::saved_transcript_drops_the_oldest_dialogue_until_it_fits ... ok
+test tools::tests::partial_effect_stays_pending_across_new_requests_and_blocks_writes ... ok
+test ui::model::tests::a_slash_in_regular_text_does_not_open_menu ... ok
+test ui::model::tests::arrows_select_a_model_and_revoke_or_refuse_a_permission ... ok
+test ui::model::tests::ask_mode_dispatches_readonly_action_and_edit_restores_explicit_editing ... ok
+test ui::model::tests::backspace_removes_a_whole_grapheme ... ok
+test ui::model::tests::ctrl_r_opens_and_closes_reasoning_without_mixing_it_into_the_answer ... ok
+test ui::model::tests::escape_closes_models_and_preserves_effective_model_and_draft ... ok
+test ui::model::tests::file_permissions_use_semantic_rows_and_keep_full_fingerprint_in_detail ... ok
+test ui::model::tests::grants_and_liberation_use_their_own_status ... ok
+test ui::model::tests::journal_command_is_before_liberate_and_reads_without_clearing_partial_effects ... ok
+test ui::model::tests::liberate_asks_before_unloading_session_models ... ok
+test ui::model::tests::liberate_is_available_and_does_not_steal_the_exit_filter ... ok
+test ui::model::tests::model_list_shows_size_and_whether_it_is_loaded ... ok
+test ui::model::tests::page_up_moves_more_than_one_line_and_failures_name_the_cause ... ok
+test ui::model::tests::pasted_newlines_never_submit_chat_and_busy_preserves_new_input ... ok
+test ui::model::tests::permissions_show_a_short_row_until_enter_asks_for_detail ... ok
+test ui::model::tests::reasoning_stays_folded_and_a_task_step_names_the_role ... ok
+test ui::model::tests::recovery_needs_preview_and_exact_current_fingerprint_before_human_ack ... ok
+test ui::model::tests::screen_byte_quota_preserves_utf8_and_reports_retention_without_affecting_copy ... ok
+test ui::model::tests::search_names_matches_and_partial_effects_keep_the_journal ... ok
+test ui::model::tests::selecting_a_command_executes_only_on_enter ... ok
+test tools::tests::exclusive_grant_and_revoke_round_trip_and_a_root_stays_refused ... ok
+test ui::model::tests::slash_in_ordinary_request_allows_newline_and_explicit_submit ... ok
+test ui::model::tests::slash_opens_menu_without_enter_and_escape_preserves_input ... ok
+test ui::model::tests::startup_notice_reports_the_result_without_a_working_status ... ok
+test ui::model::tests::task_mode_is_visible_and_partial_effects_survive_model_selection ... ok
+test ui::model::tests::typing_keeps_the_page_and_motion_stays_inside_the_line ... ok
+test ui::model::tests::tool_activity_and_budget_do_not_end_the_operation ... ok
+test ui::model::tests::unicode_editing_keeps_utf8_boundaries_and_input_limit ... ok
+test ui::native::tests::incremental_paint_writes_nothing_for_unchanged_frames_and_reduces_output ... ok
+test session::tests::semantic_history_corruption_recovers_backup_and_replaces_saved_system ... ok
+test ui::render::tests::command_menu_scrolls_to_selected_row_and_small_windows_use_explicit_fallback ... ok
+test ui::render::tests::busy_status_shows_elapsed_seconds_without_replacing_the_activity ... ok
+test ui::render::tests::control_characters_cannot_inject_terminal_sequences ... ok
+test files::tests::empty_pinned_directory_changed_to_junction_fails_closed_on_relative_io ... ok
+test ui::render::tests::multiline_draft_keeps_the_cursor_on_its_own_line ... ok
+test ui::render::tests::reserve_task_journal_and_scroll_stay_on_screen ... ok
+test ui::render::tests::compact_details_start_at_top_keep_title_and_page_in_reading_order ... ok
+test ui::render::tests::scroll_indicators_never_displace_all_history_content ... ok
+test ui::render::tests::resized_model_lists_keep_last_selection_and_footer_visible ... ok
+test ui::render::tests::long_drafts_and_permission_lists_keep_cursor_and_marked_row_visible ... ok
+test files::tests::concurrent_enumerations_have_independent_cursors_across_buffers ... ok
+test tools::tests::successful_test_is_invalidated_by_changed_read_or_script_even_after_rereading ... ok
+
+test result: ok. 66 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.49s
+
+     Running unittests src\main.rs (target\debug\deps\pill-a32f064b2bf28147.exe)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests\client_resilience.rs (target\debug\deps\client_resilience-9377a07028602bb1.exe)
+
+running 4 tests
+test default_tool_catalog_has_a_reported_budget ... ok
+test only_read_metadata_retries_transient_status ... ok
+test invalid_running_metadata_is_unknown_in_model_list_and_status ... ok
+test generation_timeouts_have_distinct_phases_and_never_confirm_partial_output ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.59s
+
+     Running tests\coding_corpus.rs (target\debug\deps\coding_corpus-ffb0a777f3881747.exe)
+
+running 1 test
+test real_model_repairs_two_multi_file_tasks_preserving_bom_crlf_and_backups ... ignored, requiere Ollama, modelo/Python/evidencia explícitos; dos tareas y cuatro archivos descartables
+
+test result: ok. 0 passed; 0 failed; 1 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests\commands_real.rs (target\debug\deps\commands_real-a78342b4fb3b2b71.exe)
+
+running 12 tests
+test command_scope_and_private_store_are_enforced ... ok
+test cwd_requires_a_locked_observed_descendant ... ok
+test junctions_cannot_redirect_command_working_directory ... ok
+test nonzero_exit_and_output_limits_are_observed ... ok
+test invalid_utf8_is_reported_and_decoded_output_stays_bounded ... ok
+test cancellation_kills_only_the_owned_process_tree ... ok
+test changed_script_definition_and_stale_ui_proposal_require_new_consent ... ok
+test parent_exit_also_cleans_up_its_remaining_descendants ... ok
+test shell_metacharacters_remain_literal_arguments ... ok
+test scripts_are_pinned_against_external_write_during_execution ... ok
+test registered_command_requires_explicit_grant_and_executes_real_output ... ok
+test timeout_kills_only_the_owned_process_tree ... ok
+
+test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 6.49s
+
+     Running tests\file_permissions.rs (target\debug\deps\file_permissions-7af7d8477f2b59cd.exe)
+
+running 5 tests
+test an_empty_directory_is_inspected_and_only_the_confirmed_directory_is_removed ... ok
+test file_delete_requires_read_and_denied_roles_cannot_consume_human_grant ... ok
+test moving_requires_human_grant_and_consumes_it_even_if_same_object_returns ... ok
+test changed_base_invalidates_displayed_and_already_granted_operations ... ok
+test metadata_inspection_does_not_authorize_editing_without_reading_text ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+     Running tests\files_real.rs (target\debug\deps\files_real-2ecef3f580400345.exe)
+
+running 17 tests
+test existing_external_writer_blocks_edit_without_lost_update ... ok
+test explicit_protection_covers_file_and_directory ... ok
+test approvals_do_not_survive_source_replacement_with_same_bytes ... ok
+test destructive_operations_reject_links_protected_paths_and_external_writers ... ok
+test editing_preserves_restricted_owner_group_and_dacl ... ok
+test delete_file_or_empty_directory_requires_current_object_and_exact_operation ... ok
+test byte_search_entry_and_backup_limits_are_explicit ... ok
+test private_hardlink_is_rejected_before_any_truncation ... ok
+test private_session_journal_is_created_by_handle_and_cannot_be_accessed_by_tools ... ok
+test recovery_journal_reads_enforce_limits_and_refuse_links ... ok
+test traversal_ads_devices_controls_and_exclusions_are_rejected ... ok
+test move_requires_concrete_approval_preserves_binary_bytes_and_never_replaces ... ok
+test stale_base_and_ambiguous_patch_never_change_disk ... ok
+test hardlinks_and_junctions_are_never_followed ... ok
+test two_independent_executors_cannot_both_apply_same_base ... ok
+test unicode_bom_crlf_create_edit_reread_and_persistent_backup ... ok
+test private_transcript_overwrites_and_journal_tail_does_not_create_a_session ... ok
+
+test result: ok. 17 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.07s
+
+     Running tests\gpu_live.rs (target\debug\deps\gpu_live-6548c1eb134e1f39.exe)
+
+running 1 test
+test real_exclusive_release_preserves_shared_mode_and_unloads_owned_model ... ignored, requiere servidor propio PILL_RELEASE_URL y modelo/evidencia explícitos; descarga únicamente su modelo de prueba
+
+test result: ok. 0 passed; 0 failed; 1 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests\gpu_release.rs (target\debug\deps\gpu_release-8fbe383f6cd97207.exe)
+
+running 4 tests
+test requests_wait_until_liberation_finishes ... ok
+test shared_mode_never_calls_generate_even_for_a_selected_model ... ok
+test exclusive_unloads_only_the_model_selected_in_this_session ... ok
+test an_unconfirmed_unload_is_not_reported_as_success ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.09s
+
+     Running tests\mcp_stdio.rs (target\debug\deps\mcp_stdio-b5cf30cb26dfb4d1.exe)
+
+running 8 tests
+test an_external_file_argument_is_rejected_before_launch ... ok
+test oversized_arguments_are_rejected_before_starting_server_and_ambiguous_ids_are_invalid ... ok
+test one_grant_does_not_approve_the_others_and_echo_is_a_real_process ... ok
+test shutting_down_own_mcp_also_finishes_its_remaining_descendant ... ok
+test catalog_cache_reuses_metadata_but_rechecks_revocation_and_script_hash ... ok
+test external_schema_refs_fail_without_publishing_a_tool ... ok
+test a_server_that_hangs_or_dies_is_not_success ... ok
+test effects_before_death_timeout_or_tool_error_block_following_effects_and_restart ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.90s
+
+     Running tests\ollama_live.rs (target\debug\deps\ollama_live-71f905a395d57020.exe)
+
+running 3 tests
+test real_cancel_and_retry ... ignored, requiere Ollama real; usa el modelo explícito y cancela sin descargarlo
+test real_chat_and_errors ... ignored, requiere Ollama real; PILL_LIVE_MODEL y PILL_LIVE_EVIDENCE explícitos
+test real_connection_and_context_errors ... ignored, requiere metadatos de Ollama real; no genera ni descarga modelos
+
+test result: ok. 0 passed; 0 failed; 3 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests\parallel_reads.rs (target\debug\deps\parallel_reads-f8c0c7fd27aec4f1.exe)
+
+running 4 tests
+test repeated_batches_reuse_the_configured_worker_instead_of_spawning_per_read ... ok
+test a_batch_reserves_each_durable_result_before_starting_any_effect ... ok
+test independent_read_batch_preserves_order_versions_and_permission_boundaries ... ok
+test two_large_real_reads_overlap_on_independent_threads ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.86s
+
+     Running tests\persistence_real.rs (target\debug\deps\persistence_real-1887221f7a046c04.exe)
+
+running 18 tests
+test a_changed_journal_invalidates_review_and_unknown_sessions_are_not_archivable ... ok
+test a_private_write_failure_preserves_current_bytes_and_the_previous_base ... ok
+test archiving_requires_current_human_offer_and_preserves_the_original_bytes ... ok
+test archived_project_backup_remains_restorable_and_rejects_stale_archive_preview ... ok
+test human_review_is_durable_but_does_not_turn_unknown_into_verified ... ok
+test archiving_another_session_does_not_revoke_an_unchanged_human_review ... ok
+test interrupted_human_restore_is_reconciled_and_not_silently_ignored ... ok
+test multiple_exact_edits_publish_once_preserve_bom_crlf_and_reject_partial_batches ... ok
+test overlapping_occurrences_are_ambiguous_even_inside_one_old_value ... ok
+test overlapping_or_repeated_edits_do_not_modify_the_file ... ok
+test immutable_private_metadata_survives_a_truncated_state_manifest ... ok
+test archiving_old_private_generations_releases_quota_without_losing_the_latest_backup ... ok
+test large_project_scan_reports_limit_but_keeps_safe_private_archive_offers ... ok
+test private_publication_keeps_a_valid_base_and_recovers_corruption_or_missing_primary ... ok
+test restoring_a_backup_requires_its_manifest_and_the_unchanged_post_edit_version ... ok
+test private_archive_rejects_changed_base_and_unexpected_members_without_moving_bytes ... ok
+test restoring_an_empty_post_edit_file_and_rejecting_a_modified_backup ... ok
+test private_retention_keeps_latest_semantically_valid_backup ... ok
+
+test result: ok. 18 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.22s
+
+     Running tests\readonly_mode.rs (target\debug\deps\readonly_mode-7e630ea475bc70d0.exe)
+
+running 2 tests
+test rejected_readonly_operation_does_not_consume_a_concrete_human_file_grant ... ok
+test readonly_role_cannot_use_effects_even_when_the_user_granted_their_definitions ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.21s
+
+     Running tests\recovery_real.rs (target\debug\deps\recovery_real-74ccdf8aa320efc4.exe)
+
+running 16 tests
+test empty_project_has_no_operations_to_replay ... ok
+test external_edit_remains_unknown_and_is_never_overwritten ... ok
+test duplicate_or_unpaired_effect_records_are_not_trusted ... ok
+test historical_mcp_failures_and_interrupted_commands_are_not_safe_to_retry ... ok
+test incomplete_commands_and_mcp_are_unknown_after_restart ... ok
+test durable_partial_is_not_cleared_by_matching_bytes_after_restart ... ok
+test awaiting_confirmation_did_not_execute_and_summary_does_not_emit_journal_text ... ok
+test incomplete_metadata_and_delete_without_base_remain_unknown ... ok
+test interrupted_batch_reports_each_file_and_preserves_completed_bytes ... ok
+test intact_edit_base_is_pending_and_expected_target_is_applied ... ok
+test journal_path_cannot_escape_the_authorized_root ... ok
+test lost_creation_response_is_reconciled_without_writing ... ok
+test missing_creation_is_pending_and_is_not_created ... ok
+test verified_historical_write_does_not_overwrite_or_block_later_user_edit ... ok
+test truncated_or_oversized_record_blocks_effects ... ok
+test move_and_delete_without_final_response_reconcile_actual_paths ... ok
+
+test result: ok. 16 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.05s
+
+     Running tests\recovery_ui_contract.rs (target\debug\deps\recovery_ui_contract-9f2411180a39d30b.exe)
+
+running 2 tests
+test multi_edit_intention_matches_simultaneous_publication_including_bom ... ok
+test demonstrated_recovery_unblocks_the_same_executor_but_unknown_commands_keep_the_gate ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s
+
+     Running tests\stream_live.rs (target\debug\deps\stream_live-c2f1b4688cfc3a21.exe)
+
+running 1 test
+test real_tool_stream_interruption_never_executes_unconfirmed_calls ... ignored, requiere Ollama real y modelo/evidencia explícitos; interrumpe solo el flujo del diagnóstico
+
+test result: ok. 0 passed; 0 failed; 1 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests\tools_live.rs (target\debug\deps\tools_live-228a57167c28f39f.exe)
+
+running 2 tests
+test five_agents_repair_and_verify_project ... ignored, requiere Ollama; cinco roles con conversaciones y herramientas reales
+test model_repairs_project_with_tools ... ignored, requiere Ollama y Python explícitos; edita solo fixture descartable
+
+test result: ok. 0 passed; 0 failed; 2 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Doc-tests pill
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

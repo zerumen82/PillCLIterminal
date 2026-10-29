@@ -1,0 +1,61 @@
+{
+  "fecha_utc": "2026-10-28T15:58:45.102968+00:00",
+  "role": "reviewer independiente",
+  "verdict": "CHANGES_REQUESTED",
+  "previous": "2026-10-28-review-current-inicial.json",
+  "resolved": [
+    "R01 ayuda corregida a Ctrl+Enter y comandos actuales",
+    "R02 bloqueo sincronizado con reporte y regresión conserva desconocido bloqueado",
+    "R03 estructura /api/ps validada y loaded Option; metadatos inválidos no fabrican descargado",
+    "Ofertas privadas/proyecto conectadas y restauración humana reconciliada"
+  ],
+  "remaining": [
+    {
+      "id": "R04",
+      "priority": "P2",
+      "problem": "Tolerancia de project_scan incompleta: retention_status todavía aborta oferta si demasiadas entradas directamente en raíz; regresión existente solo many/ subdirectorio."
+    },
+    {
+      "id": "R05",
+      "priority": "P2",
+      "problem": "tools::intended_sha256 calcula parches secuenciales, Files edit_many simultáneos sobre base única. A B con A→B y B→C produce B C pero target SHA None, impidiendo reconciliación demostrable tras corte."
+    },
+    {
+      "id": "R06",
+      "priority": "P2",
+      "problem": "match_indices ignora coincidencias solapadas: aaa/aa o ababa/aba se aceptan aunque old no es único. Rechazar todas las coincidencias posibles, sin publicación."
+    }
+  ],
+  "audit": [
+    "Durabilidad privada: metadata inmutable sincronizada antes de mover base, validación SHA y lectura fallback observadas",
+    "Restore: ruta transacción propia, versión posterior, baseSHA y manifiesto comprobados; resolución archivo determinista conserva respaldo",
+    "Archive: miembros/identidad/hash antes/después; no borrado recursivo ni archivo de unknown",
+    "MCP: proceso suspended antes de asignar Job kill-on-close, cierre acotado; catálogo cache revalida scripts/grants y llamadas revalidan esquema",
+    "ReadPool: trabajadores reutilizados, efectos fuera, canal/trabajadores acotados; evidencia cronológica real",
+    "Installer: PASS45 ejecutado independiente, sin User/Machine PATH cambios; no bloqueantes identificados en scripts actuales"
+  ],
+  "limits": [
+    "No Cargo por concurrencia de comprobaciones coordinador",
+    "Pruebas Rust, build final y nueva consola aún pendientes en revisión de evidencia",
+    "Aprobación final requiere resolver remanentes y fuentes estables"
+  ],
+  "sha256": {
+    "scripts/Install-Pill.ps1": "3382395c094078836f0254f12c9e679c8d01e81128755e1887a57b57c52b730f",
+    "scripts/Uninstall-Pill.ps1": "054f6b8f4e0e80fd16e9ce7c1b3f711643509a7b4a5cf7ee045bb7b43bbcfe74",
+    "scripts/Pill.Installation.psm1": "59938b4769c7c80fdf7ac17e0c6ca990c7dcf9a471fba16e6e9b08b211d39dd5",
+    "src/files/mod.rs": "32a9fa455af49319e8b9de0cf11d567bf321074c185a3ff4cd87119d8d340f0e",
+    "src/tools/recovery.rs": "41146c69d296072fa26fcbd51dcc3f600fe0dde3029ef2db3f3a008af2283027",
+    "src/tools/mod.rs": "47fe9c044fb1d77236fe3603c039694489d9fd525e23950009d6612431187b8e",
+    "src/tools/mcp.rs": "92d731ca01f50a433ff777b438dd6a11b31b5eafa3f986b72d7fe5c3c2d570d8",
+    "src/tools/process_job.rs": "eb5b012ca3b348cf6addf6b2dbae620a5086194edc7475aa431ae4b4f9545d44",
+    "src/tools/read_pool.rs": "b7d515a671345d124bf1e5bd349b7af671d32e10833b702024e86418dbbb76e3",
+    "src/session/mod.rs": "e5e6eb8c57f533dad4107a8941eeb53bbd54d126d640fb2f96cf33c6d2d33bf6",
+    "src/ui/model.rs": "8042a98a6a8bd2fa43dc97b3b1447fac5c3ffd14ad61cb703ec9408c4eac8430",
+    "src/ui/native.rs": "bed1a18ede8154852c09b089f959b3135df6c05f81249f69c85f5edea2220507",
+    "src/ui/render.rs": "aff289f00b662778d32fd4977c756ccec93530fbc4fd01ba6ac1cb4f57737d5e",
+    "src/config/mod.rs": "2f21c8053fadd9a03009d106524cf9adc66826605e5837397d28f6310ddc9562",
+    "tests/recovery_ui_contract.rs": "7753132008931751f3e7992dec179acf3e1cb20d6855f8f405dfb8b55d4ef24d",
+    "tests/client_resilience.rs": "a78e48ee2d2f4feebff135a9c496f1c8e03d842a880038bdb656be1bacb48b4f",
+    "tests/persistence_real.rs": "9867d17a0434875f7bf471df275452199a3970351bd912efa9f17c9e70417d00"
+  }
+}

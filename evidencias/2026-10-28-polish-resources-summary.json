@@ -1,0 +1,89 @@
+{
+  "fecha_utc": "2026-10-28T22:15:33.865773+00:00",
+  "result": "PASS",
+  "scope": "Tres pares de procesos con el mismo historial local semilla de655359bytes y248caracteres tecleados sin enviar; solo metadatos de Ollama. CPU acumulada propia durante entrada, no latencia por tecla ni rendimiento de inferencia. Medidas de RAM variables; no se afirma ahorro general. Las tareas de UI de diagnostico podian coexistir en otros procesos.",
+  "before_sha256": "96968d21f9c1a7603187d78544496bd484f17c1e4190bb25a3876496a42bfa16",
+  "after_sha256": "62a1857654b2a15fc793029f2f54bc26e36e5ec815eb4e834d366180ae47f90f",
+  "samples": [
+    {
+      "evidence": "evidencias\\2026-10-28-polish-resources-1.json",
+      "sha256": "d120c0bc832d74451756f09653b234e76452ce46954da493c4b92f6fbe39fe48",
+      "before": {
+        "pid": 19688,
+        "parent_pid": 3896,
+        "name": "pill.exe",
+        "group": "prueba_cli",
+        "working_set_bytes": 11796480,
+        "private_bytes": 4407296,
+        "peak_working_set_bytes": 15589376,
+        "cpu_seconds": 0.390625,
+        "cpu_delta_seconds": 0.296875
+      },
+      "after": {
+        "pid": 8976,
+        "parent_pid": 23720,
+        "name": "pill.exe",
+        "group": "prueba_cli",
+        "working_set_bytes": 11976704,
+        "private_bytes": 4665344,
+        "peak_working_set_bytes": 15532032,
+        "cpu_seconds": 0.078125,
+        "cpu_delta_seconds": 0.015625
+      }
+    },
+    {
+      "evidence": "evidencias\\2026-10-28-polish-resources-2.json",
+      "sha256": "e930fc60a638bb58cbbdc6f18d9af89829c15c35f491bb88378ea8a4bc1dc2ad",
+      "before": {
+        "pid": 8828,
+        "parent_pid": 25228,
+        "name": "pill.exe",
+        "group": "prueba_cli",
+        "working_set_bytes": 11816960,
+        "private_bytes": 4431872,
+        "peak_working_set_bytes": 15646720,
+        "cpu_seconds": 0.328125,
+        "cpu_delta_seconds": 0.28125
+      },
+      "after": {
+        "pid": 9808,
+        "parent_pid": 26492,
+        "name": "pill.exe",
+        "group": "prueba_cli",
+        "working_set_bytes": 11694080,
+        "private_bytes": 4300800,
+        "peak_working_set_bytes": 15384576,
+        "cpu_seconds": 0.140625,
+        "cpu_delta_seconds": 0.046875
+      }
+    },
+    {
+      "evidence": "evidencias\\2026-10-28-polish-resources-3.json",
+      "sha256": "19ce86ad8e1b06f9744d2fd9f17a5f8bbcd960d75d3c24cc0a27c58d91b81343",
+      "before": {
+        "pid": 11736,
+        "parent_pid": 18724,
+        "name": "pill.exe",
+        "group": "prueba_cli",
+        "working_set_bytes": 11972608,
+        "private_bytes": 4943872,
+        "peak_working_set_bytes": 15605760,
+        "cpu_seconds": 0.359375,
+        "cpu_delta_seconds": 0.28125
+      },
+      "after": {
+        "pid": 27172,
+        "parent_pid": 23264,
+        "name": "pill.exe",
+        "group": "prueba_cli",
+        "working_set_bytes": 11780096,
+        "private_bytes": 4825088,
+        "peak_working_set_bytes": 15466496,
+        "cpu_seconds": 0.109375,
+        "cpu_delta_seconds": 0.03125
+      }
+    }
+  ],
+  "median_cpu_before_s": 0.28125,
+  "median_cpu_after_s": 0.03125
+}

@@ -1,6 +1,28 @@
 # Requisitos y aceptación
 
-Estado: plan aprobado, 2026-10-20. Base E1/E2, herramientas nativas y muestra de corrección E3/E4 con tester PASS y reviewer APPROVE. R01/R06/R07/R11 verificados en Windows y R10 en la muestra/perfil especificados. R02/R03/R04/R05/R08/R14/R15 parciales; R09/R12/R13 pendientes. Registro persistente de PATH y elección de modelo principal pendientes. El cuadro final de este documento recoge el corte vigente; el cierre E2 se conserva como histórico. No se declara v1 completa.
+Seguimiento vigente del 2026-10-27: los cuadros E2/E3/E4/E5 que siguen son
+históricos. El usuario aprobó completar los pendientes según
+[el contrato del corte](09-CIERRE-20261027.md). Release y distribuido actuales:
+SHA-256 `900f33be9fa88ba6445c2d66d7c117299f8cf11c37c6977b0cec188c968675f1`.
+Formato, Clippy, 119 pruebas locales, siete integraciones opt-in explícitas y build offline PASS. Reviewer independiente APPROVE en `../evidencias/2026-10-27-review.md`; tester independiente PASS en `../evidencias/2026-10-27-tester.md`, auditoría 57/57 comprobaciones.
+
+R09 incorpora mover archivos sin sobrescribir y borrar archivos/carpetas vacías
+con huella de raíz/ruta/destino/SHA/identidad y concesión explícita de un uso.
+La inspección de metadatos no permite editar sin leer el texto. R05 añade lotes
+de lecturas nativas en hilos acotados; dos lecturas reales de 8 MiB se solaparon
+865.029.500 ns en hilos distintos, con evidencia en
+`../evidencias/2026-10-27-lecturas-paralelas.json`. R08/R14 reconcilian diarios
+al arrancar y distinguen aplicadas, pendientes y desconocidas, sin repetir ni
+restaurar operaciones; los efectos desconocidos siguen bloqueados tras reiniciar.
+Los lotes conservan resultados por archivo, sin atomicidad entre archivos.
+
+La consola reducida a 73×21 y las 21 comprobaciones adicionales de permisos,
+edición, scroll, persistencia y recuperación pasaron de forma independiente en
+`../evidencias/2026-10-27-tester-consola-basica-r3.json` y
+`../evidencias/2026-10-27-tester-funciones-consola-r3.json`.
+R04/R12/R13 y E5 quedan verificados en el alcance del corte final. E6/v1 no se cierra: P04, P07 y la decisión adicional de P08 siguen pendientes del usuario; las limitaciones de glifos se conservan explícitas.
+
+Estado: plan aprobado, 2026-10-20. Base E1/E2, herramientas nativas y muestra de corrección E3/E4 con tester PASS y reviewer APPROVE. R01/R06/R07/R11 verificados en Windows y R10 en la muestra/perfil especificados. R02/R03/R04/R05/R08/R14/R15 parciales; R09/R12/R13 pendientes. Registro persistente de PATH y elección de modelo principal pendientes. Los cuadros posteriores se conservan como históricos; la cabecera de 2026-10-27 recoge el corte vigente. No se declara v1 completa.
 
 Evidencia E1: `../evidencias/2026-10-20-e1-consola.json`. Incluye eventos Win32 sobre el binario real invocado como `pill`, menú sin Enter, filtro, Esc, Tab, edición Unicode, redimensionado y restauración de modos/cursor/atributos tras `/exit` y Ctrl+C. No acredita inferencia. La inscripción persistente del comando en PATH fue bloqueada por permisos del Registro; funciona con PATH de sesión.
 
@@ -175,3 +197,75 @@ El cuadro E3/E4 anterior se conserva como histórico de aquel corte. Su tester P
 ### Continuación de consola — 2026-10-22
 
 El cuadro E5 anterior conserva el SHA de aquel corte. El binario posterior, release y `bin/pill.exe`, es SHA-256 `FDD485C66C146517B3780FB65B065E646F38F345FE58A43259F7A3BEE3583127`, 12284416 bytes, 2026-10-22 22:48:41. Formato, Clippy con warnings denegados, 83 pruebas locales y build release offline PASS. Cinco pruebas opt-in siguen ignoradas. `python diagnostics/test_console.py --evidence evidencias/2026-10-22-ui-diario.json` PASS. Ctrl+R abre el razonamiento, `/journal` lee el diario real, la barra cuenta segundos, el borrador borra un grafema y `.pillcli/model.json` más `.pillcli/console.json` reabren la conversación solo con el mismo modelo. No se marcaron requisitos como verificados: no hay tester ni reviewer de este corte, `/model` no levanta efectos parciales y la recuperación no reconcilia escrituras. R14 sigue parcial. No es el cierre de v1.
+
+
+### Estado vigente · 2026-10-27
+
+Este cuadro sustituye los estados históricos anteriores, para el binario
+`900f33be9fa88ba6445c2d66d7c117299f8cf11c37c6977b0cec188c968675f1`.
+Tester PASS y reviewer APPROVE del corte E5 y ampliaciones; no cierra E6/v1.
+
+| Requisito | Estado del corte | Evidencia y límites |
+|---|---|---|
+| R01 | VERIFICADO | Consolas básica, funciones y Ollama; entrada/resize a 73×21 y restauración real |
+| R02 | VERIFICADO | Menú inmediato y permisos con Ctrl+Enter; liberación con backend real. P08 adicional pendiente |
+| R03 | PARCIAL por decisión del usuario | Chat, streaming, digest y errores reales PASS; `model` continúa `null`, sin elegir principal |
+| R04 | VERIFICADO | Herramientas reales y corte de bytes originales de Ollama antes del final: cero herramientas/intenciones/efectos |
+| R05 | VERIFICADO | Cinco conversaciones/roles y dos lecturas reales solapadas en hilos distintos con límite configurable |
+| R06 | VERIFICADO | Lectura/listado/búsqueda, límites y nombres Unicode; pruebas sobre disco |
+| R07 | VERIFICADO | Creación/edición SHA, conflicto, bloqueo, preservación y regresión del hardlink externo |
+| R08 | VERIFICADO en resultados por archivo | Conflictos y reconciliación de estados aplicados/pendientes/desconocidos sin pisar cambios; sin atomicidad global |
+| R09 | VERIFICADO | Mover archivos sin reemplazar; borrar archivo/carpeta vacía, base/identidad y concesión concreta de un uso |
+| R10 | VERIFICADO en la muestra LF/perfil | Dos opt-in y consola: defecto real, edición, prueba FAIL→PASS y reviewer con lectura/veredicto |
+| R11 | VERIFICADO | Comandos registrados/concedidos, salidas/códigos reales y procesos propios; timeout/cancelación conserva incertidumbre |
+| R12 | VERIFICADO | MCP stdio con hijo Python real, permisos separados, referencias cerradas, muerte/timeout/error con efectos desconocidos |
+| R13 | VERIFICADO | Servidor propio exclusivo con GPU real y modo compartido conservador; modelos y procesos ajenos intactos |
+| R14 | VERIFICADO en el contrato del corte | Recuperación acotada del diario al arrancar, sin replay ni rollback automático; persistencia de conversación separada |
+| R15 | VERIFICADO técnicamente; E6 pendiente | 119 pruebas locales, siete opt-in, build/lint y controles independientes; recursos medidos sin umbral aprobado |
+
+Evidencias adicionales: `../evidencias/2026-10-27-live-summary.json`,
+`../evidencias/2026-10-27-consola-cinco-roles.json` (29 comprobaciones),
+`../evidencias/2026-10-27-gpu-real.json` y su informe Rust. En GPU se usó el 2B
+ya instalado, contexto 8192, generación 512 y thinking desactivado; acreditó
+1.712.964.238 bytes del modelo en GPU antes de descargarlo. El servidor
+compartido y cinco procesos Python ajenos conservaron sus identidades. La
+VRAM global se mide por separado y su delta no se atribuye en exclusiva al modelo.
+Las herramientas y los cinco roles usaron 4b-v2, contexto 16384, generación 2048
+con thinking; es un perfil de prueba, no una elección de modelo principal.
+
+El CLI tuvo 148 muestras: working set máximo observado 9.379.840 bytes,
+privados 1.998.848 bytes y delta CPU de 0,53125 s. Ollama y los hosts se
+registran por separado; no son un umbral ni promesa de consumo constante.
+
+
+## Mejora integral 2026-10-28
+
+Los criteriosU01-U15 aprobados se mantienen en
+[10-USABILIDAD-FIABILIDAD-INSTALACION.md](10-USABILIDAD-FIABILIDAD-INSTALACION.md).
+Controles independientes finales: formato/Clippy/releaseoffline y158pruebas
+localesPASS,49comprobaciones de instalacion en muestrasPASS. Siete integraciones
+realesPASS, incluidas dos tareas con cuatro archivos y respaldoSHA/BOM/CRLF.
+SoloUI cambio despues; los modulos del ejecutor conservan los hashes probados.
+La consola de mejoras tiene16comprobaciones y la legacy restaura estadosWin32.
+La prueba de revision humana reconoce por separado los dos diagnosticos del
+diario truncado: revisar uno conserva bloqueo del otro, sin repetir efectos.
+
+Fuentes/evidencia: `../evidencias/2026-10-28-tester-independent-cuarto.json`,
+`../evidencias/2026-10-28-live-summary.json` y
+`../evidencias/2026-10-28-review-current-ui-final.json`.
+El portapapeles global se preservo durante las pruebas; /copy solo se comprobo
+sin respuesta y mediante revisionAPI. No se afirma prueba de corte fisico de
+energia, ahorro universal deRAM/CPU ni representacion exacta de todosglifos.
+El registroUser real PASS esta en `../evidencias/2026-10-28-instalacion-user-real-segundo.json`: valor/tipo previos conservados, Machine PATH intacto, proceso nuevo resuelve pill0.1.0 y simulacion de desregistro sin cambios.
+
+
+## Pulido posterior aprobado1y2
+
+[Contrato14](14-PULIDO-RENDER.md) implementado: contador y filas de revisión
+conservan evidencia/estado, detalle de perfil anuncia la acción existente y
+ventana de historial sin clonar toda caché. Formato/Clippy,162pruebas locales,
+release offline, medición explícita y21checksWin32 a73x21 PASS independientes.
+Reviewer APPROVE en `../evidencias/2026-10-28-review-polish.json`.
+Binario62a1857654b2a15fc793029f2f54bc26e36e5ec815eb4e834d366180ae47f90f
+instalado por SessionOnly conservando User/MachinePATH y propiedadUser.
+No se modificó generación, permisos, formato de historial ni reconciliación.

@@ -1,0 +1,49 @@
+{
+  "debug_assertions": true,
+  "history_and_response_bytes": 622592,
+  "history_rows": 8192,
+  "result": "PASS",
+  "samples": [
+    {
+      "frames": 128,
+      "new_elapsed_ns": 277200,
+      "new_string_payload_bytes_copied": 126616,
+      "old_elapsed_ns": 155528400,
+      "old_string_payload_bytes_copied": 79691776,
+      "sample": 0
+    },
+    {
+      "frames": 128,
+      "new_elapsed_ns": 235700,
+      "new_string_payload_bytes_copied": 126616,
+      "old_elapsed_ns": 163404900,
+      "old_string_payload_bytes_copied": 79691776,
+      "sample": 1
+    },
+    {
+      "frames": 128,
+      "new_elapsed_ns": 237300,
+      "new_string_payload_bytes_copied": 126616,
+      "old_elapsed_ns": 155409500,
+      "old_string_payload_bytes_copied": 79691776,
+      "sample": 2
+    },
+    {
+      "frames": 128,
+      "new_elapsed_ns": 232900,
+      "new_string_payload_bytes_copied": 126616,
+      "old_elapsed_ns": 156107100,
+      "old_string_payload_bytes_copied": 79691776,
+      "sample": 3
+    },
+    {
+      "frames": 128,
+      "new_elapsed_ns": 233000,
+      "new_string_payload_bytes_copied": 126616,
+      "old_elapsed_ns": 164105300,
+      "old_string_payload_bytes_copied": 79691776,
+      "sample": 4
+    }
+  ],
+  "scope": "Camino de seleccion de cadenas en cache caliente, algoritmo anterior y nuevo con misma ventana. Tiempo de pared, sin inferencia. No mide RAM del proceso completo ni garantiza ahorro CPU universal."
+}

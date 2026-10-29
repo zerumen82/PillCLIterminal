@@ -154,6 +154,7 @@ fn event_loop(
 ) -> io::Result<()> {
     let files = Files::new(project, config.files.clone()).map_err(io::Error::other)?;
     let mut app = App::new(config.ui.max_input_chars, config.ui.max_history_entries);
+    app.configure_ui(&config.ui);
     app.load_local_history(&files);
     app.context_limit = Some(config.ollama.num_ctx);
     app.begin(
@@ -163,13 +164,20 @@ fn event_loop(
     let mut dirty = true;
     let mut high_surrogate = None;
     let mut dimensions = console.size()?;
+    let mut previous: Option<(usize, usize, String, usize, String)> = None;
+    let mut last_draw =
+        std::time::Instant::now() - std::time::Duration::from_millis(config.ui.render_interval_ms);
+    let mut input_dirty = true;
     loop {
         if let Some(action) = app.take_action()
             && let Err(error) = worker.submit(action)
         {
             app.event(Event::Failed(error));
         }
-        while let Some(event) = worker.next_event() {
+        for _ in 0..config.ollama.event_buffer {
+            let Some(event) = worker.next_event() else {
+                break;
+            };
             let was_busy = app.busy;
             app.event(event);
             if was_busy && !app.busy {
@@ -177,7 +185,18 @@ fn event_loop(
             }
             dirty = true;
         }
-        if dirty {
+        if let Some(text) = app.copy_requested.take() {
+            match copy_clipboard(&text) {
+                Ok(()) => app.message("Texto copiado al portapapeles."),
+                Err(error) => app.message(format!("No se pudo copiar: {error}")),
+            }
+            dirty = true;
+        }
+        if dirty
+            && (input_dirty
+                || last_draw.elapsed()
+                    >= std::time::Duration::from_millis(config.ui.render_interval_ms))
+        {
             let frame = render::frame(
                 &mut app,
                 project,
@@ -186,17 +205,17 @@ fn event_loop(
                 dimensions.0,
                 dimensions.1,
             );
-            write!(
-                io::stdout(),
-                "\x1b[?25l{}\x1b[{};1H{}\x1b[?25h",
-                frame.text,
-                frame.cursor_row,
-                frame.cursor_text
-            )?;
-            io::stdout().flush()?;
+            paint(&frame, dimensions, &mut previous)?;
+            last_draw = std::time::Instant::now();
+            input_dirty = false;
             dirty = false;
         }
-        match unsafe { WaitForSingleObject(console.input, config.ui.poll_ms) } {
+        let wait = if app.busy {
+            config.ui.poll_ms.min(config.ui.render_interval_ms as u32)
+        } else {
+            config.ui.poll_ms
+        };
+        match unsafe { WaitForSingleObject(console.input, wait) } {
             WAIT_FAILED => return Err(io::Error::last_os_error()),
             WAIT_TIMEOUT => {
                 let size = console.size()?;
@@ -281,12 +300,155 @@ fn event_loop(
             }
         };
         if let Some(key) = key {
+            input_dirty = true;
             app.view_rows = dimensions.1;
             if app.key(key) {
                 app.save_local_history(&files);
                 return Ok(());
             }
             dirty = true;
+        }
+    }
+}
+
+fn paint(
+    frame: &render::Frame,
+    dimensions: (usize, usize),
+    previous: &mut Option<(usize, usize, String, usize, String)>,
+) -> io::Result<()> {
+    paint_to(&mut io::stdout(), frame, dimensions, previous)
+}
+
+fn paint_to(
+    writer: &mut impl io::Write,
+    frame: &render::Frame,
+    dimensions: (usize, usize),
+    previous: &mut Option<(usize, usize, String, usize, String)>,
+) -> io::Result<()> {
+    let current = (
+        dimensions.0,
+        dimensions.1,
+        frame.text.clone(),
+        frame.cursor_row,
+        frame.cursor_text.clone(),
+    );
+    if previous.as_ref() == Some(&current) {
+        return Ok(());
+    }
+    let mut output = String::from("\x1b[?25l");
+    match previous.as_ref() {
+        Some(old) if old.0 == dimensions.0 && old.1 == dimensions.1 => {
+            let old_lines: Vec<_> = old
+                .2
+                .strip_prefix("\x1b[H\x1b[2J")
+                .unwrap_or(&old.2)
+                .split("\r\n")
+                .collect();
+            let new_lines: Vec<_> = frame
+                .text
+                .strip_prefix("\x1b[H\x1b[2J")
+                .unwrap_or(&frame.text)
+                .split("\r\n")
+                .collect();
+            for index in 0..old_lines.len().max(new_lines.len()) {
+                if old_lines.get(index) != new_lines.get(index) {
+                    output.push_str(&format!(
+                        "\x1b[{};1H\x1b[0m\x1b[2K{}",
+                        index + 1,
+                        new_lines.get(index).copied().unwrap_or("")
+                    ));
+                }
+            }
+        }
+        _ => output.push_str(&frame.text),
+    }
+    output.push_str(&format!(
+        "\x1b[{};1H{}\x1b[?25h",
+        frame.cursor_row, frame.cursor_text
+    ));
+    writer.write_all(output.as_bytes())?;
+    writer.flush()?;
+    *previous = Some(current);
+    Ok(())
+}
+
+fn copy_clipboard(text: &str) -> io::Result<()> {
+    use windows_sys::Win32::{
+        Foundation::GlobalFree,
+        System::{
+            DataExchange::{CloseClipboard, EmptyClipboard, OpenClipboard, SetClipboardData},
+            Memory::{GMEM_MOVEABLE, GlobalAlloc, GlobalLock, GlobalUnlock},
+        },
+    };
+    let units: Vec<u16> = text.encode_utf16().chain(std::iter::once(0)).collect();
+    unsafe {
+        let memory = GlobalAlloc(GMEM_MOVEABLE, units.len() * std::mem::size_of::<u16>());
+        if memory.is_null() {
+            return Err(io::Error::last_os_error());
+        }
+        let buffer = GlobalLock(memory);
+        if buffer.is_null() {
+            GlobalFree(memory);
+            return Err(io::Error::last_os_error());
+        }
+        std::ptr::copy_nonoverlapping(units.as_ptr(), buffer.cast(), units.len());
+        GlobalUnlock(memory);
+        // OpenClipboard(NULL) impide SetClipboardData tras EmptyClipboard.
+        // El propietario es la ventana asociada a esta consola interactiva.
+        let owner = GetConsoleWindow();
+        if owner.is_null() {
+            GlobalFree(memory);
+            return Err(io::Error::other("no hay ventana de consola para copiar"));
+        }
+        if OpenClipboard(owner) == 0 {
+            GlobalFree(memory);
+            return Err(io::Error::last_os_error());
+        }
+        let result = if EmptyClipboard() == 0 || SetClipboardData(13, memory).is_null() {
+            let error = io::Error::last_os_error();
+            GlobalFree(memory);
+            Err(error)
+        } else {
+            Ok(())
+        };
+        CloseClipboard();
+        result
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    #[test]
+    fn incremental_paint_writes_nothing_for_unchanged_frames_and_reduces_output() {
+        let mut previous = None;
+        let mut bytes = Vec::new();
+        let mut full = 0usize;
+        let mut frame = render::Frame {
+            text: format!(
+                "\x1b[H\x1b[2J{}",
+                (0..21)
+                    .map(|i| format!("row {i}: {}", "x".repeat(60)))
+                    .collect::<Vec<_>>()
+                    .join("\r\n")
+            ),
+            cursor_row: 21,
+            cursor_text: String::new(),
+        };
+        paint_to(&mut bytes, &frame, (73, 21), &mut previous).unwrap();
+        let first = bytes.len();
+        paint_to(&mut bytes, &frame, (73, 21), &mut previous).unwrap();
+        assert_eq!(bytes.len(), first);
+        bytes.clear();
+        for i in 0..100 {
+            frame.cursor_text = format!("input {i}");
+            full += frame.text.len() + frame.cursor_text.len() + 32;
+            paint_to(&mut bytes, &frame, (73, 21), &mut previous).unwrap();
+        }
+        assert!(!bytes.windows(4).any(|w| w == b"\x1b[2J"));
+        assert!(bytes.len() < full);
+        if let Some(path) = std::env::var_os("PILL_RENDER_EVIDENCE") {
+            std::fs::write(path,serde_json::to_vec_pretty(&serde_json::json!({"result":"PASS","frames":100,"full_repaint_bytes":full,"incremental_bytes":bytes.len(),"unchanged_frame_bytes":0,"scope":"Bytes reales emitidos por el pintor a un buffer; no es una medicion CPU/GPU ni de terminal fisico"})).unwrap()).unwrap();
         }
     }
 }

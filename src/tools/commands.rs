@@ -600,7 +600,7 @@ fn relative_path(path: &Path) -> Result<(), CommandError> {
     Ok(())
 }
 
-fn reject_links(path: &Path) -> Result<(), CommandError> {
+pub(super) fn reject_links(path: &Path) -> Result<(), CommandError> {
     for ancestor in path.ancestors() {
         match fs::symlink_metadata(ancestor) {
             Ok(metadata) => check_metadata_link(&metadata, ancestor)?,
@@ -611,7 +611,10 @@ fn reject_links(path: &Path) -> Result<(), CommandError> {
     Ok(())
 }
 
-fn check_metadata_link(metadata: &fs::Metadata, path: &Path) -> Result<(), CommandError> {
+pub(super) fn check_metadata_link(
+    metadata: &fs::Metadata,
+    path: &Path,
+) -> Result<(), CommandError> {
     #[cfg(windows)]
     let reparse = {
         use std::os::windows::fs::MetadataExt;
@@ -630,7 +633,7 @@ fn check_metadata_link(metadata: &fs::Metadata, path: &Path) -> Result<(), Comma
     Ok(())
 }
 
-fn pin_directories(path: &Path, locks: &mut Vec<File>) -> Result<(), CommandError> {
+pub(super) fn pin_directories(path: &Path, locks: &mut Vec<File>) -> Result<(), CommandError> {
     #[cfg(windows)]
     {
         use std::os::windows::fs::OpenOptionsExt;
@@ -661,7 +664,7 @@ fn pin_directories(path: &Path, locks: &mut Vec<File>) -> Result<(), CommandErro
     Ok(())
 }
 
-fn verify_opened_path(file: &File, expected: &Path) -> Result<(), CommandError> {
+pub(super) fn verify_opened_path(file: &File, expected: &Path) -> Result<(), CommandError> {
     #[cfg(windows)]
     {
         use std::os::windows::{ffi::OsStringExt, io::AsRawHandle};

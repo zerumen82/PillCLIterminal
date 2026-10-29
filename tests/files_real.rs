@@ -498,3 +498,187 @@ fn private_transcript_overwrites_and_journal_tail_does_not_create_a_session() {
     assert!(!tail.contains('{'), "{tail}");
     assert_eq!(files.session_count().unwrap(), 1);
 }
+
+fn operation_authorization(
+    files: &Files,
+    operation: &str,
+    path: &str,
+    destination: Option<&str>,
+) -> (String, String) {
+    let inspected = files.inspect_operation(path).unwrap();
+    let sha = inspected["sha256"].as_str().unwrap().to_owned();
+    let offer = files
+        .operation_offer(operation, path, destination, &sha)
+        .unwrap();
+    (sha, offer["fingerprint"].as_str().unwrap().to_owned())
+}
+
+#[test]
+fn move_requires_concrete_approval_preserves_binary_bytes_and_never_replaces() {
+    let root = tempfile::tempdir().unwrap();
+    fs::create_dir(root.path().join("destino ñ")).unwrap();
+    let bytes = [0, 255, 1, 2, 3];
+    fs::write(root.path().join("base.bin"), bytes).unwrap();
+    let files = files(root.path());
+    let destination = "destino ñ/movido.bin";
+    let (sha, approval) = operation_authorization(&files, "move", "base.bin", Some(destination));
+    assert!(files.move_file("base.bin", destination, &sha, "").is_err());
+    assert!(
+        files
+            .move_file("base.bin", "otro.bin", &sha, &approval)
+            .is_err()
+    );
+    fs::write(root.path().join(destination), "usuario").unwrap();
+    assert!(
+        files
+            .move_file("base.bin", destination, &sha, &approval)
+            .is_err()
+    );
+    assert_eq!(fs::read(root.path().join(destination)).unwrap(), b"usuario");
+    assert_eq!(fs::read(root.path().join("base.bin")).unwrap(), bytes);
+    // Solo se retira el ocupante creado por esta prueba, en su carpeta temporal.
+    fs::remove_file(root.path().join(destination)).unwrap();
+    let moved = files
+        .move_file("base.bin", destination, &sha, &approval)
+        .unwrap();
+    assert_eq!(moved["status"], "verified");
+    assert_eq!(moved["source_absent"], true);
+    assert!(!root.path().join("base.bin").exists());
+    assert_eq!(fs::read(root.path().join(destination)).unwrap(), bytes);
+}
+
+#[test]
+fn delete_file_or_empty_directory_requires_current_object_and_exact_operation() {
+    let root = tempfile::tempdir().unwrap();
+    fs::write(root.path().join("remove.txt"), "primero").unwrap();
+    fs::create_dir(root.path().join("vacía")).unwrap();
+    let files = files(root.path());
+    let (old_sha, old_approval) = operation_authorization(&files, "delete", "remove.txt", None);
+    assert!(files.delete("remove.txt", &old_sha, "").is_err());
+    fs::write(root.path().join("remove.txt"), "posterior").unwrap();
+    assert!(files.delete("remove.txt", &old_sha, &old_approval).is_err());
+    assert_eq!(
+        fs::read(root.path().join("remove.txt")).unwrap(),
+        b"posterior"
+    );
+    let (sha, approval) = operation_authorization(&files, "delete", "remove.txt", None);
+    assert!(
+        files
+            .move_file("remove.txt", "other.txt", &sha, &approval)
+            .is_err()
+    );
+    assert_eq!(
+        files.delete("remove.txt", &sha, &approval).unwrap()["absent"],
+        true
+    );
+    assert!(!root.path().join("remove.txt").exists());
+    let (sha, approval) = operation_authorization(&files, "delete", "vacía", None);
+    fs::write(root.path().join("vacía/ocupante"), "nuevo").unwrap();
+    assert!(files.delete("vacía", &sha, &approval).is_err());
+    assert_eq!(
+        fs::read(root.path().join("vacía/ocupante")).unwrap(),
+        b"nuevo"
+    );
+    fs::remove_file(root.path().join("vacía/ocupante")).unwrap();
+    assert_eq!(
+        files.delete("vacía", &sha, &approval).unwrap()["kind"],
+        "empty_directory"
+    );
+    assert!(!root.path().join("vacía").exists());
+}
+
+#[test]
+fn approvals_do_not_survive_source_replacement_with_same_bytes() {
+    let root = tempfile::tempdir().unwrap();
+    fs::write(root.path().join("source"), "igual").unwrap();
+    let files = files(root.path());
+    let (sha, approval) = operation_authorization(&files, "delete", "source", None);
+    // Conservar el objeto previo evita que Windows reutilice su identificador.
+    fs::rename(root.path().join("source"), root.path().join("previous")).unwrap();
+    fs::write(root.path().join("source"), "igual").unwrap();
+    assert!(files.delete("source", &sha, &approval).is_err());
+    assert_eq!(fs::read(root.path().join("source")).unwrap(), b"igual");
+    assert_eq!(fs::read(root.path().join("previous")).unwrap(), b"igual");
+}
+
+#[test]
+fn destructive_operations_reject_links_protected_paths_and_external_writers() {
+    use std::os::windows::fs::OpenOptionsExt;
+    use windows_sys::Win32::Storage::FileSystem::{
+        FILE_SHARE_DELETE, FILE_SHARE_READ, FILE_SHARE_WRITE,
+    };
+    let root = tempfile::tempdir().unwrap();
+    let outside = tempfile::tempdir().unwrap();
+    fs::write(outside.path().join("secret"), "intacto").unwrap();
+    fs::hard_link(outside.path().join("secret"), root.path().join("link")).unwrap();
+    fs::write(root.path().join("locked"), "base").unwrap();
+    fs::write(root.path().join("protected"), "control").unwrap();
+    let files = files(root.path())
+        .with_protected_paths(vec![root.path().join("protected")])
+        .unwrap();
+    assert!(files.inspect_operation("link").is_err());
+    assert!(files.inspect_operation("protected").is_err());
+    assert!(files.inspect_operation(".").is_err());
+    assert!(files.inspect_operation("../secret").is_err());
+    let (sha, approval) = operation_authorization(&files, "delete", "locked", None);
+    let writer = fs::OpenOptions::new()
+        .write(true)
+        .share_mode(FILE_SHARE_READ | FILE_SHARE_WRITE | FILE_SHARE_DELETE)
+        .open(root.path().join("locked"))
+        .unwrap();
+    assert!(files.delete("locked", &sha, &approval).is_err());
+    drop(writer);
+    assert_eq!(fs::read(root.path().join("locked")).unwrap(), b"base");
+    assert_eq!(fs::read(outside.path().join("secret")).unwrap(), b"intacto");
+}
+
+#[test]
+fn private_hardlink_is_rejected_before_any_truncation() {
+    let root = tempfile::tempdir().unwrap();
+    let outside = tempfile::tempdir().unwrap();
+    fs::write(outside.path().join("secret.json"), "NO CAMBIAR").unwrap();
+    fs::create_dir(root.path().join(".pillcli")).unwrap();
+    fs::hard_link(
+        outside.path().join("secret.json"),
+        root.path().join(".pillcli/model.json"),
+    )
+    .unwrap();
+    let files = files(root.path());
+    assert!(matches!(
+        files.write_private("model.json", b"{}"),
+        Err(FileError::Protected(_))
+    ));
+    assert_eq!(
+        fs::read(outside.path().join("secret.json")).unwrap(),
+        b"NO CAMBIAR"
+    );
+}
+
+#[test]
+fn recovery_journal_reads_enforce_limits_and_refuse_links() {
+    use std::io::Write;
+    let root = tempfile::tempdir().unwrap();
+    let files = files(root.path());
+    let (_path, pins, mut journal) = files.open_session_journal("one.jsonl").unwrap();
+    journal.write_all(b"{}\n").unwrap();
+    drop(journal);
+    drop(pins);
+    assert_eq!(
+        files.session_journals(2, 3).unwrap(),
+        vec![("one.jsonl".into(), b"{}\n".to_vec())]
+    );
+    assert!(files.session_journals(2, 2).is_err());
+    let (_path, pins, journal) = files.open_session_journal("two.jsonl").unwrap();
+    drop(journal);
+    drop(pins);
+    assert!(files.session_journals(1, 10).is_err());
+    let outside = tempfile::tempdir().unwrap();
+    fs::write(outside.path().join("private"), "secret").unwrap();
+    fs::hard_link(
+        outside.path().join("private"),
+        root.path().join(".pillcli/sessions/link.jsonl"),
+    )
+    .unwrap();
+    assert!(files.session_journals(3, 10).is_err());
+    assert_eq!(fs::read(outside.path().join("private")).unwrap(), b"secret");
+}

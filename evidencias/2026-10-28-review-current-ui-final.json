@@ -1,0 +1,73 @@
+{
+  "fecha_utc": "2026-10-28T16:14:12.476400+00:00",
+  "role": "reviewer independiente",
+  "verdict": "APPROVE",
+  "scope": "Código final revisado con hashes actualizados. Aprobación de revisión, no sustitución del tester ni del PASS de consola final.",
+  "previous": "2026-10-28-review-current-codigo.json",
+  "blocking_findings": [],
+  "changed_since_previous": [
+    "src/ui/model.rs",
+    "src/ui/native.rs",
+    "src/ui/render.rs",
+    "tests/client_resilience.rs"
+  ],
+  "reviewed_changes": [
+    "Render de detalle desde principio hacia abajo; título fijo visible, PgDown avanza y Home vuelve al inicio; regresión real de frame73x21",
+    "Archive muestra resumen, resultado concreto y errores de cuotas observados; no imprime JSON gigante que desplaza instrucciones",
+    "Footer sin filas no ofrece confirmar; detalle anuncia teclas atendidas y omite /comandos que estaba interceptado mientras la vista permanece abierta",
+    "Clipboard usa HWND de consola en OpenClipboard y rechaza NULL antes de abrir/vaciar; memoria se transfiere solo si SetClipboardData tiene éxito",
+    "Prueba de metadatos inválidos ignora Notice/Budget intermedios y sigue exigiendo modelos unknown/error terminal real"
+  ],
+  "documentation_verified": {
+    "clipboard_owner": "https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-openclipboard"
+  },
+  "evidence_review": {
+    "installer": "PASS45 independiente; User/Machine PATH intactos",
+    "integrations": "live-summary PASS7/7, cada exit_code0",
+    "integration_source_differences": [
+      "src\\ui\\model.rs",
+      "src\\ui\\native.rs",
+      "src\\ui\\render.rs"
+    ],
+    "integration_reuse": "Solo cambiaron3módulosUI, core proveedor/session/Files/tools/agentes conserva hashes; integrar cliente no requiere repetir inferencia por modificaciones de presentación",
+    "render_buffer": "PASS100frames, 150490bytes repintado completo frente2690incrementales, 0bytes frame idéntico; no medición CPU/GPU",
+    "ui_previous": "ui-improvements y ui-diagnostico-detalles FAIL preservados del binario2c0179; no cuentan como PASS final",
+    "tester_previous": "independent-tercero PASS fmt/Clippy/tests/release antes de ajuste final del pie; tester cuarto en curso"
+  },
+  "limits": [
+    "Consola Win32 final debe pasar sobre release final y coincidir SHA antes de registrar User PATH",
+    "Portapapeles global del usuario no fue modificado ni probado de extremo a extremo; corrección revisada según contrato oficial",
+    "E6 y modelo principal no se declaran cerrados; model sigue null",
+    "No Reviewer escribió PATH, desinstaló instalación real, editó producción ni ejecutó Cargo paralelo"
+  ],
+  "sha256": {
+    "scripts/Install-Pill.ps1": "3382395c094078836f0254f12c9e679c8d01e81128755e1887a57b57c52b730f",
+    "scripts/Uninstall-Pill.ps1": "054f6b8f4e0e80fd16e9ce7c1b3f711643509a7b4a5cf7ee045bb7b43bbcfe74",
+    "scripts/Pill.Installation.psm1": "59938b4769c7c80fdf7ac17e0c6ca990c7dcf9a471fba16e6e9b08b211d39dd5",
+    "scripts/installation.defaults.json": "c64582a0f2f00c742cf51566ecfc631be41594c49946e830f930a358f06711a5",
+    "src/files/mod.rs": "9a85da81b398d3a91deb915009b1f0d5a21ffb833a776eac9a51b8bb830d02e1",
+    "src/files/platform.rs": "41f521a80fcb859eb8fdaad52731f076d9d6c688ee13471504209c0923b3f0c8",
+    "src/tools/recovery.rs": "41146c69d296072fa26fcbd51dcc3f600fe0dde3029ef2db3f3a008af2283027",
+    "src/tools/mod.rs": "b866f383b1cf0c807cf84f574d0fb2f22187c28e7b0cfaa8d5ee8dfdfcf08b2a",
+    "src/tools/mcp.rs": "92d731ca01f50a433ff777b438dd6a11b31b5eafa3f986b72d7fe5c3c2d570d8",
+    "src/tools/process_job.rs": "eb5b012ca3b348cf6addf6b2dbae620a5086194edc7475aa431ae4b4f9545d44",
+    "src/tools/read_pool.rs": "b7d515a671345d124bf1e5bd349b7af671d32e10833b702024e86418dbbb76e3",
+    "src/session/mod.rs": "e5e6eb8c57f533dad4107a8941eeb53bbd54d126d640fb2f96cf33c6d2d33bf6",
+    "src/ui/model.rs": "11d2139e86fb9e02f09725d7bc61e1283a04c14691b0d04cc735c544a6fe35c8",
+    "src/ui/native.rs": "c75c704d2c85888c2ce4c505bfce36789740986da142955e907ce04dcd88f03f",
+    "src/ui/render.rs": "ce18c64c571d59c584979c3121b3c25a91b9ecdcd7110a396de82144027bdfbc",
+    "src/ui/text.rs": "448b1c6debb5449820b3b8afef9e0e75264ca4006ea76ad020efc5827d24b2e8",
+    "src/config/mod.rs": "2f21c8053fadd9a03009d106524cf9adc66826605e5837397d28f6310ddc9562",
+    "src/providers/ollama/mod.rs": "db3b719806671d3aad638ed7d56380e3b5a10fc5d5af3e059689ef0c69f52694",
+    "src/agents/mod.rs": "8c6fae6ebf50e60a91691322bd241e969838849e923c958e0dd863823fb22939",
+    "config/defaults.json": "885a17c90db0a8f733b013eae021a105144a0a9f11a63431e035f164fad590dd",
+    "tests/recovery_ui_contract.rs": "fc217cc53f3f1192689edae7ac812c5acc0daa2992ac254f10b96fd80fff7b74",
+    "tests/client_resilience.rs": "c2cf8dfe5b355b3c24b35e01231ca54a283c1d673016a42e2239d6584edcb85f",
+    "tests/persistence_real.rs": "b787d571e1bf986cf95cab5342f7baeb6568302a574cfb30b43de423ab180c2b",
+    "tests/mcp_stdio.rs": "851ce8dd11b1c7fb44b359a14f134e0866022b7023dc357493636574dadf7590",
+    "tests/parallel_reads.rs": "7c682cae37ff1ec918cd24accb107012a0bc3ace76d1022e9e61749fe44e8577"
+  },
+  "nonblocking_notes": [
+    "El footer de detalle no anuncia Ctrl+Enter en Profiles aunque la acción está disponible; es omisión menor de ayuda, sin ampliar efectos ni atribuir una acción imposible."
+  ]
+}

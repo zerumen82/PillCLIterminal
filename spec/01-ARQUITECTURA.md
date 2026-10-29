@@ -4,6 +4,8 @@ Estado: aprobado el 2026-10-20 mediante [el plan](../PLAN-IMPLEMENTACION.md), co
 
 Actualización aprobada: el usuario eligió consola nativa de Windows ante el bloqueo de dependencias. E1 emplea `windows-sys` y la biblioteca estándar para pantalla, teclado y opciones; se retiraron Ratatui, Crossterm y Clap. El comando público sigue siendo `pill`, con el binario de consola como implementación interna, sin lanzador gráfico.
 
+Continuación verificada 2026-10-27, tester PASS y reviewer APPROVE del corte E5 y ampliaciones: `src/tools/recovery.rs` reconcilia el diario al arrancar; `src/files/` añade inspección, movimiento y borrado concretamente autorizados. `Toolset` conserva propuestas efímeras de un uso, mientras los permisos de comandos/MCP siguen en el almacén privado. `Engine` agrupa lecturas contiguas en hilos acotados; orden de resultados, diario y efectos siguen coordinados. Ver [contrato aprobado](09-CIERRE-20261027.md). Los párrafos E1–E5 anteriores se conservan como cortes históricos.
+
 ## Procesos y módulos
 
 Un ejecutable `pill.exe` mantiene interfaz, coordinación y ejecutor. El control de entrada implementado exige stdin/stdout de terminal y, en Windows, más de un proceso asociado a consola: el caso probado de consola propia con un único proceso se rechaza. Este criterio no identifica al invocador ni la antigüedad de la consola. Ayuda y versión son salidas informativas, no inicio de interfaz. Ollama es un servidor separado ya instalado. Los agentes son tareas con conversación propia; no requieren varios procesos ni varias copias de un modelo. Un servidor MCP concedido es un proceso hijo local; sin concesión no se arranca.
@@ -17,7 +19,7 @@ Un ejecutable `pill.exe` mantiene interfaz, coordinación y ejecutor. El control
 | `src/agents/` | Presente | Coordinador, explorador, implementador, tester y reviewer |
 | `src/tools/` | Presente | Registro, autorización, comandos concedidos, diario y cliente MCP stdio en `src/tools/mcp.rs`. No existe `src/policy/` ni `src/mcp/` |
 | `src/files/` | Presente | Versiones de base, creación, edición y comprobación en disco |
-| `src/session/` | Presente | Operación activa, aviso de arranque y `/liberate`. La recuperación automática sigue pendiente |
+| `src/session/` | Presente | Operación activa, aviso de arranque y `/liberate`. La reconciliación local del diario se integra desde `src/tools/recovery.rs`, sin repetir efectos |
 | `src/gpu/` | Presente | Plan de liberación y medición NVIDIA. La descarga HTTP vive en el proveedor Ollama |
 | `tests/` | Presente | `files_real.rs`, `commands_real.rs`, `ollama_live.rs`, `tools_live.rs`, `mcp_stdio.rs`, `gpu_release.rs`. No hay `tests/fixtures/` ni `tests/gpu/` |
 | `evidencias/` | Presente | Resultados fechados de verificaciones |

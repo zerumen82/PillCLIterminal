@@ -1,6 +1,6 @@
 # Guía del repositorio
 
-`pill` 0.1.0 es un agente de programación para la terminal de Windows, escrito en Rust. Se invoca como `pill` desde una consola interactiva ya abierta y habla con Ollama en local. E1, E2 y el corte E3/E4 están entregados con tester PASS y reviewer APPROVE. E5 (cliente MCP stdio y `/liberate`) está implementada y comprobada en local el 2026-10-22; su tester y reviewer independientes siguen pendientes. E6 (cierre de v1) no está hecho. No hay repositorio Git.
+`pill` 0.1.0 es un agente de programación para la terminal de Windows, escrito en Rust. Se invoca como `pill` desde una consola interactiva ya abierta y habla con Ollama en local. E1, E2 y el corte E3/E4 están entregados en sus alcances. E5 (MCP stdio y `/liberate`), la consola y las ampliaciones de archivos, lecturas concurrentes y recuperación se verificaron el 2026-10-27 con tester PASS y reviewer APPROVE. E6 (cierre de v1) sigue pendiente. Hay repositorio Git local sin remoto configurado.
 
 ## Estructura
 
@@ -12,16 +12,16 @@
 - `src/tools/`: herramientas, permisos de rol, comandos concedidos, diario y cliente MCP stdio en `src/tools/mcp.rs`. No existe `src/policy/` ni `src/mcp/`.
 - `src/gpu/`: criterio de liberación compartida o exclusiva. No mata procesos.
 - `src/agents/`: coordinador, explorador, implementador, tester y reviewer.
-- `src/session/`: trabajador de la sesión, aviso de arranque y `/liberate`. La recuperación automática no está implementada.
+- `src/session/`: trabajador de la sesión, aviso de arranque y `/liberate`. La recuperación contrasta diarios con disco al arrancar, sin repetir efectos; lo desconocido mantiene bloqueadas las escrituras.
 - `tests/`: `files_real.rs`, `commands_real.rs`, `ollama_live.rs`, `tools_live.rs`, `mcp_stdio.rs` y `gpu_release.rs`.
 - `diagnostics/`: sondas de consola y comprobaciones Python de biblioteca estándar.
-- `scripts/Install-Pill.ps1`: copia `target/release/pill.exe` a `bin/pill.exe`.
+- `scripts/Install-Pill.ps1`, `Uninstall-Pill.ps1`, `Pill.Installation.psm1`: instalacion con hash/identidad, manifiesto de propiedad del PATH y desregistro condicionado. Cargo puede generar hardlinks en la fuente: solo OpenBuildArtifact los admite como lectura bloqueada; destinos siguen estrictos.
 - `assets/`: dibujo Unicode y ASCII de la cápsula.
 - `spec/`: especificaciones. Mandan sobre el código.
 - `evidencias/`: resultados fechados. No sustituyen una prueba nueva.
 - `memory.md`: bitácora.
 
-Mover y eliminar archivos no están implementados. E5 no está cerrada: faltan tester PASS y reviewer APPROVE independientes. El modelo principal sigue sin elegir y el PATH persistente sigue bloqueado.
+Mover archivos y eliminar archivos o carpetas vacías están verificados con concesión concreta de un uso. Lecturas concurrentes y reconciliación del diario también están verificadas en el corte 2026-10-27. E5 está cerrada en ese alcance con tester PASS y reviewer APPROVE. La mejora U01-U15 del 2026-10-28 tiene tester PASS y reviewer APPROVE; el PATH de usuario esta registrado y verificado. E6 conserva pendientes la eleccion de modelo principal y la decision adicional de pegado P08.
 
 Antes de añadir funcionalidad, mantener estas especificaciones:
 
@@ -58,8 +58,8 @@ Cerrar una etapa exige formato, Clippy, build, las pruebas aplicables, tester PA
 
 ## Commits
 
-No hay historial Git ni una convención de commits aprobada. Hasta entonces, los asuntos serán concisos. No crear commits sin permiso explícito. Una solicitud de revisión describe el problema, el cambio, los requisitos afectados, la evidencia y los límites.
+Hay historial Git local, sin una convención de commits aprobada. Los asuntos serán concisos. No crear commits sin permiso explícito. Una solicitud de revisión describe el problema, el cambio, los requisitos afectados, la evidencia y los límites.
 
 ## Reglas de agentes
 
-Leer `C:\Users\INdaHouse\.agents\AGENTS.md`. El usuario aprueba alcance, diseño, dependencias y prioridades. No instalar paquetes, skills ni modelos sin permiso explícito. El cómputo es local primero y cualquier dependencia de red se declara. Pedir permiso antes de borrados, resets o commits. No anunciar E5 como cerrada ni la v1 como terminada: faltan el tester PASS, el reviewer APPROVE y E6. No elegir el modelo principal ni escribir el Registro para sortear P07.
+Leer `C:\Users\INdaHouse\.agents\AGENTS.md`. El usuario aprueba alcance, diseño, dependencias y prioridades. No instalar paquetes, skills ni modelos sin permiso explícito. El cómputo es local primero y cualquier dependencia de red se declara. Pedir permiso antes de borrados, resets o commits. E5 tiene tester PASS y reviewer APPROVE sobre el corte 2026-10-27; no anunciar v1 terminada antes de cerrar E6. No elegir el modelo principal ni cambiar el PATH sin autorizacion expresa. El registro User PATH del 2026-10-28 fue autorizado y verificado; no autoriza desinstalaciones reales ni retirar entradas ajenas.

@@ -1,0 +1,26 @@
+{
+  "fecha_utc": "2026-10-28T16:29:26.6113975+00:00",
+  "checks": [
+    {
+      "path": "scripts/Install-Pill.ps1",
+      "errors": [],
+      "pass": true
+    },
+    {
+      "path": "scripts/Uninstall-Pill.ps1",
+      "errors": [],
+      "pass": true
+    },
+    {
+      "path": "scripts/Pill.Installation.psm1",
+      "errors": [],
+      "pass": true
+    },
+    {
+      "path": "diagnostics/test_installation.ps1",
+      "errors": [],
+      "pass": true
+    }
+  ],
+  "scope": "Parser nativo PowerShell; prueba funcional separada."
+}

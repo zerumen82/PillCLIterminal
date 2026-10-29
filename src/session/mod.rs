@@ -22,7 +22,16 @@ use crate::{
 pub struct ListedModel {
     pub name: String,
     pub size: u64,
-    pub loaded: bool,
+    pub loaded: Option<bool>,
+}
+impl ListedModel {
+    pub fn memory_label(&self) -> &'static str {
+        match self.loaded {
+            Some(true) => "en memoria",
+            Some(false) => "no cargado",
+            None => "memoria desconocida",
+        }
+    }
 }
 
 #[derive(Debug)]
@@ -30,10 +39,34 @@ pub enum Action {
     Discover,
     Select(String),
     Chat(String),
+    Ask(String),
     Task(String),
+    Recovery,
+    AcknowledgeRecovery {
+        fingerprint: String,
+    },
+    Changes,
+    Undo {
+        path: String,
+        expected_sha256: String,
+        backup_path: String,
+        backup_sha256: String,
+    },
+    Status,
+    Profiles,
+    SelectProfile(String),
+    Archive,
+    ConfirmArchive {
+        fingerprint: String,
+    },
     Permissions,
-    Grant { id: String, fingerprint: String },
-    Revoke { id: String },
+    Grant {
+        id: String,
+        fingerprint: String,
+    },
+    Revoke {
+        id: String,
+    },
     Journal,
     Liberate,
     Cancel,
@@ -80,6 +113,32 @@ pub enum Event {
     Granted(String),
     Revoked(String),
     Journal(String),
+    Recovery {
+        report: serde_json::Value,
+    },
+    RecoveryReviewed {
+        report: serde_json::Value,
+    },
+    Changes {
+        items: Vec<serde_json::Value>,
+    },
+    UndoComplete {
+        result: serde_json::Value,
+    },
+    Status {
+        report: serde_json::Value,
+    },
+    Profiles(Vec<serde_json::Value>),
+    ProfileSelected {
+        report: serde_json::Value,
+    },
+    Archive {
+        report: serde_json::Value,
+    },
+    ArchiveComplete {
+        report: serde_json::Value,
+    },
+    StorageWarning(String),
     Liberated(String),
     Complete {
         elapsed_ms: u128,
@@ -102,7 +161,7 @@ pub struct Worker {
 
 impl Worker {
     pub fn start(config: OllamaConfig) -> std::io::Result<Self> {
-        Self::start_internal(config, None, None)
+        Self::start_internal(config, None, None, std::collections::BTreeMap::new())
     }
 
     pub fn start_project(
@@ -116,13 +175,15 @@ impl Worker {
             config.ollama.clone(),
             Some(tools),
             Some(config.agents.clone()),
+            config.profiles.clone(),
         )
     }
 
     fn start_internal(
-        config: OllamaConfig,
+        mut config: OllamaConfig,
         tools: Option<Toolset>,
         limits: Option<crate::config::AgentConfig>,
+        profiles: std::collections::BTreeMap<String, crate::config::OllamaProfile>,
     ) -> std::io::Result<Self> {
         // Un lote de deltas acotado: contrapresión sin crecimiento ilimitado.
         let (events_tx, events) = async_mpsc::channel(config.event_buffer);
@@ -138,7 +199,7 @@ impl Worker {
         let thread = thread::Builder::new()
             .name("pill-ollama".into())
             .spawn(move || {
-                let api = match Ollama::new(&config) {
+                let mut api = match Ollama::new(&config) {
                     Ok(api) => api,
                     Err(error) => {
                         let _ = events_tx.blocking_send(Event::Failed(error.to_string()));
@@ -148,13 +209,35 @@ impl Worker {
                 let mut selected = None;
                 let mut messages = vec![Message::new("system", &config.system_prompt)];
                 let mut owned = BTreeSet::new();
-                let mut saved_transcript = tools.as_ref().and_then(load_model_transcript);
+                let mut saved_transcript = match tools
+                    .as_ref()
+                    .map(|tools| load_model_transcript(tools, &config.system_prompt))
+                {
+                    Some(Ok((saved, warning))) => {
+                        if let Some(warning) = warning {
+                            let _ = events_tx.blocking_send(Event::StorageWarning(warning));
+                        }
+                        saved
+                    }
+                    Some(Err(error)) => {
+                        let _ = events_tx.blocking_send(Event::StorageWarning(format!(
+                            "conversación no recuperada: {error}"
+                        )));
+                        None
+                    }
+                    None => None,
+                };
                 let mut restore_open = true;
                 if tools.is_some() {
                     let report = runtime.block_on(release(&api, tools.as_ref(), &owned));
                     let text = match report {
                         Ok(text) => text,
                         Err(error) => format!("liberación de arranque no completada: {error}"),
+                    };
+                    let text = if let Some(tools) = &tools {
+                        format!("{text}\n{}", tools.recovery_report())
+                    } else {
+                        text
                     };
                     if events_tx
                         .blocking_send(Event::Notice {
@@ -200,6 +283,7 @@ impl Worker {
                                 cancellation: &mut cancellation,
                                 cancel: cancellation_flag.clone(),
                                 owned: &owned,
+                                profiles: &profiles,
                             },
                         )
                         .await;
@@ -222,15 +306,47 @@ impl Worker {
                         Some(Ok(JobResult::Revoked(id))) => Event::Revoked(id),
                         Some(Ok(JobResult::Journal(text))) => Event::Journal(text),
                         Some(Ok(JobResult::Liberated(text))) => Event::Liberated(text),
+                        Some(Ok(JobResult::Recovery(report))) => Event::Recovery { report },
+                        Some(Ok(JobResult::RecoveryReviewed(report))) => {
+                            Event::RecoveryReviewed { report }
+                        }
+                        Some(Ok(JobResult::Changes(items))) => Event::Changes { items },
+                        Some(Ok(JobResult::UndoComplete(result))) => Event::UndoComplete { result },
+                        Some(Ok(JobResult::Status(report))) => Event::Status { report },
+                        Some(Ok(JobResult::Profiles(items))) => Event::Profiles(items),
+                        Some(Ok(JobResult::ProfileSelected(report))) => {
+                            match profiles
+                                .get(report["name"].as_str().unwrap_or(""))
+                                .ok_or_else(|| "perfil desaparecido".to_string())
+                                .and_then(|profile| profile.apply(&config))
+                            {
+                                Ok(candidate) => match Ollama::new(&candidate) {
+                                    Ok(candidate_api) => {
+                                        config = candidate;
+                                        api = candidate_api;
+                                        Event::ProfileSelected { report }
+                                    }
+                                    Err(error) => Event::Failed(error.to_string()),
+                                },
+                                Err(error) => Event::Failed(error),
+                            }
+                        }
+                        Some(Ok(JobResult::Archive(report))) => Event::Archive { report },
+                        Some(Ok(JobResult::ArchiveComplete(report))) => {
+                            Event::ArchiveComplete { report }
+                        }
                         Some(Ok(JobResult::Engine(reply))) => {
                             messages = reply.transcript;
                             if let (Some(tools), Some(model)) = (tools.as_ref(), selected.as_ref())
                             {
-                                store_model_transcript(
-                                    tools,
-                                    &model.model.name,
-                                    &model.model.digest,
-                                    &messages,
+                                warn_storage(
+                                    &events_tx,
+                                    store_model_transcript(
+                                        tools,
+                                        &model.model.name,
+                                        &model.model.digest,
+                                        &messages,
+                                    ),
                                 );
                             }
                             Event::Complete {
@@ -273,7 +389,10 @@ impl Worker {
                                 messages.truncate(1);
                             }
                             if persist && let Some(tools) = tools.as_ref() {
-                                store_model_transcript(tools, &name, &digest, &messages);
+                                warn_storage(
+                                    &events_tx,
+                                    store_model_transcript(tools, &name, &digest, &messages),
+                                );
                             }
                             if let Some(dropped) = restored {
                                 let _ = events_tx.blocking_send(Event::Restored { dropped });
@@ -285,11 +404,14 @@ impl Worker {
                             messages.push(Message::new("assistant", outcome.content));
                             if let (Some(tools), Some(model)) = (tools.as_ref(), selected.as_ref())
                             {
-                                store_model_transcript(
-                                    tools,
-                                    &model.model.name,
-                                    &model.model.digest,
-                                    &messages,
+                                warn_storage(
+                                    &events_tx,
+                                    store_model_transcript(
+                                        tools,
+                                        &model.model.name,
+                                        &model.model.digest,
+                                        &messages,
+                                    ),
                                 );
                             }
                             Event::Complete {
@@ -362,6 +484,15 @@ enum JobResult {
     Granted(String),
     Revoked(String),
     Journal(String),
+    Recovery(serde_json::Value),
+    RecoveryReviewed(serde_json::Value),
+    Changes(Vec<serde_json::Value>),
+    UndoComplete(serde_json::Value),
+    Status(serde_json::Value),
+    Profiles(Vec<serde_json::Value>),
+    ProfileSelected(serde_json::Value),
+    Archive(serde_json::Value),
+    ArchiveComplete(serde_json::Value),
     Liberated(String),
     Models(Vec<ListedModel>),
     Selected(SelectedModel),
@@ -395,6 +526,7 @@ struct Execution<'a> {
     cancellation: &'a mut watch::Receiver<u64>,
     cancel: Arc<AtomicBool>,
     owned: &'a BTreeSet<String>,
+    profiles: &'a std::collections::BTreeMap<String, crate::config::OllamaProfile>,
 }
 async fn execute(action: Action, context: Execution<'_>) -> Result<JobResult, ollama::Error> {
     let Execution {
@@ -408,8 +540,88 @@ async fn execute(action: Action, context: Execution<'_>) -> Result<JobResult, ol
         cancellation,
         cancel,
         owned,
+        profiles,
     } = context;
+    let read_only = matches!(&action, Action::Ask(_));
     match action {
+        Action::Status => Ok(JobResult::Status(
+            status_report(api, tools, selected, owned, config).await,
+        )),
+        Action::Profiles => Ok(JobResult::Profiles(
+            profiles
+                .iter()
+                .map(|(name, p)| serde_json::json!({"name":name,"profile":p}))
+                .collect(),
+        )),
+        Action::SelectProfile(name) => {
+            let candidate = profiles
+                .get(&name)
+                .ok_or_else(|| ollama::Error::Protocol("perfil no configurado".into()))?
+                .apply(config)
+                .map_err(ollama::Error::Protocol)?;
+            let candidate_api = Ollama::new(&candidate)?;
+            if let Some(model) = selected {
+                let fresh = candidate_api.select(&model.model.name).await?;
+                if fresh.model.digest != model.model.digest {
+                    return Err(ollama::Error::Protocol(
+                        "el modelo cambió; selección explícita necesaria".into(),
+                    ));
+                }
+            }
+            let used = ollama::reserved_context(messages, &[], None, candidate.num_predict)?;
+            if used > candidate.num_ctx as usize {
+                return Err(ollama::Error::Context {
+                    used,
+                    limit: candidate.num_ctx,
+                });
+            }
+            let mut report =
+                status_report(&candidate_api, tools, selected, owned, &candidate).await;
+            report["name"] = serde_json::json!(name);
+            report["profile"] =
+                serde_json::to_value(profiles.get(&name)).map_err(ollama::Error::Json)?;
+            Ok(JobResult::ProfileSelected(report))
+        }
+        Action::Recovery => Ok(JobResult::Recovery(
+            tools
+                .ok_or_else(|| ollama::Error::Protocol("sesión sin herramientas".into()))?
+                .recovery_view()
+                .map_err(ollama::Error::Protocol)?,
+        )),
+        Action::AcknowledgeRecovery { fingerprint } => Ok(JobResult::RecoveryReviewed(
+            tools
+                .ok_or_else(|| ollama::Error::Protocol("sesión sin herramientas".into()))?
+                .acknowledge_recovery(&fingerprint)
+                .map_err(ollama::Error::Protocol)?,
+        )),
+        Action::Changes => Ok(JobResult::Changes(
+            tools
+                .ok_or_else(|| ollama::Error::Protocol("sesión sin herramientas".into()))?
+                .changes(),
+        )),
+        Action::Undo {
+            path,
+            expected_sha256,
+            backup_path,
+            backup_sha256,
+        } => Ok(JobResult::UndoComplete(
+            tools
+                .ok_or_else(|| ollama::Error::Protocol("sesión sin herramientas".into()))?
+                .undo(&path, &expected_sha256, &backup_path, &backup_sha256)
+                .map_err(ollama::Error::Protocol)?,
+        )),
+        Action::Archive => Ok(JobResult::Archive(
+            tools
+                .ok_or_else(|| ollama::Error::Protocol("sesión sin herramientas".into()))?
+                .archive_offers()
+                .map_err(ollama::Error::Protocol)?,
+        )),
+        Action::ConfirmArchive { fingerprint } => Ok(JobResult::ArchiveComplete(
+            tools
+                .ok_or_else(|| ollama::Error::Protocol("sesión sin herramientas".into()))?
+                .confirm_archive(&fingerprint)
+                .map_err(ollama::Error::Protocol)?,
+        )),
         Action::Discover => {
             tokio::select! {
                 biased;
@@ -465,7 +677,7 @@ async fn execute(action: Action, context: Execution<'_>) -> Result<JobResult, ol
             };
             Ok(JobResult::Engine(engine.task(&prompt).await?))
         }
-        Action::Chat(prompt) => {
+        Action::Ask(prompt) | Action::Chat(prompt) => {
             let model = selected
                 .as_ref()
                 .ok_or_else(|| ollama::Error::Protocol("elige primero un modelo".into()))?;
@@ -481,7 +693,11 @@ async fn execute(action: Action, context: Execution<'_>) -> Result<JobResult, ol
                     cancellation,
                     journal: tools.journal().map_err(ollama::Error::Protocol)?,
                 };
-                return Ok(JobResult::Engine(engine.chat(&prompt, messages).await?));
+                return Ok(JobResult::Engine(if read_only {
+                    engine.ask(&prompt, messages).await?
+                } else {
+                    engine.chat(&prompt, messages).await?
+                }));
             }
             let mut request = messages.to_owned();
             request.push(Message::new("user", &prompt));
@@ -514,24 +730,53 @@ async fn execute(action: Action, context: Execution<'_>) -> Result<JobResult, ol
     }
 }
 
+async fn status_report(
+    api: &Ollama,
+    tools: Option<&Toolset>,
+    selected: &Option<SelectedModel>,
+    owned: &BTreeSet<String>,
+    config: &OllamaConfig,
+) -> serde_json::Value {
+    use serde_json::{Value, json};
+    let (running, error) = match api.running().await.and_then(|value| {
+        parse_running(&value)?;
+        Ok(value)
+    }) {
+        Ok(value) => (value, None),
+        Err(error) => (Value::Null, Some(error.to_string())),
+    };
+    let current = selected.as_ref().and_then(|s| {
+        running["models"]
+            .as_array()?
+            .iter()
+            .find(|m| m["name"] == s.model.name && m["digest"] == s.model.digest)
+    });
+    let retention = tools.map(|t| t.retention_status()).transpose();
+    let (quotas, storage_error) = match retention {
+        Ok(value) => (value, None),
+        Err(error) => (None, Some(error)),
+    };
+    json!({"url":config.url,"model":{"selected":selected.as_ref().map(|m|&m.model.name),"digest":selected.as_ref().map(|m|&m.model.digest),"loaded":if error.is_some(){None}else{Some(current.is_some())},"owned":selected.as_ref().is_some_and(|m|owned.contains(&m.model.name)),"size_vram":current.and_then(|m|m.get("size_vram"))},"context":{"requested":config.num_ctx,"observed":current.and_then(|m|m.get("context_length"))},"num_ctx":config.num_ctx,"num_predict":config.num_predict,"think":config.think,"temperature":config.temperature,"retention":quotas,"connection_error":error,"storage_error":storage_error})
+}
+
 async fn list_models(api: &Ollama) -> Result<JobResult, ollama::Error> {
     let models = api.models().await?;
-    let loaded = match api.running().await {
-        Ok(value) => parse_running(&value)
-            .map(|items| {
-                items
-                    .into_iter()
-                    .map(|model| model.name)
-                    .collect::<BTreeSet<_>>()
-            })
-            .unwrap_or_default(),
-        Err(_) => BTreeSet::new(),
-    };
+    let loaded = api
+        .running()
+        .await
+        .and_then(|value| parse_running(&value))
+        .ok()
+        .map(|items| {
+            items
+                .into_iter()
+                .map(|model| model.name)
+                .collect::<BTreeSet<_>>()
+        });
     Ok(JobResult::Models(
         models
             .into_iter()
             .map(|model| ListedModel {
-                loaded: loaded.contains(&model.name),
+                loaded: loaded.as_ref().map(|names| names.contains(&model.name)),
                 name: model.name,
                 size: model.size,
             })
@@ -558,7 +803,8 @@ fn parse_running(
         let digest = model
             .get("digest")
             .and_then(|item| item.as_str())
-            .unwrap_or("")
+            .filter(|digest| !digest.is_empty())
+            .ok_or_else(|| ollama::Error::Protocol("/api/ps contiene un modelo sin digest".into()))?
             .to_owned();
         running.push(crate::gpu::RunningModel {
             name: name.to_owned(),
@@ -607,54 +853,167 @@ async fn release(
 }
 
 #[derive(serde::Serialize, serde::Deserialize)]
+#[serde(deny_unknown_fields)]
 struct ModelTranscript {
+    #[serde(default = "legacy_transcript_version")]
+    schema_version: u32,
     model: String,
     digest: String,
-    #[serde(default)]
     dropped: usize,
     messages: Vec<Message>,
 }
 
-fn load_model_transcript(tools: &Toolset) -> Option<ModelTranscript> {
-    let bytes = tools.files.read_private("model.json").ok().flatten()?;
-    serde_json::from_slice(&bytes).ok()
+fn legacy_transcript_version() -> u32 {
+    1
 }
 
-fn store_model_transcript(tools: &Toolset, model: &str, digest: &str, messages: &[Message]) {
-    let Some(bytes) = fitted_transcript(model, digest, messages, tools.journal_byte_limit()) else {
-        return;
+fn complete_turns(messages: &[Message]) -> Result<Vec<Vec<Message>>, String> {
+    if messages
+        .first()
+        .is_none_or(|message| message.role != "system")
+    {
+        return Err("historial sin sistema inicial".into());
+    }
+    let mut turns = Vec::new();
+    let mut turn = Vec::new();
+    let mut pending = std::collections::VecDeque::new();
+    for message in &messages[1..] {
+        match message.role.as_str() {
+            "user" => {
+                if !message.tool_calls.is_empty()
+                    || message.tool_name.is_some()
+                    || !message.thinking.is_empty()
+                {
+                    return Err("metadatos de herramienta en petición".into());
+                }
+                if !pending.is_empty() {
+                    return Err("turno con resultados de herramientas pendientes".into());
+                }
+                if !turn.is_empty() {
+                    if turn.last().is_none_or(|message: &Message| {
+                        message.role != "assistant" || !message.tool_calls.is_empty()
+                    }) {
+                        return Err("turno incompleto".into());
+                    }
+                    turns.push(std::mem::take(&mut turn));
+                }
+            }
+            "assistant" => {
+                if message.tool_name.is_some() {
+                    return Err("nombre de herramienta en respuesta assistant".into());
+                }
+                if turn.is_empty() || !pending.is_empty() {
+                    return Err("respuesta sin petición o con resultados pendientes".into());
+                }
+                pending.extend(
+                    message
+                        .tool_calls
+                        .iter()
+                        .map(|call| call.function.name.clone()),
+                );
+            }
+            "tool" => {
+                if !message.tool_calls.is_empty() || !message.thinking.is_empty() {
+                    return Err("metadatos de respuesta en resultado tool".into());
+                }
+                if pending.pop_front().as_deref() != message.tool_name.as_deref()
+                    || message.tool_name.is_none()
+                {
+                    return Err("resultado de herramienta sin llamada correspondiente".into());
+                }
+            }
+            _ => return Err("rol inesperado en historial guardado".into()),
+        }
+        turn.push(message.clone());
+    }
+    if !pending.is_empty()
+        || (!turn.is_empty()
+            && turn.last().is_none_or(|message| {
+                message.role != "assistant" || !message.tool_calls.is_empty()
+            }))
+    {
+        return Err("último turno incompleto".into());
+    }
+    if !turn.is_empty() {
+        turns.push(turn);
+    }
+    Ok(turns)
+}
+
+pub(crate) fn valid_transcript(bytes: &[u8]) -> bool {
+    serde_json::from_slice::<ModelTranscript>(bytes).is_ok_and(|saved| {
+        matches!(saved.schema_version, 1 | 2) && complete_turns(&saved.messages).is_ok()
+    })
+}
+
+fn load_model_transcript(
+    tools: &Toolset,
+    system: &str,
+) -> Result<(Option<ModelTranscript>, Option<String>), String> {
+    let read = tools
+        .files
+        .read_private_checked_with("model.json", valid_transcript)
+        .map_err(|e| e.to_string())?;
+    let Some(bytes) = read.bytes else {
+        return Ok((None, read.warning));
     };
-    let _ = tools.files.write_private("model.json", &bytes);
+    let mut saved: ModelTranscript = serde_json::from_slice(&bytes).map_err(|e| e.to_string())?;
+    if !matches!(saved.schema_version, 1 | 2) {
+        return Err("versión de conversación no admitida".into());
+    }
+    complete_turns(&saved.messages)?;
+    saved.messages[0] = Message::new("system", system);
+    saved.schema_version = 2;
+    Ok((Some(saved), read.warning))
 }
 
-/// Copia para disco. El historial en memoria no se recorta: si no cabe, se omiten
-/// los mensajes antiguos que no son el sistema. None si ni eso cabe.
+fn warn_storage(events: &async_mpsc::Sender<Event>, result: Result<(), String>) {
+    if let Err(error) = result {
+        let _ = events.blocking_send(Event::StorageWarning(format!(
+            "conversación no guardada: {error}"
+        )));
+    }
+}
+
+fn store_model_transcript(
+    tools: &Toolset,
+    model: &str,
+    digest: &str,
+    messages: &[Message],
+) -> Result<(), String> {
+    let bytes = fitted_transcript(model, digest, messages, tools.journal_byte_limit())?;
+    tools
+        .files
+        .write_private("model.json", &bytes)
+        .map_err(|e| e.to_string())
+}
+
+/// La copia persistida conserva turnos completos y no modifica el historial activo.
 fn fitted_transcript(
     model: &str,
     digest: &str,
     messages: &[Message],
     limit: usize,
-) -> Option<Vec<u8>> {
-    let mut kept = messages.to_vec();
-    let mut dropped = 0usize;
-    loop {
+) -> Result<Vec<u8>, String> {
+    let turns = complete_turns(messages)?;
+    let system = messages[0].clone();
+    for first in 0..=turns.len() {
+        let mut kept = vec![system.clone()];
+        kept.extend(turns[first..].iter().flatten().cloned());
+        let dropped = turns[..first].iter().map(Vec::len).sum();
         let body = ModelTranscript {
-            model: model.to_owned(),
-            digest: digest.to_owned(),
+            schema_version: 2,
+            model: model.into(),
+            digest: digest.into(),
             dropped,
-            messages: kept.clone(),
+            messages: kept,
         };
-        let bytes = serde_json::to_vec(&body).ok()?;
+        let bytes = serde_json::to_vec(&body).map_err(|e| e.to_string())?;
         if bytes.len() <= limit {
-            return Some(bytes);
+            return Ok(bytes);
         }
-        if kept.len() <= 1 {
-            return None;
-        }
-        let index = usize::from(kept[0].role == "system");
-        kept.remove(index);
-        dropped += 1;
     }
+    Err("ni el sistema cabe en el límite de persistencia".into())
 }
 
 #[cfg(test)]
@@ -688,6 +1047,76 @@ mod tests {
                 .iter()
                 .any(|message| message.role == "assistant")
         );
-        assert!(fitted_transcript("modelo", "digest", &messages, 8).is_none());
+        assert!(fitted_transcript("modelo", "digest", &messages, 8).is_err());
+    }
+    #[test]
+    fn persisted_turns_never_leave_tool_results_without_their_calls() {
+        use crate::providers::ollama::{ToolCall, ToolFunction};
+        let mut assistant = Message::new("assistant", "");
+        assistant.tool_calls = vec![ToolCall {
+            function: ToolFunction {
+                name: "read_file".into(),
+                arguments: serde_json::json!({"path":"a"}),
+            },
+        }];
+        let mut result = Message::new("tool", "{\"status\":\"verified\"}");
+        result.tool_name = Some("read_file".into());
+        let messages = vec![
+            Message::new("system", "sistema"),
+            Message::new("user", "x".repeat(1500)),
+            assistant,
+            result,
+            Message::new("assistant", "leído"),
+            Message::new("user", "pregunta corta"),
+            Message::new("assistant", "respuesta corta"),
+        ];
+        let bytes = fitted_transcript("m", "d", &messages, 700).unwrap();
+        let saved: ModelTranscript = serde_json::from_slice(&bytes).unwrap();
+        assert_eq!(saved.schema_version, 2);
+        assert_eq!(saved.messages.len(), 3);
+        assert_eq!(saved.messages[1].content, "pregunta corta");
+        assert_eq!(saved.dropped, 4);
+        assert!(complete_turns(&saved.messages).is_ok());
+        let mut orphan = messages.clone();
+        orphan.remove(2);
+        assert!(fitted_transcript("m", "d", &orphan, 10_000).is_err());
+    }
+
+    #[test]
+    fn semantic_history_corruption_recovers_backup_and_replaces_saved_system() {
+        let temp = tempfile::tempdir().unwrap();
+        let root = temp.path().join("project");
+        std::fs::create_dir(&root).unwrap();
+        let config: Config =
+            serde_json::from_str(include_str!("../../config/defaults.json")).unwrap();
+        let tools = Toolset::new(
+            &root,
+            &config,
+            None,
+            &temp.path().join("private/trust.json"),
+        )
+        .unwrap();
+        let messages = vec![
+            Message::new("system", "sistema antiguo"),
+            Message::new("user", "hola"),
+            Message::new("assistant", "respuesta"),
+        ];
+        store_model_transcript(&tools, "m", "d", &messages).unwrap();
+        tools.files.write_private("model.json",br#"{"schema_version":2,"model":"m","digest":"d","dropped":0,"messages":[{"role":"system","content":"viejo"},{"role":"tool","content":"orphan","tool_name":"read_file"}]}"#).unwrap();
+        let (saved, warning) = load_model_transcript(&tools, "sistema vigente").unwrap();
+        let saved = saved.unwrap();
+        assert!(warning.is_some());
+        assert_eq!(saved.messages[0].content, "sistema vigente");
+        assert_eq!(saved.messages[1].content, "hola");
+        assert_eq!(saved.schema_version, 2);
+    }
+
+    #[test]
+    fn storage_warning_is_an_explicit_nonterminal_event() {
+        let (tx, mut rx) = async_mpsc::channel(2);
+        warn_storage(&tx, Err("disco lleno".into()));
+        assert!(
+            matches!(rx.try_recv().unwrap(),Event::StorageWarning(text) if text.contains("disco lleno"))
+        );
     }
 }

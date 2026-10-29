@@ -1,0 +1,40 @@
+{
+  "fecha_utc": "2026-10-27T20:58:28.571341+00:00",
+  "technical_cut": "PASS",
+  "E5": "CERRADA_EN_ALCANCE_VERIFICADO",
+  "E6": "PENDIENTE",
+  "binary_sha256": "900f33be9fa88ba6445c2d66d7c117299f8cf11c37c6977b0cec188c968675f1",
+  "sources_verified": 35,
+  "local_tests": 119,
+  "opt_in_tests_executed": 7,
+  "consoles": [
+    "basica-r3",
+    "funciones-r3",
+    "ollama-r4",
+    "cinco-roles"
+  ],
+  "independent_reports": {
+    "tester": "2026-10-27-tester.md",
+    "reviewer": "2026-10-27-review.md",
+    "audit": "2026-10-27-tester-auditoria.json"
+  },
+  "evidence": {
+    "checks": "2026-10-27-checks-cuarto.json",
+    "live": "2026-10-27-live-summary.json",
+    "gpu": "2026-10-27-gpu-real.json",
+    "licenses": "2026-10-27-licencias.json",
+    "parallel_reads": "2026-10-27-lecturas-paralelas.json"
+  },
+  "user_decisions_pending": [
+    "P04: modelo principal (actual null)",
+    "P07: autorización expresa del instalador persistente",
+    "P08: política adicional de confirmación ante pegado"
+  ],
+  "limits": [
+    "No atomicidad global de lotes ni papelera",
+    "No garantía de representación/ancho de todos los glifos",
+    "Procesos externos no están aislados; control de invocaciones",
+    "La reconciliación no repite ni deshace efectos desconocidos"
+  ],
+  "install": "Release copiado mediante instalador -SkipBuild -SessionOnly; no Registro, commits, push ni instalaciones nuevas"
+}

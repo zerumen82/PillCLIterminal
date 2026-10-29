@@ -22,7 +22,16 @@ def resource_window(host_pid):
             'scope': 'Procesos CLI/host y Ollama separados; GPU global compartida; CPU acumulada en segundos por PID.'}
 
 
-def run(model):
+def active_capture(draft=None):
+    captured = console.screen()
+    active = any(line.startswith(('Generando ·', 'Trabajando ·', 'razonando ·'))
+                 for line in captured.splitlines())
+    if active and (draft is None or ('> ' + draft) in captured.splitlines()):
+        return captured
+    return False
+
+
+def run(model, evidence):
     captures = {}
     resources = {}
     with tempfile.TemporaryDirectory(prefix='pill-e2-') as directory:
@@ -45,7 +54,7 @@ def run(model):
             captures['seleccion_inicial'] = console.screen()
             choices = [line.strip() for line in captures['seleccion_inicial'].splitlines() if model in line]
             assert choices, (model, captures['seleccion_inicial'])
-            index = choices[0].split(' · ')[0]
+            index = choices[0].split(' · ')[0].lstrip('> ').strip()
             console.press(index)
             console.press(vk=0x0D, control=0x0008)
             console.wait_for(lambda: 'Nueva conversación' in console.screen(), 'modelo seleccionado', seconds=15)
@@ -56,45 +65,51 @@ def run(model):
             console.press('CAPSULA')
             time.sleep(0.15)
             assert 'Generando' not in console.screen(), 'Enter no debe enviar'
+            assert not list((project / '.pillcli/sessions').glob('*.jsonl')), 'Enter no debe iniciar una operación'
             captures['pegado_sin_envio'] = console.screen()
             console.press(vk=0x0D, control=0x0008)
             console.wait_for(lambda: 'Respuesta completa' in console.screen(), 'respuesta Ollama', seconds=200)
             captures['respuesta_real'] = console.screen()
-            assert 'CAPSULA' in captures['respuesta_real']
+            confirmed = json.loads((project / '.pillcli/model.json').read_text(encoding='utf-8'))
+            assert any(message.get('role') == 'assistant' and 'CAPSULA' in message.get('content', '')
+                       for message in confirmed['messages']), 'Debe responder el modelo; el eco de la petición no basta'
             # La petición de una sola palabra no debe sesgar la prueba de generación larga.
             console.press('/model')
             console.press(vk=0x0D)
             console.wait_for(lambda: 'Selección explícita de modelo' in console.screen(), 'nueva selección explícita')
             console.press(index)
             console.press(vk=0x0D, control=0x0008)
-            console.wait_for(lambda: 'Preparado · herramientas pendientes' in console.screen(), 'nueva conversación preparada')
+            console.wait_for(lambda: 'Preparado · Editar' in console.screen(), 'nueva conversación preparada')
             captures['nueva_conversacion'] = console.screen()
             console.press('Enumera del uno al mil con explicaciones detalladas.')
             console.press(vk=0x0D, control=0x0008)
-            console.wait_for(lambda: 'Generando' in console.screen(), 'generación activa')
+            captures['generacion_activa'] = console.wait_for(active_capture, 'generación activa')
             console.press('áXYZz')
-            console.wait_for(lambda: '> áXYZz' in console.screen() and 'Generando' in console.screen(), 'entrada durante inferencia')
-            captures['entrada_durante_inferencia'] = console.screen()
-            resources['generacion_activa'] = {'processes': measurements.process_sample(host.pid)}
+            captures['entrada_durante_inferencia'] = console.wait_for(lambda: active_capture('áXYZz'), 'entrada durante inferencia')
             old_size = console.dimensions()
             console.check(console.U.SetWindowPos(console.K.GetConsoleWindow(), None, 0, 0, 720, 440, 0x0016))
-            console.wait_for(lambda: console.dimensions()[0] < old_size[0] and '> áXYZz' in console.screen() and 'Generando' in console.screen(), 'redimensionado durante inferencia')
-            captures['entrada_resize_durante_inferencia'] = console.screen()
+            captures['entrada_resize_durante_inferencia'] = console.wait_for(
+                lambda: active_capture('áXYZz') if console.dimensions()[0] < old_size[0] else False,
+                'redimensionado durante inferencia')
+            resources['generacion_activa'] = {'processes': measurements.process_sample(host.pid)}
             console.press(vk=0x1B)
-            console.wait_for(lambda: 'Operación cancelada' in console.screen(), 'cancelación real')
+            console.wait_for(lambda: 'Cancelado ·' in console.screen(), 'cancelación real')
             captures['cancelacion'] = console.screen()
+            cancelled_transcript = json.loads((project / '.pillcli/model.json').read_text(encoding='utf-8'))
+            assert not any(message.get('role') == 'user' for message in cancelled_transcript['messages']), 'Una petición cancelada no pasa al historial confirmado'
             console.press('\x03')
             console.wait_for(lambda: (folder / 'result').exists(), 'restauración y salida')
             assert int((folder / 'result').read_text(encoding='utf-8-sig').strip()) == 0
             after = console.state()
             assert before == after
             return {'resultado': 'PASS', 'estado_antes': before, 'estado_despues': after, 'capturas': captures,
-                    'recursos': resources,
+                    'recursos': resources, 'historial_confirmado_respuesta': confirmed,
+                    'historial_confirmado_tras_cancelacion': cancelled_transcript,
                     'resize': {'antes': old_size, 'despues': console.dimensions()}}
         except Exception as error:
             failure = {'error': repr(error), 'captures': captures, 'resources': resources,
                        'screen': console.screen(), 'state': console.state(), 'dimensions': console.dimensions()}
-            (console.ROOT / 'evidencias/2026-10-20-e2-consola-fallo.json').write_text(
+            evidence.with_name(evidence.stem + '-fallo.json').write_text(
                 json.dumps(failure, ensure_ascii=True, indent=2), encoding='utf-8')
             raise
         finally:
@@ -112,10 +127,12 @@ def run(model):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--model', required=True)
+    parser.add_argument('--evidence', type=Path, required=True)
     args = parser.parse_args()
-    report = run(args.model)
+    args.evidence.parent.mkdir(parents=True, exist_ok=True)
+    report = run(args.model, args.evidence)
     report.update({'fecha_utc': datetime.now(timezone.utc).isoformat(), 'modelo_elegido_prueba': args.model,
                    'sha256_binario': hashlib.sha256((console.ROOT / 'bin/pill.exe').read_bytes()).hexdigest(),
                    'alcance': 'Consola Windows y Ollama reales; no herramientas, agentes ni liberación'})
-    (console.ROOT / 'evidencias/2026-10-20-e2-consola.json').write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding='utf-8')
+    args.evidence.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding='utf-8')
     print('PASS: elección, digest, pegado sin envío, Ctrl+Enter, chat, entrada/resize durante inferencia, Esc y restauración.')

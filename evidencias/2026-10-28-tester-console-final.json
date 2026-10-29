@@ -1,0 +1,70 @@
+{
+  "fecha_utc": "2026-10-28T16:17:02.758417+00:00",
+  "tipo": "Regresión E1 sobre implementación actual; consola Windows real; sin inferencia",
+  "binario": "D:\\PROJECTS\\PILLCLITER\\target\\release\\pill.exe",
+  "sha256_binario": "96968d21f9c1a7603187d78544496bd484f17c1e4190bb25a3876496a42bfa16",
+  "sesiones": [
+    {
+      "salida": "/exit con flecha y Enter",
+      "codigo": 0,
+      "estado_antes": {
+        "input_mode": 503,
+        "output_mode": 3,
+        "cursor_size": 25,
+        "cursor_visible": 1,
+        "attributes": 7
+      },
+      "estado_despues": {
+        "input_mode": 503,
+        "output_mode": 3,
+        "cursor_size": 25,
+        "cursor_visible": 1,
+        "attributes": 7
+      },
+      "redimensionado": {
+        "antes": [
+          120,
+          30
+        ],
+        "despues": [
+          73,
+          21
+        ]
+      },
+      "capturas": {
+        "inicio": " .-----+-----.\n(##### |     )  pill\n '-----+-----'\nProyecto: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e1-d9s22wca\\Mi código\nConfiguración: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e1-d9s22wca\\Mi código\\.pillcli\\config.json\nModelo: sin seleccionar\nConectando con Ollama… · 0 s\nModo: Editar\nReserva: —/4096\nMemoria de esta sesión: ninguna · exclusividad no concedida\nEscribe / para abrir el menú. /help muestra la ayuda.\n>\n/ comandos · Ctrl+Enter enviar · Enter línea · Esc cancelar · Ctrl+Y copiar",
+        "barra_sin_enter": " .-----+-----.\n(##### |     )  pill\n '-----+-----'\nProyecto: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e1-d9s22wca\\Mi código\nConfiguración: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e1-d9s22wca\\Mi código\\.pillcli\\config.json\nModelo: sin seleccionar\nNo se descargó ningún modelo · 0 s\nModo: Editar\nReserva: —/4096\nMemoria de esta sesión: ninguna · exclusividad no concedida\n> /\n> /help  Mostrar la ayuda de consola\n  /exit  Volver a tu consola\n  /model  Elegir modelo e iniciar otra conversación\n  /permissions  Ver y conceder comandos, MCP y exclusividad\n  /task  Activar tarea con agentes y pruebas reales\n  /chat  Volver al chat con herramientas\n  /journal  Ver las últimas líneas del diario local\n  /liberate  Liberar modelos de esta sesión si hay exclusividad concedida\n  /status  Ver modelo, configuración, recursos y cuotas\n  /ask  Preguntar con herramientas de solo lectura\n  /edit  Editar con herramientas y permisos vigentes\n  /changes  Inspeccionar cambios y resultados observados\n  /recover  Revisar operaciones pendientes con evidencia\n  /undo  Restaurar un respaldo con versión comprobada\n  /profile  Elegir perfil de contexto y generación\n  /archive  Archivar evidencia revisada con confirmación\n  /copy  Copiar la última respuesta o el detalle visible\n/ comandos · Flechas elegir · Enter ejecutar · Esc cerrar",
+        "filtro": " .-----+-----.\n(##### |     )  pill\n '-----+-----'\nProyecto: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e1-d9s22wca\\Mi código\nConfiguración: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e1-d9s22wca\\Mi código\\.pillcli\\config.json\nModelo: sin seleccionar\nNo se descargó ningún modelo · 0 s\nModo: Editar\nReserva: —/4096\nMemoria de esta sesión: ninguna · exclusividad no concedida\nEscribe / para abrir el menú. /help muestra la ayuda.\n[sistema] servidor compartido o exclusividad no concedida; /api/ps no identifica al cliente y no se descarga nada\nmedición NVIDIA no disponible\nReconciliación local: 0 aplicadas, 0 pendientes, 0 desconocidas. No se repitieron operaciones.\n> /e\n> /exit  Volver a tu consola\n  /edit  Editar con herramientas y permisos vigentes\n/ comandos · Flechas elegir · Enter ejecutar · Esc cerrar",
+        "escape": " .-----+-----.\n(##### |     )  pill\n '-----+-----'\nProyecto: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e1-d9s22wca\\Mi código\nConfiguración: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e1-d9s22wca\\Mi código\\.pillcli\\config.json\nModelo: sin seleccionar\nNo se descargó ningún modelo · 0 s\nModo: Editar\nReserva: —/4096\nMemoria de esta sesión: ninguna · exclusividad no concedida\nEscribe / para abrir el menú. /help muestra la ayuda.\n[sistema] servidor compartido o exclusividad no concedida; /api/ps no identifica al cliente y no se descarga nada\nmedición NVIDIA no disponible\nReconciliación local: 0 aplicadas, 0 pendientes, 0 desconocidas. No se repitieron operaciones.\n> /e\n/ comandos · Ctrl+Enter enviar · Enter línea · Esc cancelar · Ctrl+Y copiar",
+        "ayuda": " .-----+-----.\n(##### |     )  pill\n '-----+-----'\nProyecto: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e1-d9s22wca\\Mi código\nConfiguración: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e1-d9s22wca\\Mi código\\.pillcli\\config.json\nModelo: sin seleccionar\nCancelado · puedes volver a intentarlo\nModo: Editar\nReserva: 1050/4096\nMemoria de esta sesión: ninguna · exclusividad no concedida\n/liberate · Liberar solo modelos que esta sesión seleccionó, y solo con exclusividad concedida\nEl chat usa herramientas reales del proyecto. /permissions muestra comandos, servidores MCP y exclusividad; cada conces\nión es independiente. /task activa agentes y pruebas. /chat vuelve al chat.\nEn /permissions, Enter muestra el detalle y Ctrl+Enter concede o retira. PgUp y PgDn mueven una pantalla cuando hay tex\nto por encima.\nFlechas marcan la fila de modelos o permisos. En el borrador, Inicio y Fin quedan en la línea y Ctrl+flechas saltan pal\nabras.\nCtrl+R abre y cierra el razonamiento de la última respuesta. /journal muestra el diario local sin crear uno nuevo.\n/liberate pide Ctrl+Enter para confirmar si esta sesión tiene modelos y la exclusividad está concedida. Esc cancela.\n/ask consulta de solo lectura; /edit permite herramientas de edicion; /chat es alias de /edit.\n/status muestra seleccion, memoria y limites; /profile ofrece perfiles sin cambiar modelo.\n/recover inspecciona efectos y permite reconocer evidencia con Ctrl+Enter tras verla; /changes muestra cambios verifica\ndos.\n/undo restaura respaldo solo si coincide SHA actual; /archive conserva evidencia moviendola tras confirmar huella.\n/copy o Ctrl+Y copia la ultima respuesta completa al portapapeles.\nPgUp/PgDn desplazan respuestas; flechas sin menú ni lista recuperan peticiones anteriores.\n>\n↑ hay texto por encima\n/ comandos · Ctrl+Enter enviar · Enter línea · Esc cancelar · Ctrl+Y copiar",
+        "unicode": " .-----+-----.\n(##### |     )  pill\n '-----+-----'\nProyecto: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e1-d9s22wca\\Mi código\nConfiguración: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e1-d9s22wca\\Mi código\\.pillcli\\config.json\nModelo: sin seleccionar\nCancelado · puedes volver a intentarlo\nModo: Editar\nReserva: 1050/4096\nMemoria de esta sesión: ninguna · exclusividad no concedida\n/liberate · Liberar solo modelos que esta sesión seleccionó, y solo con exclusividad concedida\nEl chat usa herramientas reales del proyecto. /permissions muestra comandos, servidores MCP y exclusividad; cada conces\nión es independiente. /task activa agentes y pruebas. /chat vuelve al chat.\nEn /permissions, Enter muestra el detalle y Ctrl+Enter concede o retira. PgUp y PgDn mueven una pantalla cuando hay tex\nto por encima.\nFlechas marcan la fila de modelos o permisos. En el borrador, Inicio y Fin quedan en la línea y Ctrl+flechas saltan pal\nabras.\nCtrl+R abre y cierra el razonamiento de la última respuesta. /journal muestra el diario local sin crear uno nuevo.\n/liberate pide Ctrl+Enter para confirmar si esta sesión tiene modelos y la exclusividad está concedida. Esc cancela.\n/ask consulta de solo lectura; /edit permite herramientas de edicion; /chat es alias de /edit.\n/status muestra seleccion, memoria y limites; /profile ofrece perfiles sin cambiar modelo.\n/recover inspecciona efectos y permite reconocer evidencia con Ctrl+Enter tras verla; /changes muestra cambios verifica\ndos.\n/undo restaura respaldo solo si coincide SHA actual; /archive conserva evidencia moviendola tras confirmar huella.\n/copy o Ctrl+Y copia la ultima respuesta completa al portapapeles.\nPgUp/PgDn desplazan respuestas; flechas sin menú ni lista recuperan peticiones anteriores.\n> áz\n↑ hay texto por encima\n/ comandos · Ctrl+Enter enviar · Enter línea · Esc cancelar · Ctrl+Y copiar",
+        "redimensionado": " .-----+-----.\n(##### |     )  pill\n '-----+-----'\nProyecto: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e1-d9s22wca\\Mi\nConfiguración: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e1-d9s22wc\nModelo: sin seleccionar\nCancelado · puedes volver a intentarlo\nModo: Editar\nReserva: 1050/4096\nMemoria de esta sesión: ninguna · exclusividad no concedida\n/recover inspecciona efectos y permite reconocer evidencia con Ctrl+Ente\nr tras verla; /changes muestra cambios verificados.\n/undo restaura respaldo solo si coincide SHA actual; /archive conserva e\nvidencia moviendola tras confirmar huella.\n/copy o Ctrl+Y copia la ultima respuesta completa al portapapeles.\nPgUp/PgDn desplazan respuestas; flechas sin menú ni lista recuperan peti\nciones anteriores.\n> áz\n↑ hay texto por encima\n/ comandos · Ctrl+Enter enviar · Enter línea · Esc cancelar · Ctrl+Y cop"
+      },
+      "resultado": "PASS"
+    },
+    {
+      "salida": "Ctrl+C",
+      "codigo": 0,
+      "estado_antes": {
+        "input_mode": 503,
+        "output_mode": 3,
+        "cursor_size": 25,
+        "cursor_visible": 1,
+        "attributes": 7
+      },
+      "estado_despues": {
+        "input_mode": 503,
+        "output_mode": 3,
+        "cursor_size": 25,
+        "cursor_visible": 1,
+        "attributes": 7
+      },
+      "redimensionado": null,
+      "capturas": {
+        "inicio": "╭─────┬─────╮\n│█████│     │  pill\n╰─────┴─────╯\nProyecto: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e1-1bf4pei9\\Mi código\nConfiguración: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e1-1bf4pei9\\Mi código\\.pillcli\\config.json\nModelo: sin seleccionar\nConectando con Ollama… · 0 s\nModo: Editar\nReserva: —/4096\nMemoria de esta sesión: ninguna · exclusividad no concedida\nEscribe / para abrir el menú. /help muestra la ayuda.\n>\n/ comandos · Ctrl+Enter enviar · Enter línea · Esc cancelar · Ctrl+Y copiar"
+      },
+      "resultado": "PASS"
+    }
+  ],
+  "resultado": "PASS"
+}

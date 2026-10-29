@@ -1,0 +1,18 @@
+{
+  "fecha_utc": "2026-10-28T16:28:58.7208794+00:00",
+  "role": "tester independiente",
+  "result": "PASS",
+  "checks": {
+    "source_real_final_hash": true,
+    "actual_cargo_source_has_two_links": true,
+    "source_handle_readonly": true,
+    "writer_through_actual_deps_alias_blocked_while_pinned": true,
+    "writer_alias_opens_when_pin_released": true,
+    "strict_open_still_rejects_real_hardlink_without_competing_pin": true,
+    "source_bytes_unchanged": true,
+    "user_path_preserved": true,
+    "machine_path_preserved": true
+  },
+  "source_sha256": "96968d21f9c1a7603187d78544496bd484f17c1e4190bb25a3876496a42bfa16",
+  "scope": "Lectura del artefacto real de Cargo y bloqueo de apertura escritora por su alias real; nunca se escribe ni borra contenido/alias. Abrir acceso de escritura sin pin se cierra sin escribir. User/Machine PATH solo se leen."
+}

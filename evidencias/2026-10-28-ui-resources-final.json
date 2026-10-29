@@ -1,0 +1,293 @@
+{
+  "fecha_utc": "2026-10-28T16:20:21.801606+00:00",
+  "result": "PASS",
+  "scope": "Una muestra por binario con 80 entradas de3caracteres y marca final. Solo metadatos Ollama; borrador nunca enviado. Procesos independientes; no demuestra ahorro universal ni calidad de inferencia.",
+  "before": {
+    "sha256": "900f33be9fa88ba6445c2d66d7c117299f8cf11c37c6977b0cec188c968675f1",
+    "elapsed_seconds": 1.827999999979511,
+    "events_text_chars": 248,
+    "cli": [
+      {
+        "pid": 19884,
+        "parent_pid": 23996,
+        "name": "pill.exe",
+        "group": "prueba_cli",
+        "working_set_bytes": 7737344,
+        "private_bytes": 1359872,
+        "peak_working_set_bytes": 7737344,
+        "cpu_seconds": 0.03125,
+        "cpu_delta_seconds": 0.015625
+      }
+    ],
+    "before": [
+      {
+        "pid": 27008,
+        "parent_pid": 16356,
+        "name": "ollama app.exe",
+        "group": "ollama",
+        "working_set_bytes": 48857088,
+        "private_bytes": 55005184,
+        "peak_working_set_bytes": 84803584,
+        "cpu_seconds": 1.3125
+      },
+      {
+        "pid": 21416,
+        "parent_pid": 27008,
+        "name": "ollama.exe",
+        "group": "ollama",
+        "working_set_bytes": 62574592,
+        "private_bytes": 77398016,
+        "peak_working_set_bytes": 66752512,
+        "cpu_seconds": 387.203125
+      },
+      {
+        "pid": 19824,
+        "parent_pid": 21416,
+        "name": "conhost.exe",
+        "group": "ollama",
+        "working_set_bytes": 10076160,
+        "private_bytes": 1654784,
+        "peak_working_set_bytes": 10788864,
+        "cpu_seconds": 0.0625
+      },
+      {
+        "pid": 23996,
+        "parent_pid": 7520,
+        "name": "pwsh.exe",
+        "group": "prueba_cli",
+        "working_set_bytes": 90095616,
+        "private_bytes": 29810688,
+        "peak_working_set_bytes": 90107904,
+        "cpu_seconds": 0.5
+      },
+      {
+        "pid": 4588,
+        "parent_pid": 23996,
+        "name": "conhost.exe",
+        "group": "prueba_cli",
+        "working_set_bytes": 10792960,
+        "private_bytes": 1904640,
+        "peak_working_set_bytes": 10792960,
+        "cpu_seconds": 0.03125
+      },
+      {
+        "pid": 19884,
+        "parent_pid": 23996,
+        "name": "pill.exe",
+        "group": "prueba_cli",
+        "working_set_bytes": 7729152,
+        "private_bytes": 1359872,
+        "peak_working_set_bytes": 7729152,
+        "cpu_seconds": 0.015625
+      }
+    ],
+    "after": [
+      {
+        "pid": 27008,
+        "parent_pid": 16356,
+        "name": "ollama app.exe",
+        "group": "ollama",
+        "working_set_bytes": 48857088,
+        "private_bytes": 55005184,
+        "peak_working_set_bytes": 84803584,
+        "cpu_seconds": 1.3125
+      },
+      {
+        "pid": 21416,
+        "parent_pid": 27008,
+        "name": "ollama.exe",
+        "group": "ollama",
+        "working_set_bytes": 62582784,
+        "private_bytes": 77406208,
+        "peak_working_set_bytes": 66752512,
+        "cpu_seconds": 387.203125
+      },
+      {
+        "pid": 19824,
+        "parent_pid": 21416,
+        "name": "conhost.exe",
+        "group": "ollama",
+        "working_set_bytes": 10076160,
+        "private_bytes": 1654784,
+        "peak_working_set_bytes": 10788864,
+        "cpu_seconds": 0.0625
+      },
+      {
+        "pid": 23996,
+        "parent_pid": 7520,
+        "name": "pwsh.exe",
+        "group": "prueba_cli",
+        "working_set_bytes": 90112000,
+        "private_bytes": 29810688,
+        "peak_working_set_bytes": 90112000,
+        "cpu_seconds": 0.5
+      },
+      {
+        "pid": 4588,
+        "parent_pid": 23996,
+        "name": "conhost.exe",
+        "group": "prueba_cli",
+        "working_set_bytes": 10797056,
+        "private_bytes": 1904640,
+        "peak_working_set_bytes": 10797056,
+        "cpu_seconds": 0.09375
+      },
+      {
+        "pid": 19884,
+        "parent_pid": 23996,
+        "name": "pill.exe",
+        "group": "prueba_cli",
+        "working_set_bytes": 7737344,
+        "private_bytes": 1359872,
+        "peak_working_set_bytes": 7737344,
+        "cpu_seconds": 0.03125
+      }
+    ],
+    "screen": "╭─────┬─────╮\n│█████│     │  pill\n╰─────┴─────╯\nProyecto: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-ui-resource-oze3vg3z\\project\nConfiguración: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-ui-resource-oze3vg3z\\project\\.pillcli\\config.json\nModelo: huihui_ai/qwen3-abliterated:4b-v2\nDigest: 9d803f2de4330c06c844b9d00c1418c07cb7a87fe67b7e32294323b777487cde\nPreparado · Chat\nModo: Chat\nReserva: 2586/16384\nMemoria de esta sesión: huihui_ai/qwen3-abliterated:4b-v2 · exclusividad no concedida\nEscribe / para abrir el menú. /help muestra la ayuda.\n[sistema] servidor compartido o exclusividad no concedida; /api/ps no identifica al cliente y no se descarga nada\nmedición NVIDIA no disponible\nReconciliación local: 0 aplicadas, 0 pendientes, 0 desconocidas. No se repitieron operaciones.\nCapacidades: completion, tools, thinking · contexto máximo anunciado: 40960\nNueva conversación. Ctrl+Enter envía; Enter añade línea. Esc cancela.\n> cabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcTEST_FIN\n/ comandos · Ctrl+Enter enviar · Enter línea · Esc cancelar · Ctrl+C salir",
+    "console_restored": true
+  },
+  "after": {
+    "sha256": "96968d21f9c1a7603187d78544496bd484f17c1e4190bb25a3876496a42bfa16",
+    "elapsed_seconds": 1.8280000000959262,
+    "events_text_chars": 248,
+    "cli": [
+      {
+        "pid": 21716,
+        "parent_pid": 23312,
+        "name": "pill.exe",
+        "group": "prueba_cli",
+        "working_set_bytes": 9302016,
+        "private_bytes": 1851392,
+        "peak_working_set_bytes": 9302016,
+        "cpu_seconds": 0.03125,
+        "cpu_delta_seconds": 0.03125
+      }
+    ],
+    "before": [
+      {
+        "pid": 27008,
+        "parent_pid": 16356,
+        "name": "ollama app.exe",
+        "group": "ollama",
+        "working_set_bytes": 48857088,
+        "private_bytes": 55005184,
+        "peak_working_set_bytes": 84803584,
+        "cpu_seconds": 1.3125
+      },
+      {
+        "pid": 21416,
+        "parent_pid": 27008,
+        "name": "ollama.exe",
+        "group": "ollama",
+        "working_set_bytes": 62275584,
+        "private_bytes": 76996608,
+        "peak_working_set_bytes": 66752512,
+        "cpu_seconds": 387.265625
+      },
+      {
+        "pid": 19824,
+        "parent_pid": 21416,
+        "name": "conhost.exe",
+        "group": "ollama",
+        "working_set_bytes": 10076160,
+        "private_bytes": 1654784,
+        "peak_working_set_bytes": 10788864,
+        "cpu_seconds": 0.0625
+      },
+      {
+        "pid": 23312,
+        "parent_pid": 7520,
+        "name": "pwsh.exe",
+        "group": "prueba_cli",
+        "working_set_bytes": 88768512,
+        "private_bytes": 29478912,
+        "peak_working_set_bytes": 88768512,
+        "cpu_seconds": 0.484375
+      },
+      {
+        "pid": 12704,
+        "parent_pid": 23312,
+        "name": "conhost.exe",
+        "group": "prueba_cli",
+        "working_set_bytes": 10768384,
+        "private_bytes": 1916928,
+        "peak_working_set_bytes": 10768384,
+        "cpu_seconds": 0.03125
+      },
+      {
+        "pid": 21716,
+        "parent_pid": 23312,
+        "name": "pill.exe",
+        "group": "prueba_cli",
+        "working_set_bytes": 9244672,
+        "private_bytes": 1835008,
+        "peak_working_set_bytes": 9244672,
+        "cpu_seconds": 0.0
+      }
+    ],
+    "after": [
+      {
+        "pid": 27008,
+        "parent_pid": 16356,
+        "name": "ollama app.exe",
+        "group": "ollama",
+        "working_set_bytes": 48857088,
+        "private_bytes": 55005184,
+        "peak_working_set_bytes": 84803584,
+        "cpu_seconds": 1.3125
+      },
+      {
+        "pid": 21416,
+        "parent_pid": 27008,
+        "name": "ollama.exe",
+        "group": "ollama",
+        "working_set_bytes": 62275584,
+        "private_bytes": 76996608,
+        "peak_working_set_bytes": 66752512,
+        "cpu_seconds": 387.265625
+      },
+      {
+        "pid": 19824,
+        "parent_pid": 21416,
+        "name": "conhost.exe",
+        "group": "ollama",
+        "working_set_bytes": 10076160,
+        "private_bytes": 1654784,
+        "peak_working_set_bytes": 10788864,
+        "cpu_seconds": 0.0625
+      },
+      {
+        "pid": 23312,
+        "parent_pid": 7520,
+        "name": "pwsh.exe",
+        "group": "prueba_cli",
+        "working_set_bytes": 89649152,
+        "private_bytes": 29491200,
+        "peak_working_set_bytes": 89649152,
+        "cpu_seconds": 0.484375
+      },
+      {
+        "pid": 12704,
+        "parent_pid": 23312,
+        "name": "conhost.exe",
+        "group": "prueba_cli",
+        "working_set_bytes": 10772480,
+        "private_bytes": 1916928,
+        "peak_working_set_bytes": 10772480,
+        "cpu_seconds": 0.0625
+      },
+      {
+        "pid": 21716,
+        "parent_pid": 23312,
+        "name": "pill.exe",
+        "group": "prueba_cli",
+        "working_set_bytes": 9302016,
+        "private_bytes": 1851392,
+        "peak_working_set_bytes": 9302016,
+        "cpu_seconds": 0.03125
+      }
+    ],
+    "screen": "(███│   )  pill · project\nEditar · huihui_ai/qwen3-abliterated:4b-v2 · Reserva: 2586/16384\nPreparado · Editar\nEscribe / para abrir el menú. /help muestra la ayuda.\n[sistema] servidor compartido o exclusividad no concedida; /api/ps no identifica al cliente y no se descarga nada\nmedición NVIDIA no disponible\nReconciliación local: 0 aplicadas, 0 pendientes, 0 desconocidas. No se repitieron operaciones.\nCapacidades: completion, tools, thinking · contexto máximo anunciado: 40960\nNueva conversación. Ctrl+Enter envía; Enter añade línea. Esc cancela.\n> cabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcTEST_FIN\n/ comandos · Ctrl+Enter enviar · Enter línea · Esc cancelar · Ctrl+Y copiar",
+    "console_restored": true
+  }
+}

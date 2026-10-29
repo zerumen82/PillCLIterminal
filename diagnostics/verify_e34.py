@@ -1,5 +1,6 @@
 """Controles locales reproducibles; guarda evidencia sin instalar dependencias."""
 import hashlib
+import argparse
 import json
 import pathlib
 import subprocess
@@ -8,7 +9,6 @@ import time
 
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
-REPORT = ROOT / "evidencias/2026-10-20-e34-checks.json"
 
 
 def digest(path):
@@ -16,6 +16,11 @@ def digest(path):
 
 
 def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--evidence', type=pathlib.Path, required=True)
+    args = parser.parse_args()
+    report_path = args.evidence
+    report_path.parent.mkdir(parents=True, exist_ok=True)
     report = {"checks": [], "result": "FAIL"}
     commands = [
         ["cargo", "fmt", "--all", "--", "--check"],
@@ -29,7 +34,7 @@ def main():
         report["checks"].append({"command": command, "exit_code": result.returncode,
                                  "elapsed_s": time.monotonic() - started,
                                  "stdout": result.stdout, "stderr": result.stderr})
-        REPORT.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
+        report_path.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
         print("PASS" if result.returncode == 0 else "FAIL", " ".join(command), flush=True)
         if result.returncode:
             print(result.stderr, flush=True)
@@ -50,7 +55,7 @@ def main():
     report["binary_sha256"] = digest(ROOT / "target/release/pill.exe")
     report["integration_note"] = "Las pruebas ignoradas no cuentan como PASS de integracion; informes opt-in separados."
     report["result"] = "PASS" if metadata.returncode == 0 else "FAIL"
-    REPORT.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
+    report_path.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
     return metadata.returncode
 
 

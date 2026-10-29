@@ -1,0 +1,70 @@
+{
+  "fecha_utc": "2026-10-27T15:08:48.567261+00:00",
+  "tipo": "Regresión E1 sobre implementación actual; consola Windows real; sin inferencia",
+  "binario": "D:\\PROJECTS\\PILLCLITER\\bin\\pill.exe",
+  "sha256_binario": "900f33be9fa88ba6445c2d66d7c117299f8cf11c37c6977b0cec188c968675f1",
+  "sesiones": [
+    {
+      "salida": "/exit con flecha y Enter",
+      "codigo": 0,
+      "estado_antes": {
+        "input_mode": 503,
+        "output_mode": 3,
+        "cursor_size": 25,
+        "cursor_visible": 1,
+        "attributes": 7
+      },
+      "estado_despues": {
+        "input_mode": 503,
+        "output_mode": 3,
+        "cursor_size": 25,
+        "cursor_visible": 1,
+        "attributes": 7
+      },
+      "redimensionado": {
+        "antes": [
+          120,
+          30
+        ],
+        "despues": [
+          73,
+          21
+        ]
+      },
+      "capturas": {
+        "inicio": " .-----+-----.\n(##### |     )  pill\n '-----+-----'\nProyecto: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e1-8m6a5vwx\\Mi código\nConfiguración: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e1-8m6a5vwx\\Mi código\\.pillcli\\config.json\nModelo: sin seleccionar\nConectando con Ollama… · 0 s\nModo: Chat\nReserva: —/4096\nMemoria de esta sesión: ninguna · exclusividad no concedida\nEscribe / para abrir el menú. /help muestra la ayuda.\n>\n/ comandos · Ctrl+Enter enviar · Enter línea · Esc cancelar · Ctrl+C salir",
+        "barra_sin_enter": " .-----+-----.\n(##### |     )  pill\n '-----+-----'\nProyecto: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e1-8m6a5vwx\\Mi código\nConfiguración: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e1-8m6a5vwx\\Mi código\\.pillcli\\config.json\nModelo: sin seleccionar\nNo se descargó ningún modelo · 0 s\nModo: Chat\nReserva: —/4096\nMemoria de esta sesión: ninguna · exclusividad no concedida\nEscribe / para abrir el menú. /help muestra la ayuda.\n[sistema] servidor compartido o exclusividad no concedida; /api/ps no identifica al cliente y no se descarga nada\nmedición NVIDIA no disponible\nReconciliación local: 0 aplicadas, 0 pendientes, 0 desconocidas. No se repitieron operaciones.\n> /\n> /help  Mostrar la ayuda de consola\n  /exit  Volver a tu consola\n  /model  Elegir modelo e iniciar otra conversación\n  /permissions  Ver y conceder comandos, MCP y exclusividad\n  /task  Activar tarea con agentes y pruebas reales\n  /chat  Volver al chat con herramientas\n  /journal  Ver las últimas líneas del diario local\n  /liberate  Liberar modelos de esta sesión si hay exclusividad concedida\n/ comandos · Ctrl+Enter enviar · Enter línea · Esc cancelar · Ctrl+C salir",
+        "filtro": " .-----+-----.\n(##### |     )  pill\n '-----+-----'\nProyecto: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e1-8m6a5vwx\\Mi código\nConfiguración: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e1-8m6a5vwx\\Mi código\\.pillcli\\config.json\nModelo: sin seleccionar\nNo se descargó ningún modelo · 0 s\nModo: Chat\nReserva: —/4096\nMemoria de esta sesión: ninguna · exclusividad no concedida\nEscribe / para abrir el menú. /help muestra la ayuda.\n[sistema] servidor compartido o exclusividad no concedida; /api/ps no identifica al cliente y no se descarga nada\nmedición NVIDIA no disponible\nReconciliación local: 0 aplicadas, 0 pendientes, 0 desconocidas. No se repitieron operaciones.\n> /e\n> /exit  Volver a tu consola\n/ comandos · Ctrl+Enter enviar · Enter línea · Esc cancelar · Ctrl+C salir",
+        "escape": " .-----+-----.\n(##### |     )  pill\n '-----+-----'\nProyecto: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e1-8m6a5vwx\\Mi código\nConfiguración: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e1-8m6a5vwx\\Mi código\\.pillcli\\config.json\nModelo: sin seleccionar\nCancelado · puedes volver a intentarlo\nModo: Chat\nReserva: 1050/4096\nMemoria de esta sesión: ninguna · exclusividad no concedida\nEscribe / para abrir el menú. /help muestra la ayuda.\n[sistema] servidor compartido o exclusividad no concedida; /api/ps no identifica al cliente y no se descarga nada\nmedición NVIDIA no disponible\nReconciliación local: 0 aplicadas, 0 pendientes, 0 desconocidas. No se repitieron operaciones.\nOperación cancelada; no se añade al historial del modelo.\n> /e\n/ comandos · Ctrl+Enter enviar · Enter línea · Esc cancelar · Ctrl+C salir",
+        "ayuda": " .-----+-----.\n(##### |     )  pill\n '-----+-----'\nProyecto: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e1-8m6a5vwx\\Mi código\nConfiguración: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e1-8m6a5vwx\\Mi código\\.pillcli\\config.json\nModelo: sin seleccionar\nCancelado · puedes volver a intentarlo\nModo: Chat\nReserva: 1050/4096\nMemoria de esta sesión: ninguna · exclusividad no concedida\nOperación cancelada; no se añade al historial del modelo.\n/help · Mostrar la ayuda de consola\n/exit · Salir y restaurar la consola\nFlechas: seleccionar. Tab: completar. Enter: ejecutar. Esc: cerrar menú.\n/model · Elegir modelo y empezar otra conversación\nCtrl+Enter envía; Enter añade línea. Esc cancela la operación activa.\n/liberate · Liberar solo modelos que esta sesión seleccionó, y solo con exclusividad concedida\nEl chat usa herramientas reales del proyecto. /permissions muestra comandos, servidores MCP y exclusividad; cada conces\nión es independiente. /task activa agentes y pruebas. /chat vuelve al chat.\nEn /permissions, Enter muestra el detalle y Ctrl+Enter concede o retira. PgUp y PgDn mueven una pantalla cuando hay tex\nto por encima.\nFlechas marcan la fila de modelos o permisos. En el borrador, Inicio y Fin quedan en la línea y Ctrl+flechas saltan pa\nlabras.\nCtrl+R abre y cierra el razonamiento de la última respuesta. /journal muestra el diario local sin crear uno nuevo.\n/liberate pide Enter para confirmar si esta sesión tiene modelos y la exclusividad está concedida. Esc cancela.\nPgUp/PgDn desplazan respuestas; flechas sin menú ni lista recuperan peticiones anteriores.\n>\n↑ hay texto por encima\n/ comandos · Ctrl+Enter enviar · Enter línea · Esc cancelar · Ctrl+C salir",
+        "unicode": " .-----+-----.\n(##### |     )  pill\n '-----+-----'\nProyecto: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e1-8m6a5vwx\\Mi código\nConfiguración: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e1-8m6a5vwx\\Mi código\\.pillcli\\config.json\nModelo: sin seleccionar\nCancelado · puedes volver a intentarlo\nModo: Chat\nReserva: 1050/4096\nMemoria de esta sesión: ninguna · exclusividad no concedida\nOperación cancelada; no se añade al historial del modelo.\n/help · Mostrar la ayuda de consola\n/exit · Salir y restaurar la consola\nFlechas: seleccionar. Tab: completar. Enter: ejecutar. Esc: cerrar menú.\n/model · Elegir modelo y empezar otra conversación\nCtrl+Enter envía; Enter añade línea. Esc cancela la operación activa.\n/liberate · Liberar solo modelos que esta sesión seleccionó, y solo con exclusividad concedida\nEl chat usa herramientas reales del proyecto. /permissions muestra comandos, servidores MCP y exclusividad; cada conces\nión es independiente. /task activa agentes y pruebas. /chat vuelve al chat.\nEn /permissions, Enter muestra el detalle y Ctrl+Enter concede o retira. PgUp y PgDn mueven una pantalla cuando hay tex\nto por encima.\nFlechas marcan la fila de modelos o permisos. En el borrador, Inicio y Fin quedan en la línea y Ctrl+flechas saltan pa\nlabras.\nCtrl+R abre y cierra el razonamiento de la última respuesta. /journal muestra el diario local sin crear uno nuevo.\n/liberate pide Enter para confirmar si esta sesión tiene modelos y la exclusividad está concedida. Esc cancela.\nPgUp/PgDn desplazan respuestas; flechas sin menú ni lista recuperan peticiones anteriores.\n> áz\n↑ hay texto por encima\n/ comandos · Ctrl+Enter enviar · Enter línea · Esc cancelar · Ctrl+C salir",
+        "redimensionado": " .-----+-----.\n(##### |     )  pill\n '-----+-----'\nProyecto: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e1-8m6a5vwx\\Mi\nConfiguración: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e1-8m6a5v\nModelo: sin seleccionar\nCancelado · puedes volver a intentarlo\nModo: Chat\nReserva: 1050/4096\nMemoria de esta sesión: ninguna · exclusividad no concedida\nin quedan en la línea y Ctrl+flechas saltan palabras.\nCtrl+R abre y cierra el razonamiento de la última respuesta. /journal m\nuestra el diario local sin crear uno nuevo.\n/liberate pide Enter para confirmar si esta sesión tiene modelos y la e\nxclusividad está concedida. Esc cancela.\nPgUp/PgDn desplazan respuestas; flechas sin menú ni lista recuperan pet\niciones anteriores.\n> áz\n↑ hay texto por encima\n/ comandos · Ctrl+Enter enviar · Enter línea · Esc cancelar · Ctrl+"
+      },
+      "resultado": "PASS"
+    },
+    {
+      "salida": "Ctrl+C",
+      "codigo": 0,
+      "estado_antes": {
+        "input_mode": 503,
+        "output_mode": 3,
+        "cursor_size": 25,
+        "cursor_visible": 1,
+        "attributes": 7
+      },
+      "estado_despues": {
+        "input_mode": 503,
+        "output_mode": 3,
+        "cursor_size": 25,
+        "cursor_visible": 1,
+        "attributes": 7
+      },
+      "redimensionado": null,
+      "capturas": {
+        "inicio": "╭─────┬─────╮\n│█████│     │  pill\n╰─────┴─────╯\nProyecto: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e1-qoiycu7y\\Mi código\nConfiguración: \\\\?\\C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-e1-qoiycu7y\\Mi código\\.pillcli\\config.json\nModelo: sin seleccionar\nConectando con Ollama… · 0 s\nModo: Chat\nReserva: —/4096\nMemoria de esta sesión: ninguna · exclusividad no concedida\nEscribe / para abrir el menú. /help muestra la ayuda.\n>\n/ comandos · Ctrl+Enter enviar · Enter línea · Esc cancelar · Ctrl+C salir"
+      },
+      "resultado": "PASS"
+    }
+  ],
+  "resultado": "PASS"
+}

@@ -84,6 +84,11 @@ pub fn plan(exclusive: bool, owned: &BTreeSet<String>, running: &[RunningModel])
 }
 
 pub fn nvidia_line(configured: Option<&Path>) -> String {
+    // La configuración del repositorio propone rutas, nunca autoriza ejecutar
+    // un programa. La sonda de sistema solo usa la instalación estándar.
+    if configured.is_some() {
+        return "medición NVIDIA no disponible; ruta personalizada requiere registrar y conceder el ejecutable como comando en /permissions".into();
+    }
     let path = match configured {
         Some(path) => path.to_path_buf(),
         None => PathBuf::from(r"C:\Program Files\NVIDIA Corporation\NVSMI\nvidia-smi.exe"),
@@ -146,6 +151,6 @@ mod tests {
     #[test]
     fn missing_nvidia_binary_does_not_invent_memory() {
         let missing = PathBuf::from(r"D:\no-existe\nvidia-smi.exe");
-        assert_eq!(nvidia_line(Some(&missing)), "medición NVIDIA no disponible");
+        assert!(nvidia_line(Some(&missing)).contains("no disponible"));
     }
 }

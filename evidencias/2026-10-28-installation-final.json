@@ -1,0 +1,203 @@
+{
+  "fecha_utc": "2026-10-28T08:11:32.6326362+00:00",
+  "result": "PASS",
+  "checks": [
+    {
+      "name": "añadir conserva texto, orden y entradas vacías",
+      "pass": true
+    },
+    {
+      "name": "retirar devuelve exactamente el PATH anterior",
+      "pass": true
+    },
+    {
+      "name": "citas, mayúsculas y barra final no duplican",
+      "pass": true
+    },
+    {
+      "name": "expansión equivalente conserva expresión original",
+      "pass": true
+    },
+    {
+      "name": "REG_SZ o proceso literal no finge expansión persistente",
+      "pass": true
+    },
+    {
+      "name": "retirar alta desde PATH ausente conserva ausencia",
+      "pass": true
+    },
+    {
+      "name": "entrada preexistente no pasa a propiedad",
+      "pass": true
+    },
+    {
+      "name": "duplicado ambiguo se conserva",
+      "pass": true
+    },
+    {
+      "name": "entrada modificada no se retira por aproximación",
+      "pass": true
+    },
+    {
+      "name": "manifiesto no acredita ruta ajena",
+      "pass": true
+    },
+    {
+      "name": "cambio concurrente se detecta antes de escribir",
+      "pass": true
+    },
+    {
+      "name": "conflicto no sobreescribe cambio externo",
+      "pass": true
+    },
+    {
+      "name": "rollback no pisa versión diferente",
+      "pass": true
+    },
+    {
+      "name": "instalación WhatIf no crea bin ni cambia PATH",
+      "pass": true
+    },
+    {
+      "name": "instalación real de proceso completa",
+      "pass": true
+    },
+    {
+      "name": "pill se resuelve al binario publicado",
+      "pass": true
+    },
+    {
+      "name": "binario publicado ejecuta versión real",
+      "pass": true
+    },
+    {
+      "name": "publicación conserva SHA del release real",
+      "pass": true
+    },
+    {
+      "name": "reinstalar es idempotente y conserva propiedad",
+      "pass": true
+    },
+    {
+      "name": "desinstalación WhatIf no cambia archivos ni PATH",
+      "pass": true
+    },
+    {
+      "name": "desregistrar retira solo entrada propia y conserva binario",
+      "pass": true
+    },
+    {
+      "name": "desregistro conserva cambios ajenos posteriores y vacíos",
+      "pass": true
+    },
+    {
+      "name": "borrado explícito elimina únicamente binario acreditado",
+      "pass": true
+    },
+    {
+      "name": "borrado no toca proyecto ni release",
+      "pass": true
+    },
+    {
+      "name": "publicación rechaza destino ocupado sin reemplazarlo",
+      "pass": true
+    },
+    {
+      "name": "colisión preserva ambos archivos reales",
+      "pass": true
+    },
+    {
+      "name": "PATH preexistente no se reclama ni elimina",
+      "pass": true
+    },
+    {
+      "name": "actualizar conserva versión anterior real recuperable",
+      "pass": true
+    },
+    {
+      "name": "actualizar conserva propietario, grupo y DACL protegida",
+      "pass": true
+    },
+    {
+      "name": "sustitución por mismos bytes no hereda identidad para borrar",
+      "pass": true
+    },
+    {
+      "name": "sustitución conserva PATH y nuevo objeto",
+      "pass": true
+    },
+    {
+      "name": "binario ajeno no acreditado impide sustitución",
+      "pass": true
+    },
+    {
+      "name": "rechazo conserva archivo ajeno y PATH",
+      "pass": true
+    },
+    {
+      "name": "manifiesto de otra raíz no concede retirada ni borrado",
+      "pass": true
+    },
+    {
+      "name": "rechazo de manifiesto conserva instalación",
+      "pass": true
+    },
+    {
+      "name": "hardlink de destino se rechaza antes de alterar contenido",
+      "pass": true
+    },
+    {
+      "name": "bytes del hardlink externo intactos",
+      "pass": true
+    },
+    {
+      "name": "junction bin se rechaza sin publicar fuera de raíz",
+      "pass": true
+    },
+    {
+      "name": "directorio externo no alterado",
+      "pass": true
+    },
+    {
+      "name": "binario cambiado impide borrado antes de retirar PATH",
+      "pass": true
+    },
+    {
+      "name": "cambio posterior conservado",
+      "pass": true
+    },
+    {
+      "name": "versión real distinta al manifiesto impide publicar",
+      "pass": true
+    },
+    {
+      "name": "versión errónea no registra ni publica pill",
+      "pass": true
+    },
+    {
+      "name": "alias pill existente impide instalación sin cambiarlo",
+      "pass": true
+    },
+    {
+      "name": "conflicto se rechaza antes de crear bin o tocar PATH",
+      "pass": true
+    }
+  ],
+  "temporary": "C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-install-tests-1cc21577e7194bc28b7758b4c9b1168e",
+  "source_sha256": "900f33be9fa88ba6445c2d66d7c117299f8cf11c37c6977b0cec188c968675f1",
+  "scope": "PATH de proceso y funciones puras; binarios reales en muestras. User/Machine PATH solo se leen.",
+  "user_path_unchanged": true,
+  "machine_path_unchanged": true,
+  "fixtures": [
+    "C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-install-tests-1cc21577e7194bc28b7758b4c9b1168e\\proyecto ñ",
+    "C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-install-tests-1cc21577e7194bc28b7758b4c9b1168e\\preexistente",
+    "C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-install-tests-1cc21577e7194bc28b7758b4c9b1168e\\identidad-sustituida",
+    "C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-install-tests-1cc21577e7194bc28b7758b4c9b1168e\\binario-ajeno",
+    "C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-install-tests-1cc21577e7194bc28b7758b4c9b1168e\\manifiesto-ajeno",
+    "C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-install-tests-1cc21577e7194bc28b7758b4c9b1168e\\hardlink",
+    "C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-install-tests-1cc21577e7194bc28b7758b4c9b1168e\\junction",
+    "C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-install-tests-1cc21577e7194bc28b7758b4c9b1168e\\binario-modificado",
+    "C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-install-tests-1cc21577e7194bc28b7758b4c9b1168e\\version-incorrecta",
+    "C:\\Users\\INdaHouse\\AppData\\Local\\Temp\\pill-install-tests-1cc21577e7194bc28b7758b4c9b1168e\\comando-conflictivo"
+  ]
+}

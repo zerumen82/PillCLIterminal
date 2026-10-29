@@ -1,0 +1,67 @@
+{
+  "fecha_utc": "2026-10-28T16:01:50.835750+00:00",
+  "role": "reviewer independiente",
+  "verdict": "APPROVE",
+  "scope": "Código y scripts actuales, con SHA de fuentes. No afirma cierre v1 ni PASS funcional del binario nuevo.",
+  "previous": [
+    "2026-10-28-review-current-inicial.json",
+    "2026-10-28-review-current-segunda.json"
+  ],
+  "blocking_findings": [],
+  "resolved": {
+    "R01": "Ayuda Ctrl+Enter y comandos nuevos acorde al contrato",
+    "R02": "recovery_view sincroniza incertidumbre con reporte completo; regresión demuestra Applied desbloqueado y comando desconocido bloqueado",
+    "R03": "Lista/status validan /api/ps, digest obligatorio y loaded Option conserva desconocido; test loopback invalps",
+    "R04": "Errores project_scan y retention se exponen como truncated/unknown conservando ofertas válidas; test subcarpeta y raíz sobre cuota",
+    "R05": "transform_exact común a intención durable y publicación, offsets de base única y sustitución en orden inverso; test BOM+CRLF A B → B C y reconciliación requested-only",
+    "R06": "Unicidad busca desde siguiente boundary UTF8 y detecta coincidencias solapadas; pruebas aaa/aa, ababa/aba y acentos preservan bytes y cero transacciones"
+  },
+  "additional_review": [
+    "Cursor de enumeración independiente comparte DELETE solo para coexistir con handle de movimiento propio; handle original y padres fijados conservan exclusión de DELETE externo",
+    "Guardado privado escribe/sincroniza sobre inmutable antes de mover base; fallback valida SHA y semántica",
+    "Restauración condiciona SHA posterior y respaldo con manifiesto propio; conserva actual en otra transacción; archivo determinista conserva restauración",
+    "Archivado revisa miembros, identidad y hashes antes/después; efectos no repetidos ni borrado recursivo",
+    "MCP asigna proceso suspendido a Job propio kill-on-close antes de reanudar; cache revalida scripts/concesiones y cada llamada valida esquema actual",
+    "ReadPool acotado, reutilizado, solo lectura; cancelación no concede efectos",
+    "Instalación preserva texto/tipo PATH, detecta conflicto, manifiesto diferencia propiedad/preexistencia; borrado concreto requiere identidad/hash"
+  ],
+  "executed_independently": {
+    "installer_process": "PASS45; evidencias/2026-10-28-review-installer-process.json",
+    "user_machine_path": "Verificados sin cambios por prueba",
+    "cargo": "No ejecutado por reviewer para evitar concurrencia con tester"
+  },
+  "limits": [
+    "Aprobación solo para hashes enumerados; cambios posteriores requieren revisión afectada",
+    "Tester debe completar fmt/Clippy/tests/build y consola real sobre release nuevo; esos controles no se sustituyen por revisión estática",
+    "Registro User PATH aún pendiente y autorizado solo después de pruebas/revisión; no se ejecutó por reviewer",
+    "Modelo principal sigue null; no se declara v1 cerrada",
+    "Sin garantía de atomicidad global PATH+binario ni de supervivencia a daños arbitrarios del disco; límites declarados en spec"
+  ],
+  "sha256": {
+    "scripts/Install-Pill.ps1": "3382395c094078836f0254f12c9e679c8d01e81128755e1887a57b57c52b730f",
+    "scripts/Uninstall-Pill.ps1": "054f6b8f4e0e80fd16e9ce7c1b3f711643509a7b4a5cf7ee045bb7b43bbcfe74",
+    "scripts/Pill.Installation.psm1": "59938b4769c7c80fdf7ac17e0c6ca990c7dcf9a471fba16e6e9b08b211d39dd5",
+    "scripts/installation.defaults.json": "c64582a0f2f00c742cf51566ecfc631be41594c49946e830f930a358f06711a5",
+    "src/files/mod.rs": "9a85da81b398d3a91deb915009b1f0d5a21ffb833a776eac9a51b8bb830d02e1",
+    "src/files/platform.rs": "41f521a80fcb859eb8fdaad52731f076d9d6c688ee13471504209c0923b3f0c8",
+    "src/tools/recovery.rs": "41146c69d296072fa26fcbd51dcc3f600fe0dde3029ef2db3f3a008af2283027",
+    "src/tools/mod.rs": "b866f383b1cf0c807cf84f574d0fb2f22187c28e7b0cfaa8d5ee8dfdfcf08b2a",
+    "src/tools/mcp.rs": "92d731ca01f50a433ff777b438dd6a11b31b5eafa3f986b72d7fe5c3c2d570d8",
+    "src/tools/process_job.rs": "eb5b012ca3b348cf6addf6b2dbae620a5086194edc7475aa431ae4b4f9545d44",
+    "src/tools/read_pool.rs": "b7d515a671345d124bf1e5bd349b7af671d32e10833b702024e86418dbbb76e3",
+    "src/session/mod.rs": "e5e6eb8c57f533dad4107a8941eeb53bbd54d126d640fb2f96cf33c6d2d33bf6",
+    "src/ui/model.rs": "8042a98a6a8bd2fa43dc97b3b1447fac5c3ffd14ad61cb703ec9408c4eac8430",
+    "src/ui/native.rs": "bed1a18ede8154852c09b089f959b3135df6c05f81249f69c85f5edea2220507",
+    "src/ui/render.rs": "aff289f00b662778d32fd4977c756ccec93530fbc4fd01ba6ac1cb4f57737d5e",
+    "src/ui/text.rs": "448b1c6debb5449820b3b8afef9e0e75264ca4006ea76ad020efc5827d24b2e8",
+    "src/config/mod.rs": "2f21c8053fadd9a03009d106524cf9adc66826605e5837397d28f6310ddc9562",
+    "src/providers/ollama/mod.rs": "db3b719806671d3aad638ed7d56380e3b5a10fc5d5af3e059689ef0c69f52694",
+    "src/agents/mod.rs": "8c6fae6ebf50e60a91691322bd241e969838849e923c958e0dd863823fb22939",
+    "config/defaults.json": "885a17c90db0a8f733b013eae021a105144a0a9f11a63431e035f164fad590dd",
+    "tests/recovery_ui_contract.rs": "fc217cc53f3f1192689edae7ac812c5acc0daa2992ac254f10b96fd80fff7b74",
+    "tests/client_resilience.rs": "a78e48ee2d2f4feebff135a9c496f1c8e03d842a880038bdb656be1bacb48b4f",
+    "tests/persistence_real.rs": "b787d571e1bf986cf95cab5342f7baeb6568302a574cfb30b43de423ab180c2b",
+    "tests/mcp_stdio.rs": "851ce8dd11b1c7fb44b359a14f134e0866022b7023dc357493636574dadf7590",
+    "tests/parallel_reads.rs": "7c682cae37ff1ec918cd24accb107012a0bc3ace76d1022e9e61749fe44e8577"
+  }
+}

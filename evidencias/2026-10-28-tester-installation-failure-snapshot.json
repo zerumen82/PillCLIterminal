@@ -1,0 +1,18 @@
+{
+  "fecha_utc": "2026-10-28T16:25:20.648712+00:00",
+  "role": "tester independiente",
+  "result": "PASS",
+  "scope": "Comprobacion de solo lectura posterior al FAIL de instalacion. Confirma ausencia de cambios publicados y topologia hardlink de Cargo; no es PASS de instalacion.",
+  "checks": {
+    "user_path_raw_preserved": true,
+    "user_path_kind_preserved": true,
+    "old_bin_preserved": true,
+    "manifest_not_created": true,
+    "release_preserved": true,
+    "cargo_source_has_two_links": true,
+    "deps_alias_is_same_file": true
+  },
+  "source_sha256": "96968d21f9c1a7603187d78544496bd484f17c1e4190bb25a3876496a42bfa16",
+  "installed_sha256": "900f33be9fa88ba6445c2d66d7c117299f8cf11c37c6977b0cec188c968675f1",
+  "failure_evidence": "2026-10-28-instalacion-user-real.json"
+}

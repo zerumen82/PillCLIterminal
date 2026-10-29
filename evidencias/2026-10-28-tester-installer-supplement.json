@@ -1,0 +1,50 @@
+{
+  "fecha_utc": "2026-10-28T16:30:12.996120+00:00",
+  "role": "tester independiente",
+  "verdict": "PASS",
+  "scope": "Suplemento del PASS final para corregir lectura del artefacto Cargo con hardlinks. Solo scripts cambiaron; se repiten sus controles aplicables, sin repetir Rust, UI ni inferencia cuyos hashes permanecen iguales. Registro real User PATH sigue pendiente del coordinador y de reviewer del cambio de scripts.",
+  "previous_tester": "2026-10-28-tester-final.json",
+  "checks": {
+    "regression_suite_49_pass": true,
+    "real_cargo_artifact_readonly_case_9_pass": true,
+    "source_and_binary_match_96968d": true,
+    "user_and_machine_path_preserved": true,
+    "rust_ui_build_inputs_and_tests_unchanged_since_final_pass": true,
+    "powershell_parser_four_files_pass": true,
+    "whitespace_pass": true,
+    "failed_install_left_state_unchanged_proven_independently": true
+  },
+  "changed_since_final_tester": [
+    "scripts/Install-Pill.ps1",
+    "scripts/Pill.Installation.psm1"
+  ],
+  "scripts_sha256": {
+    "scripts/Install-Pill.ps1": "5831485db5068233383ccf5931a02e422a454e794c52a8f2d1a878d0d4dc0e00",
+    "scripts/Uninstall-Pill.ps1": "054f6b8f4e0e80fd16e9ce7c1b3f711643509a7b4a5cf7ee045bb7b43bbcfe74",
+    "scripts/Pill.Installation.psm1": "9dccf995668d80c4f1b715bb6369fd3093473078c35e467d1de94769abbd5c58",
+    "scripts/installation.defaults.json": "c64582a0f2f00c742cf51566ecfc631be41594c49946e830f930a358f06711a5",
+    "diagnostics/test_installation.ps1": "b8bf37115a0ef50f31375e1f19715f74d3698ba0eadf7ee6e356249ce77bc5bd"
+  },
+  "release": {
+    "sha256": "96968d21f9c1a7603187d78544496bd484f17c1e4190bb25a3876496a42bfa16",
+    "bytes": 13208064
+  },
+  "tests": {
+    "process_installation_checks_passed": 49,
+    "real_source_readonly_checks_passed": 9,
+    "powershell_files_parsed": 4
+  },
+  "evidence": [
+    "2026-10-28-instalacion-user-real.json",
+    "2026-10-28-tester-installation-failure-snapshot.json",
+    "2026-10-28-tester-installation-artifact-final.json",
+    "2026-10-28-tester-source-artifact-readonly.json",
+    "2026-10-28-tester-installer-parser.json"
+  ],
+  "limits": [
+    "No se impide quitar un nombre hardlink ajeno mediante otra API; no se afirma ese aislamiento del espacio de nombres. Se verifican bytes y apertura escritora bloqueada mientras el handle fuente esta fijado.",
+    "Fuente Cargo solo lectura admite links>1. Destinos, temporales y manifiestos siguen sujetos al abridor estricto de un solo enlace.",
+    "El tester no registro ni retiro User PATH real, no desinstalo instalacion del usuario y no escribio contenido ni borro alias del artefacto real.",
+    "Se conserva el FAIL de instalacion anterior; este suplemento no lo sobrescribe ni afirma que la instalacion persistente ya se haya completado."
+  ]
+}

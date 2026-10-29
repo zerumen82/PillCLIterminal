@@ -4,12 +4,24 @@
     "logo_color": "green",
     "poll_ms": 250,
     "max_input_chars": 1024,
-    "max_history_entries": 64
+    "max_history_entries": 64,
+    "compact_header": true,
+    "max_history_bytes": 1048576,
+    "max_detail_entries": 64,
+    "render_interval_ms": 40,
+    "max_input_rows": 4,
+    "color": true,
+    "diff_context_lines": 3,
+    "diff_max_cells": 262144
   },
   "ollama": {
     "url": "http://localhost:11434",
     "model": null,
     "event_buffer": 32,
+    "metadata_retries": 2,
+    "retry_delay_ms": 150,
+    "first_chunk_timeout_ms": 120000,
+    "idle_timeout_ms": 30000,
     "num_ctx": 4096,
     "num_predict": 512,
     "temperature": 0.2,
@@ -26,7 +38,12 @@
     "max_entries": 1024,
     "max_search_results": 64,
     "max_transactions": 128,
-    "excluded_components": ["target", "node_modules", "venv", ".venv"],
+    "excluded_components": [
+      "target",
+      "node_modules",
+      "venv",
+      ".venv"
+    ],
     "extra_roots": []
   },
   "commands": {
@@ -37,6 +54,7 @@
     "commands": []
   },
   "agents": {
+    "max_parallel_reads": 2,
     "max_steps": 8,
     "max_tool_calls": 8,
     "max_handoff_chars": 1000,
@@ -48,7 +66,24 @@
     "startup_timeout_ms": 5000,
     "call_timeout_ms": 30000,
     "max_message_bytes": 1048576,
+    "shutdown_timeout_ms": 2000,
+    "shutdown_poll_ms": 20,
+    "catalog_cache_ms": 30000,
     "servers": []
+  },
+  "profiles": {
+    "ligero": {
+      "num_ctx": 4096,
+      "num_predict": 512,
+      "temperature": 0.2,
+      "think": false
+    },
+    "codigo": {
+      "num_ctx": 16384,
+      "num_predict": 2048,
+      "temperature": 0.2,
+      "think": true
+    }
   },
   "gpu": {
     "exclusive": false,

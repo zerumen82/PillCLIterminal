@@ -1,0 +1,34 @@
+{
+  "checks": [
+    {
+      "command": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.5309999999590218,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "cargo",
+        "clippy",
+        "--locked",
+        "--offline",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 101,
+      "elapsed_s": 6.5,
+      "stdout": "",
+      "stderr": "    Checking pill v0.1.0 (D:\\PROJECTS\\PILLCLITER)\nerror: this `if` statement can be collapsed\n   --> src\\tools\\mod.rs:747:9\n    |\n747 | /         if matches!(name, \"move_file\" | \"delete_file\") && result[\"status\"] == \"verified\" {\n748 | |             if let Some(path) = result[\"path\"].as_str() {\n749 | |                 let mut versions = self.versions.lock().unwrap_or_else(|e| e.into_inner());\n750 | |                 versions.insert(path.into(), String::new());\n...   |\n761 | |         }\n    | |_________^\n    |\n    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#collapsible_if\n    = note: `-D clippy::collapsible-if` implied by `-D warnings`\n    = help: to override `-D warnings` add `#[allow(clippy::collapsible_if)]`\nhelp: collapse nested if block\n    |\n747 ~         if matches!(name, \"move_file\" | \"delete_file\") && result[\"status\"] == \"verified\"\n748 ~             && let Some(path) = result[\"path\"].as_str() {\n749 |                 let mut versions = self.versions.lock().unwrap_or_else(|e| e.into_inner());\n...\n759 |                     .remove(path);\n760 ~             }\n    |\n\nerror: could not compile `pill` (lib) due to 1 previous error\nwarning: build failed, waiting for other jobs to finish...\nerror: could not compile `pill` (lib test) due to 1 previous error\n"
+    }
+  ],
+  "result": "FAIL"
+}
