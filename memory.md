@@ -288,3 +288,14 @@
   Sin nueva dependencia ni cambios a permisos, transcript del modelo, cápsula,
   modelo principal o PATH. Baseline instalado62a185 del corte anterior se
   conserva para comparar; no valida lo nuevo.
+
+## 2026-10-29 · Mejoras UI C1/C3/C5 entregadas y publicadas
+
+- C1: `/help` reescrito con teclas reales por comando (flechas, Tab, Enter, Esc, Ctrl+Enter, PgUp/PgDn, Ctrl+flechas, Inicio/Fin).
+- C5: barra de reserva con porcentaje `Reserva: usado/límite (X%)`; aviso `· cerca del límite` ≥80%, `· crítico` ≥95%; config validado (`reserve_percent_warning: 80`, `reserve_percent_critical: 95`, `reserve_color_warning: true` en `defaults.json` y `UiConfig`).
+- C3: atajos `Alt+P` (Preguntar), `Alt+E` (Editar/Chat), `Alt+T` (Tarea) sin escribir comandos; no amplían permisos ni crean nuevos modos.
+- Tests lib: 84 passed; 0 failed; 1 ignored (clippy PASS, fmt PASS).
+- Build release offline PASS; SHA-256 `32ABF02D4422A0B13347DFDC353A413EB5794449A3C06540BA4507E75596D1BE`, tamaño 13 276 672 bytes.
+- Opt-in Ollama (`ollama_live.rs`) requiere servidor local; no ejecutado y no cuenta como PASS/FAIL para este corte (regla del proyecto).
+- Push a GitHub `zerumen82/PillCLIterminal` confirmado: commits `648a504` (mejoras + spec/16 + fmt) y `d63248b` (config defaults + test fix).
+- E6/v1 sigue pendiente: P04 (modelo principal `null`), P08 (pegado Ctrl+Enter/Enter confirmado sin protección extra). A1 (cierre corte diff) bloqueado por límite de subagentes; no se maquilla tester/reviewer del diff.
