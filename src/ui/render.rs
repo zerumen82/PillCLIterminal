@@ -136,6 +136,9 @@ pub fn frame(
         let mode = format!("Modo: {}", app.mode_label());
         lines.push(clean(&mode, columns));
         lines.push(clean(&context_line(app), columns));
+        if let Some(pos) = position_indicator(app) {
+            lines.push(clean(&pos, columns));
+        }
         lines.push(clean(&memory_line(app), columns));
     }
     for warning in [&app.model_storage_warning, &app.console_storage_warning]
@@ -364,6 +367,14 @@ fn context_line(app: &App) -> String {
         (None, Some(limit)) => format!("Reserva: —/{limit}"),
         _ => "Reserva: sin medir".into(),
     }
+}
+
+fn position_indicator(app: &App) -> Option<String> {
+    app.detail_view.as_ref().map(|d| {
+        let total = d.text.lines().count();
+        let pos = d.scroll.saturating_add(1);
+        format!("Detalle: {pos}/{total} · Enter = explicar · Ctrl+Enter = confirmar")
+    })
 }
 
 /// Reparte el alto visible. `scroll` oculta las líneas nuevas; no puede pasar del inicio.
