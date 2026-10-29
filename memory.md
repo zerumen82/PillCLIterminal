@@ -272,8 +272,10 @@
   comprobación, límites explícitos y estructura. Los enlaces a evidencias
   del corte 2026-10-28 se conservan. Se declara explícito que la entrega
   diff del 2026-10-29 sigue sin tester PASS ni reviewer APPROVE y que
-  E6/v1 no está cerrada. Comprobación documental: los 12 comandos
-  listados coinciden con `src/ui/model.rs`; el `git status` tras la
+  E6/v1 no está cerrada. Comprobación documental: la tabla de comandos se
+  contrastó con `src/ui/model.rs` (17 entradas); tras la publicación se
+  detectó que la tabla inicial listaba 12, corregida el 2026-10-29 con la
+  lista completa antes de anotar esta corrección. El `git status` tras la
   reescritura muestra solo cambios esperados.
 - Se añadió `/bin/` al `.gitignore` (los `bin/*.exe` ya estaban
   ignorados). No se modificaron specs, scripts ni fuentes.

@@ -72,11 +72,16 @@ con release `62a1857654b2a15fc793029f2f54bc26e36e5ec815eb4e834d366180ae47f90f`.
 | `/model` | Elegir modelo instalado, ver tamaño y estado en memoria |
 | `/permissions` | Conceder o retirar comandos y servidores MCP, fila a fila |
 | `/task` | Modo Tarea multiagente para la próxima petición (exige un comando concedido) |
-| `/chat` | Vuelta al chat con herramientas |
-| `/status` | Estado de la tarea y del razonamiento |
+| `/chat` | Vuelta al chat con herramientas (alias `/edit`) |
+| `/status` | Modelo, configuración, recursos y cuotas |
+| `/ask` | Preguntar con herramientas de solo lectura |
+| `/edit` | Editar con herramientas y permisos vigentes |
+| `/changes` | Inspeccionar cambios y resultados observados |
 | `/journal` | Últimas líneas del diario actual |
 | `/recover` | Revisión de recuperaciones con pendientes y revisadas |
-| `/archive` | Guarda la conversación sin destruirla |
+| `/undo` | Restaurar un respaldo con versión comprobada |
+| `/profile` | Elegir perfil de contexto y generación |
+| `/archive` | Archivar evidencia revisada con confirmación |
 | `/liberate` | Descarga de memoria de los modelos de esta sesión |
 | `/copy` | Copia al portapapeles la respuesta copiable |
 | `/exit` | Salir con restauración exacta de la consola |
