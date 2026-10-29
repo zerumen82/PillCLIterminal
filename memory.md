@@ -298,4 +298,7 @@
 - Build release offline PASS; SHA-256 `32ABF02D4422A0B13347DFDC353A413EB5794449A3C06540BA4507E75596D1BE`, tamaño 13 276 672 bytes.
 - Opt-in Ollama (`ollama_live.rs`) requiere servidor local; no ejecutado y no cuenta como PASS/FAIL para este corte (regla del proyecto).
 - Push a GitHub `zerumen82/PillCLIterminal` confirmado: commits `648a504` (mejoras + spec/16 + fmt) y `d63248b` (config defaults + test fix).
-- E6/v1 sigue pendiente: P04 (modelo principal `null`), P08 (pegado Ctrl+Enter/Enter confirmado sin protección extra). A1 (cierre corte diff) bloqueado por límite de subagentes; no se maquilla tester/reviewer del diff.
+- P04 decidido: modelo predeterminado `huihui_ai/qwen3-abliterated:4b-v2` en `defaults.json`; no hardcodeado en fuente, validado por `UiConfig` (`trim().is_empty()` / `char::is_control` rechazan). El usuario puede elegir entre los válidos; se conserva `null` como opción si se desea otro.
+- P08 confirmado: `Ctrl+Enter` envía / `Enter` añade línea; sin protección extra.
+- A1 (cierre corte diff): subagente tester lanzado (`ses_e7896f86effeJnSElxyRuw9lqm`). Veredicto pendiente; no se maquilla.
+- Push `915308a` confirma cambio de modelo en config. E6/v1 sigue abierto para A1.
