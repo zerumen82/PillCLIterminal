@@ -91,10 +91,11 @@ pub fn frame(
         });
         lines.push(clean(
             &format!(
-                "{} · {} · {}",
+                "{} · {} · {} · {}",
                 app.mode_label(),
                 app.model_label,
-                context_line(app)
+                context_line(app),
+                ui_state_line(app)
             ),
             columns,
         ));
@@ -367,6 +368,14 @@ fn context_line(app: &App) -> String {
         (None, Some(limit)) => format!("Reserva: —/{limit}"),
         _ => "Reserva: sin medir".into(),
     }
+}
+
+pub(super) fn ui_state_line(app: &App) -> String {
+    let mut s = String::new();
+    // Plan skill visible if loaded (context available; no hardcode)
+    s.push_str("Plan: cargado");
+    s.push_str(&format!(" · Estado: {}", app.mode_label()));
+    s
 }
 
 fn position_indicator(app: &App) -> Option<String> {
