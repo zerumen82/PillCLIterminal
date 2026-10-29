@@ -302,3 +302,4 @@
 - P08 confirmado: `Ctrl+Enter` envía / `Enter` añade línea; sin protección extra.
 - A1 (cierre corte diff): subagente tester lanzado (`ses_e7896f86effeJnSElxyRuw9lqm`). Veredicto pendiente; no se maquilla.
 - Push `915308a` confirma cambio de modelo en config. E6/v1 sigue abierto para A1.
+P04 confirmado (config); P07 verificado (PATH persistente); A hecho; /gpu PASS (solo lectura, nvidia-smi, sin atribución).

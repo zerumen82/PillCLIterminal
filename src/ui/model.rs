@@ -35,6 +35,7 @@ pub enum Key {
     AltE,
     AltT,
     Copy,
+    Gpu,
 }
 
 pub struct Command {
@@ -109,6 +110,14 @@ pub const COMMANDS: &[Command] = &[
     Command {
         name: "/copy",
         description: "Copiar la última respuesta o el detalle visible",
+    },
+    Command {
+        name: "/gpu",
+        description: "Instantánea de VRAM (solo lectura, sin atribución de procesos)",
+    },
+    Command {
+        name: "/init",
+        description: "Validar config, PATH y settings OpenCode (solo lectura, sin conceder)",
     },
 ];
 
@@ -1469,6 +1478,58 @@ impl App {
                     }
                     "/copy" => {
                         self.request_copy();
+                    }
+                    "/gpu" if !self.busy => {
+                        use std::process::Command;
+                        let out = Command::new("nvidia-smi")
+                            .args([
+                                "--query-gpu=memory.used,memory.free,memory.total",
+                                "--format=csv,noheader,nounits",
+                            ])
+                            .output();
+                        match out {
+                            Ok(o) if o.status.success() => {
+                                let text = String::from_utf8_lossy(&o.stdout);
+                                let line = text.lines().next().unwrap_or("—").trim();
+                                self.message(format!("VRAM (solo lectura, sin atribución): {line} MiB"));
+                            }
+                            _ => self.message("No disponible: nvidia-smi no encontrado. Solo lectura, sin modificar GPU."),
+                        }
+                    }
+                    "/init" if !self.busy => {
+                        let config_path = std::env::current_dir()
+                            .map(|p| p.join("config/defaults.json"))
+                            .unwrap_or_else(|_| std::path::PathBuf::from("config/defaults.json"));
+                        let config_exists = config_path.exists();
+                        let path_has_bin = std::env::var("PATH").map_or(false, |p| {
+                            p.contains("PILLCLITER\\bin") || p.contains("PILLCLITER/bin")
+                        });
+                        let agents_path = std::path::PathBuf::from(
+                            std::env::var("USERPROFILE").unwrap_or_default(),
+                        )
+                        .join(".agents/AGENTS.md");
+                        let agents_exists = agents_path.exists();
+                        let msg_config = if config_exists {
+                            "PASS: defaults.json"
+                        } else {
+                            "WARN: defaults.json no encontrado"
+                        };
+                        let msg_path = if path_has_bin {
+                            "PASS: PATH persistente"
+                        } else {
+                            "WARN: bin no en PATH persistente"
+                        };
+                        let msg_agents = if agents_exists {
+                            format!(
+                                "PASS: AGENTS.md encontrado ({} bytes)",
+                                std::fs::metadata(&agents_path)
+                                    .map(|m| m.len())
+                                    .unwrap_or(0)
+                            )
+                        } else {
+                            "WARN: AGENTS.md no encontrado".into()
+                        };
+                        self.message(format!("/init · Configuración: {msg_config} · PATH: {msg_path} · OpenCode: {msg_agents}"));
                     }
                     "/model" if !self.busy => self.begin(Action::Discover, "Consultando Ollama…"),
                     "/journal" if !self.busy => self.begin(Action::Journal, "Leyendo el diario…"),
