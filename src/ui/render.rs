@@ -728,7 +728,7 @@ mod tests {
             21,
         );
         assert_frame_bounds(&visible, 21);
-        assert!(visible.text.contains("> /init"), "{}", visible.text);
+        assert!(visible.text.contains("> /skills"), "{}", visible.text);
         let small = frame(
             &mut app,
             Path::new("proyecto"),

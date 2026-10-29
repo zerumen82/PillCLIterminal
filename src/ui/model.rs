@@ -119,6 +119,10 @@ pub const COMMANDS: &[Command] = &[
         name: "/init",
         description: "Validar config, PATH y settings OpenCode (solo lectura, sin conceder)",
     },
+    Command {
+        name: "/skills",
+        description: "Listar skills cargados en contexto (solo lectura)",
+    },
 ];
 
 pub(crate) struct DetailView {
@@ -1530,6 +1534,9 @@ impl App {
                             "WARN: AGENTS.md no encontrado".into()
                         };
                         self.message(format!("/init · Configuración: {msg_config} · PATH: {msg_path} · OpenCode: {msg_agents}"));
+                    }
+                    "/skills" if !self.busy => {
+                        self.message("Skills cargados: plan, fix, refactor, report, gepeto, pinokio, opencode · Solo lectura, sin modificar.");
                     }
                     "/model" if !self.busy => self.begin(Action::Discover, "Consultando Ollama…"),
                     "/journal" if !self.busy => self.begin(Action::Journal, "Leyendo el diario…"),
